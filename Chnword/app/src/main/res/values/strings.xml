@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Chnword</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="welcome_str">欢迎使用三千字</string>
+    <string name="welcome_user_new">新用户注册</string>
+    <string name="welcome_user_login">老用户登录</string>
+
+
+</resources>
