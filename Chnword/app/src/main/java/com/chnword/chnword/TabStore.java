@@ -20,7 +20,8 @@ public class TabStore extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.fragtab_store, container, false);
+        return view;
     }
 
     @Override

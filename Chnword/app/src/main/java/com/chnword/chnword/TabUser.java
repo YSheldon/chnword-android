@@ -21,7 +21,8 @@ public class TabUser extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.fragtab_user, container, false);
+        return view;
     }
 
     @Override

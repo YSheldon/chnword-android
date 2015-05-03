@@ -1,6 +1,7 @@
 package com.chnword.chnword;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -48,13 +50,13 @@ public class GuideActivity extends Activity {
 
         View item1 = (View) inflater.inflate(R.layout.guide_item1, null);
         View item2 = (View) inflater.inflate(R.layout.guide_item2, null);
-//        mGuides.add(item1);
-//        mGuides.add(item2);
+        mGuides.add(item1);
+        mGuides.add(item2);
 
-        mViewPager.addView(item1);
-        mViewPager.addView(item2);
+//        mViewPager.addView(item1);
+//        mViewPager.addView(item2);
 
-        mPageAdapter = new ViewPagerAdapter();
+        mPageAdapter = new ViewPagerAdapter(mGuides);
         mPageChangerLister = new ViewPagerChanger();
 
         mViewPager.setAdapter(mPageAdapter);
@@ -96,17 +98,45 @@ public class GuideActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void onButtonClick(View v){
+
+        Intent i = new Intent(this, WelcomeActivity.class);
+        startActivity(i);
+
+    }
+
     class ViewPagerAdapter extends PagerAdapter{
+
+        private List<View> mListViews;
+
+        ViewPagerAdapter(List<View> lists){
+            mListViews = lists;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object)   {
+            container.removeView(mListViews.get(position));//删除页卡
+        }
+
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {  //这个方法用来实例化页卡
+            container.addView(mListViews.get(position), 0);//添加页卡
+            return mListViews.get(position);
+        }
 
         @Override
         public int getCount() {
-            return 2;
+            return  mListViews.size();//返回页卡的数量
         }
 
         @Override
-        public boolean isViewFromObject(View view, Object o) {
-            return false;
+        public boolean isViewFromObject(View arg0, Object arg1) {
+            return arg0==arg1;//官方提示这样写
         }
+
+
+
     }
 
     class ViewPagerChanger implements ViewPager.OnPageChangeListener{
