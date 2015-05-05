@@ -132,7 +132,7 @@ public class TabPage extends Fragment {
             TextView title = (TextView) convertView.findViewById(R.id.title);
             title.setText(gameNames.get(position));
 
-            return null;
+            return convertView;
         }
     }
 }
