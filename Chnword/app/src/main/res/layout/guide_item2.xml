@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/imageView2"
-        android:src="@drawable/xiaohei_big"
+        android:src="@drawable/guide_2"
         android:scaleType="fitXY" />
 
     <TextView
@@ -18,13 +18,4 @@
         android:textColor="#fff"
         android:textSize="18dp" />
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="开始体验"
-        android:id="@+id/button"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"
-        android:gravity="center"
-        android:onClick="onButtonClick" />
 </RelativeLayout>

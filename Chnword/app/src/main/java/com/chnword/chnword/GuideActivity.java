@@ -43,15 +43,22 @@ public class GuideActivity extends Activity {
 
         ImageView dot1 = (ImageView) findViewById(R.id.item_dot1);
         ImageView dot2 = (ImageView) findViewById(R.id.item_dot2);
+        ImageView dot3 = (ImageView) findViewById(R.id.item_dot2);
 
         mdots.add(dot1);
         mdots.add(dot2);
+        mdots.add(dot3);
 
 
         View item1 = (View) inflater.inflate(R.layout.guide_item1, null);
         View item2 = (View) inflater.inflate(R.layout.guide_item2, null);
+        View item3 = (View) inflater.inflate(R.layout.guide_item3, null);
+
+
+
         mGuides.add(item1);
         mGuides.add(item2);
+        mGuides.add(item3);
 
 //        mViewPager.addView(item1);
 //        mViewPager.addView(item2);

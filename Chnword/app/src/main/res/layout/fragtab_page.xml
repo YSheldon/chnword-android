@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#fff">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:background="#eee">
 
         <TextView
             android:layout_width="wrap_content"
@@ -27,7 +29,8 @@
             android:layout_height="60dp"
             android:layout_marginTop="10dp"
             android:clickable="true"
-            android:onClick="onPageAnim">
+            android:background="#eee"
+            android:id="@+id/zi_anim">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -44,7 +47,8 @@
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:clickable="true"
-            android:onClick="onPageScan">
+            android:background="#eee"
+            android:id="@+id/zi_scan">
 
             <TextView
                 android:layout_width="wrap_content"

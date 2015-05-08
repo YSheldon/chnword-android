@@ -56,6 +56,7 @@ public class ScanActivity extends Activity {
     private String capKey;
     //显示摄像头预览视图的布局文件
     private FrameLayout cameraPreviewLayout;
+    private Button btnTakePicture;
     private ProgressDialog pDialog;
 
     //识别配置参数
@@ -122,6 +123,7 @@ public class ScanActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
 //        setContentView(R.layout.activity_scan);
 
 //        this.imageView = (ImageView) this.findViewById(R.id.imageView1);
@@ -137,12 +139,13 @@ public class ScanActivity extends Activity {
 //        });
 
         //设置屏幕显示方向
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        //呈现默认布局
-        showMainView();
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        cameraPreviewLayout = (FrameLayout) findViewById(R.id.layout_camera_preview);
+        btnTakePicture = (Button) findViewById(R.id.btn_take_picture);
+
 
         hander = new Handler();
 
@@ -337,16 +340,16 @@ public class ScanActivity extends Activity {
      */
     private void showCaptureView(){
         setContentView(R.layout.ocr_capture_camera_preview);
+//        setContentView(R.layout.activity_scan);
 
         if(cameraPreviewLayout != null){
             cameraPreviewLayout.removeAllViews();
             cameraPreviewLayout = null;
         }
 
-        cameraPreviewLayout = (FrameLayout) findViewById(R.id.layout_camera_preview);
+
         cameraPreviewLayout.addView(ocrCapture.getCameraPreview());
 
-        Button btnTakePicture = (Button) findViewById(R.id.btn_take_picture);
         btnTakePicture.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -358,9 +361,7 @@ public class ScanActivity extends Activity {
         ocrCapture.hciOcrCaptureStart(recogConfig);
     }
 
-    private void showMainView(){
-        showResultView("初始状态");
-    }
+
 
     /**
      * 显示结果界面

@@ -3,26 +3,42 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:background="@drawable/index_back">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_weight="3" >
+        android:layout_weight="3">
 
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:gravity="center_horizontal" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/welcome_str"
-                android:id="@+id/textView6"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="40dp" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/imageView6"
+                    android:src="@drawable/icon1_03" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/welcome_str"
+                    android:id="@+id/textView6"
+                    android:layout_alignParentBottom="true"
+                    android:layout_margin="10dp"
+                    android:textColor="#fff"
+                    android:textSize="20dp" />
+            </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
 
@@ -34,7 +50,8 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="55dp">
+            android:layout_height="55dp"
+            android:background="#eee">
 
             <Button
                 android:layout_width="wrap_content"
@@ -47,7 +64,8 @@
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="55dp"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:background="#eee">
 
             <Button
                 android:layout_width="wrap_content"

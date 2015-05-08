@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -23,6 +24,9 @@ public class TabPage extends Fragment {
     private TabActivityListener listener;
     private ListView gameListView;
 
+    private View zi_scan;
+    private View zi_anim;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +38,25 @@ public class TabPage extends Fragment {
 
         gameListView = (ListView) view.findViewById(R.id.gameListView);
         gameListView.setAdapter(new GameAdapter(getActivity()));
+
+        zi_anim = (View) view.findViewById(R.id.zi_anim);
+        zi_scan = (View) view.findViewById(R.id.zi_scan);
+
+        zi_anim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onPageAnim();
+            }
+        });
+
+        zi_scan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onPageScan();
+            }
+        });
+
+
 
         return view;
     }
@@ -67,13 +90,13 @@ public class TabPage extends Fragment {
     //事件处理
 
 
-    public void onPageAnim(View view) {
+    public void onPageAnim() {
 
         Intent i = new Intent(getActivity(), AnimActivity.class);
         startActivity(i);
     }
 
-    public void onPageScan(View view){
+    public void onPageScan(){
 
         Intent i = new Intent(getActivity(), ScanActivity.class);
         startActivity(i);
