@@ -4,6 +4,8 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -13,6 +15,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import com.chnword.chnword.net.AbstractNet;
+import com.chnword.chnword.net.DeviceUtil;
+import com.chnword.chnword.net.NetParamFactory;
+import com.chnword.chnword.net.VerifyNet;
+
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by khtc on 15/4/23.
@@ -87,8 +99,65 @@ public class WelcomeActivity extends Activity {
 
     //使用
     public void onRegistClick(){
-        Log.i(TAG, "METHOD onRegistClick");
-        Intent i = new Intent(this, TabActivity.class);
-        startActivity(i);
+//        Log.i(TAG, "METHOD onRegistClick");
+//        Intent i = new Intent(this, TabActivity.class);
+//        startActivity(i);
+
+        //测试入口
+        String devideId = DeviceUtil.getDeviceId(this);
+        String userid = "userid";
+
+
+
+//        String url = "";
+//        JSONObject param = NetParamFactory.verifyParam(userid, devideId, "code", "user");
+//        AbstractNet net = new VerifyNet(handler, param, url);
+//        net.start();
+
+//        String url = "";
+//        JSONObject param = NetParamFactory.listParam(userid, devideId, 0, 0);
+//        AbstractNet net = new VerifyNet(handler, param, url);
+//        net.start();
+
+//        String url = "";
+//        List<String> list = new ArrayList<String>();
+//        list.add("zone_000");
+//        JSONObject param = NetParamFactory.subListParam(userid, devideId, list);
+//        AbstractNet net = new VerifyNet(handler, param, url);
+//        net.start();
+
+//        String url = "";
+//        JSONObject param = NetParamFactory.wordParam(userid, devideId, "字");
+//        AbstractNet net = new VerifyNet(handler, param, url);
+//        net.start();
+
+//        String url = "";
+//        JSONObject param = NetParamFactory.showParam(userid, devideId, "zone_000");
+//        AbstractNet net = new VerifyNet(handler, param, url);
+//        net.start();
+
+//        String url = "";
+//        JSONObject param = NetParamFactory.registParam(userid, devideId, "usercode", "new DeviceId", "sessionid", "verifycode");
+//        AbstractNet net = new VerifyNet(handler, param, url);
+//        net.start();
+
+
+
     }
+
+    Handler handler = new Handler(){
+
+        @Override
+        public void handleMessage(Message msg) {
+
+            if (msg.what == AbstractNet.NETWHAT_SUCESS)
+            {
+
+            }
+
+            if (msg.what == AbstractNet.NETWHAT_FAIL) {
+
+            }
+        }
+    };
 }
