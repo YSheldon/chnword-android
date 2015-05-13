@@ -18,10 +18,16 @@ android {
         }
     }
 }
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile files('libs/hcicloud-3.9.jar')
     compile files('libs/hcicloud_capture-3.9.jar')
+    compile(name:'android-gif-drawable-1.1.6', ext:'aar')
 }
