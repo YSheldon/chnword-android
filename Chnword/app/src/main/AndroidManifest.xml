@@ -46,6 +46,7 @@
         <activity android:name=".ResultActivity"></activity>
         <activity android:name=".ScanActivity"></activity>
         <activity android:name=".WelcomeActivity"></activity>
+        <activity android:name=".ShowActivity"></activity>
     </application>
 
 </manifest>

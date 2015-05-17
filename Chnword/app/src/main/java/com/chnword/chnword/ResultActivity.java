@@ -151,19 +151,22 @@ public class ResultActivity extends Activity {
                     Log.e(TAG, str);
                     JSONObject obj = new JSONObject(str);
                     JSONObject data = obj.getJSONObject("data");
-                    JSONArray words = data.getJSONArray("word");
-                    JSONArray unicodes = data.getJSONArray("unicode");
 
-                    for(int i = 0; i < words.length(); i ++) {
-                        String word = words.getString(i);
-                        String unicode = unicodes.getString(i);
-                        Word w = new Word();
-                        w.setWord(word);
-                        w.setWordIndex(unicode);
-                        wordList.add(w);
-                    }
+                    if (data != null){
+                        JSONArray words = data.getJSONArray("word");
+                        JSONArray unicodes = data.getJSONArray("unicode");
+
+                        for(int i = 0; i < words.length(); i ++) {
+                            String word = words.getString(i);
+                            String unicode = unicodes.getString(i);
+                            Word w = new Word();
+                            w.setWord(word);
+                            w.setWordIndex(unicode);
+                            wordList.add(w);
+                        }
 //
-                    wordAdapter.notifyDataSetChanged();
+                        wordAdapter.notifyDataSetChanged();
+                    }
 
                 }
 
