@@ -13,11 +13,5 @@ public class VerifyNet extends AbstractNet {
         super(handler, param, url);
     }
 
-    @Override
-    public void initThread() {
 
-        Runnable runnable = new VerifyRunnable();
-
-        thread = new Thread(runnable);
-    }
 }

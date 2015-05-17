@@ -109,12 +109,12 @@ public class WelcomeActivity extends Activity {
 
 
 
-//        String url = "";
+//        String url = "http://app.3000zi.com/api/verify.php";
 //        JSONObject param = NetParamFactory.verifyParam(userid, devideId, "code", "user");
 //        AbstractNet net = new VerifyNet(handler, param, url);
 //        net.start();
 
-//        String url = "";
+//        String url = "http://app.3000zi.com/api/list.php";
 //        JSONObject param = NetParamFactory.listParam(userid, devideId, 0, 0);
 //        AbstractNet net = new VerifyNet(handler, param, url);
 //        net.start();
@@ -136,10 +136,11 @@ public class WelcomeActivity extends Activity {
 //        AbstractNet net = new VerifyNet(handler, param, url);
 //        net.start();
 
-//        String url = "";
-//        JSONObject param = NetParamFactory.registParam(userid, devideId, "usercode", "new DeviceId", "sessionid", "verifycode");
-//        AbstractNet net = new VerifyNet(handler, param, url);
-//        net.start();
+        String url = "http://app.3000zi.com/api/regist.php";
+
+        JSONObject param = NetParamFactory.registParam(userid, devideId, "usercode", "new DeviceId", "sessionid", "verifycode");
+        AbstractNet net = new VerifyNet(handler, param, url);
+        net.start();
 
 
 

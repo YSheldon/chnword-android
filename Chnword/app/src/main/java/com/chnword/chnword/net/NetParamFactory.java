@@ -53,7 +53,7 @@ public class NetParamFactory {
         return obj;
     }
 
-    public static JSONObject subListParam(String userid, String deviceId, List<String> zoneList)
+    public static JSONObject subListParam(String userid, String deviceId, String zone, int page, int size)
     {
         JSONObject obj = null;
         try {
@@ -62,10 +62,10 @@ public class NetParamFactory {
             obj.put("userid", userid);
             obj.put("device", deviceId);
 
-            JSONArray param = new JSONArray();
-            for (int i = 0; i < zoneList.size(); i ++){
-                param.put(i, zoneList.get(i));
-            }
+            JSONObject param = new JSONObject();
+            param.put("page", page);
+            param.put("size", size);
+            param.put("list", zone);
 
             obj.put("param", param);
         } catch (Exception e) {

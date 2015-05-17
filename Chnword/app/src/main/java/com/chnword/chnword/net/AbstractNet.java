@@ -36,17 +36,19 @@ public class AbstractNet {
 
 
     public void initThread(){
+        Runnable runnable = new NetRunnable(this);
+        thread = new Thread(runnable);
     }
 
     public void start(){
         thread.start();
     }
 
-    protected void didSucess(HttpResponse response) {
+    protected void didSucess(String jsonData) {
         Message message = new Message();
         message.what = AbstractNet.NETWHAT_SUCESS;
         Bundle b = new Bundle();
-        b.putString("responseBody", response.getEntity().toString());
+        b.putString("responseBody", jsonData);
         message.setData(b);
 
         handler.sendMessage(message);
@@ -56,6 +58,15 @@ public class AbstractNet {
         Message message = new Message();
         message.what = AbstractNet.NETWHAT_SUCESS;
         Bundle b = new Bundle();
+        handler.sendMessage(message);
+    }
+
+    protected void didFail(String jsonData) {
+        Message message = new Message();
+        message.what = AbstractNet.NETWHAT_SUCESS;
+        Bundle b = new Bundle();
+        b.putString("responseBody", jsonData);
+        message.setData(b);
         handler.sendMessage(message);
     }
 

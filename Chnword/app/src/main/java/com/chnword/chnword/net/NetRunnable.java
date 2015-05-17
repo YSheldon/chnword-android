@@ -31,13 +31,14 @@ public class NetRunnable implements Runnable{
         DefaultHttpClient httpClient = null;
         try {
             // 将JSON进行UTF-8编码,以便传输中文
-            String encoderJson = URLEncoder.encode(abstractNet.param.toString(), HTTP.UTF_8);
+//            String encoderJson = URLEncoder.encode(abstractNet.param.toString(), HTTP.UTF_8);
 
             httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(abstractNet.url);
             httpPost.addHeader(HTTP.CONTENT_TYPE, AbstractNet.APPLICATION_JSON);
 
-            StringEntity se = new StringEntity(encoderJson);
+//            StringEntity se = new StringEntity(encoderJson);
+            StringEntity se = new StringEntity(abstractNet.param.toString());
             se.setContentType(AbstractNet.CONTENT_TYPE_TEXT_JSON);
             se.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, AbstractNet.APPLICATION_JSON));
             httpPost.setEntity(se);
@@ -46,20 +47,27 @@ public class NetRunnable implements Runnable{
             // 获取响应实体
             HttpEntity entity = response.getEntity();
             // 打印响应状态
-            System.out.println(response.getStatusLine());
+            Log.i(TAG, response.getStatusLine().toString());
+
             if (entity != null) {
                 // 打印响应内容长度
                 Log.i(TAG, "Response content length: " + entity.getContentLength());
                 // 打印响应内容
-                Log.i(TAG, "Response content: " + EntityUtils.toString(entity));
+                //返回的json对象
+                String content = EntityUtils.toString(entity);
+
+                Log.e(TAG, "param " + abstractNet.param.toString());
+                Log.i(TAG, "Response content: " + content);
+                Log.e(TAG, content);
+                JSONObject responseJson = new JSONObject(content);
+                Log.e(TAG, responseJson.toString());
+
+                if (responseJson.getString("result").equalsIgnoreCase("1")) {
+                    abstractNet.didSucess(content);
+                } else {
+                    abstractNet.didFail(content);
+                }
             }
-            String body = EntityUtils.toString(entity);
-            Log.e(TAG, body);
-            JSONObject responseJson = new JSONObject(body);
-            Log.e(TAG, responseJson.toString());
-
-            abstractNet.didSucess(response);
-
 
         } catch (Exception e) {
             abstractNet.didFail();

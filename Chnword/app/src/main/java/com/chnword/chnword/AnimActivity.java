@@ -1,20 +1,36 @@
 package com.chnword.chnword;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ListAdapter;
+import android.widget.TextView;
 
 import com.chnword.chnword.beans.Module;
+import com.chnword.chnword.net.AbstractNet;
+import com.chnword.chnword.net.DeviceUtil;
+import com.chnword.chnword.net.NetConf;
+import com.chnword.chnword.net.NetParamFactory;
+import com.chnword.chnword.net.VerifyNet;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,22 +39,47 @@ import java.util.List;
  * Created by khtc on 15/4/27.
  */
 public class AnimActivity extends Activity {
+    private static final String TAG = AnimActivity.class.getSimpleName();
 
     private GridView gridView;
+    private List<Module> list;
+    private ModuleListAdapter moduleListAdapter;
+    private ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anim);
 
+        list = new ArrayList<Module>();
+        moduleListAdapter = new ModuleListAdapter(this);
+
+
         gridView = (GridView) findViewById(R.id.gridView3);
-        gridView.setAdapter(new ModuleListAdapter(this));
+        gridView.setAdapter(moduleListAdapter);
+        gridView.setOnItemClickListener(onItemClickListener);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        String userid = "userid";
+        String deviceId = DeviceUtil.getDeviceId(this);
+        JSONObject param = NetParamFactory.listParam(userid, deviceId, 0, 0);
+        AbstractNet net = new VerifyNet(handler, param, NetConf.URL_LIST);
+        progressDialog = ProgressDialog.show(this, "title", "loading");
+        net.start();
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+
     }
 
     @Override
@@ -68,25 +109,16 @@ public class AnimActivity extends Activity {
 
     class ModuleListAdapter extends BaseAdapter {
         private Context mContext;
-        private List<Module> list;
         LayoutInflater inflater;
 
         ModuleListAdapter(Context context)
         {
             mContext = context;
-            this.list = new ArrayList<Module>();
-            inflater  = LayoutInflater.from(mContext);
 
-            for (int i = 0; i < 20; i ++){
-                Module m = new Module();
-                m.setName("模块" + i);
-                m.setLock(false);
-            }
         }
         ModuleListAdapter(Context context, List<Module> list) {
 
             mContext = context;
-            this.list = list;
             inflater  = LayoutInflater.from(mContext);
 
         }
@@ -111,10 +143,83 @@ public class AnimActivity extends Activity {
 
             if (convertView == null){
 
+                inflater  = LayoutInflater.from(mContext);
                 convertView = (View) inflater.inflate(R.layout.tab_page_item_grid, null);
             }
+            TextView moduleName = (TextView) convertView.findViewById(R.id.module_name_tab);
+            TextView isLock = (TextView) findViewById(R.id.isLock);
+            Module m = (Module) getItem(position);
+
+            Log.e(TAG, (moduleName == null) + " is " +
+                    "" + m.getName());
+            moduleName.setText(m.getName());
+
 
             return convertView;
         }
     }
+
+    private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Module m = list.get(position);
+            Log.e(TAG, m.getName() + " " + m.getCname());
+            Intent i = new Intent(AnimActivity.this, ResultActivity.class);
+            i.putExtra("ZoneCode", m.getCname());
+
+            ArrayList<String> names = new ArrayList<String>();
+            ArrayList<String> cnames = new ArrayList<String>();
+            for (Module module : list) {
+                names.add(module.getName());
+                cnames.add(module.getCname());
+            }
+
+            i.putStringArrayListExtra("moduleName", names);
+            i.putStringArrayListExtra("moduleCname", cnames);
+
+            startActivity(i);
+        }
+    };
+
+
+    Handler handler = new Handler(){
+
+        @Override
+        public void handleMessage(Message msg) {
+            progressDialog.dismiss();
+            try {
+                if (msg.what == AbstractNet.NETWHAT_SUCESS)
+                {
+                    list.clear();
+                    Bundle b = msg.getData();
+                    String str = b.getString("responseBody");
+                    Log.e(TAG, str);
+                    JSONObject obj = new JSONObject(str);
+                    JSONObject data = obj.getJSONObject("data");
+                    JSONArray names = data.getJSONArray("name");
+                    JSONArray cnames = data.getJSONArray("cname");
+
+                    for(int i = 0; i < names.length(); i ++) {
+                        String name = names.getString(i);
+                        String cname = cnames.getString(i);
+                        Module m = new Module();
+                        m.setName(name);
+                        m.setCname(cname);
+                        list.add(m);
+                    }
+
+                    moduleListAdapter.notifyDataSetChanged();
+
+                }
+
+                if (msg.what == AbstractNet.NETWHAT_FAIL) {
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+
 }

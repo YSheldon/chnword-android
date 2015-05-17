@@ -7,6 +7,7 @@ public class Module {
 
     private String name;
     private boolean isLock;
+    private String cname;
 
     public String getName() {
         return name;
@@ -22,5 +23,13 @@ public class Module {
 
     public void setLock(boolean isLock) {
         this.isLock = isLock;
+    }
+
+    public String getCname() {
+        return cname;
+    }
+
+    public void setCname(String cname) {
+        this.cname = cname;
     }
 }
