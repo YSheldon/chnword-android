@@ -124,7 +124,7 @@ public class ScanActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        setContentView(R.layout.activity_scan);
+        setContentView(R.layout.activity_scan);
 
 //        this.imageView = (ImageView) this.findViewById(R.id.imageView1);
 //        Button photoButton = (Button) this.findViewById(R.id.button1);
@@ -339,12 +339,12 @@ public class ScanActivity extends Activity {
      * 显示摄像头预览界面
      */
     private void showCaptureView(){
-        setContentView(R.layout.ocr_capture_camera_preview);
+//        setContentView(R.layout.ocr_capture_camera_preview);
 //        setContentView(R.layout.activity_scan);
 
         if(cameraPreviewLayout != null){
             cameraPreviewLayout.removeAllViews();
-            cameraPreviewLayout = null;
+//            cameraPreviewLayout = null;
         }
 
 
