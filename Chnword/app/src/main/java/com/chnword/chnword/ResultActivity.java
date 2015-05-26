@@ -27,6 +27,7 @@ import com.chnword.chnword.net.DeviceUtil;
 import com.chnword.chnword.net.NetConf;
 import com.chnword.chnword.net.NetParamFactory;
 import com.chnword.chnword.net.VerifyNet;
+import com.chnword.chnword.store.LocalStore;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -51,6 +52,8 @@ public class ResultActivity extends Activity {
     private List<Module> moduleList;
     private List<Word> wordList;
 
+    private LocalStore store;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,15 +71,28 @@ public class ResultActivity extends Activity {
 
         moduleList = new ArrayList<Module>();
         wordList = new ArrayList<Word>();
-
+        store = new LocalStore(this);
+        boolean isOk = false;
         for (int i = 0; i < names.size(); i ++) {
             Module m = new Module();
             m.setName(names.get(i));
             m.setCname(cnames.get(i));
             moduleList.add(m);
             Log.e(TAG, m.getName() + " " + m.getCname());
+            isOk = true;
+        }
+        if (!isOk) {
+            moduleList.addAll(store.getDefaultModule());
         }
 
+        Bundle data = getIntent().getExtras();
+        String scanText = data.getString("ScanResult");
+        if (scanText != null) {
+
+        }
+
+
+        wordList.addAll(store.getDefaultWord(zoneCode));
 
         listView = (ListView)findViewById(R.id.moduleList);
         listView.setAdapter(moduleAdapter);
@@ -164,6 +180,7 @@ public class ResultActivity extends Activity {
                             w.setWordIndex(unicode);
                             wordList.add(w);
                         }
+
 //
                         wordAdapter.notifyDataSetChanged();
                     }
@@ -195,6 +212,10 @@ public class ResultActivity extends Activity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Word word = wordList.get(position);
             Intent intent = new Intent(ResultActivity.this, ShowActivity.class);
+
+            intent.putExtra("word", word.getWord());
+            intent.putExtra("word_index", word.getWordIndex());
+
             startActivity(intent);
         }
     };

@@ -27,6 +27,7 @@ import com.chnword.chnword.net.DeviceUtil;
 import com.chnword.chnword.net.NetConf;
 import com.chnword.chnword.net.NetParamFactory;
 import com.chnword.chnword.net.VerifyNet;
+import com.chnword.chnword.store.LocalStore;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -46,13 +47,17 @@ public class AnimActivity extends Activity {
     private ModuleListAdapter moduleListAdapter;
     private ProgressDialog progressDialog;
 
+    private LocalStore store;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anim);
 
+        store = new LocalStore(this);
+
         list = new ArrayList<Module>();
+        list.addAll(store.getDefaultModule());
         moduleListAdapter = new ModuleListAdapter(this);
 
 
@@ -207,7 +212,7 @@ public class AnimActivity extends Activity {
                         m.setCname(cname);
                         list.add(m);
                     }
-
+                    store.setDefaultModule(list);
                     moduleListAdapter.notifyDataSetChanged();
 
                 }

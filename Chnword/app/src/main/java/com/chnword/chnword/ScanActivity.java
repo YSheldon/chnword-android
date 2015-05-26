@@ -373,9 +373,13 @@ public class ScanActivity extends Activity {
             cameraPreviewLayout = null;
         }
 
-        setContentView(R.layout.ocr_capture_result);
+//        setContentView(R.layout.ocr_capture_result);
+//
+//        TextView tvResult = (TextView) findViewById(R.id.tv_result);
+//        tvResult.setText(text);
 
-        TextView tvResult = (TextView) findViewById(R.id.tv_result);
-        tvResult.setText(text);
+        Intent i = new Intent(this, ResultActivity.class);
+        i.putExtra("ScanResult", text);
+        startActivity(i);
     }
 }
