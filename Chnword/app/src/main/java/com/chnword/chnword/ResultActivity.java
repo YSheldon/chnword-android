@@ -109,7 +109,6 @@ public class ResultActivity extends Activity {
         super.onStart();
 
         requestNet(zoneCode);
-
     }
 
     @Override
