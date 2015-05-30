@@ -47,6 +47,7 @@
         <activity android:name=".ScanActivity"></activity>
         <activity android:name=".WelcomeActivity"></activity>
         <activity android:name=".ShowActivity"></activity>
+        <activity android:name=".Gallerty3DActivity"></activity>
     </application>
 
 </manifest>

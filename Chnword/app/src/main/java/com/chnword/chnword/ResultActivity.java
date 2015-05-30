@@ -216,6 +216,9 @@ public class ResultActivity extends Activity {
             intent.putExtra("word_index", word.getWordIndex());
 
             startActivity(intent);
+
+//            Intent galleryIntent = new Intent(ResultActivity.this, Gallerty3DActivity.class);
+//            startActivity(galleryIntent);
         }
     };
 

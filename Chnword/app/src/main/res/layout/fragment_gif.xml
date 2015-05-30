@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="20dp"
+            android:id="@+id/linear"
+            android:layout_alignParentBottom="true">
+
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/seekBar" />
+        </LinearLayout>
+
+        <view
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            class="com.chnword.chnword.gallery.GalleryFlow"
+            android:id="@+id/gallery_flow_gif"
+            android:layout_above="@+id/linear" />
+
+    </RelativeLayout>
+</LinearLayout>
