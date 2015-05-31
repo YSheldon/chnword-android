@@ -10,7 +10,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="20dp"
+            android:layout_height="30dp"
             android:id="@+id/linear"
             android:layout_alignParentBottom="true">
 
@@ -22,7 +22,7 @@
 
         <view
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             class="com.chnword.chnword.gallery.GalleryFlow"
             android:id="@+id/gallery_flow_gif"
             android:layout_above="@+id/linear" />

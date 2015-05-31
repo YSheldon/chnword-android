@@ -2,6 +2,8 @@ package com.chnword.chnword;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -41,6 +43,9 @@ public class ShowActivity extends Activity {
     private Fragment fragment;
 
     private VideoFragment videoFragment;
+    private GifFragment gifFragment;
+
+    private FragmentManager manager;
 
     private Uri gifUri, videoUri;
 
@@ -54,21 +59,16 @@ public class ShowActivity extends Activity {
         Intent intent = getIntent();
         String word = intent.getStringExtra("word");
         String word_index = intent.getStringExtra("word_index");
-//        word = new Word();
+
         this.word = new Word();
         this.word.setWordIndex(word_index);
         this.word.setWord(word);
 
+        videoFragment = new VideoFragment();
+        gifFragment = new GifFragment();
+        getFragmentManager().beginTransaction().add(R.id.fragment_container, videoFragment).commit();
 
 
-        videoFragment = (VideoFragment) getFragmentManager().findFragmentById(R.id.fragment);
-
-
-
-
-//        gib = new GifImageButton( this );
-//        setContentView( gib );
-//        gib.setImageResource( R.drawable.sample );
 
         try {
             Log.e(TAG, " counts .");
@@ -83,22 +83,6 @@ public class ShowActivity extends Activity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-//        Uri uri = Uri.parse("");
-//        gib.setImageURI(uri);
-//        final MediaController mc = new MediaController( this );
-//        mc.setMediaPlayer( (GifDrawable) gib.getDrawable() );
-//        mc.setAnchorView( gib );
-//        gib.setOnClickListener( new View.OnClickListener()
-//        {
-//            @Override
-//            public void onClick ( View v )
-//            {
-//                mc.show();
-//            }
-//        } );
-
 
     }
 
@@ -175,11 +159,18 @@ public class ShowActivity extends Activity {
 //            return;
 //        }
 
-        GifFragment gifFragment = new GifFragment();
+//        GifFragment gifFragment = new GifFragment();
         gifFragment.setUri(gifUri);
-        getFragmentManager().beginTransaction().add(R.id.fragment, gifFragment).commit();
+        Log.e(TAG, "METHOD onQuickLook");
 
-        finish();
+//        manager.beginTransaction().hide(videoFragment).replace(R.id.fragment, gifFragment).commit();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//        transaction.remove(videoFragment);
+        transaction.hide(videoFragment);
+        transaction.replace(R.id.fragment_container, gifFragment);
+        transaction.commit();
+        Log.e(TAG, "METHOD onQuickLook");
+//        finish();
     }
 
     public void onScan(View view) {
