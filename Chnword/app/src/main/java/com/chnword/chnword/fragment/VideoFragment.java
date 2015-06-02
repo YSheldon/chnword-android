@@ -53,74 +53,74 @@ public class VideoFragment extends Fragment implements MediaPlayer.OnBufferingUp
 //        videoView.setVideoURI(Uri.parse("http://forum.ea3w.com/coll_ea3w/attach/2008_10/12237832415.3gp"));
 //
 
-        playVideo();
+//        playVideo();
 
         MediaController mediaController = new MediaController(this.getActivity());
-        mediaController.setMediaPlayer(new MediaController.MediaPlayerControl() {
-
-            public boolean canPause() {
-                return true;
-            }
-
-            public boolean canSeekBackward() {
-                return true;
-            }
-
-            public boolean canSeekForward() {
-                return true;
-            }
-
-            @Override
-            public int getAudioSessionId() {
-                return 11111;
-            }
-
-            public int getBufferPercentage() {
-                return 0;
-            }
-
-            public int getCurrentPosition() {
-                Log.e(TAG, "getCurrentPosition");
-                return mMediaPlayer.getCurrentPosition();
-            }
-
-            public int getDuration() {
-                Log.e(TAG, "getDuration");
-                return mMediaPlayer.getDuration();
-            }
-
-            public boolean isPlaying() {
-                Log.e(TAG, "isPlaying");
-                return mMediaPlayer.isPlaying();
-            }
-
-            public void pause() {
-                Log.e(TAG, "pause");
-                mMediaPlayer.pause();
-            }
-
-            public void seekTo(int pos) {
-                Log.e(TAG, "seekTo");
-                mMediaPlayer.seekTo(pos);
-            }
-
-            public void start() {
-                mMediaPlayer.start();
-                Log.e(TAG, "start");
-            }
-
-        });
-        mediaController.setPrevNextListeners(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e(TAG, "PREV LISTENERS");
-            }
-        }, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e(TAG, "NEXT LISTENERS");
-            }
-        });
+//        mediaController.setMediaPlayer(new MediaController.MediaPlayerControl() {
+//
+//            public boolean canPause() {
+//                return true;
+//            }
+//
+//            public boolean canSeekBackward() {
+//                return true;
+//            }
+//
+//            public boolean canSeekForward() {
+//                return true;
+//            }
+//
+//            @Override
+//            public int getAudioSessionId() {
+//                return 11111;
+//            }
+//
+//            public int getBufferPercentage() {
+//                return 0;
+//            }
+//
+//            public int getCurrentPosition() {
+//                Log.e(TAG, "getCurrentPosition");
+//                return mMediaPlayer.getCurrentPosition();
+//            }
+//
+//            public int getDuration() {
+//                Log.e(TAG, "getDuration");
+//                return mMediaPlayer.getDuration();
+//            }
+//
+//            public boolean isPlaying() {
+//                Log.e(TAG, "isPlaying");
+//                return mMediaPlayer.isPlaying();
+//            }
+//
+//            public void pause() {
+//                Log.e(TAG, "pause");
+//                mMediaPlayer.pause();
+//            }
+//
+//            public void seekTo(int pos) {
+//                Log.e(TAG, "seekTo");
+//                mMediaPlayer.seekTo(pos);
+//            }
+//
+//            public void start() {
+//                mMediaPlayer.start();
+//                Log.e(TAG, "start");
+//            }
+//
+//        });
+//        mediaController.setPrevNextListeners(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.e(TAG, "PREV LISTENERS");
+//            }
+//        }, new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.e(TAG, "NEXT LISTENERS");
+//            }
+//        });
 
 
 
@@ -264,16 +264,15 @@ public class VideoFragment extends Fragment implements MediaPlayer.OnBufferingUp
     }
 
     public void surfaceChanged(SurfaceHolder surfaceholder, int i, int j, int k) {
-        Log.d(TAG, "surfaceChanged called");
-
+        Log.e(TAG, "surfaceChanged called");
     }
 
     public void surfaceDestroyed(SurfaceHolder surfaceholder) {
-        Log.d(TAG, "surfaceDestroyed called");
+        Log.e(TAG, "surfaceDestroyed called");
     }
 
     public void surfaceCreated(SurfaceHolder holder) {
-        Log.d(TAG, "surfaceCreated called");
+        Log.e(TAG, "surfaceCreated called");
         playVideo();
 
     }
