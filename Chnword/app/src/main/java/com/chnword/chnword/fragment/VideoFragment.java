@@ -28,6 +28,8 @@ public class VideoFragment extends Fragment {
         videoView = (VideoView) view.findViewById(R.id.video_view);
         videoView.setMediaController(new MediaController(this.getActivity()));
 
+        String path = this.getActivity().getAssets().;
+        videoView.setVideoURI();
 
 
         return view;
