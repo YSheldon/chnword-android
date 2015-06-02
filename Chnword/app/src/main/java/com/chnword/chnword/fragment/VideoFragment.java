@@ -47,18 +47,94 @@ public class VideoFragment extends Fragment implements MediaPlayer.OnBufferingUp
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_video, container, false);
 
-//        videoView = (VideoView) view.findViewById(R.id.video_view);
-//        videoView.setMediaController(new MediaController(this.getActivity()));
-//        videoView.setOnErrorListener(videoErrorListener);
-////        videoView.setVideoURI(Uri.parse("android.resource://com.chnword.chnword/"+R.raw.12237832415));
+        videoView = (VideoView) view.findViewById(R.id.video_view);
+
+//        videoView.setVideoURI(Uri.parse("android.resource://com.chnword.chnword/"+R.raw.12237832415));
 //        videoView.setVideoURI(Uri.parse("http://forum.ea3w.com/coll_ea3w/attach/2008_10/12237832415.3gp"));
+//
+
+        playVideo();
+
+        MediaController mediaController = new MediaController(this.getActivity());
+        mediaController.setMediaPlayer(new MediaController.MediaPlayerControl() {
+
+            public boolean canPause() {
+                return true;
+            }
+
+            public boolean canSeekBackward() {
+                return true;
+            }
+
+            public boolean canSeekForward() {
+                return true;
+            }
+
+            @Override
+            public int getAudioSessionId() {
+                return 11111;
+            }
+
+            public int getBufferPercentage() {
+                return 0;
+            }
+
+            public int getCurrentPosition() {
+                Log.e(TAG, "getCurrentPosition");
+                return mMediaPlayer.getCurrentPosition();
+            }
+
+            public int getDuration() {
+                Log.e(TAG, "getDuration");
+                return mMediaPlayer.getDuration();
+            }
+
+            public boolean isPlaying() {
+                Log.e(TAG, "isPlaying");
+                return mMediaPlayer.isPlaying();
+            }
+
+            public void pause() {
+                Log.e(TAG, "pause");
+                mMediaPlayer.pause();
+            }
+
+            public void seekTo(int pos) {
+                Log.e(TAG, "seekTo");
+                mMediaPlayer.seekTo(pos);
+            }
+
+            public void start() {
+                mMediaPlayer.start();
+                Log.e(TAG, "start");
+            }
+
+        });
+        mediaController.setPrevNextListeners(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e(TAG, "PREV LISTENERS");
+            }
+        }, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e(TAG, "NEXT LISTENERS");
+            }
+        });
+
+
+
+        videoView.setMediaController(mediaController);
+
+//        videoView.setOnErrorListener(videoErrorListener);
+//
 //        videoView.requestFocus();
 //        videoView.start();
+        mPreview = videoView;
 
-
-
-        mPreview = (SurfaceView) view.findViewById(R.id.surfaceView);
-//        holder = mPreview.getHolder();
+//        mPreview = (SurfaceView) view.findViewById(R.id.surfaceView);
+//
+        holder = mPreview.getHolder();
         holder = mPreview.getHolder();
         holder.addCallback(this);
         holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
