@@ -6,6 +6,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
@@ -43,102 +44,64 @@ public class VideoFragment extends Fragment implements MediaPlayer.OnBufferingUp
     private boolean mIsVideoReadyToBePlayed = false;
     private String path;
 
+
+    private int errorTime = 0;
+
+//    http://www.cnblogs.com/devinzhang/archive/2012/02/04/2338125.html
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_video, container, false);
+        final View view = inflater.inflate(R.layout.fragment_video, container, false);
 
         videoView = (VideoView) view.findViewById(R.id.video_view);
-
-//        videoView.setVideoURI(Uri.parse("android.resource://com.chnword.chnword/"+R.raw.12237832415));
-//        videoView.setVideoURI(Uri.parse("http://forum.ea3w.com/coll_ea3w/attach/2008_10/12237832415.3gp"));
-//
-
-//        playVideo();
-
         MediaController mediaController = new MediaController(this.getActivity());
-//        mediaController.setMediaPlayer(new MediaController.MediaPlayerControl() {
-//
-//            public boolean canPause() {
-//                return true;
-//            }
-//
-//            public boolean canSeekBackward() {
-//                return true;
-//            }
-//
-//            public boolean canSeekForward() {
-//                return true;
-//            }
-//
-//            @Override
-//            public int getAudioSessionId() {
-//                return 11111;
-//            }
-//
-//            public int getBufferPercentage() {
-//                return 0;
-//            }
-//
-//            public int getCurrentPosition() {
-//                Log.e(TAG, "getCurrentPosition");
-//                return mMediaPlayer.getCurrentPosition();
-//            }
-//
-//            public int getDuration() {
-//                Log.e(TAG, "getDuration");
-//                return mMediaPlayer.getDuration();
-//            }
-//
-//            public boolean isPlaying() {
-//                Log.e(TAG, "isPlaying");
-//                return mMediaPlayer.isPlaying();
-//            }
-//
-//            public void pause() {
-//                Log.e(TAG, "pause");
-//                mMediaPlayer.pause();
-//            }
-//
-//            public void seekTo(int pos) {
-//                Log.e(TAG, "seekTo");
-//                mMediaPlayer.seekTo(pos);
-//            }
-//
-//            public void start() {
-//                mMediaPlayer.start();
-//                Log.e(TAG, "start");
-//            }
-//
-//        });
-//        mediaController.setPrevNextListeners(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.e(TAG, "PREV LISTENERS");
-//            }
-//        }, new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.e(TAG, "NEXT LISTENERS");
-//            }
-//        });
-
-
 
         videoView.setMediaController(mediaController);
+        mediaController.setMediaPlayer(videoView);
+        mediaController.setAnchorView(videoView);
 
-//        videoView.setOnErrorListener(videoErrorListener);
-//
-//        videoView.requestFocus();
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mMediaPlayer = mp;
+                mp.start();
+                mp.setLooping(true);
+                Log.e(TAG, "topVideoView.setOnPreparedListener -mp.start()");
+            }
+        });
+        /*
+        videoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            @Override
+            public boolean onError(MediaPlayer mp, int what, int extra) {
+                Log.e(TAG, what + " " + extra);
+                if (errorTime < 6) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+//                            startTest();
+                            videoView.start();
+                        }
+                    }, 2000);
+                    errorTime++;
+                    return true;
+                }
+                return false;
+            }
+        });
+        */
+
+
 //        videoView.start();
-        mPreview = videoView;
+
+//        mPreview = videoView;
 
 //        mPreview = (SurfaceView) view.findViewById(R.id.surfaceView);
-//
-        holder = mPreview.getHolder();
-        holder = mPreview.getHolder();
-        holder.addCallback(this);
-        holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+//        holder = mPreview.getHolder();
+//        holder = mPreview.getHolder();
+//        holder.addCallback(this);
+//        holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
+
+        
 
 
         return view;
@@ -152,6 +115,12 @@ public class VideoFragment extends Fragment implements MediaPlayer.OnBufferingUp
     @Override
     public void onStart() {
         super.onStart();
+
+        videoView.setVideoURI(Uri.parse("http://forum.ea3w.com/coll_ea3w/attach/2008_10/12237832415.3gp"));
+//        videoView.setVideoURI( Uri.parse("rtsp://v2.cache2.c.youtube.com/CjgLENy73wIaLwm3JbT_%ED%AF%80%ED%B0%819HqWohMYESARFEIJbXYtZ29vZ2xlSARSB3Jlc3VsdHNg_vSmsbeSyd5JDA==/0/0/0/video.3gp"));
+
+        videoView.requestFocus();
+        videoView.start();
     }
 
     @Override
