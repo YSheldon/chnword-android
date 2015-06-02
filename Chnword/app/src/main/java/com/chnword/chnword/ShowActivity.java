@@ -27,6 +27,7 @@ import com.chnword.chnword.net.VerifyNet;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import io.vov.vitamio.LibsChecker;
 import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageButton;
 
@@ -55,6 +56,9 @@ public class ShowActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show);
+
+        if (!LibsChecker.checkVitamioLibs(this))
+            return ;
 
         Intent intent = getIntent();
         String word = intent.getStringExtra("word");
