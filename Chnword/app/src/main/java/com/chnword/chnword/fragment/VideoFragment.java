@@ -52,13 +52,14 @@ public class VideoFragment extends Fragment implements MediaPlayer.OnBufferingUp
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_video, container, false);
 
-        videoView = (VideoView) view.findViewById(R.id.video_view);
-        MediaController mediaController = new MediaController(this.getActivity());
 
-        videoView.setMediaController(mediaController);
-        mediaController.setMediaPlayer(videoView);
-        mediaController.setAnchorView(videoView);
-
+//        videoView = (VideoView) view.findViewById(R.id.video_view);
+//        MediaController mediaController = new MediaController(this.getActivity());
+//
+//        videoView.setMediaController(mediaController);
+//        mediaController.setMediaPlayer(videoView);
+//        mediaController.setAnchorView(videoView);
+/*
         videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
@@ -68,7 +69,7 @@ public class VideoFragment extends Fragment implements MediaPlayer.OnBufferingUp
                 Log.e(TAG, "topVideoView.setOnPreparedListener -mp.start()");
             }
         });
-        /*
+
         videoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
             @Override
             public boolean onError(MediaPlayer mp, int what, int extra) {
@@ -93,12 +94,11 @@ public class VideoFragment extends Fragment implements MediaPlayer.OnBufferingUp
 //        videoView.start();
 
 //        mPreview = videoView;
-
-//        mPreview = (SurfaceView) view.findViewById(R.id.surfaceView);
-//        holder = mPreview.getHolder();
-//        holder = mPreview.getHolder();
-//        holder.addCallback(this);
-//        holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+        mPreview = (SurfaceView) view.findViewById(R.id.surfaceView);
+        holder = mPreview.getHolder();
+        holder = mPreview.getHolder();
+        holder.addCallback(this);
+        holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
 
         
@@ -116,11 +116,12 @@ public class VideoFragment extends Fragment implements MediaPlayer.OnBufferingUp
     public void onStart() {
         super.onStart();
 
-        videoView.setVideoURI(Uri.parse("http://forum.ea3w.com/coll_ea3w/attach/2008_10/12237832415.3gp"));
+//        videoView.setVideoURI(Uri.parse("http://forum.ea3w.com/coll_ea3w/attach/2008_10/12237832415.3gp"));
+//        videoView.setVideoURI(Uri.parse("android.resource://com.chnword.chnword" + R.raw.cft));
 //        videoView.setVideoURI( Uri.parse("rtsp://v2.cache2.c.youtube.com/CjgLENy73wIaLwm3JbT_%ED%AF%80%ED%B0%819HqWohMYESARFEIJbXYtZ29vZ2xlSARSB3Jlc3VsdHNg_vSmsbeSyd5JDA==/0/0/0/video.3gp"));
 
-        videoView.requestFocus();
-        videoView.start();
+//        videoView.requestFocus();
+//        videoView.start();
     }
 
     @Override
@@ -179,8 +180,10 @@ public class VideoFragment extends Fragment implements MediaPlayer.OnBufferingUp
              * the movie atom has to precede all the media data atoms. 2. The
              * clip has to be reasonably interleaved.
              */
-            path = "http://www.androidbook.com/akc/filestorage/android/documentfiles/3389/movie.mp4";
+//            path = "http://www.androidbook.com/akc/filestorage/android/documentfiles/3389/movie.mp4";
             path = "http://forum.ea3w.com/coll_ea3w/attach/2008_10/12237832415.3gp";
+
+//            Uri uri = Uri.parse("android.resource://com.chnword.chnword" + R.raw.cft);
 
             // Create a new media player and set the listeners
             mMediaPlayer = new MediaPlayer();

@@ -47,8 +47,7 @@
             android:layout_height="fill_parent"
             android:id="@+id/video_conent"
             android:layout_alignParentTop="true"
-            android:layout_above="@+id/buttom_menu"
-            android:layout_margin="3dp">
+            android:layout_above="@+id/buttom_menu">
 
             <FrameLayout
                 android:layout_width="match_parent"
