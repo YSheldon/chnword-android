@@ -29,6 +29,8 @@ import com.sinovoice.hcicloudsdk.android.ocr.capture.CaptureErrCode;
 import com.sinovoice.hcicloudsdk.android.ocr.capture.CaptureEvent;
 import com.sinovoice.hcicloudsdk.android.ocr.capture.OCRCapture;
 import com.sinovoice.hcicloudsdk.android.ocr.capture.OCRCaptureListener;
+import com.sinovoice.hcicloudsdk.android.ocr.capture.UIDeviceOrientation;
+import com.sinovoice.hcicloudsdk.android.ocr.capture.UIDeviceOrientationManager;
 import com.sinovoice.hcicloudsdk.common.HciErrorCode;
 import com.sinovoice.hcicloudsdk.common.ocr.OcrCornersResult;
 import com.sinovoice.hcicloudsdk.common.ocr.OcrInitParam;
@@ -195,6 +197,13 @@ public class ScanActivity extends Activity {
         }
 
         ocrCapture = new OCRCapture();
+        UIDeviceOrientationManager uiDeviceOrientationManager = new UIDeviceOrientationManager() {
+            @Override
+            public UIDeviceOrientation getDeviceOrientation() {
+                return UIDeviceOrientation.UIDeviceOrientationLandscapeLeft;
+            }
+        } ;
+        ocrCapture.setDeviceOrientationManager(uiDeviceOrientationManager);
         initOCRCapture();
         dismissDialog();
 
