@@ -2,6 +2,9 @@ package com.chnword.chnword;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,17 +17,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.chnword.chnword.beans.Module;
 import com.chnword.chnword.net.AbstractNet;
 import com.chnword.chnword.net.DeviceUtil;
+import com.chnword.chnword.net.NetConf;
 import com.chnword.chnword.net.NetParamFactory;
 import com.chnword.chnword.net.VerifyNet;
+import com.chnword.chnword.store.LocalStore;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by khtc on 15/4/23.
@@ -34,6 +44,10 @@ public class WelcomeActivity extends Activity {
 
     private Button btn_submit;
     private Button btn_regist;
+    private EditText editText;
+
+    private ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +55,17 @@ public class WelcomeActivity extends Activity {
 
         setContentView(R.layout.activity_welcome);
 
+        LocalStore store = new LocalStore(this);
+        if (!"NULL".equalsIgnoreCase(store.getDefaultUser()))
+        {
+            Intent intent = new Intent(this, TabActivity.class);
+            startActivity(intent);
+        }
+
+
         btn_submit = (Button) findViewById(R.id.btn_submit_t);
         btn_regist = (Button) findViewById(R.id.btn_regist_t);
+        editText = (EditText) findViewById(R.id.editText);
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +116,13 @@ public class WelcomeActivity extends Activity {
     //提交
     public void onLoginClick(){
         Log.i(TAG, "METHOD onLoginClick");
+
+        String userCode = editText.getText().toString();
+
+        LocalStore store = new LocalStore(this);
+        store.addUser(userCode);
+        store.setDefaultUser(userCode);
+
         Intent i = new Intent(this, TabActivity.class);
         startActivity(i);
     }
@@ -136,13 +166,20 @@ public class WelcomeActivity extends Activity {
 //        AbstractNet net = new VerifyNet(handler, param, url);
 //        net.start();
 
-        String url = "http://app.3000zi.com/api/regist.php";
 
-        JSONObject param = NetParamFactory.registParam(userid, devideId, "usercode", "new DeviceId", "sessionid", "verifycode");
-        AbstractNet net = new VerifyNet(handler, param, url);
-        net.start();
+//        JSONObject param = NetParamFactory.registParam(userid, devideId, "usercode", "new DeviceId", "sessionid", "verifycode");
+//        AbstractNet net = new VerifyNet(handler, param, NetConf.URL_REGIST);
+//        progressDialog = ProgressDialog.show(this, "title", "loading");
+//        net.start();
 
+        //创建一个用户并提交
+        UUID uuid = UUID.randomUUID();
+        LocalStore store = new LocalStore(this);
+        store.addUser(uuid.toString());
+        store.setDefaultUser(uuid.toString());
 
+        Intent intent = new Intent(this, TabActivity.class);
+        startActivity(intent);
 
     }
 
@@ -151,13 +188,36 @@ public class WelcomeActivity extends Activity {
         @Override
         public void handleMessage(Message msg) {
 
-            if (msg.what == AbstractNet.NETWHAT_SUCESS)
-            {
+            progressDialog.dismiss();
+            try {
+                if (msg.what == AbstractNet.NETWHAT_SUCESS)
+                {
+                    Bundle b = msg.getData();
+                    String str = b.getString("responseBody");
+                    Log.e(TAG, str);
+                    JSONObject obj = new JSONObject(str);
+                    JSONObject data = obj.getJSONObject("data");
+                    JSONArray names = data.getJSONArray("name");
+                    JSONArray cnames = data.getJSONArray("cname");
 
-            }
+                    for(int i = 0; i < names.length(); i ++) {
+                        String name = names.getString(i);
+                        String cname = cnames.getString(i);
+                        Module m = new Module();
+                        m.setName(name);
+                        m.setCname(cname);
+                    }
 
-            if (msg.what == AbstractNet.NETWHAT_FAIL) {
+                    Intent intent = new Intent(WelcomeActivity.this, AnimActivity.class);
+                    startActivity(intent);
 
+                }
+
+                if (msg.what == AbstractNet.NETWHAT_FAIL) {
+                    Toast.makeText(WelcomeActivity.this, "注册失败，请检查网络连接", Toast.LENGTH_LONG).show();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     };

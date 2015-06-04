@@ -1,8 +1,10 @@
 package com.chnword.chnword;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
@@ -218,7 +220,15 @@ public class AnimActivity extends Activity {
                 }
 
                 if (msg.what == AbstractNet.NETWHAT_FAIL) {
-
+                    new AlertDialog.Builder(AnimActivity.this)
+                            .setTitle("提示")
+                            .setMessage("注册失败")
+                            .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            }).show();
                 }
             } catch (Exception e) {
                 e.printStackTrace();

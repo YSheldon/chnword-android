@@ -28,6 +28,18 @@ public class LocalStore {
 
     }
 
+    private static final String DEFAULT_USER_KEY = "DEFAULT_USER_KEY";
+    public void setDefaultUser(String userCode) {
+        SharedPreferences.Editor editor = perference.edit();
+        editor.putString(DEFAULT_USER_KEY, userCode);
+        editor.commit();
+
+    }
+
+    public String getDefaultUser() {
+        return perference.getString(DEFAULT_USER_KEY, "NULL");
+    }
+
 
     public void addUser(String userCode) {
         Set<String> set = new HashSet<String>();

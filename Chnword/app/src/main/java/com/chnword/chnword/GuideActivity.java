@@ -1,7 +1,9 @@
 package com.chnword.chnword;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -31,11 +33,29 @@ public class GuideActivity extends Activity {
 
     private int lastIndex = 0;
 
+    private static final String FirstLoginPreferences = "FirstLoginPreferences";
+    private static final String firstLoginKey = "FirstLoginKey";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
+
+
+        SharedPreferences perferences = getSharedPreferences(FirstLoginPreferences, Context.MODE_PRIVATE);
+        boolean isFirstLogin = perferences.getBoolean(firstLoginKey, true);
+        if (!isFirstLogin) {
+            Intent intent = new Intent(this, WelcomeActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            SharedPreferences.Editor editor = perferences.edit();
+            editor.putBoolean(firstLoginKey, false);
+            editor.commit();
+        }
+
+
 
         mViewPager = (ViewPager) findViewById(R.id.view_page);
 
