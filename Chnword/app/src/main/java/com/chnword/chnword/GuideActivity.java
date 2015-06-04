@@ -43,7 +43,7 @@ public class GuideActivity extends Activity {
 
         ImageView dot1 = (ImageView) findViewById(R.id.item_dot1);
         ImageView dot2 = (ImageView) findViewById(R.id.item_dot2);
-        ImageView dot3 = (ImageView) findViewById(R.id.item_dot2);
+        ImageView dot3 = (ImageView) findViewById(R.id.item_dot3);
 
         mdots.add(dot1);
         mdots.add(dot2);
@@ -68,11 +68,6 @@ public class GuideActivity extends Activity {
 
         mViewPager.setAdapter(mPageAdapter);
         mViewPager.setOnPageChangeListener(mPageChangerLister);
-
-
-
-
-
     }
 
     @Override
