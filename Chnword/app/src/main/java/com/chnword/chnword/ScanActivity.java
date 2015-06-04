@@ -1,6 +1,7 @@
 package com.chnword.chnword;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -28,6 +29,8 @@ import com.sinovoice.hcicloudsdk.android.ocr.capture.CaptureErrCode;
 import com.sinovoice.hcicloudsdk.android.ocr.capture.CaptureEvent;
 import com.sinovoice.hcicloudsdk.android.ocr.capture.OCRCapture;
 import com.sinovoice.hcicloudsdk.android.ocr.capture.OCRCaptureListener;
+import com.sinovoice.hcicloudsdk.android.ocr.capture.UIDeviceOrientation;
+import com.sinovoice.hcicloudsdk.android.ocr.capture.UIDeviceOrientationManager;
 import com.sinovoice.hcicloudsdk.common.HciErrorCode;
 import com.sinovoice.hcicloudsdk.common.ocr.OcrCornersResult;
 import com.sinovoice.hcicloudsdk.common.ocr.OcrInitParam;
@@ -194,6 +197,13 @@ public class ScanActivity extends Activity {
         }
 
         ocrCapture = new OCRCapture();
+        UIDeviceOrientationManager uiDeviceOrientationManager = new UIDeviceOrientationManager() {
+            @Override
+            public UIDeviceOrientation getDeviceOrientation() {
+                return UIDeviceOrientation.UIDeviceOrientationLandscapeLeft;
+            }
+        } ;
+        ocrCapture.setDeviceOrientationManager(uiDeviceOrientationManager);
         initOCRCapture();
         dismissDialog();
 
@@ -372,14 +382,24 @@ public class ScanActivity extends Activity {
             cameraPreviewLayout.removeAllViews();
             cameraPreviewLayout = null;
         }
+        Log.e(TAG, text);
 
 //        setContentView(R.layout.ocr_capture_result);
 //
 //        TextView tvResult = (TextView) findViewById(R.id.tv_result);
 //        tvResult.setText(text);
 
-        Intent i = new Intent(this, ResultActivity.class);
-        i.putExtra("ScanResult", text);
-        startActivity(i);
+//        Intent i = new Intent(this, ResultActivity.class);
+//        i.putExtra("ScanResult", text);
+//        startActivity(i);
+        new  AlertDialog.Builder(this)
+                .setTitle("识别字体" )
+                .setMessage(text )
+                .setPositiveButton("是" ,  null )
+//                .setNegativeButton("否" , null)
+                .show();
+
+        showCaptureView();
+
     }
 }
