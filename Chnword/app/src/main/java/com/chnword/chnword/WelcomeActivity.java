@@ -129,96 +129,11 @@ public class WelcomeActivity extends Activity {
 
     //使用
     public void onRegistClick(){
-//        Log.i(TAG, "METHOD onRegistClick");
-//        Intent i = new Intent(this, TabActivity.class);
-//        startActivity(i);
-
-        //测试入口
-        String devideId = DeviceUtil.getDeviceId(this);
-        String userid = "userid";
-
-
-
-//        String url = "http://app.3000zi.com/api/verify.php";
-//        JSONObject param = NetParamFactory.verifyParam(userid, devideId, "code", "user");
-//        AbstractNet net = new VerifyNet(handler, param, url);
-//        net.start();
-
-//        String url = "http://app.3000zi.com/api/list.php";
-//        JSONObject param = NetParamFactory.listParam(userid, devideId, 0, 0);
-//        AbstractNet net = new VerifyNet(handler, param, url);
-//        net.start();
-
-//        String url = "";
-//        List<String> list = new ArrayList<String>();
-//        list.add("zone_000");
-//        JSONObject param = NetParamFactory.subListParam(userid, devideId, list);
-//        AbstractNet net = new VerifyNet(handler, param, url);
-//        net.start();
-
-//        String url = "";
-//        JSONObject param = NetParamFactory.wordParam(userid, devideId, "字");
-//        AbstractNet net = new VerifyNet(handler, param, url);
-//        net.start();
-
-//        String url = "";
-//        JSONObject param = NetParamFactory.showParam(userid, devideId, "zone_000");
-//        AbstractNet net = new VerifyNet(handler, param, url);
-//        net.start();
-
-
-//        JSONObject param = NetParamFactory.registParam(userid, devideId, "usercode", "new DeviceId", "sessionid", "verifycode");
-//        AbstractNet net = new VerifyNet(handler, param, NetConf.URL_REGIST);
-//        progressDialog = ProgressDialog.show(this, "title", "loading");
-//        net.start();
-
-        //创建一个用户并提交
-        UUID uuid = UUID.randomUUID();
-        LocalStore store = new LocalStore(this);
-        store.addUser(uuid.toString());
-        store.setDefaultUser(uuid.toString());
 
         Intent intent = new Intent(this, TabActivity.class);
         startActivity(intent);
 
     }
 
-    Handler handler = new Handler(){
 
-        @Override
-        public void handleMessage(Message msg) {
-
-            progressDialog.dismiss();
-            try {
-                if (msg.what == AbstractNet.NETWHAT_SUCESS)
-                {
-                    Bundle b = msg.getData();
-                    String str = b.getString("responseBody");
-                    Log.e(TAG, str);
-                    JSONObject obj = new JSONObject(str);
-                    JSONObject data = obj.getJSONObject("data");
-                    JSONArray names = data.getJSONArray("name");
-                    JSONArray cnames = data.getJSONArray("cname");
-
-                    for(int i = 0; i < names.length(); i ++) {
-                        String name = names.getString(i);
-                        String cname = cnames.getString(i);
-                        Module m = new Module();
-                        m.setName(name);
-                        m.setCname(cname);
-                    }
-
-                    Intent intent = new Intent(WelcomeActivity.this, AnimActivity.class);
-                    startActivity(intent);
-
-                }
-
-                if (msg.what == AbstractNet.NETWHAT_FAIL) {
-                    Toast.makeText(WelcomeActivity.this, "注册失败，请检查网络连接", Toast.LENGTH_LONG).show();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    };
 }

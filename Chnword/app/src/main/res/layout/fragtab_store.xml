@@ -136,7 +136,7 @@
                                 <EditText
                                     android:layout_width="200dp"
                                     android:layout_height="wrap_content"
-                                    android:id="@+id/editText2"
+                                    android:id="@+id/activeCode"
                                     android:layout_alignParentLeft="true"
                                     android:layout_centerVertical="true"
                                     android:layout_toLeftOf="@+id/button2"
@@ -148,7 +148,8 @@
                                     android:text="提交"
                                     android:id="@+id/button2"
                                     android:layout_centerVertical="true"
-                                    android:layout_alignParentRight="true" />
+                                    android:layout_alignParentRight="true"
+                                    android:onClick="onActiveCodeSubmit" />
                             </RelativeLayout>
                         </LinearLayout>
 
