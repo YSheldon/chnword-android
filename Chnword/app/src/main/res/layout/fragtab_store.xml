@@ -139,17 +139,16 @@
                                     android:id="@+id/activeCode"
                                     android:layout_alignParentLeft="true"
                                     android:layout_centerVertical="true"
-                                    android:layout_toLeftOf="@+id/button2"
-                                    android:layout_toStartOf="@+id/button2" />
+                                    android:layout_toLeftOf="@+id/activeButton"
+                                    android:layout_toStartOf="@+id/activeButton" />
 
                                 <Button
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="提交"
-                                    android:id="@+id/button2"
+                                    android:id="@+id/activeButton"
                                     android:layout_centerVertical="true"
-                                    android:layout_alignParentRight="true"
-                                    android:onClick="onActiveCodeSubmit" />
+                                    android:layout_alignParentRight="true" />
                             </RelativeLayout>
                         </LinearLayout>
 

@@ -60,6 +60,7 @@ public class WelcomeActivity extends Activity {
         {
             Intent intent = new Intent(this, TabActivity.class);
             startActivity(intent);
+            finish();
         }
 
 
@@ -120,20 +121,73 @@ public class WelcomeActivity extends Activity {
         String userCode = editText.getText().toString();
 
         LocalStore store = new LocalStore(this);
+        store.removeDefaultUser();
         store.addUser(userCode);
         store.setDefaultUser(userCode);
 
-        Intent i = new Intent(this, TabActivity.class);
-        startActivity(i);
+        //这里需要进行下注册。
+
+        userid = DeviceUtil.getPhoneNumber(this) == null ?  UUID.randomUUID().toString()  : DeviceUtil.getPhoneNumber(this) ;
+        String deviceId = DeviceUtil.getDeviceId(this);
+        JSONObject param = NetParamFactory.registParam(userid, deviceId, userid, deviceId, UUID.randomUUID().toString(), "verify");
+        AbstractNet net = new VerifyNet(handler, param, NetConf.URL_REGIST);
+        progressDialog = ProgressDialog.show(this, "title", "loading");
+        net.start();
+        Log.e(TAG, param.toString());
+
+//        Intent i = new Intent(this, TabActivity.class);
+//        startActivity(i);
     }
 
+    private String userid;
     //使用
     public void onRegistClick(){
+        Log.e(TAG, "METHOD onRegisterClick");
+        //todo 注册用户的请求
 
-        Intent intent = new Intent(this, TabActivity.class);
-        startActivity(intent);
+
+        userid = DeviceUtil.getPhoneNumber(this) == null ?  UUID.randomUUID().toString()  : DeviceUtil.getPhoneNumber(this) ;
+        String deviceId = DeviceUtil.getDeviceId(this);
+        JSONObject param = NetParamFactory.registParam(userid, deviceId, userid, deviceId, UUID.randomUUID().toString(), "verify");
+        AbstractNet net = new VerifyNet(handler, param, NetConf.URL_REGIST);
+        progressDialog = ProgressDialog.show(this, "title", "loading");
+        net.start();
+//        Log.e(TAG, param.toString());
+
+
 
     }
 
+
+    Handler handler = new Handler(){
+
+        @Override
+        public void handleMessage(Message msg) {
+            progressDialog.dismiss();
+            try {
+                Bundle b = msg.getData();
+                String str = b.getString("responseBody");
+                Log.e(TAG, str);
+                if (msg.what == AbstractNet.NETWHAT_SUCESS)
+                {
+
+
+                    LocalStore store = new LocalStore(WelcomeActivity.this);
+                    store.setDefaultUser(userid);
+                    store.addUser(userid);
+
+                    Intent intent = new Intent(WelcomeActivity.this, TabActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+                if (msg.what == AbstractNet.NETWHAT_FAIL) {
+                    Toast.makeText(WelcomeActivity.this, "", Toast.LENGTH_LONG).show();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
 
 }

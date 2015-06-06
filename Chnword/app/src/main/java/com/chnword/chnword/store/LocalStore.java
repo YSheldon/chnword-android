@@ -40,6 +40,12 @@ public class LocalStore {
         return perference.getString(DEFAULT_USER_KEY, "NULL");
     }
 
+    public void removeDefaultUser() {
+        SharedPreferences.Editor editor = perference.edit();
+//        editor.putString(DEFAULT_USER_KEY, userCode);
+        editor.remove(DEFAULT_USER_KEY);
+        editor.commit();
+    }
 
     public void addUser(String userCode) {
         Set<String> set = new HashSet<String>();
@@ -84,10 +90,13 @@ public class LocalStore {
         List<Module> lists = new ArrayList<Module>();
         for (String str : modules) {
             String[] strs = str.split(":");
-            Module m = new Module();
-            m.setName(strs[0]);
-            m.setCname(strs[1]);
+            if (strs.length ==2) {
+                Module m = new Module();
+                m.setName(strs[0]);
+                m.setCname(strs[1]);
+            }
         }
+        setDefaultModule(lists);
         return lists;
     }
 

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ public class TabStore extends Fragment {
     private static final String TAG = TabStore.class.getSimpleName();
 
     private EditText activeCode;
+    private Button actiiveButton;
 
     private ProgressDialog progressDialog;
 
@@ -48,6 +50,14 @@ public class TabStore extends Fragment {
         View view = inflater.inflate(R.layout.fragtab_store, container, false);
 
         activeCode = (EditText) view.findViewById(R.id.activeCode);
+        actiiveButton = (Button) view.findViewById(R.id.activeButton);
+
+        actiiveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onActiveCodeSubmit(v);
+            }
+        });
 
         return view;
     }
@@ -74,11 +84,10 @@ public class TabStore extends Fragment {
         String inputActiveCode = activeCode.getText().toString();
         //进项网络请求
 
-//        String devideId = DeviceUtil.getDeviceId(getActivity());
-//        String userid = "userid";
         LocalStore store = new LocalStore(getActivity());
         String userid = store.getDefaultUser();
-        String devideId = DeviceUtil.getPhoneNumber(getActivity());
+//        String devideId = DeviceUtil.getPhoneNumber(getActivity());
+        String devideId = DeviceUtil.getDeviceId(getActivity());
 
 
         JSONObject param = NetParamFactory.verifyParam(userid, devideId, inputActiveCode, devideId);
@@ -120,7 +129,7 @@ public class TabStore extends Fragment {
                         }
 
                     } else {
-                        Toast.makeText(getActivity(), obj.getString("message"), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), obj.getString("message  " + str), Toast.LENGTH_LONG).show();
                     }
 
                 }
