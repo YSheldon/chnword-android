@@ -163,19 +163,19 @@ public class ShowActivity extends Activity {
 //            return;
 //        }
 
-//        GifFragment gifFragment = new GifFragment();
         gifFragment.setUri(gifUri);
         Log.e(TAG, "METHOD onQuickLook");
 
 //        manager.beginTransaction().hide(videoFragment).replace(R.id.fragment, gifFragment).commit();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//        transaction.remove(videoFragment);
         transaction.hide(videoFragment);
-        transaction.replace(R.id.fragment_container, gifFragment);
+//        transaction.addToBackStack(null);
+//        transaction.replace(R.id.fragment_container, gifFragment);
+        transaction.add(R.id.fragment_container, gifFragment);
         transaction.commit();
-        Log.e(TAG, "METHOD onQuickLook");
-//        finish();
+        videoFragment.pause();
     }
+
 
     public void onScan(View view) {
         //切换到scan页面
@@ -186,7 +186,15 @@ public class ShowActivity extends Activity {
     }
 
 
+    public void onChangePosition(float position) {
+        FragmentTransaction tx = getFragmentManager().beginTransaction();
+        tx.remove(gifFragment);
+        tx.show(videoFragment);
+        tx.commit();
+        videoFragment.onChangePosition(position);
+        videoFragment.start();
 
+    }
 
 
 }

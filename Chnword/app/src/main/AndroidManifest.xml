@@ -44,7 +44,7 @@
         <activity android:name=".TabActivity"></activity>
         <activity android:name=".AnimActivity"></activity>
         <activity android:name=".ResultActivity"></activity>
-        <activity android:name=".ScanActivity"></activity>
+        <activity android:name=".ScanActivity" android:screenOrientation="landscape"></activity>
         <activity android:name=".WelcomeActivity"></activity>
         <activity android:name=".ShowActivity"></activity>
         <activity android:name=".Gallerty3DActivity"></activity>

@@ -54,6 +54,7 @@ public class VideoFragment extends Fragment {
 
 
 
+
         
 
 
@@ -100,6 +101,21 @@ public class VideoFragment extends Fragment {
 
     public void setWord(Word word) {
         this.word = word;
+    }
+
+
+
+    public void pause() {
+        mVideoView.pause();
+    }
+    public void start(){
+        mVideoView.start();
+    }
+
+    public void onChangePosition(float position) {
+        //todo
+        int result = (int) (mVideoView.getDuration() * position);
+        mVideoView.seekTo(result);
     }
 
 }

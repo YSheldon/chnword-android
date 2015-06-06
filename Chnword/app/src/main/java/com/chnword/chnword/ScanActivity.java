@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -197,13 +198,7 @@ public class ScanActivity extends Activity {
         }
 
         ocrCapture = new OCRCapture();
-        UIDeviceOrientationManager uiDeviceOrientationManager = new UIDeviceOrientationManager() {
-            @Override
-            public UIDeviceOrientation getDeviceOrientation() {
-                return UIDeviceOrientation.UIDeviceOrientationLandscapeLeft;
-            }
-        } ;
-        ocrCapture.setDeviceOrientationManager(uiDeviceOrientationManager);
+
         initOCRCapture();
         dismissDialog();
 
@@ -312,6 +307,34 @@ public class ScanActivity extends Activity {
                                 + File.separator;
                         String templatePath = dataPath + "/templates/IDCard_EN.xml";
                         currTemplateId = new OcrTemplateId();
+//                        currTemplateId.setTemplateId(90);
+
+
+                        UIDeviceOrientationManager uiDeviceOrientationManager = new UIDeviceOrientationManager() {
+                            @Override
+                            public UIDeviceOrientation getDeviceOrientation() {
+                                return UIDeviceOrientation.UIDeviceOrientationPortrait;
+//                                UIDeviceOrientationPortration
+                            }
+                        } ;
+
+
+                        ocrCapture.setDeviceOrientationManager(uiDeviceOrientationManager);
+
+
+                        Camera.Parameters parameters = ocrCapture.getCameraParameters();
+//                        Camera.Parameters parameters = new Camera.Parameters();
+
+
+                        parameters.set("rotation", 90);
+                        parameters.set("orientation", "UIDeviceOrientationPortrait");
+                        parameters.set("DisplayOrientation", 90);
+                        parameters.set("displayorientation", 90);
+
+                        ocrCapture.setCameraParameters(parameters);
+
+
+
                         int errorCode = ocrCapture.hciOcrCaptureLoadTemplate(templatePath, currTemplateId);
                         if (errorCode != CaptureErrCode.CAPTURE_ERR_NONE) {
                             Log.e(TAG, "hciOcrLoadTemplate() error. errorcode = " + errorCode);
@@ -326,6 +349,9 @@ public class ScanActivity extends Activity {
                                 }
                             });
                         }
+
+
+
                     }
                 }).start();
             }else{

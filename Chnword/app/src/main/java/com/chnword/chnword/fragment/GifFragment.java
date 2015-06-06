@@ -4,13 +4,17 @@ import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.MediaController;
+import android.widget.SeekBar;
 import android.widget.VideoView;
 
 import com.chnword.chnword.R;
+import com.chnword.chnword.ShowActivity;
 import com.chnword.chnword.adapter.ImageAdapter;
 import com.chnword.chnword.gallery.GalleryFlow;
 import com.chnword.chnword.utils.BitmapScaleDownUtil;
@@ -31,6 +35,8 @@ public class GifFragment extends Fragment {
     // 控件
     private GalleryFlow mGalleryFlow;
 
+    private SeekBar seekBar;
+
 
     private Uri uri;
 
@@ -45,6 +51,7 @@ public class GifFragment extends Fragment {
 
 
         initGallery(view);
+
 
 
         return view;
@@ -102,6 +109,53 @@ public class GifFragment extends Fragment {
         mGalleryFlow.setSpacing(GALLERY_SPACING);
         mGalleryFlow.setAdapter(adapter);
         mGalleryFlow.setSelection(Integer.MAX_VALUE / 2);
+
+        seekBar = (SeekBar) view.findViewById(R.id.seekBar);
+        seekBar.setMax(images.length);
+        seekBar.setProgress(0);
+
+        //添加事件
+
+        mGalleryFlow.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                seekBar.setProgress(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        mGalleryFlow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.e("GIFFRAGMENT", "ON GIF VIEW CLICK.");
+                ShowActivity activity = (ShowActivity) getActivity();
+                //todo 转换并执行position
+                activity.onChangePosition(position/mGalleryFlow.getAdapter().getCount());
+            }
+        });
+
+
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                mGalleryFlow.setSelection(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 
     // getter and setter
