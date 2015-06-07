@@ -19,6 +19,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chnword.chnword.beans.Module;
 import com.chnword.chnword.beans.Word;
@@ -200,8 +201,20 @@ public class ResultActivity extends Activity {
     private AdapterView.OnItemClickListener moduleOnItemListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
             Module m = moduleList.get(position);
-            requestNet(m.getCname());
+
+            store.getUnlockModels(store.getDefaultUser());
+            if (store.isUnlockAll(store.getDefaultUser())
+                    ||
+                    store.getUnlockModels(store.getDefaultUser()).contains(m.getCname())) {
+
+                requestNet(m.getCname());
+            } else {
+                Toast.makeText(ResultActivity.this, "未解锁", Toast.LENGTH_LONG).show();
+            }
+
+
         }
     };
 

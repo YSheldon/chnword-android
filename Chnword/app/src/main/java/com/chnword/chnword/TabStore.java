@@ -27,6 +27,9 @@ import com.chnword.chnword.store.LocalStore;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.vov.vitamio.utils.Device;
 
 /**
@@ -113,6 +116,7 @@ public class TabStore extends Fragment {
                 {
 
                     Log.e(TAG, str);
+                    LocalStore store = new LocalStore(getActivity());
 
                     JSONObject data = obj.getJSONObject("data");
                     if (data != null) {
@@ -121,11 +125,19 @@ public class TabStore extends Fragment {
                         if ("0".equalsIgnoreCase(unlock_all)) {
                             //解锁全部
                             Toast.makeText(getActivity(), "unlock_all", Toast.LENGTH_LONG).show();
+                            store.setUnlockAll(store.getDefaultUser());
                         } else {
                             //部分解锁
                             JSONArray array = obj.getJSONArray("unlock_zone");
                             //输出unlock_zone,并做存储。
+
                             Toast.makeText(getActivity(), array.toString(), Toast.LENGTH_LONG).show();
+
+                            List<String> lists = new ArrayList<String>();
+                            for (int i = 0; i < array.length(); i ++) {
+                                lists.add(array.getString(i).toString());
+                            }
+                            store.setUnlockModels(store.getDefaultUser(), lists);
                         }
 
                     } else {

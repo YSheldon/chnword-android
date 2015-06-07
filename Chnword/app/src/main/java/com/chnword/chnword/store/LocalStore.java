@@ -20,6 +20,9 @@ public class LocalStore {
 
     private static final String WORDDEFAULTKEY = "WORDDEFAULTKEY";
 
+    private static final String CHNWORD_UNLOCK_USER = "CHNWORD_UNLOCK_USER";
+    private static final String CHNWORD_UNLOCK_ALL_USER = "CHNWORD_UNLOCK_ALL_USER";
+
     private SharedPreferences perference;
 
 
@@ -46,6 +49,72 @@ public class LocalStore {
         editor.remove(DEFAULT_USER_KEY);
         editor.commit();
     }
+
+
+    public void setUnlockModels(String userCode, List<String> lists) {
+        SharedPreferences.Editor editor = perference.edit();
+        String key = CHNWORD_UNLOCK_USER + "_" + userCode;
+
+
+
+        Set<String> values;
+
+        values = perference.getStringSet(key, new HashSet<String>());
+
+        for (String str : lists) {
+            if (values.contains(str)) {
+                continue;
+            }else {
+                values.add(str);
+            }
+        }
+        editor.putStringSet(key, values);
+        editor.commit();
+    }
+
+    public Set<String> getUnlockModels(String userCode) {
+        SharedPreferences.Editor editor = perference.edit();
+
+        String key = CHNWORD_UNLOCK_USER + "_" + userCode;
+
+        Set<String> values;
+
+        values = perference.getStringSet(key, new HashSet<String>());
+
+//        List<String> lists = new ArrayList<String>();
+//        for (String str : values) {
+//            lists.add(str);
+//        }
+        return values;
+    }
+
+    public void setUnlockAll(String userCode) {
+        String key = CHNWORD_UNLOCK_ALL_USER + "_" + userCode;
+
+        SharedPreferences.Editor editor = perference.edit();
+        editor.putBoolean(DEFAULT_USER_KEY, true);
+        editor.commit();
+    }
+
+    public boolean isUnlockAll(String userCode) {
+        boolean result = false;
+
+        String key = CHNWORD_UNLOCK_ALL_USER + "_" + userCode;
+
+        result = perference.getBoolean(key, false);
+
+        return result;
+    }
+
+
+
+
+
+
+
+
+
+
 
     public void addUser(String userCode) {
         Set<String> set = new HashSet<String>();
