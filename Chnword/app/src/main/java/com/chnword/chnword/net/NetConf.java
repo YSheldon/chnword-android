@@ -11,4 +11,5 @@ public class NetConf
     public static final String URL_WORD    = "http://app.3000zi.com/api/word.php";
     public static final String URL_SHOW    = "http://app.3000zi.com/api/show.php";
     public static final String URL_REGIST  = "http://app.3000zi.com/api/regist.php";
+    public static final String URL_VERSION_CHECK = "http://app.3000zi.com/api/version.php";
 }

@@ -32,7 +32,9 @@ import com.chnword.chnword.store.LocalStore;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +54,7 @@ public class ResultActivity extends Activity {
     private GridView grideView;
     private List<Module> moduleList;
     private List<Word> wordList;
-
+    private TextView word_tip ;
     private LocalStore store;
 
     @Override
@@ -62,35 +64,59 @@ public class ResultActivity extends Activity {
 
         Intent intent = getIntent();
         Bundle b = intent.getExtras();
-        zoneCode = b.getString("ZoneCode");
-
-        ArrayList<String> names = b.getStringArrayList("moduleName");
-        ArrayList<String> cnames = b.getStringArrayList("moduleCname");
-
-
-
 
         moduleList = new ArrayList<Module>();
         wordList = new ArrayList<Word>();
         store = new LocalStore(this);
-        boolean isOk = false;
-        for (int i = 0; i < names.size(); i ++) {
-            Module m = new Module();
-            m.setName(names.get(i));
-            m.setCname(cnames.get(i));
-            moduleList.add(m);
-            Log.e(TAG, m.getName() + " " + m.getCname());
-            isOk = true;
-        }
-        if (!isOk) {
+        word_tip = (TextView) findViewById(R.id.result_tip);
+
+        if (b.getBoolean("ISFROMSEARCH", false)) {
+
+            String searchResult = b.getString("SEARCH_RESULT");
+            String wordTip = b.getString("WORD_TIP");
+            ArrayList<String> names = b.getStringArrayList("WORD_NAME");
+            ArrayList<String> indexs = b.getStringArrayList("WORD_INDEX");
+
             moduleList.addAll(store.getDefaultModule());
+
+            for (int i = 0; i < names.size(); i ++) {
+                Word w = new Word();
+                w.setWord(names.get(i));
+                w.setWordIndex(indexs.get(i));
+                wordList.add(w);
+
+            }
+
+            word_tip.setText(wordTip);
+
+
+        }else {
+            zoneCode = b.getString("ZoneCode");
+
+            ArrayList<String> names = b.getStringArrayList("moduleName");
+            ArrayList<String> cnames = b.getStringArrayList("moduleCname");
+
+
+
+
+
+            boolean isOk = false;
+            for (int i = 0; i < names.size(); i ++) {
+                Module m = new Module();
+                m.setName(names.get(i));
+                m.setCname(cnames.get(i));
+                moduleList.add(m);
+                Log.e(TAG, m.getName() + " " + m.getCname());
+                isOk = true;
+            }
+            if (!isOk) {
+                moduleList.addAll(store.getDefaultModule());
+            }
         }
 
-        Bundle data = getIntent().getExtras();
-        String scanText = data.getString("ScanResult");
-        if (scanText != null) {
 
-        }
+
+
 
 
         wordList.addAll(store.getDefaultWord(zoneCode));

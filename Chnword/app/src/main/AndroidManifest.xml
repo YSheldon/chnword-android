@@ -41,7 +41,7 @@
 
         </activity>
 
-        <activity android:name=".TabActivity"></activity>
+        <activity android:name=".TabActivity" android:launchMode="singleTask"></activity>
         <activity android:name=".AnimActivity"></activity>
         <activity android:name=".ResultActivity"></activity>
         <activity android:name=".ScanActivity" android:screenOrientation="landscape"></activity>

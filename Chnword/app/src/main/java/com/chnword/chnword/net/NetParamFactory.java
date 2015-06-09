@@ -135,4 +135,18 @@ public class NetParamFactory {
         }
         return obj;
     }
+
+    public static JSONObject versionParam(int versionCode)
+    {
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject();
+            obj.put("opid", UUID.randomUUID().toString());
+            obj.put("key", "1");
+            obj.put("version", versionCode);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
 }

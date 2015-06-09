@@ -73,7 +73,7 @@ public class AnimActivity extends Activity {
     protected void onStart() {
         super.onStart();
 
-        String userid = "userid";
+        String userid = store.getDefaultUser();
         String deviceId = DeviceUtil.getDeviceId(this);
         JSONObject param = NetParamFactory.listParam(userid, deviceId, 0, 0);
         AbstractNet net = new VerifyNet(handler, param, NetConf.URL_LIST);

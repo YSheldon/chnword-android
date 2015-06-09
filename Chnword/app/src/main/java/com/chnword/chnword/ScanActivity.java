@@ -10,6 +10,7 @@ import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -25,6 +26,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chnword.chnword.beans.HciAccountInfo;
+import com.chnword.chnword.net.AbstractNet;
+import com.chnword.chnword.net.DeviceUtil;
+import com.chnword.chnword.net.NetConf;
+import com.chnword.chnword.net.NetParamFactory;
+import com.chnword.chnword.net.VerifyNet;
+import com.chnword.chnword.store.LocalStore;
 import com.chnword.chnword.utils.hci.HciCloudSysHelper;
 import com.sinovoice.hcicloudsdk.android.ocr.capture.CaptureErrCode;
 import com.sinovoice.hcicloudsdk.android.ocr.capture.CaptureEvent;
@@ -38,7 +45,12 @@ import com.sinovoice.hcicloudsdk.common.ocr.OcrInitParam;
 import com.sinovoice.hcicloudsdk.common.ocr.OcrRecogResult;
 import com.sinovoice.hcicloudsdk.common.ocr.OcrTemplateId;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by khtc on 15/4/27.
@@ -70,6 +82,8 @@ public class ScanActivity extends Activity {
     //模板文件相关
     private OcrTemplateId currTemplateId;
     private int templateId;
+
+    private ProgressDialog progressDialog;
 
     //拍照器模块
     private OCRCapture ocrCapture;
@@ -424,8 +438,70 @@ public class ScanActivity extends Activity {
                 .setPositiveButton("是" ,  null )
 //                .setNegativeButton("否" , null)
                 .show();
+        searchResult = text;
 
-        showCaptureView();
+        LocalStore store = new LocalStore(ScanActivity.this);
+        String userid = store.getDefaultUser();
+        String deviceId = DeviceUtil.getDeviceId(this);
+        JSONObject param = NetParamFactory.wordParam(userid, deviceId, text);
+        AbstractNet net = new VerifyNet(handler, param, NetConf.URL_WORD);
+        net.start();
+
+//        showCaptureView();
 
     }
+    private String searchResult ;
+
+    private Handler handler  = new Handler() {
+        public void handleMessage(Message msg) {
+            progressDialog.dismiss();
+            //todo 处理结果并跳转。
+            try {
+                Bundle b = msg.getData();
+                String str = b.getString("responseBody");
+                Log.e(TAG, str);
+                JSONObject obj = new JSONObject(str);
+                JSONObject data = obj.getJSONObject("data");
+
+
+                if (msg.what == AbstractNet.NETWHAT_SUCESS) {
+                    if (data != null) {
+                        JSONArray word_name = data.getJSONArray("word_name");
+                        JSONArray word_index = data.getJSONArray("word_index");
+                        String word_tip = data.getString("word_tip");
+
+                        ArrayList<String> word_names = new ArrayList<String>();
+                        ArrayList<String> word_indexs = new ArrayList<String>();
+                        for (int i = 0; i < word_name.length(); i ++) {
+                            word_names.add(word_name.getString(i));
+                        }
+                        for (int i = 0; i < word_index.length(); i ++) {
+                            word_indexs.add(word_index.getString(i));
+                        }
+
+                        //todo 跳转到结果显示页面
+                        Intent intent = new Intent(ScanActivity.this, ResultActivity.class);
+                        intent.putExtra("SEARCH_RESULT", searchResult);
+                        intent.putExtra("WORD_TIP", word_tip);
+                        intent.putStringArrayListExtra("WORD_NAME", word_names);
+                        intent.putStringArrayListExtra("WORD_INDEX", word_indexs);
+                        intent.putExtra("ISFROMSEARCH", true);
+
+
+
+                        startActivity(intent);
+
+                    }
+                }
+                if (msg.what == AbstractNet.NETWHAT_FAIL) {
+                        Toast.makeText(ScanActivity.this, "联网请求视频失败", Toast.LENGTH_LONG).show();
+                }
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            super.handleMessage(msg);
+        }
+    };
 }
