@@ -9,12 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.MediaController;
 import android.widget.SeekBar;
-import android.widget.VideoView;
 
 import com.chnword.chnword.R;
-import com.chnword.chnword.ShowActivity;
+import com.chnword.chnword.activity.ShowActivity;
 import com.chnword.chnword.adapter.ImageAdapter;
 import com.chnword.chnword.gallery.GalleryFlow;
 import com.chnword.chnword.utils.BitmapScaleDownUtil;

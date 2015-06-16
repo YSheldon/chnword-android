@@ -1,4 +1,4 @@
-package com.chnword.chnword;
+package com.chnword.chnword.activity;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -6,30 +6,26 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.widget.MediaController;
 
+import com.chnword.chnword.R;
 import com.chnword.chnword.beans.Word;
 import com.chnword.chnword.fragment.GifFragment;
 import com.chnword.chnword.fragment.VideoFragment;
 import com.chnword.chnword.net.AbstractNet;
-import com.chnword.chnword.net.DeviceUtil;
 import com.chnword.chnword.net.NetConf;
 import com.chnword.chnword.net.NetParamFactory;
 import com.chnword.chnword.net.VerifyNet;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import io.vov.vitamio.LibsChecker;
 import pl.droidsonroids.gif.GifDrawable;
-import pl.droidsonroids.gif.GifImageButton;
 
 /**
  * Created by khtc on 15/5/17.

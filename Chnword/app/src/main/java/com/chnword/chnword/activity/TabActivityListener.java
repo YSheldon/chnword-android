@@ -1,4 +1,4 @@
-package com.chnword.chnword;
+package com.chnword.chnword.activity;
 
 import android.content.Intent;
 

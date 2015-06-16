@@ -1,8 +1,7 @@
-package com.chnword.chnword;
+package com.chnword.chnword.activity;
 
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,7 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.chnword.chnword.beans.Module;
+import com.chnword.chnword.R;
 import com.chnword.chnword.net.AbstractNet;
 import com.chnword.chnword.net.DeviceUtil;
 import com.chnword.chnword.net.NetConf;
@@ -29,8 +28,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.vov.vitamio.utils.Device;
 
 /**
  * Created by khtc on 15/4/23.

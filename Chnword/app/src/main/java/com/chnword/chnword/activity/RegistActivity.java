@@ -1,27 +1,21 @@
-package com.chnword.chnword;
+package com.chnword.chnword.activity;
 
-import android.app.ActionBar;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.chnword.chnword.beans.Module;
+import com.chnword.chnword.R;
 import com.chnword.chnword.net.AbstractNet;
 import com.chnword.chnword.net.DeviceUtil;
 import com.chnword.chnword.net.NetConf;
@@ -29,18 +23,15 @@ import com.chnword.chnword.net.NetParamFactory;
 import com.chnword.chnword.net.VerifyNet;
 import com.chnword.chnword.store.LocalStore;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 /**
  * Created by khtc on 15/4/23.
  */
-public class WelcomeActivity extends Activity {
-    private String TAG = WelcomeActivity.class.getSimpleName();
+public class RegistActivity extends Activity {
+    private String TAG = RegistActivity.class.getSimpleName();
 
     private Button btn_submit;
     private Button btn_regist;
@@ -118,25 +109,25 @@ public class WelcomeActivity extends Activity {
     public void onLoginClick(){
         Log.i(TAG, "METHOD onLoginClick");
 
-        String userCode = editText.getText().toString();
+//        String userCode = editText.getText().toString();
+//
+//        LocalStore store = new LocalStore(this);
+//        store.removeDefaultUser();
+//        store.addUser(userCode);
+//        store.setDefaultUser(userCode);
+//
+//        //这里需要进行下注册。
+//
+//        userid = DeviceUtil.getPhoneNumber(this) == null ?  UUID.randomUUID().toString()  : DeviceUtil.getPhoneNumber(this) ;
+//        String deviceId = DeviceUtil.getDeviceId(this);
+//        JSONObject param = NetParamFactory.registParam(userid, deviceId, userid, deviceId, UUID.randomUUID().toString(), "verify");
+//        AbstractNet net = new VerifyNet(handler, param, NetConf.URL_REGIST);
+//        progressDialog = ProgressDialog.show(this, "title", "loading");
+//        net.start();
+//        Log.e(TAG, param.toString());
 
-        LocalStore store = new LocalStore(this);
-        store.removeDefaultUser();
-        store.addUser(userCode);
-        store.setDefaultUser(userCode);
-
-        //这里需要进行下注册。
-
-        userid = DeviceUtil.getPhoneNumber(this) == null ?  UUID.randomUUID().toString()  : DeviceUtil.getPhoneNumber(this) ;
-        String deviceId = DeviceUtil.getDeviceId(this);
-        JSONObject param = NetParamFactory.registParam(userid, deviceId, userid, deviceId, UUID.randomUUID().toString(), "verify");
-        AbstractNet net = new VerifyNet(handler, param, NetConf.URL_REGIST);
-        progressDialog = ProgressDialog.show(this, "title", "loading");
-        net.start();
-        Log.e(TAG, param.toString());
-
-//        Intent i = new Intent(this, TabActivity.class);
-//        startActivity(i);
+        Intent i = new Intent(this, WordActivity.class);
+        startActivity(i);
     }
 
     private String userid;
@@ -146,15 +137,16 @@ public class WelcomeActivity extends Activity {
         //todo 注册用户的请求
 
 
-        userid = DeviceUtil.getPhoneNumber(this) == null ?  UUID.randomUUID().toString()  : DeviceUtil.getPhoneNumber(this) ;
-        String deviceId = DeviceUtil.getDeviceId(this);
-        JSONObject param = NetParamFactory.registParam(userid, deviceId, userid, deviceId, UUID.randomUUID().toString(), "verify");
-        AbstractNet net = new VerifyNet(handler, param, NetConf.URL_REGIST);
-        progressDialog = ProgressDialog.show(this, "title", "loading");
-        net.start();
+//        userid = DeviceUtil.getPhoneNumber(this) == null ?  UUID.randomUUID().toString()  : DeviceUtil.getPhoneNumber(this) ;
+//        String deviceId = DeviceUtil.getDeviceId(this);
+//        JSONObject param = NetParamFactory.registParam(userid, deviceId, userid, deviceId, UUID.randomUUID().toString(), "verify");
+//        AbstractNet net = new VerifyNet(handler, param, NetConf.URL_REGIST);
+//        progressDialog = ProgressDialog.show(this, "title", "loading");
+//        net.start();
 //        Log.e(TAG, param.toString());
 
-
+        Intent i = new Intent(this, WordActivity.class);
+        startActivity(i);
 
     }
 
@@ -172,17 +164,17 @@ public class WelcomeActivity extends Activity {
                 {
 
 
-                    LocalStore store = new LocalStore(WelcomeActivity.this);
+                    LocalStore store = new LocalStore(RegistActivity.this);
                     store.setDefaultUser(userid);
                     store.addUser(userid);
 
-                    Intent intent = new Intent(WelcomeActivity.this, TabActivity.class);
+                    Intent intent = new Intent(RegistActivity.this, TabActivity.class);
                     startActivity(intent);
                     finish();
                 }
 
                 if (msg.what == AbstractNet.NETWHAT_FAIL) {
-                    Toast.makeText(WelcomeActivity.this, "", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegistActivity.this, "", Toast.LENGTH_LONG).show();
                 }
             } catch (Exception e) {
                 e.printStackTrace();

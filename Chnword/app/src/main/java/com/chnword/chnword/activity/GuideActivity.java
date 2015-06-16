@@ -1,4 +1,4 @@
-package com.chnword.chnword;
+package com.chnword.chnword.activity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.chnword.chnword.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +35,7 @@ public class GuideActivity extends Activity {
 
     private int lastIndex = 0;
 
-    private static final String FirstLoginPreferences = "FirstLoginPreferences";
-    private static final String firstLoginKey = "FirstLoginKey";
+
 
 
     @Override
@@ -43,17 +44,7 @@ public class GuideActivity extends Activity {
         setContentView(R.layout.activity_guide);
 
 
-        SharedPreferences perferences = getSharedPreferences(FirstLoginPreferences, Context.MODE_PRIVATE);
-        boolean isFirstLogin = perferences.getBoolean(firstLoginKey, true);
-        if (!isFirstLogin) {
-            Intent intent = new Intent(this, WelcomeActivity.class);
-            startActivity(intent);
-            finish();
-        } else {
-            SharedPreferences.Editor editor = perferences.edit();
-            editor.putBoolean(firstLoginKey, false);
-            editor.commit();
-        }
+
 
 
 
@@ -122,7 +113,7 @@ public class GuideActivity extends Activity {
 
     public void onButtonClick(View v){
 
-        Intent i = new Intent(this, WelcomeActivity.class);
+        Intent i = new Intent(this, RegistActivity.class);
         startActivity(i);
         finish();
 

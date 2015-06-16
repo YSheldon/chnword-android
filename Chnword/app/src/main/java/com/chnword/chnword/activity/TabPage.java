@@ -1,4 +1,4 @@
-package com.chnword.chnword;
+package com.chnword.chnword.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,8 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.chnword.chnword.R;
 
 import java.util.ArrayList;
 import java.util.List;

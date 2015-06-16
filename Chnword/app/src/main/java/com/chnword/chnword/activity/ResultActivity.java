@@ -1,8 +1,7 @@
-package com.chnword.chnword;
+package com.chnword.chnword.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chnword.chnword.R;
 import com.chnword.chnword.beans.Module;
 import com.chnword.chnword.beans.Word;
 import com.chnword.chnword.net.AbstractNet;
@@ -32,13 +32,9 @@ import com.chnword.chnword.store.LocalStore;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.transform.Result;
 
 /**
  * Created by khtc on 15/4/27.
