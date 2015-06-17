@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import com.chnword.chnword.R;
 import com.chnword.chnword.beans.Module;
@@ -48,6 +49,19 @@ public class WordAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.element_word, null);
         }
 
+        TextView textView = (TextView) convertView.findViewById(R.id.module_name_item);
+
+        Word word = wordList.get(position);
+        textView.setText(word.getWord());
+
         return convertView;
+    }
+
+    public List<Word> getWordList() {
+        return wordList;
+    }
+
+    public void setWordList(List<Word> wordList) {
+        this.wordList = wordList;
     }
 }

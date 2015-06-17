@@ -78,7 +78,7 @@ public class WordFragment extends Fragment {
     private AdapterView.OnItemClickListener wordItemClick = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Word word = (Word)moduleAdapter.getItem(position);
+            Word word = (Word)wordAdapter.getItem(position);
 //            ((WordActivity) getActivity()).showWord(module);
             //开启word
             Intent intent = new Intent(getActivity(), ShowActivity.class);

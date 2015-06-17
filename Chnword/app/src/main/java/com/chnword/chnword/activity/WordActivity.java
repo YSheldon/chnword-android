@@ -100,9 +100,9 @@ public class WordActivity extends Activity {
 
     public void showWord(Module module) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.hide(wordFragment);
+        transaction.hide(moduleFragment);
         transaction.hide(scanResultFragment);
-        transaction.show(moduleFragment);
+        transaction.show(wordFragment);
         transaction.commit();
 
         //请求网络数据  sublist
@@ -118,8 +118,8 @@ public class WordActivity extends Activity {
     public void showScanResult() {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.hide(wordFragment);
-        transaction.hide(scanResultFragment);
-        transaction.show(moduleFragment);
+        transaction.hide(moduleFragment);
+        transaction.show(scanResultFragment);
         transaction.commit();
     }
 
@@ -165,6 +165,7 @@ public class WordActivity extends Activity {
                         m.setCname(cname);
                         modules.add(m);
                     }
+                    Log.e(TAG, modules.size() + "");
                     store.setDefaultModule(modules);
 //                    moduleListAdapter.notifyDataSetChanged();
                     moduleFragment.updateData();

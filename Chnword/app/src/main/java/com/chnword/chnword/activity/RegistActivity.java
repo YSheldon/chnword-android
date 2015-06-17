@@ -128,6 +128,7 @@ public class RegistActivity extends Activity {
 
         Intent i = new Intent(this, WordActivity.class);
         startActivity(i);
+        finish();
     }
 
     private String userid;
@@ -147,7 +148,7 @@ public class RegistActivity extends Activity {
 
         Intent i = new Intent(this, WordActivity.class);
         startActivity(i);
-
+        finish();
     }
 
 

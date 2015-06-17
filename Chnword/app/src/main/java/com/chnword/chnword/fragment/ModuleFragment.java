@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import com.chnword.chnword.R;
@@ -23,7 +24,7 @@ import io.vov.vitamio.widget.VideoView;
  */
 public class ModuleFragment extends Fragment {
 
-    ListView listView;
+    GridView listView;
     ModuleAdapter moduleAdapter;
 
 
@@ -31,7 +32,7 @@ public class ModuleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_module, container, false);
 
-        listView = (ListView) view.findViewById(R.id.module_listView);
+        listView = (GridView) view.findViewById(R.id.module_listView);
         moduleAdapter = new ModuleAdapter(getActivity(), ((WordActivity) getActivity()).getModules());
         listView.setAdapter(moduleAdapter);
         listView.setOnItemClickListener(moduleItemClick);
