@@ -33,8 +33,6 @@ import java.util.UUID;
 public class RegistActivity extends Activity {
     private String TAG = RegistActivity.class.getSimpleName();
 
-    private Button btn_submit;
-    private Button btn_regist;
     private EditText editText;
 
     private ProgressDialog progressDialog;
@@ -53,24 +51,7 @@ public class RegistActivity extends Activity {
             startActivity(intent);
             finish();
         }
-
-
-        btn_submit = (Button) findViewById(R.id.btn_submit_t);
-        btn_regist = (Button) findViewById(R.id.btn_regist_t);
         editText = (EditText) findViewById(R.id.editText);
-
-        btn_submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onLoginClick();
-            }
-        });
-        btn_regist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onRegistClick();
-            }
-        });
     }
 
     @Override
