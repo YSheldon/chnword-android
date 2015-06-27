@@ -2,13 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eee">
+    android:background="#eee"
+    android:gravity="center">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="字"
-        android:id="@+id/word_aname"
-        android:gravity="center"
-        android:textSize="30dp" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:background="@drawable/tzg">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="字"
+            android:id="@+id/word_aname"
+            android:gravity="center"
+            android:textSize="50dp" />
+    </LinearLayout>
 </LinearLayout>

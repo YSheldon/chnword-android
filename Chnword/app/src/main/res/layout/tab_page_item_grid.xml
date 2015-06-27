@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:text="模块名称"
         android:id="@+id/module_name_tab"
-        android:gravity="center" />
+        android:gravity="center"
+        android:layout_margin="3dp" />
 
 </LinearLayout>

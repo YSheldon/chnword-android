@@ -1,45 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/subbg01">
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_above="@+id/scanResult">
 
-            <RelativeLayout
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="4">
-
-                <ListView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/moduleList"
-                    android:layout_alignParentTop="true"
-                    android:layout_above="@+id/button3" />
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="扫描结果"
-                    android:id="@+id/button3"
-                    android:layout_alignParentBottom="true" />
-            </RelativeLayout>
+                android:layout_height="120dp"
+                android:background="@drawable/top01"></LinearLayout>
 
             <GridView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/wordGrid"
                 android:layout_weight="2"
-                android:numColumns="3" />
+                android:numColumns="3"
+                android:layout_marginTop="5dp" />
 
         </LinearLayout>
 
