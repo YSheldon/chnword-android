@@ -25,21 +25,21 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/item_dot1"
                 android:layout_margin="5dp"
-                android:src="@drawable/page_indicator_focused" />
+                android:src="@drawable/pageindicatorfocused" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/item_dot2"
                 android:layout_margin="5dp"
-                android:src="@drawable/page_indicator_unfocused" />
+                android:src="@drawable/pageindicatorunfocused" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/item_dot3"
                 android:layout_margin="5dp"
-                android:src="@drawable/page_indicator_unfocused" />
+                android:src="@drawable/pageindicatorunfocused" />
 
         </LinearLayout>
     </RelativeLayout>

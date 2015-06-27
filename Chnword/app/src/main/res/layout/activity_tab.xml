@@ -35,7 +35,7 @@
                     android:layout_width="55dp"
                     android:layout_height="55dp"
                     android:id="@+id/tab_page"
-                    android:src="@drawable/btn_home"
+                    android:src="@drawable/btnhome"
                     android:scaleType="fitXY" />
 
             </LinearLayout>
@@ -52,7 +52,7 @@
                     android:layout_height="55dp"
                     android:id="@+id/tab_store"
                     android:scaleType="fitXY"
-                    android:src="@drawable/btn_buy" />
+                    android:src="@drawable/btnbuy" />
 
             </LinearLayout>
 
@@ -67,7 +67,7 @@
                     android:layout_width="55dp"
                     android:layout_height="55dp"
                     android:id="@+id/tab_user"
-                    android:src="@drawable/btn_user"
+                    android:src="@drawable/btnuser"
                     android:scaleType="fitXY" />
 
             </LinearLayout>

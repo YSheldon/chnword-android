@@ -8,7 +8,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:id="@+id/module_image"
-        android:src="@drawable/01_a" />
+        android:src="@drawable/a_01" />
 
     <TextView
         android:layout_width="wrap_content"

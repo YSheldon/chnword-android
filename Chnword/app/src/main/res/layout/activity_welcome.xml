@@ -16,7 +16,7 @@
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_trial"
+            android:background="@drawable/buttontrial"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"></LinearLayout>
     </LinearLayout>
@@ -81,7 +81,7 @@
                             android:orientation="vertical"
                             android:layout_width="fill_parent"
                             android:layout_height="5dp"
-                            android:background="@drawable/inputboy_line"></LinearLayout>
+                            android:background="@drawable/inputboyline"></LinearLayout>
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -100,7 +100,7 @@
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@drawable/button_login"
+            android:background="@drawable/buttonlogin"
             android:onClick="onLoginClick"
             android:clickable="true"></LinearLayout>
     </LinearLayout>
