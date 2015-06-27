@@ -3,58 +3,140 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
         android:layout_height="45dp"
-        android:background="#eee">
+        android:gravity="center"
+        android:background="#ff0000">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="用户"
-            android:id="@+id/textView10"
-            android:layout_gravity="center_horizontal"
-            android:layout_centerInParent="true"
-            android:textColor="#000" />
-    </RelativeLayout>
+            android:id="@+id/textView19"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="您当前是试用用户"
+                android:id="@+id/textView20"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:textSize="16dp"
+                android:textColor="#000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="更换用户登录"
+                android:id="@+id/textView21"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:textColor="#ff0127ff"
+                android:layout_marginRight="5dp"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="如果您购买了任何《三千字》实体产品，您可使用随产品附赠的用户码登录。您也可以用其他已知的用户码或绑定对应的手机号码登录。"
+            android:id="@+id/textView22"
+            android:layout_margin="5dp" />
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:weightSum="1">
 
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:id="@+id/imageView3"
-            android:src="@drawable/xiaohei_big" />
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="60dp">
 
-        <LinearLayout
-            android:orientation="horizontal"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="绑定手机号"
+                android:id="@+id/textView23"
+                android:layout_marginLeft="5dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:textColor="#000" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:ems="10"
+                android:id="@+id/registPhoneNumber"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/textView24"
+                android:layout_toRightOf="@+id/textView23"
+                android:phoneNumber="true"
+                android:hint="请输入您的手机号" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="提交"
+                android:id="@+id/textView24"
+                android:layout_marginLeft="5dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:textSize="16dp"
+                android:textColor="#ff0127ff"
+                android:layout_marginRight="5dp" />
+        </RelativeLayout>
+
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tab_user_mycode"
-                android:id="@+id/textView27"
-                android:layout_margin="3dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tab_user_code"
-                android:id="@+id/tab_user_code"
-                android:layout_margin="3dp" />
-        </LinearLayout>
-
+            android:layout_height="wrap_content"
+            android:text="将您的用户码和手机号码绑定，从而以后您可以用手机号登录，避免因为记不清用户码带来的麻烦（仅对授权用户有效）"
+            android:id="@+id/textView25"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
     </LinearLayout>
 
-    <WebView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/webView"
-        />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="用户须知"
+            android:id="@+id/textView26"
+            android:textSize="16dp"
+            android:textColor="#000"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="试用状态下，您若购买任何在线商店产品（比如动画资源库），则自动升级为授权用户，系统将为您分配一个新的用户码。  每个用户码限同时最多两个设备登录。当您使用同一个用户码尝试在第三台设备上登录使用时，系统将向您的手机发送验证码，验证成功后，第三台设备方可继续使用该产品，与此同时，您之前的两个设备中之一将无法再使用该用户码。（如果您没有绑定手机号码，则无法执行该操作） "
+            android:id="@+id/textView29"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp" />
+    </LinearLayout>
+
 </LinearLayout>

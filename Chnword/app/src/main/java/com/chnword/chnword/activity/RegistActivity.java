@@ -107,7 +107,8 @@ public class RegistActivity extends Activity {
 //        net.start();
 //        Log.e(TAG, param.toString());
 
-        Intent i = new Intent(this, WordActivity.class);
+//        Intent i = new Intent(this, WordActivity.class);
+        Intent i = new Intent(this, TabActivity.class);
         startActivity(i);
         finish();
     }

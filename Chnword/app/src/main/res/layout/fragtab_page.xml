@@ -9,7 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="45dp"
         android:gravity="center"
-        android:background="#eee">
+        android:background="#ff0000">
 
         <TextView
             android:layout_width="wrap_content"
@@ -24,43 +24,50 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="10dp"
-            android:clickable="true"
-            android:background="#eee"
-            android:id="@+id/zi_anim">
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tab_page_anmi"
-                android:id="@+id/textView12"
-                android:layout_marginTop="20dp"
-                android:background="#eee"
-                android:layout_centerInParent="true" />
-        </RelativeLayout>
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/imageButton"
+                android:src="@drawable/BUTTON_fontmv"
+                android:scaleType="fitCenter" />
+        </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:clickable="true"
-            android:background="#eee"
-            android:id="@+id/zi_scan">
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tab_page_scan"
-                android:id="@+id/textView13"
-                android:layout_centerInParent="true" />
-        </RelativeLayout>
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/imageButton2"
+                android:scaleType="fitCenter"
+                android:src="@drawable/BUTTON_scan" />
+        </LinearLayout>
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/gameListView" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/imageButton3"
+                android:src="@drawable/BUTTON_zike"
+                android:scaleType="fitCenter" />
+        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>

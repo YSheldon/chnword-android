@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.chnword.chnword.R;
@@ -20,9 +21,7 @@ import java.io.File;
  */
 public class TabUser extends Fragment {
 
-    private WebView webView;
-
-    private TextView textView;
+    private EditText registPhoneNumber;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,16 +31,13 @@ public class TabUser extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragtab_user, container, false);
-        webView = (WebView) view.findViewById(R.id.webView);
-        textView = (TextView) view.findViewById(R.id.tab_user_code);
+
+
+        registPhoneNumber = (EditText) view.findViewById(R.id.registPhoneNumber);
 
         LocalStore store = new LocalStore(getActivity());
-        textView.setText(store.getDefaultUser());
 
-//        File f = getActivity().getAssets();
-        //todo 看是否可用
-        webView.loadUrl("file:///android_asset/guide.html");
-
+//        webView.loadUrl("file:///android_asset/guide.html");
 
         return view;
     }
