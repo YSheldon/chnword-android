@@ -15,7 +15,7 @@
         android:layout_height="55dp"
         android:id="@+id/main_buttom"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/bottom_bar">
+        android:background="#ddd">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -35,7 +35,7 @@
                     android:layout_width="55dp"
                     android:layout_height="55dp"
                     android:id="@+id/tab_page"
-                    android:src="@drawable/BUT_HOME"
+                    android:src="@drawable/btn_home"
                     android:scaleType="fitXY" />
 
             </LinearLayout>
@@ -52,7 +52,7 @@
                     android:layout_height="55dp"
                     android:id="@+id/tab_store"
                     android:scaleType="fitXY"
-                    android:src="@drawable/BUT_BUY" />
+                    android:src="@drawable/btn_buy" />
 
             </LinearLayout>
 
@@ -67,7 +67,7 @@
                     android:layout_width="55dp"
                     android:layout_height="55dp"
                     android:id="@+id/tab_user"
-                    android:src="@drawable/BUT_USER"
+                    android:src="@drawable/btn_user"
                     android:scaleType="fitXY" />
 
             </LinearLayout>

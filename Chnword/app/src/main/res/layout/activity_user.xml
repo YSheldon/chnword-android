@@ -27,8 +27,7 @@
         <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:id="@+id/imageView3"
-            android:src="@drawable/xiaohei_big" />
+            android:id="@+id/imageView3"/>
 
         <LinearLayout
             android:orientation="horizontal"
