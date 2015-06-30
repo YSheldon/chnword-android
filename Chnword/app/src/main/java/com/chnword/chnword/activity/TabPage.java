@@ -37,9 +37,6 @@ public class TabPage extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragtab_page, container, false);
 
-        gameListView = (ListView) view.findViewById(R.id.gameListView);
-        gameListView.setAdapter(new GameAdapter(getActivity()));
-
         zi_anim = (View) view.findViewById(R.id.zi_anim);
         zi_scan = (View) view.findViewById(R.id.zi_scan);
 
@@ -93,7 +90,7 @@ public class TabPage extends Fragment {
 
     public void onPageAnim() {
 
-        Intent i = new Intent(getActivity(), AnimActivity.class);
+        Intent i = new Intent(getActivity(), CategoryActivity.class);
         startActivity(i);
     }
 
@@ -103,60 +100,4 @@ public class TabPage extends Fragment {
         startActivity(i);
     }
 
-    //adapter
-    class GameAdapter extends BaseAdapter{
-
-        List<String> gameNames = new ArrayList<String>();
-
-        private Context context;
-        GameAdapter(Context context) {
-
-            gameNames.add("小游戏1");
-            gameNames.add("小游戏2");
-            gameNames.add("小游戏3");
-            gameNames.add("小游戏4");
-            gameNames.add("小游戏1");
-            gameNames.add("小游戏2");
-            gameNames.add("小游戏3");
-            gameNames.add("小游戏4");
-            gameNames.add("小游戏1");
-            gameNames.add("小游戏2");
-            gameNames.add("小游戏3");
-            gameNames.add("小游戏4");
-            gameNames.add("小游戏1");
-            gameNames.add("小游戏2");
-            gameNames.add("小游戏3");
-            gameNames.add("小游戏4");
-            this.context = context;
-
-        }
-
-        @Override
-        public int getCount() {
-            return gameNames.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return gameNames.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            if (convertView == null){
-                LayoutInflater inflater = LayoutInflater.from(context);
-                convertView = inflater.inflate(R.layout.tab_page_item, null);
-            }
-            TextView title = (TextView) convertView.findViewById(R.id.title);
-            title.setText(gameNames.get(position));
-
-            return convertView;
-        }
-    }
 }

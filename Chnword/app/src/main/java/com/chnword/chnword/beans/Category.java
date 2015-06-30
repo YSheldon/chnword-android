@@ -3,7 +3,7 @@ package com.chnword.chnword.beans;
 /**
  * Created by khtc on 15/5/8.
  */
-public class Module {
+public class Category {
 
     private String name;
     private boolean isLock;

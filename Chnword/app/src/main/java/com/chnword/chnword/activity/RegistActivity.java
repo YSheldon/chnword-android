@@ -10,22 +10,12 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.chnword.chnword.R;
 import com.chnword.chnword.net.AbstractNet;
-import com.chnword.chnword.net.DeviceUtil;
-import com.chnword.chnword.net.NetConf;
-import com.chnword.chnword.net.NetParamFactory;
-import com.chnword.chnword.net.VerifyNet;
 import com.chnword.chnword.store.LocalStore;
-
-import org.json.JSONObject;
-
-import java.util.UUID;
 
 /**
  * Created by khtc on 15/4/23.
@@ -42,7 +32,7 @@ public class RegistActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_welcome);
+        setContentView(R.layout.activity_register);
 
         LocalStore store = new LocalStore(this);
         if (!"NULL".equalsIgnoreCase(store.getDefaultUser()))
@@ -128,7 +118,7 @@ public class RegistActivity extends Activity {
 //        net.start();
 //        Log.e(TAG, param.toString());
 
-        Intent i = new Intent(this, WordActivity.class);
+        Intent i = new Intent(this, WordActivity_t.class);
         startActivity(i);
         finish();
     }

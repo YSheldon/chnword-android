@@ -9,33 +9,32 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.chnword.chnword.R;
-import com.chnword.chnword.beans.Module;
+import com.chnword.chnword.beans.Category;
 
 import java.util.List;
-import java.util.zip.Inflater;
 
 /**
  * Created by khtc on 15/6/16.
  */
-public class ModuleAdapter extends BaseAdapter {
-    private static final String TAG = ModuleAdapter.class.getSimpleName();
+public class CategoryAdapter extends BaseAdapter {
+    private static final String TAG = CategoryAdapter.class.getSimpleName();
 
     private Context mContext;
-    private List<Module> moduleList;
+    private List<Category> categoryList;
 
-    public ModuleAdapter(Context mContext, List<Module> moduleList) {
+    public CategoryAdapter(Context mContext, List<Category> categoryList) {
         this.mContext = mContext;
-        this.moduleList = moduleList;
+        this.categoryList = categoryList;
     }
 
     @Override
     public int getCount() {
-        return moduleList.size();
+        return categoryList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return moduleList.get(position);
+        return categoryList.get(position);
     }
 
     @Override
@@ -48,25 +47,25 @@ public class ModuleAdapter extends BaseAdapter {
 
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(mContext);
-            convertView = inflater.inflate(R.layout.element_module, null);
+            convertView = inflater.inflate(R.layout.item_category, null);
         }
 
         TextView moduleName = (TextView) convertView.findViewById(R.id.module_name_tab);
-        TextView isLock = (TextView) convertView.findViewById(R.id.isLock);
-        Module m = (Module) getItem(position);
+//        TextView isLock = (TextView) convertView.findViewById(R.id.isLock);
+        Category m = (Category) getItem(position);
 
-        Log.e(TAG, (moduleName == null) + " is " +
-                "" + m.getName());
+        Log.e(TAG, (moduleName == null) + " is " + "" + m.getName());
+
         moduleName.setText(m.getName());
 
         return convertView;
     }
 
-    public List<Module> getModuleList() {
-        return moduleList;
+    public List<Category> getCategoryList() {
+        return categoryList;
     }
 
-    public void setModuleList(List<Module> moduleList) {
-        this.moduleList = moduleList;
+    public void setCategoryList(List<Category> categoryList) {
+        this.categoryList = categoryList;
     }
 }

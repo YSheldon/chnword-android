@@ -12,22 +12,22 @@ import android.widget.ListView;
 
 import com.chnword.chnword.R;
 import com.chnword.chnword.activity.ShowActivity;
-import com.chnword.chnword.activity.WordActivity;
-import com.chnword.chnword.adapter.ModuleAdapter;
+import com.chnword.chnword.activity.WordActivity_t;
+import com.chnword.chnword.adapter.CategoryAdapter;
 import com.chnword.chnword.adapter.WordAdapter;
-import com.chnword.chnword.beans.Module;
+import com.chnword.chnword.beans.Category;
 import com.chnword.chnword.beans.Word;
 
 /**
  * Created by khtc on 15/6/16.
  * 二级分类模块
  */
-public class WordFragment extends Fragment {
+public class WordFragment_t extends Fragment {
 
     ListView word_module_listView;
     GridView word_gridView;
 
-    ModuleAdapter moduleAdapter;
+    CategoryAdapter categoryAdapter;
     WordAdapter wordAdapter;
 
 
@@ -39,11 +39,11 @@ public class WordFragment extends Fragment {
         word_module_listView = (ListView) view.findViewById(R.id.word_module_listView);
         word_gridView = (GridView) view.findViewById(R.id.word_gridView);
 
-        moduleAdapter = new ModuleAdapter(getActivity(), ((WordActivity) getActivity()).getModules());
-        wordAdapter = new WordAdapter(getActivity(), ((WordActivity) getActivity()).getWords());
+        categoryAdapter = new CategoryAdapter(getActivity(), ((WordActivity_t) getActivity()).getCategories());
+        wordAdapter = new WordAdapter(getActivity(), ((WordActivity_t) getActivity()).getWords());
 
 
-        word_module_listView.setAdapter(moduleAdapter);
+        word_module_listView.setAdapter(categoryAdapter);
         word_module_listView.setOnItemClickListener(moduleItemClick);
 
         word_gridView.setAdapter(wordAdapter);
@@ -71,8 +71,8 @@ public class WordFragment extends Fragment {
     private AdapterView.OnItemClickListener moduleItemClick = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Module module = (Module)moduleAdapter.getItem(position);
-            ((WordActivity) getActivity()).showWord(module);
+            Category category = (Category) categoryAdapter.getItem(position);
+            ((WordActivity_t) getActivity()).showWord(category);
         }
     };
     private AdapterView.OnItemClickListener wordItemClick = new AdapterView.OnItemClickListener() {
@@ -94,7 +94,7 @@ public class WordFragment extends Fragment {
 
 
     public void updateData() {
-        moduleAdapter.notifyDataSetChanged();
+        categoryAdapter.notifyDataSetChanged();
         wordAdapter.notifyDataSetChanged();
     }
 

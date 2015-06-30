@@ -22,7 +22,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.chnword.chnword.R;
-import com.chnword.chnword.beans.Module;
+import com.chnword.chnword.beans.Category;
 import com.chnword.chnword.net.AbstractNet;
 import com.chnword.chnword.net.DeviceUtil;
 import com.chnword.chnword.net.NetConf;
@@ -39,11 +39,11 @@ import java.util.List;
 /**
  * Created by khtc on 15/4/27.
  */
-public class AnimActivity extends Activity {
-    private static final String TAG = AnimActivity.class.getSimpleName();
+public class CategoryActivity extends Activity {
+    private static final String TAG = CategoryActivity.class.getSimpleName();
 
     private GridView gridView;
-    private List<Module> list;
+    private List<Category> list;
     private ModuleListAdapter moduleListAdapter;
     private ProgressDialog progressDialog;
 
@@ -52,11 +52,11 @@ public class AnimActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_anim);
+        setContentView(R.layout.activity_category);
 
         store = new LocalStore(this);
 
-        list = new ArrayList<Module>();
+        list = new ArrayList<Category>();
         list.addAll(store.getDefaultModule());
         moduleListAdapter = new ModuleListAdapter(this);
 
@@ -121,7 +121,7 @@ public class AnimActivity extends Activity {
             mContext = context;
 
         }
-        ModuleListAdapter(Context context, List<Module> list) {
+        ModuleListAdapter(Context context, List<Category> list) {
 
             mContext = context;
             inflater  = LayoutInflater.from(mContext);
@@ -149,11 +149,11 @@ public class AnimActivity extends Activity {
             if (convertView == null){
 
                 inflater  = LayoutInflater.from(mContext);
-                convertView = (View) inflater.inflate(R.layout.tab_page_item_grid, null);
+                convertView = (View) inflater.inflate(R.layout.item_category, null);
             }
             TextView moduleName = (TextView) convertView.findViewById(R.id.module_name_tab);
             TextView isLock = (TextView) findViewById(R.id.isLock);
-            Module m = (Module) getItem(position);
+            Category m = (Category) getItem(position);
 
             Log.e(TAG, (moduleName == null) + " is " +
                     "" + m.getName());
@@ -171,16 +171,16 @@ public class AnimActivity extends Activity {
     private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Module m = list.get(position);
+            Category m = list.get(position);
             Log.e(TAG, m.getName() + " " + m.getCname());
-            Intent i = new Intent(AnimActivity.this, ResultActivity.class);
+            Intent i = new Intent(CategoryActivity.this, WordActivity.class);
             i.putExtra("ZoneCode", m.getCname());
 
             ArrayList<String> names = new ArrayList<String>();
             ArrayList<String> cnames = new ArrayList<String>();
-            for (Module module : list) {
-                names.add(module.getName());
-                cnames.add(module.getCname());
+            for (Category category : list) {
+                names.add(category.getName());
+                cnames.add(category.getCname());
             }
 
             i.putStringArrayListExtra("moduleName", names);
@@ -211,7 +211,7 @@ public class AnimActivity extends Activity {
                     for(int i = 0; i < names.length(); i ++) {
                         String name = names.getString(i);
                         String cname = cnames.getString(i);
-                        Module m = new Module();
+                        Category m = new Category();
                         m.setName(name);
                         m.setCname(cname);
                         list.add(m);
@@ -222,7 +222,7 @@ public class AnimActivity extends Activity {
                 }
 
                 if (msg.what == AbstractNet.NETWHAT_FAIL) {
-                    new AlertDialog.Builder(AnimActivity.this)
+                    new AlertDialog.Builder(CategoryActivity.this)
                             .setTitle("提示")
                             .setMessage("注册失败")
                             .setPositiveButton("是", new DialogInterface.OnClickListener() {

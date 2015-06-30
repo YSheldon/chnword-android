@@ -7,25 +7,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ListView;
 
 import com.chnword.chnword.R;
-import com.chnword.chnword.activity.WordActivity;
-import com.chnword.chnword.adapter.ModuleAdapter;
-import com.chnword.chnword.beans.Module;
-
-import io.vov.vitamio.MediaPlayer;
-import io.vov.vitamio.widget.MediaController;
-import io.vov.vitamio.widget.VideoView;
+import com.chnword.chnword.activity.WordActivity_t;
+import com.chnword.chnword.adapter.CategoryAdapter;
+import com.chnword.chnword.beans.Category;
 
 /**
  * Created by khtc on 15/6/16.
  * 一级模块
  */
-public class ModuleFragment extends Fragment {
+public class CategoryFragment extends Fragment {
 
     GridView listView;
-    ModuleAdapter moduleAdapter;
+    CategoryAdapter categoryAdapter;
 
 
     @Override
@@ -33,8 +28,8 @@ public class ModuleFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_module, container, false);
 
         listView = (GridView) view.findViewById(R.id.module_listView);
-        moduleAdapter = new ModuleAdapter(getActivity(), ((WordActivity) getActivity()).getModules());
-        listView.setAdapter(moduleAdapter);
+        categoryAdapter = new CategoryAdapter(getActivity(), ((WordActivity_t) getActivity()).getCategories());
+        listView.setAdapter(categoryAdapter);
         listView.setOnItemClickListener(moduleItemClick);
 
         return view;
@@ -59,14 +54,14 @@ public class ModuleFragment extends Fragment {
     private AdapterView.OnItemClickListener moduleItemClick = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Module module = (Module)moduleAdapter.getItem(position);
-            ((WordActivity) getActivity()).showWord(module);
+            Category category = (Category) categoryAdapter.getItem(position);
+            ((WordActivity_t) getActivity()).showWord(category);
         }
     };
 
 
     public void updateData() {
-        moduleAdapter.notifyDataSetChanged();
+        categoryAdapter.notifyDataSetChanged();
     }
 
 }

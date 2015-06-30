@@ -3,7 +3,7 @@ package com.chnword.chnword.store;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.chnword.chnword.beans.Module;
+import com.chnword.chnword.beans.Category;
 import com.chnword.chnword.beans.Word;
 
 import java.util.ArrayList;
@@ -141,11 +141,11 @@ public class LocalStore {
 
     //-------------------default module and word
 
-    public void setDefaultModule(List<Module> list) {
+    public void setDefaultModule(List<Category> list) {
         Set<String> set = new HashSet<String>();
 
-        for (Module module : list ) {
-            set.add(module.getName() + ":" + module.getCname());
+        for (Category category : list ) {
+            set.add(category.getName() + ":" + category.getCname());
         }
         SharedPreferences.Editor editor = perference.edit();
         editor.putStringSet(WORDDEFAULTKEY, set);
@@ -153,14 +153,14 @@ public class LocalStore {
 
     }
 
-    public List<Module> getDefaultModule() {
+    public List<Category> getDefaultModule() {
         Set<String> set = new HashSet<String>();
         Set<String> modules = perference.getStringSet(WORDDEFAULTKEY, set);
-        List<Module> lists = new ArrayList<Module>();
+        List<Category> lists = new ArrayList<Category>();
         for (String str : modules) {
             String[] strs = str.split(":");
             if (strs.length ==2) {
-                Module m = new Module();
+                Category m = new Category();
                 m.setName(strs[0]);
                 m.setCname(strs[1]);
             }
@@ -198,11 +198,11 @@ public class LocalStore {
     //--------------------users
 
 
-    public void setDefaultModule(List<Module> list, String userCode) {
+    public void setDefaultModule(List<Category> list, String userCode) {
         Set<String> set = new HashSet<String>();
 
-        for (Module module : list ) {
-            set.add(module.getName() + ":" + module.getCname());
+        for (Category category : list ) {
+            set.add(category.getName() + ":" + category.getCname());
         }
 
         SharedPreferences.Editor editor = perference.edit();
@@ -211,13 +211,13 @@ public class LocalStore {
 
     }
 
-    public List<Module> getDefaultModule(String userCode) {
+    public List<Category> getDefaultModule(String userCode) {
         Set<String> set = new HashSet<String>();
         Set<String> modules = perference.getStringSet(userCode + "_defaultModule", set);
-        List<Module> lists = new ArrayList<Module>();
+        List<Category> lists = new ArrayList<Category>();
         for (String str : modules) {
             String[] strs = str.split(":");
-            Module m = new Module();
+            Category m = new Category();
             m.setName(strs[0]);
             m.setCname(strs[1]);
         }

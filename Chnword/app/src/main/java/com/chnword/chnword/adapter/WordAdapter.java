@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.chnword.chnword.R;
-import com.chnword.chnword.beans.Module;
 import com.chnword.chnword.beans.Word;
 
 import java.util.List;
@@ -46,7 +45,7 @@ public class WordAdapter extends BaseAdapter {
 
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(mContext);
-            convertView = inflater.inflate(R.layout.element_word, null);
+            convertView = inflater.inflate(R.layout.item_word, null);
         }
 
         TextView textView = (TextView) convertView.findViewById(R.id.module_name_item);

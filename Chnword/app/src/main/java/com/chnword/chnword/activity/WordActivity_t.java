@@ -11,11 +11,11 @@ import android.os.Message;
 import android.util.Log;
 
 import com.chnword.chnword.R;
-import com.chnword.chnword.beans.Module;
+import com.chnword.chnword.beans.Category;
 import com.chnword.chnword.beans.Word;
-import com.chnword.chnword.fragment.ModuleFragment;
-import com.chnword.chnword.fragment.ScanResultFragment;
+import com.chnword.chnword.fragment.CategoryFragment;
 import com.chnword.chnword.fragment.WordFragment;
+import com.chnword.chnword.fragment.WordFragment_t;
 import com.chnword.chnword.net.AbstractNet;
 import com.chnword.chnword.net.DeviceUtil;
 import com.chnword.chnword.net.NetConf;
@@ -32,14 +32,14 @@ import java.util.List;
 /**
  * Created by khtc on 15/6/16.
  */
-public class WordActivity extends Activity {
-    private static final String TAG = WordActivity.class.getSimpleName();
+public class WordActivity_t extends Activity {
+    private static final String TAG = WordActivity_t.class.getSimpleName();
 
-    ModuleFragment moduleFragment;
-    ScanResultFragment scanResultFragment;
+    CategoryFragment categoryFragment;
     WordFragment wordFragment;
+    WordFragment_t wordFragmentT;
 
-    private List<Module> modules = new ArrayList<Module>();
+    private List<Category> categories = new ArrayList<Category>();
     private List<Word> words = new ArrayList<Word>();
 
     private ProgressDialog progressDialog;
@@ -49,18 +49,18 @@ public class WordActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_word);
+        setContentView(R.layout.activity_word_t);
 
-        moduleFragment = new ModuleFragment();
-        scanResultFragment = new ScanResultFragment();
+        categoryFragment = new CategoryFragment();
         wordFragment = new WordFragment();
+        wordFragmentT = new WordFragment_t();
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.add(R.id.word_fragment_container, moduleFragment);
+        transaction.add(R.id.word_fragment_container, categoryFragment);
+        transaction.add(R.id.word_fragment_container, wordFragmentT);
         transaction.add(R.id.word_fragment_container, wordFragment);
-        transaction.add(R.id.word_fragment_container, scanResultFragment);
-        transaction.hide(scanResultFragment);
         transaction.hide(wordFragment);
+        transaction.hide(wordFragmentT);
         transaction.commit();
 
         //请求数据
@@ -92,23 +92,23 @@ public class WordActivity extends Activity {
 
     public void showModule() {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.hide(wordFragmentT);
         transaction.hide(wordFragment);
-        transaction.hide(scanResultFragment);
-        transaction.show(moduleFragment);
+        transaction.show(categoryFragment);
         transaction.commit();
     }
 
-    public void showWord(Module module) {
+    public void showWord(Category category) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.hide(moduleFragment);
-        transaction.hide(scanResultFragment);
-        transaction.show(wordFragment);
+        transaction.hide(categoryFragment);
+        transaction.hide(wordFragment);
+        transaction.show(wordFragmentT);
         transaction.commit();
 
         //请求网络数据  sublist
         String userid = store.getDefaultUser();
         String deviceId = DeviceUtil.getDeviceId(this);
-        JSONObject param = NetParamFactory.subListParam(userid, deviceId, module.getCname(), 0, 0);
+        JSONObject param = NetParamFactory.subListParam(userid, deviceId, category.getCname(), 0, 0);
         AbstractNet net = new VerifyNet(wordResultHandler, param, NetConf.URL_SUBLIST);
         progressDialog = ProgressDialog.show(this, "title", "loading");
         net.start();
@@ -117,9 +117,9 @@ public class WordActivity extends Activity {
 
     public void showScanResult() {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.hide(wordFragment);
-        transaction.hide(moduleFragment);
-        transaction.show(scanResultFragment);
+        transaction.hide(wordFragmentT);
+        transaction.hide(categoryFragment);
+        transaction.show(wordFragment);
         transaction.commit();
     }
 
@@ -129,8 +129,8 @@ public class WordActivity extends Activity {
 
 
 
-    public List<Module> getModules() {
-        return modules;
+    public List<Category> getCategories() {
+        return categories;
     }
 
     public List<Word> getWords() {
@@ -148,7 +148,7 @@ public class WordActivity extends Activity {
             try {
                 if (msg.what == AbstractNet.NETWHAT_SUCESS)
                 {
-                    modules.clear();
+                    categories.clear();
                     Bundle b = msg.getData();
                     String str = b.getString("responseBody");
                     Log.e(TAG, str);
@@ -160,22 +160,22 @@ public class WordActivity extends Activity {
                     for(int i = 0; i < names.length(); i ++) {
                         String name = names.getString(i);
                         String cname = cnames.getString(i);
-                        Module m = new Module();
+                        Category m = new Category();
                         m.setName(name);
                         m.setCname(cname);
-                        modules.add(m);
+                        categories.add(m);
                     }
-                    Log.e(TAG, modules.size() + "");
-                    store.setDefaultModule(modules);
+                    Log.e(TAG, categories.size() + "");
+                    store.setDefaultModule(categories);
 //                    moduleListAdapter.notifyDataSetChanged();
-                    moduleFragment.updateData();
+                    categoryFragment.updateData();
 
                     //todo 发起网络请求，请求第一项的二级菜单。
 
                 }
 
                 if (msg.what == AbstractNet.NETWHAT_FAIL) {
-                    new AlertDialog.Builder(WordActivity.this)
+                    new AlertDialog.Builder(WordActivity_t.this)
                             .setTitle("提示")
                             .setMessage("网络请求失败，请检查网络。")
                             .setPositiveButton("是", new DialogInterface.OnClickListener() {
@@ -223,7 +223,7 @@ public class WordActivity extends Activity {
 
 //
 //                        wordAdapter.notifyDataSetChanged();
-                        wordFragment.updateData();
+                        wordFragmentT.updateData();
                     }
 
 

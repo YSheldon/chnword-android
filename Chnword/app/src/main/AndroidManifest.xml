@@ -42,7 +42,7 @@
         </activity>
 
         <activity android:name=".activity.TabActivity" android:launchMode="singleTask"></activity>
-        <activity android:name=".activity.WordActivity"></activity>
+        <activity android:name=".activity.WordActivity_t"></activity>
         <activity android:name=".activity.ScanActivity" android:screenOrientation="landscape"></activity>
         <activity android:name=".activity.RegistActivity"></activity>
         <activity android:name=".activity.ShowActivity"></activity>

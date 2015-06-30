@@ -475,7 +475,7 @@ public class ScanActivity extends Activity {
                         }
 
                         //todo 跳转到结果显示页面
-                        Intent intent = new Intent(ScanActivity.this, ResultActivity.class);
+                        Intent intent = new Intent(ScanActivity.this, WordActivity.class);
                         intent.putExtra("SEARCH_RESULT", searchResult);
                         intent.putExtra("WORD_TIP", word_tip);
                         intent.putStringArrayListExtra("WORD_NAME", word_names);
