@@ -85,13 +85,11 @@ public class GifFragment extends Fragment {
     {
         // 图片ID
         int[] images = {
-                R.drawable.index,
-                R.drawable.index_back,
-                R.drawable.item_home,
-                R.drawable.item_shop,
-                R.drawable.item_user,
-                R.drawable.sample,
-                R.drawable.scan_box };
+                R.drawable.bgmain,
+                R.drawable.playbg,
+                R.drawable.subbg01,
+                R.drawable.subbg02,
+                R.drawable.subbg03};
 //        int[] images = {R.drawable.index};
 
         ImageAdapter adapter = new ImageAdapter(mContext, images);

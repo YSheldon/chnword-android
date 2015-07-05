@@ -9,7 +9,7 @@
         android:orientation="vertical"
         android:layout_width="140px"
         android:layout_height="140px"
-        android:background="@drawable/TZG">
+        android:background="@drawable/tzg">
 
         <TextView
             android:layout_width="match_parent"

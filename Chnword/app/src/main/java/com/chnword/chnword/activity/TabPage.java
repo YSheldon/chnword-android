@@ -25,9 +25,6 @@ public class TabPage extends Fragment {
     private TabActivityListener listener;
     private ListView gameListView;
 
-    private View zi_scan;
-    private View zi_anim;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,22 +34,7 @@ public class TabPage extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragtab_page, container, false);
 
-        zi_anim = (View) view.findViewById(R.id.zi_anim);
-        zi_scan = (View) view.findViewById(R.id.zi_scan);
 
-        zi_anim.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onPageAnim();
-            }
-        });
-
-        zi_scan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onPageScan();
-            }
-        });
 
 
 

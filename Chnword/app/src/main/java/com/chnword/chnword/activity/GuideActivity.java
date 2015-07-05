@@ -166,9 +166,9 @@ public class GuideActivity extends Activity {
 
             for (int i = 0; i < mdots.size(); i ++){
                 if (i == index){
-                    mdots.get(i).setImageResource(R.drawable.page_indicator_focused);
+                    mdots.get(i).setImageResource(R.drawable.pageindicatorfocused);
                 }else {
-                    mdots.get(i).setImageResource(R.drawable.page_indicator_unfocused);
+                    mdots.get(i).setImageResource(R.drawable.pageindicatorunfocused);
                 }
             }
 

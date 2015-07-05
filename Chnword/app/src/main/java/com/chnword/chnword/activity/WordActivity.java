@@ -117,12 +117,12 @@ public class WordActivity extends Activity {
 
         wordList.addAll(store.getDefaultWord(zoneCode));
 
-        listView = (ListView)findViewById(R.id.moduleList);
-        listView.setAdapter(moduleAdapter);
-        listView.setOnItemClickListener(moduleOnItemListener);
-        grideView = (GridView) findViewById(R.id.wordGrid);
-        grideView.setAdapter(wordAdapter);
-        grideView.setOnItemClickListener(wordOnItemListener);
+//        listView = (ListView)findViewById(R.id.moduleList);
+//        listView.setAdapter(moduleAdapter);
+//        listView.setOnItemClickListener(moduleOnItemListener);
+//        grideView = (GridView) findViewById(R.id.wordGrid);
+//        grideView.setAdapter(wordAdapter);
+//        grideView.setOnItemClickListener(wordOnItemListener);
 
 
     }
@@ -278,10 +278,10 @@ public class WordActivity extends Activity {
 
             if (convertView == null) {
                 LayoutInflater inflater = LayoutInflater.from(WordActivity.this);
-                convertView = inflater.inflate(R.layout.item_module_sublist, null);
+                convertView = inflater.inflate(R.layout.item_word, null);
             }
 
-            TextView textView = (TextView) convertView.findViewById(R.id.module_name_item);
+            TextView textView = (TextView) convertView.findViewById(R.id.word_aname);
             textView.setText(categoryList.get(position).getName());
 
             return convertView;

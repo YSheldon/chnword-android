@@ -37,28 +37,30 @@ public class SplashActivity extends Activity {
     protected void onStart(){
         super.onStart();
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
+        Intent i = new Intent(SplashActivity.this, GuideActivity.class);
+        startActivity(i);
+        return ;
 
-
-
-                SharedPreferences perferences = getSharedPreferences(PerferenceKey.FirstLoginPreferences, Context.MODE_PRIVATE);
-                boolean isFirstLogin = perferences.getBoolean(PerferenceKey.firstLoginKey, true);
-                if (!isFirstLogin) {
-                    Intent intent = new Intent(SplashActivity.this, RegistActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    SharedPreferences.Editor editor = perferences.edit();
-                    editor.putBoolean(PerferenceKey.firstLoginKey, false);
-                    editor.commit();
-                    Intent i = new Intent(SplashActivity.this, GuideActivity.class);
-                    startActivity(i);
-                    finish();
-                }
-            }
-        }, 2000);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                SharedPreferences perferences = getSharedPreferences(PerferenceKey.FirstLoginPreferences, Context.MODE_PRIVATE);
+//                boolean isFirstLogin = perferences.getBoolean(PerferenceKey.firstLoginKey, true);
+//                if (!isFirstLogin) {
+//                    Intent intent = new Intent(SplashActivity.this, RegistActivity.class);
+//                    startActivity(intent);
+//                    finish();
+//                } else {
+//                    SharedPreferences.Editor editor = perferences.edit();
+//                    editor.putBoolean(PerferenceKey.firstLoginKey, false);
+//                    editor.commit();
+//                    Intent i = new Intent(SplashActivity.this, GuideActivity.class);
+//                    startActivity(i);
+//                    finish();
+//                }
+//            }
+//        }, 2000);
     }
 
 

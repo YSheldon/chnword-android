@@ -48,7 +48,7 @@ public class WordAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.item_word, null);
         }
 
-        TextView textView = (TextView) convertView.findViewById(R.id.module_name_item);
+        TextView textView = (TextView) convertView.findViewById(R.id.word_aname);
 
         Word word = wordList.get(position);
         textView.setText(word.getWord());

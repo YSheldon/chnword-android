@@ -152,7 +152,7 @@ public class CategoryActivity extends Activity {
                 convertView = (View) inflater.inflate(R.layout.item_category, null);
             }
             TextView moduleName = (TextView) convertView.findViewById(R.id.module_name_tab);
-            TextView isLock = (TextView) findViewById(R.id.isLock);
+//            TextView isLock = (TextView) convertView.findViewById(R.id.isLock);
             Category m = (Category) getItem(position);
 
             Log.e(TAG, (moduleName == null) + " is " +
@@ -160,7 +160,7 @@ public class CategoryActivity extends Activity {
             moduleName.setText(m.getName());
 
             if (store.isUnlockAll(store.getDefaultUser()) || store.getUnlockModels(store.getDefaultUser()).contains(m.getCname())) {
-                isLock.setText("解锁");
+//                isLock.setText("解锁");
             }
 
 
