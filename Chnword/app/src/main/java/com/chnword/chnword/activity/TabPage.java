@@ -23,7 +23,6 @@ import java.util.List;
 public class TabPage extends Fragment {
 
     private TabActivityListener listener;
-    private ListView gameListView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,10 +32,6 @@ public class TabPage extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragtab_page, container, false);
-
-
-
-
 
         return view;
     }
@@ -66,20 +61,5 @@ public class TabPage extends Fragment {
         this.listener = listener;
     }
 
-
-    //事件处理
-
-
-    public void onPageAnim() {
-
-        Intent i = new Intent(getActivity(), CategoryActivity.class);
-        startActivity(i);
-    }
-
-    public void onPageScan(){
-
-        Intent i = new Intent(getActivity(), ScanActivity.class);
-        startActivity(i);
-    }
 
 }

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -77,7 +78,7 @@ public class RegistActivity extends Activity {
 
 
     //提交
-    public void onLoginClick(){
+    public void onLoginClick(View view){
         Log.i(TAG, "METHOD onLoginClick");
 
 //        String userCode = editText.getText().toString();
@@ -105,8 +106,8 @@ public class RegistActivity extends Activity {
 
     private String userid;
     //使用
-    public void onRegistClick(){
-        Log.e(TAG, "METHOD onRegisterClick");
+    public void onTryButtonClicked(View view){
+        Log.e(TAG, "METHOD onTryButtonClicked");
         //todo 注册用户的请求
 
 
@@ -118,7 +119,7 @@ public class RegistActivity extends Activity {
 //        net.start();
 //        Log.e(TAG, param.toString());
 
-        Intent i = new Intent(this, WordActivity_t.class);
+        Intent i = new Intent(this, TabActivity.class);
         startActivity(i);
         finish();
     }

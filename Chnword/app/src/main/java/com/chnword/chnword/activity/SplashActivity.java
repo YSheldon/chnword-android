@@ -37,7 +37,7 @@ public class SplashActivity extends Activity {
     protected void onStart(){
         super.onStart();
 
-        Intent i = new Intent(SplashActivity.this, GuideActivity.class);
+        Intent i = new Intent(SplashActivity.this, RegistActivity.class);
         startActivity(i);
         return ;
 

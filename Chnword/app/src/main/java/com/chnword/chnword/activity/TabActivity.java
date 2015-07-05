@@ -114,7 +114,7 @@ public class TabActivity extends FragmentActivity {
 
         List<Fragment> items;
 
-        ViewPagerAdapter(FragmentManager fm,List<Fragment> list){
+        ViewPagerAdapter(FragmentManager fm, List<Fragment> list){
             super(fm);
             this.items = list;
         }
@@ -140,15 +140,6 @@ public class TabActivity extends FragmentActivity {
 
         @Override
         public void onPageSelected(int index) {
-
-//            for (int i = 0; i < mdots.size(); i ++){
-//                if (i == index){
-//                    mdots.get(i).setImageResource(R.drawable.page_indicator_focused);
-//                }else {
-//                    mdots.get(i).setImageResource(R.drawable.page_indicator_unfocused);
-//                }
-//            }
-
 
         }
 
