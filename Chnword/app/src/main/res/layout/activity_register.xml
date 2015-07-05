@@ -18,7 +18,9 @@
             android:layout_height="wrap_content"
             android:background="@drawable/buttontrial"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"></LinearLayout>
+            android:layout_marginBottom="20dp"
+            android:clickable="true"
+            android:onClick="onTryButtonClicked"></LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -73,7 +75,7 @@
                         <EditText
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:inputType="numberPassword"
+                            android:inputType="number"
                             android:ems="10"
                             android:id="@+id/editText" />
 
