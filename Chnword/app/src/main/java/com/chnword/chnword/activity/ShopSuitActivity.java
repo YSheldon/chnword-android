@@ -11,8 +11,6 @@ import com.chnword.chnword.R;
  */
 public class ShopSuitActivity extends Activity {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

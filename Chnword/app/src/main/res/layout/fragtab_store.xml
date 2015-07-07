@@ -41,7 +41,9 @@
             android:gravity="center"
             android:background="#ee000000"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp">
+            android:layout_marginRight="5dp"
+            android:clickable="true"
+            android:onClick="onShopAnime">
 
             <TextView
                 android:layout_width="match_parent"
@@ -76,7 +78,8 @@
             android:gravity="center"
             android:background="#ee000000"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp">
+            android:layout_marginRight="5dp"
+            android:clickable="true">
 
             <TextView
                 android:layout_width="match_parent"
@@ -111,7 +114,8 @@
             android:gravity="center"
             android:background="#ee000000"
             android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp">
+            android:layout_marginLeft="5dp"
+            android:clickable="true">
 
             <TextView
                 android:layout_width="match_parent"

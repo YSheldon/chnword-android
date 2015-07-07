@@ -46,6 +46,9 @@
         <activity android:name=".activity.ScanActivity" android:screenOrientation="landscape"></activity>
         <activity android:name=".activity.RegistActivity"></activity>
         <activity android:name=".activity.ShowActivity"></activity>
+        <activity android:name=".activity.WordActivity"></activity>
+        <activity android:name=".activity.ShopAnimeActivity"></activity>
+        <activity android:name=".activity.ShopSuitActivity"></activity>
 
     </application>
 

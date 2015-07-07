@@ -36,7 +36,8 @@
                 android:layout_height="match_parent"
                 android:id="@+id/imageButton"
                 android:src="@drawable/buttonfontmv"
-                android:scaleType="fitCenter" />
+                android:scaleType="fitCenter"
+                android:onClick="onAnimClicked" />
         </LinearLayout>
 
         <LinearLayout
@@ -51,7 +52,8 @@
                 android:layout_height="match_parent"
                 android:id="@+id/imageButton2"
                 android:scaleType="fitCenter"
-                android:src="@drawable/buttonscan" />
+                android:src="@drawable/buttonscan"
+                android:onClick="onScanClicked" />
         </LinearLayout>
 
         <LinearLayout

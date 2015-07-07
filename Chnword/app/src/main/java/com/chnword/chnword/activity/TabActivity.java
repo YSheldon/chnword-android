@@ -19,6 +19,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,9 +50,10 @@ import java.util.List;
  */
 public class TabActivity extends FragmentActivity {
 
+    private static final String TAG = TabActivity.class.getSimpleName();
+
     private List<Fragment> mFragments = new ArrayList<Fragment>();
     private ViewPager mViewPager;
-    private PagerAdapter mPagerAdapter;
     private ViewPager.OnPageChangeListener mPageChangeListener;
 
     private ImageView tab1, tab2, tab3;
@@ -270,6 +272,10 @@ public class TabActivity extends FragmentActivity {
 
     private File apkFile;
     private String apkUrl;
+
+
+
+    
     /**
      * 下载apk更新文件
      *
@@ -362,4 +368,52 @@ public class TabActivity extends FragmentActivity {
         }
 
     };
+
+
+    /**
+     * 字动画
+     * @param view
+     */
+    public void onAnimClicked(View view) {
+        Log.e(TAG, "METHOD ");
+        Intent intent = new Intent(this, WordActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * 扫汉字
+     * @param view
+     */
+    public void onScanClicked(View view) {
+        Intent intent = new Intent(this, ScanActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * 字课
+     * @param view
+     */
+    public void onZiKeClicked(View view) {
+//        Intent intent = new Intent(this, WordActivity.class);
+//        startActivity(intent);
+    }
+
+    /**
+     * 三千字套装
+     * @param view
+     */
+    public void onShopAnime(View view) {
+        Intent intent = new Intent(this, ShopAnimeActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * 三千字资源库
+     * @param view
+     */
+    public void onShopSuit(View view) {
+        Intent intent = new Intent(this, ShopSuitActivity.class);
+        startActivity(intent);
+    }
+
 }
