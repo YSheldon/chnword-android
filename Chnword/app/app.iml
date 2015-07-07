@@ -90,6 +90,7 @@
     <orderEntry type="library" exported="" name="hcicloud_capture-3.9" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.0.0" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-22.0.0" level="project" />
+    <orderEntry type="library" exported="" name="socialize-4.2.3-" level="project" />
     <orderEntry type="library" exported="" name="android-gif-drawable-1.1.6-" level="project" />
     <orderEntry type="module" module-name="vitamio" exported="" />
   </component>
