@@ -68,7 +68,9 @@
                 android:layout_height="match_parent"
                 android:id="@+id/imageButton3"
                 android:src="@drawable/buttonzike"
-                android:scaleType="fitCenter" />
+                android:scaleType="fitCenter"
+                android:clickable="true"
+                android:onClick="onZiKeClicked" />
         </LinearLayout>
 
     </LinearLayout>
