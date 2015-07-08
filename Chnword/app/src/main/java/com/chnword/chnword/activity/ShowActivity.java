@@ -18,9 +18,11 @@ import com.chnword.chnword.beans.Word;
 import com.chnword.chnword.fragment.GifFragment;
 import com.chnword.chnword.fragment.VideoFragment;
 import com.chnword.chnword.net.AbstractNet;
+import com.chnword.chnword.net.DeviceUtil;
 import com.chnword.chnword.net.NetConf;
 import com.chnword.chnword.net.NetParamFactory;
 import com.chnword.chnword.net.VerifyNet;
+import com.chnword.chnword.store.LocalStore;
 
 import org.json.JSONObject;
 
@@ -46,6 +48,8 @@ public class ShowActivity extends Activity {
 
     private Uri gifUri, videoUri;
 
+    private LocalStore store;
+
 
 
     @Override
@@ -55,6 +59,8 @@ public class ShowActivity extends Activity {
 
         if (!LibsChecker.checkVitamioLibs(this))
             return;
+
+        store = new LocalStore(this);
 
         Intent intent = getIntent();
         String word = intent.getStringExtra("word");
@@ -95,18 +101,19 @@ public class ShowActivity extends Activity {
     protected void onStart() {
         super.onStart();
 
-        requestNet("1");
+        requestNet();
 
     }
 
-    private void requestNet(String wordCode) {
-        String userid = "1";
-        String deviceId = "1";
-//        JSONObject param = NetParamFactory.subListParam(userid, deviceId, zoneCode, 0, 0);
-        JSONObject param = NetParamFactory.showParam(userid, deviceId, wordCode);
+    private void requestNet() {
+
+        String userid = store.getDefaultUser();
+        String deviceId = DeviceUtil.getDeviceId(this);;
+        JSONObject param = NetParamFactory.showParam(userid, deviceId, word.getWordIndex());
         AbstractNet net = new VerifyNet(handler, param, NetConf.URL_SHOW);
-        progressDialog = ProgressDialog.show(this, "title", "loading");
+        progressDialog = ProgressDialog.show(this, "提示", "loading...");
         net.start();
+
     }
 
     private ProgressDialog progressDialog;

@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chnword.chnword.R;
 import com.chnword.chnword.beans.Category;
@@ -176,16 +177,6 @@ public class CategoryActivity extends Activity {
             Intent i = new Intent(CategoryActivity.this, WordActivity.class);
             i.putExtra("ZoneCode", m.getCname());
 
-            ArrayList<String> names = new ArrayList<String>();
-            ArrayList<String> cnames = new ArrayList<String>();
-            for (Category category : list) {
-                names.add(category.getName());
-                cnames.add(category.getCname());
-            }
-
-            i.putStringArrayListExtra("moduleName", names);
-            i.putStringArrayListExtra("moduleCname", cnames);
-
             startActivity(i);
         }
     };
@@ -204,33 +195,24 @@ public class CategoryActivity extends Activity {
                     String str = b.getString("responseBody");
                     Log.e(TAG, str);
                     JSONObject obj = new JSONObject(str);
-                    JSONObject data = obj.getJSONObject("data");
-                    JSONArray names = data.getJSONArray("name");
-                    JSONArray cnames = data.getJSONArray("cname");
 
-                    for(int i = 0; i < names.length(); i ++) {
-                        String name = names.getString(i);
-                        String cname = cnames.getString(i);
-                        Category m = new Category();
-                        m.setName(name);
-                        m.setCname(cname);
-                        list.add(m);
+                    JSONArray array = obj.getJSONArray("data");
+                    for (int i = 0; i < array.length(); i ++) {
+                        JSONObject cateObj = array.getJSONObject(i);
+                        Category category = new Category();
+                        category.setName(cateObj.getString("name"));
+                        category.setCname(cateObj.getString("cname"));
+                        category.setLock(cateObj.getInt("lock") != 0);
+                        list.add(category);
                     }
-                    store.setDefaultModule(list);
+//                    store.setDefaultModule(list);
                     moduleListAdapter.notifyDataSetChanged();
 
                 }
 
                 if (msg.what == AbstractNet.NETWHAT_FAIL) {
-                    new AlertDialog.Builder(CategoryActivity.this)
-                            .setTitle("提示")
-                            .setMessage("注册失败")
-                            .setPositiveButton("是", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            }).show();
+                    Toast.makeText(CategoryActivity.this, "请求失败，请检查网络设置", Toast.LENGTH_LONG).show();
+
                 }
             } catch (Exception e) {
                 e.printStackTrace();

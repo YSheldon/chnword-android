@@ -40,7 +40,7 @@ public class LocalStore {
     }
 
     public String getDefaultUser() {
-        return perference.getString(DEFAULT_USER_KEY, "NULL");
+        return perference.getString(DEFAULT_USER_KEY, "0");
     }
 
     public void removeDefaultUser() {

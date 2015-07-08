@@ -376,7 +376,7 @@ public class TabActivity extends FragmentActivity {
      */
     public void onAnimClicked(View view) {
         Log.e(TAG, "METHOD ");
-        Intent intent = new Intent(this, WordActivity.class);
+        Intent intent = new Intent(this, CategoryActivity.class);
         startActivity(intent);
     }
 

@@ -46,11 +46,8 @@ public class WordActivity extends Activity {
 
     private ProgressDialog progressDialog;
 
-    private ListView listView;
     private GridView grideView;
-    private List<Category> categoryList;
     private List<Word> wordList;
-    private TextView word_tip ;
     private LocalStore store;
 
     @Override
@@ -61,69 +58,10 @@ public class WordActivity extends Activity {
         Intent intent = getIntent();
         Bundle b = intent.getExtras();
 
-        categoryList = new ArrayList<Category>();
         wordList = new ArrayList<Word>();
         store = new LocalStore(this);
-        word_tip = (TextView) findViewById(R.id.result_tip);
 
-        if (b.getBoolean("ISFROMSEARCH", false)) {
-
-            String searchResult = b.getString("SEARCH_RESULT");
-            String wordTip = b.getString("WORD_TIP");
-            ArrayList<String> names = b.getStringArrayList("WORD_NAME");
-            ArrayList<String> indexs = b.getStringArrayList("WORD_INDEX");
-
-            categoryList.addAll(store.getDefaultModule());
-
-            for (int i = 0; i < names.size(); i ++) {
-                Word w = new Word();
-                w.setWord(names.get(i));
-                w.setWordIndex(indexs.get(i));
-                wordList.add(w);
-
-            }
-
-            word_tip.setText(wordTip);
-
-
-        }else {
-            zoneCode = b.getString("ZoneCode");
-
-            ArrayList<String> names = b.getStringArrayList("moduleName");
-            ArrayList<String> cnames = b.getStringArrayList("moduleCname");
-
-
-
-
-
-            boolean isOk = false;
-            for (int i = 0; i < names.size(); i ++) {
-                Category m = new Category();
-                m.setName(names.get(i));
-                m.setCname(cnames.get(i));
-                categoryList.add(m);
-                Log.e(TAG, m.getName() + " " + m.getCname());
-                isOk = true;
-            }
-            if (!isOk) {
-                categoryList.addAll(store.getDefaultModule());
-            }
-        }
-
-
-
-
-
-
-        wordList.addAll(store.getDefaultWord(zoneCode));
-
-//        listView = (ListView)findViewById(R.id.moduleList);
-//        listView.setAdapter(moduleAdapter);
-//        listView.setOnItemClickListener(moduleOnItemListener);
-//        grideView = (GridView) findViewById(R.id.wordGrid);
-//        grideView.setAdapter(wordAdapter);
-//        grideView.setOnItemClickListener(wordOnItemListener);
-
+        zoneCode = b.getString("ZoneCode");
 
     }
 
@@ -134,43 +72,12 @@ public class WordActivity extends Activity {
         requestNet(zoneCode);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
-
-
     private void requestNet(String zoneCode) {
-        String userid = "userid";
+        String userid = store.getDefaultUser();
         String deviceId = DeviceUtil.getDeviceId(this);
         JSONObject param = NetParamFactory.subListParam(userid, deviceId, zoneCode, 0, 0);
         AbstractNet net = new VerifyNet(handler, param, NetConf.URL_SUBLIST);
-        progressDialog = ProgressDialog.show(this, "title", "loading");
+        progressDialog = ProgressDialog.show(this, "提示", "loading...");
         net.start();
     }
 
@@ -188,24 +95,16 @@ public class WordActivity extends Activity {
                     String str = b.getString("responseBody");
                     Log.e(TAG, str);
                     JSONObject obj = new JSONObject(str);
-                    JSONObject data = obj.getJSONObject("data");
-
-                    if (data != null){
-                        JSONArray words = data.getJSONArray("word");
-                        JSONArray unicodes = data.getJSONArray("unicode");
-
-                        for(int i = 0; i < words.length(); i ++) {
-                            String word = words.getString(i);
-                            String unicode = unicodes.getString(i);
-                            Word w = new Word();
-                            w.setWord(word);
-                            w.setWordIndex(unicode);
-                            wordList.add(w);
-                        }
-
-//
-                        wordAdapter.notifyDataSetChanged();
+                    JSONArray wordArray = obj.getJSONArray("data");
+                    for (int i = 0; i < wordArray.length(); i ++) {
+                        JSONObject wordObj = wordArray.getJSONObject(i);
+                        Word word = new Word();
+                        word.setWord(wordObj.getString("word"));
+                        word.setWordIndex(wordObj.getString("unicode"));
+                        wordList.add(word);
                     }
+                    wordAdapter.notifyDataSetChanged();
+
 
                 }
 
@@ -218,29 +117,6 @@ public class WordActivity extends Activity {
         }
     };
 
-
-
-    private AdapterView.OnItemClickListener moduleOnItemListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            Category m = categoryList.get(position);
-
-            store.getUnlockModels(store.getDefaultUser());
-            if (store.isUnlockAll(store.getDefaultUser())
-                    ||
-                    store.getUnlockModels(store.getDefaultUser()).contains(m.getCname())) {
-
-                requestNet(m.getCname());
-            } else {
-                Toast.makeText(WordActivity.this, "未解锁", Toast.LENGTH_LONG).show();
-            }
-
-
-        }
-    };
-
-
     private AdapterView.OnItemClickListener wordOnItemListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -251,46 +127,12 @@ public class WordActivity extends Activity {
             intent.putExtra("word_index", word.getWordIndex());
 
             startActivity(intent);
-
-//            Intent galleryIntent = new Intent(ResultActivity.this, Gallerty3DActivity.class);
-//            startActivity(galleryIntent);
         }
     };
 
-    private BaseAdapter moduleAdapter = new BaseAdapter() {
-        @Override
-        public int getCount() {
-            return categoryList.size();
-        }
 
-        @Override
-        public Object getItem(int position) {
-            return categoryList.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            if (convertView == null) {
-                LayoutInflater inflater = LayoutInflater.from(WordActivity.this);
-                convertView = inflater.inflate(R.layout.item_word, null);
-            }
-
-            TextView textView = (TextView) convertView.findViewById(R.id.word_aname);
-            textView.setText(categoryList.get(position).getName());
-
-            return convertView;
-        }
-    };
 
     private BaseAdapter wordAdapter = new BaseAdapter() {
-
-
         @Override
         public int getCount() {
             return wordList.size();

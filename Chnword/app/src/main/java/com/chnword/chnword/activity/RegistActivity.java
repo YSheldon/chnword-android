@@ -16,7 +16,15 @@ import android.widget.Toast;
 
 import com.chnword.chnword.R;
 import com.chnword.chnword.net.AbstractNet;
+import com.chnword.chnword.net.DeviceUtil;
+import com.chnword.chnword.net.NetConf;
+import com.chnword.chnword.net.NetParamFactory;
+import com.chnword.chnword.net.VerifyNet;
 import com.chnword.chnword.store.LocalStore;
+
+import org.json.JSONObject;
+
+import java.util.UUID;
 
 /**
  * Created by khtc on 15/4/23.
@@ -36,7 +44,7 @@ public class RegistActivity extends Activity {
         setContentView(R.layout.activity_register);
 
         LocalStore store = new LocalStore(this);
-        if (!"NULL".equalsIgnoreCase(store.getDefaultUser()))
+        if (!"0".equalsIgnoreCase(store.getDefaultUser()))
         {
             Intent intent = new Intent(this, TabActivity.class);
             startActivity(intent);
@@ -81,43 +89,30 @@ public class RegistActivity extends Activity {
     public void onLoginClick(View view){
         Log.i(TAG, "METHOD onLoginClick");
 
-//        String userCode = editText.getText().toString();
-//
-//        LocalStore store = new LocalStore(this);
-//        store.removeDefaultUser();
-//        store.addUser(userCode);
-//        store.setDefaultUser(userCode);
-//
-//        //这里需要进行下注册。
-//
-//        userid = DeviceUtil.getPhoneNumber(this) == null ?  UUID.randomUUID().toString()  : DeviceUtil.getPhoneNumber(this) ;
-//        String deviceId = DeviceUtil.getDeviceId(this);
-//        JSONObject param = NetParamFactory.registParam(userid, deviceId, userid, deviceId, UUID.randomUUID().toString(), "verify");
-//        AbstractNet net = new VerifyNet(handler, param, NetConf.URL_REGIST);
-//        progressDialog = ProgressDialog.show(this, "title", "loading");
-//        net.start();
-//        Log.e(TAG, param.toString());
+        String userCode = editText.getText().toString();
 
-//        Intent i = new Intent(this, WordActivity.class);
-        Intent i = new Intent(this, TabActivity.class);
-        startActivity(i);
-        finish();
+        LocalStore store = new LocalStore(this);
+        store.removeDefaultUser();
+        store.addUser(userCode);
+        store.setDefaultUser(userCode);
+
+        //这里需要进行下注册。
+
+        userid = DeviceUtil.getPhoneNumber(this) == null ?  UUID.randomUUID().toString()  : DeviceUtil.getPhoneNumber(this) ;
+        String deviceId = DeviceUtil.getDeviceId(this);
+        JSONObject param = NetParamFactory.verifyParam(userid, deviceId, userid, deviceId);
+
+        AbstractNet net = new VerifyNet(handler, param, NetConf.URL_VERIFY);
+        progressDialog = ProgressDialog.show(this, "title", "loading");
+        net.start();
+        Log.e(TAG, param.toString());
+
     }
 
     private String userid;
     //使用
     public void onTryButtonClicked(View view){
         Log.e(TAG, "METHOD onTryButtonClicked");
-        //todo 注册用户的请求
-
-
-//        userid = DeviceUtil.getPhoneNumber(this) == null ?  UUID.randomUUID().toString()  : DeviceUtil.getPhoneNumber(this) ;
-//        String deviceId = DeviceUtil.getDeviceId(this);
-//        JSONObject param = NetParamFactory.registParam(userid, deviceId, userid, deviceId, UUID.randomUUID().toString(), "verify");
-//        AbstractNet net = new VerifyNet(handler, param, NetConf.URL_REGIST);
-//        progressDialog = ProgressDialog.show(this, "title", "loading");
-//        net.start();
-//        Log.e(TAG, param.toString());
 
         Intent i = new Intent(this, TabActivity.class);
         startActivity(i);
@@ -145,10 +140,11 @@ public class RegistActivity extends Activity {
                     Intent intent = new Intent(RegistActivity.this, TabActivity.class);
                     startActivity(intent);
                     finish();
+
                 }
 
                 if (msg.what == AbstractNet.NETWHAT_FAIL) {
-                    Toast.makeText(RegistActivity.this, "", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegistActivity.this, "请检查网络设置。", Toast.LENGTH_LONG).show();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
