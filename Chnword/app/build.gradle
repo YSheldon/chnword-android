@@ -30,7 +30,7 @@ dependencies {
     compile files('libs/hcicloud-3.9.jar')
     compile files('libs/hcicloud_capture-3.9.jar')
     compile(name: 'android-gif-drawable-1.1.6', ext: 'aar')
-    compile(name: 'socialize-4.2.3', ext: 'aar')
+    //compile(name: 'socialize-4.2.3', ext: 'aar')
     compile project(':vitamio')
     //compile 'com.ourteam.umengsocialize:socialize:4.2.3'
 }

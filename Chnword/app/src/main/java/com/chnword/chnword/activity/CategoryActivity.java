@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +51,11 @@ public class CategoryActivity extends Activity {
 
     private LocalStore store;
 
+    public static int [] categorys = {R.drawable.category01, R.drawable.category02, R.drawable.category03,
+                        R.drawable.category04, R.drawable.category05, R.drawable.category06,
+                        R.drawable.category07, R.drawable.category08, R.drawable.category09,
+                        R.drawable.category10};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +67,7 @@ public class CategoryActivity extends Activity {
         list.addAll(store.getDefaultModule());
         moduleListAdapter = new ModuleListAdapter(this);
 
+        int[] ints = {2, 3};
 
         gridView = (GridView) findViewById(R.id.gridView3);
         gridView.setAdapter(moduleListAdapter);
@@ -116,16 +123,18 @@ public class CategoryActivity extends Activity {
     class ModuleListAdapter extends BaseAdapter {
         private Context mContext;
         LayoutInflater inflater;
+//        private List<Category> list;
 
         ModuleListAdapter(Context context)
         {
             mContext = context;
-
+            inflater  = LayoutInflater.from(mContext);
         }
         ModuleListAdapter(Context context, List<Category> list) {
 
             mContext = context;
             inflater  = LayoutInflater.from(mContext);
+//            this.list = list;
 
         }
 
@@ -148,13 +157,12 @@ public class CategoryActivity extends Activity {
         public View getView(int position, View convertView, ViewGroup parent) {
 
             if (convertView == null){
-
-                inflater  = LayoutInflater.from(mContext);
                 convertView = (View) inflater.inflate(R.layout.item_category, null);
             }
             TextView moduleName = (TextView) convertView.findViewById(R.id.module_name_tab);
-//            TextView isLock = (TextView) convertView.findViewById(R.id.isLock);
             Category m = (Category) getItem(position);
+            ImageView imageView = (ImageView) convertView.findViewById(R.id.module_image);
+            imageView.setImageResource(categorys[position % 10]);
 
             Log.e(TAG, (moduleName == null) + " is " +
                     "" + m.getName());
@@ -163,7 +171,7 @@ public class CategoryActivity extends Activity {
             if (store.isUnlockAll(store.getDefaultUser()) || store.getUnlockModels(store.getDefaultUser()).contains(m.getCname())) {
 //                isLock.setText("解锁");
             }
-
+//            Log.e(TAG, m.getName() + " + " + m.getCname());
 
             return convertView;
         }
@@ -176,6 +184,7 @@ public class CategoryActivity extends Activity {
             Log.e(TAG, m.getName() + " " + m.getCname());
             Intent i = new Intent(CategoryActivity.this, WordActivity.class);
             i.putExtra("ZoneCode", m.getCname());
+            i.putExtra("ZoneIndex", position);
 
             startActivity(i);
         }
@@ -197,12 +206,19 @@ public class CategoryActivity extends Activity {
                     JSONObject obj = new JSONObject(str);
 
                     JSONArray array = obj.getJSONArray("data");
+                    Log.e(TAG, array.toString());
                     for (int i = 0; i < array.length(); i ++) {
                         JSONObject cateObj = array.getJSONObject(i);
                         Category category = new Category();
                         category.setName(cateObj.getString("name"));
                         category.setCname(cateObj.getString("cname"));
-                        category.setLock(cateObj.getInt("lock") != 0);
+
+//                        category.setLock(cateObj.getInt("lock") != 0);
+//                        JSONObject lock = cateObj.getJSONObject("lock");
+                        boolean isLock = cateObj.isNull("lock") ? true : cateObj.getInt("lock") == 1;
+                        category.setLock(isLock);
+
+//                        Log.e(TAG, category.getName() + " " + category.getCname());
                         list.add(category);
                     }
 //                    store.setDefaultModule(list);

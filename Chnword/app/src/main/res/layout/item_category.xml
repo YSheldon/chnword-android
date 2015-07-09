@@ -5,8 +5,8 @@
     android:gravity="center">
 
     <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:id="@+id/module_image"
         android:src="@drawable/a_01" />
 
@@ -16,6 +16,8 @@
         android:text="模块名称"
         android:id="@+id/module_name_tab"
         android:gravity="center"
-        android:layout_margin="3dp" />
+        android:layout_margin="3dp"
+        android:textSize="18dp"
+        android:textColor="#000" />
 
 </LinearLayout>

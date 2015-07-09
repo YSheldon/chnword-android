@@ -16,11 +16,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chnword.chnword.R;
+import com.chnword.chnword.adapter.WordAdapter;
 import com.chnword.chnword.beans.Category;
 import com.chnword.chnword.beans.Word;
 import com.chnword.chnword.net.AbstractNet;
@@ -49,6 +52,22 @@ public class WordActivity extends Activity {
     private GridView grideView;
     private List<Word> wordList;
     private LocalStore store;
+    private LinearLayout word_top;
+    private RelativeLayout word_bg;
+
+    private WordAdapter wordAdapter;
+
+
+    public static final int[] subtops = {R.drawable.top10, R.drawable.top09, R.drawable.top08,
+                            R.drawable.top07, R.drawable.top06, R.drawable.top05,
+                            R.drawable.top04, R.drawable.top03, R.drawable.top02,
+                            R.drawable.top01};
+    public static final int[] subbgs = {R.drawable.subbg10, R.drawable.subbg09, R.drawable.subbg08,
+            R.drawable.subbg07, R.drawable.subbg06, R.drawable.subbg05, R.drawable.subbg04,
+            R.drawable.subbg03, R.drawable.subbg02, R.drawable.subbg01
+    };
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +81,18 @@ public class WordActivity extends Activity {
         store = new LocalStore(this);
 
         zoneCode = b.getString("ZoneCode");
+        int index = b.getInt("ZoneIndex");
 
+        grideView = (GridView) findViewById(R.id.wordGrid);
+        word_top = (LinearLayout) findViewById(R.id.word_top);
+        word_bg = (RelativeLayout) findViewById(R.id.word_bg);
+
+        wordAdapter = new WordAdapter(this, wordList);
+        grideView.setAdapter(wordAdapter);
+
+        word_top.setBackgroundResource(subtops[index % 10]);
+        word_bg.setBackgroundResource(subbgs[index % 10]);
+//        grideView.setBackgroundResource(subbgs[index % 10]);
     }
 
     @Override
@@ -101,6 +131,7 @@ public class WordActivity extends Activity {
                         Word word = new Word();
                         word.setWord(wordObj.getString("word"));
                         word.setWordIndex(wordObj.getString("unicode"));
+                        Log.e(TAG, word.getWord() + " " + word.getWordIndex());
                         wordList.add(word);
                     }
                     wordAdapter.notifyDataSetChanged();
@@ -127,42 +158,6 @@ public class WordActivity extends Activity {
             intent.putExtra("word_index", word.getWordIndex());
 
             startActivity(intent);
-        }
-    };
-
-
-
-    private BaseAdapter wordAdapter = new BaseAdapter() {
-        @Override
-        public int getCount() {
-            return wordList.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return wordList.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            if (convertView == null) {
-                LayoutInflater inflater = LayoutInflater.from(WordActivity.this);
-                convertView = inflater.inflate(R.layout.item_word, null);
-            }
-
-            TextView word = (TextView) convertView.findViewById(R.id.word_aname);
-
-            Log.e(TAG, wordList.get(position).getWord());
-
-            word.setText(wordList.get(position).getWord());
-
-            return convertView;
         }
     };
 
