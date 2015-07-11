@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,6 +24,16 @@ import com.chnword.chnword.net.NetConf;
 import com.chnword.chnword.net.NetParamFactory;
 import com.chnword.chnword.net.VerifyNet;
 import com.chnword.chnword.store.LocalStore;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.controller.UMServiceFactory;
+import com.umeng.socialize.controller.UMSocialService;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMVideo;
+import com.umeng.socialize.sso.QZoneSsoHandler;
+import com.umeng.socialize.sso.SinaSsoHandler;
+import com.umeng.socialize.sso.UMQQSsoHandler;
+import com.umeng.socialize.sso.UMSsoHandler;
+import com.umeng.socialize.weixin.controller.UMWXHandler;
 
 import org.json.JSONObject;
 
@@ -49,6 +60,7 @@ public class ShowActivity extends Activity {
     private Uri gifUri, videoUri;
 
     private LocalStore store;
+
 
 
 
@@ -197,6 +209,70 @@ public class ShowActivity extends Activity {
         videoFragment.onChangePosition(position);
         videoFragment.start();
 
+    }
+
+    //umeng
+    final UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");
+
+    public void setUmeng() {
+        // 设置分享内容
+        mController.setShareContent("友盟社会化组件（SDK）让移动应用快速整合社交分享功能，http://www.umeng.com/social");
+        // 设置分享图片, 参数2为图片的url地址
+        mController.setShareMedia(new UMImage(this, "http://www.umeng.com/images/pic/banner_module_social.png"));
+
+        // 设置分享图片，参数2为本地图片的资源引用
+        mController.setShareMedia(new UMImage(this, R.drawable.logo1));
+        // 设置分享图片，参数2为本地图片的路径(绝对路径)
+//        mController.setShareMedia(new UMImage(this, BitmapFactory.decodeFile("/mnt/sdcard/icon.png")));
+
+        // 设置分享视频
+        UMVideo umVideo = new UMVideo( "http://v.youku.com/v_show/id_XNTE5ODAwMDM2.html?f=19001023");
+        // 设置视频缩略图
+        umVideo.setThumb("http://www.umeng.com/images/pic/banner_module_social.png");
+        umVideo.setTitle("友盟社会化分享!");
+        mController.setShareMedia(umVideo);
+//        mController.getConfig().removePlatform( SHARE_MEDIA.RENREN, SHARE_MEDIA.DOUBAN);
+
+        //添加微信和朋友圈
+        String appId = "wx523e7fec6968506f";
+        String appSecret = "4a01f28bf8671d6b5487094caaffc72e";
+        // 添加微信平台
+        UMWXHandler wxHandler = new UMWXHandler(this, appId, appSecret);
+        wxHandler.addToSocialSDK();
+        // 添加微信朋友圈
+        UMWXHandler wxCircleHandler = new UMWXHandler(this, appId, appSecret);
+        wxCircleHandler.setToCircle(true);
+        wxCircleHandler.addToSocialSDK();
+
+        //添加qq的
+        //参数1为当前Activity，参数2为开发者在QQ互联申请的APP ID，参数3为开发者在QQ互联申请的APP kEY.
+        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(this, "1104685705",
+                "TaZo5RPmrGX11nPO");
+        qqSsoHandler.addToSocialSDK();
+
+        //qq空间
+        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(this, "100424468",
+                "c7394704798a158208a74ab60104f0ba");
+        qZoneSsoHandler.addToSocialSDK();
+
+        //添加新浪的
+        mController.getConfig().setSsoHandler(new SinaSsoHandler());
+
+    }
+
+    public void onSharedButtonClicked() {
+        // 是否只有已登录用户才能打开分享选择页
+        mController.openShare(this, false);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        /**使用SSO授权必须添加如下代码 */
+        UMSsoHandler ssoHandler = mController.getConfig().getSsoHandler(requestCode) ;
+        if(ssoHandler != null){
+            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+        }
     }
 
 
