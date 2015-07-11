@@ -89,6 +89,7 @@ public class WordActivity extends Activity {
 
         wordAdapter = new WordAdapter(this, wordList);
         grideView.setAdapter(wordAdapter);
+        grideView.setOnItemClickListener(wordOnItemListener);
 
         word_top.setBackgroundResource(subtops[index % 10]);
         word_bg.setBackgroundResource(subbgs[index % 10]);
