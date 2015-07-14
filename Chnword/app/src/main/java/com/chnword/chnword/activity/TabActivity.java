@@ -385,7 +385,7 @@ public class TabActivity extends FragmentActivity {
      * @param view
      */
     public void onScanClicked(View view) {
-        Intent intent = new Intent(this, ScanActivity.class);
+        Intent intent = new Intent(this, QRScanActivity.class);
         startActivity(intent);
     }
 

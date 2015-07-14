@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.chnword.chnword.R;
+
 import cn.bingoogolapple.qrcode.core.QRCodeView;
 import cn.bingoogolapple.qrcode.zxing.ZXingView;
 /**
@@ -18,7 +20,7 @@ public class QRScanActivity extends Activity implements QRCodeView.ResultHandler
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scan);
+        setContentView(R.layout.activity_qrscan);
         mZXingView = (ZXingView) findViewById(R.id.zxingview);
         mZXingView.setResultHandler(this);
     }
@@ -46,6 +48,9 @@ public class QRScanActivity extends Activity implements QRCodeView.ResultHandler
         Toast.makeText(this,result,Toast.LENGTH_SHORT).show();
         vibrate();
         mZXingView.startSpot();
+
+
+
     }
 
     @Override
@@ -54,6 +59,8 @@ public class QRScanActivity extends Activity implements QRCodeView.ResultHandler
     }
 
     public void onClick(View v) {
+
+       /*
         switch (v.getId()) {
             case R.id.start_spot:
                 mZXingView.startSpot();
@@ -80,6 +87,7 @@ public class QRScanActivity extends Activity implements QRCodeView.ResultHandler
                 mZXingView.stopCamera();
                 break;
         }
+        */
     }
 
 }
