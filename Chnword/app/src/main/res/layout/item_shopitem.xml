@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="80dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="80dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/leftContainer"
+            android:layout_alignParentLeft="true">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/shopImage"
+                android:layout_margin="5dp"
+                android:src="@drawable/folder01"
+                android:scaleType="centerInside" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/mainContainer"
+            android:layout_toRightOf="@+id/leftContainer"
+            android:layout_toLeftOf="@+id/rightContainer">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/shopTitle"
+                android:layout_weight="1"
+                android:gravity="center_vertical|left"
+                android:layout_marginLeft="5dp"
+                android:textColor="#000"
+                android:textSize="18dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/shopPrice"
+                android:layout_weight="1"
+                android:gravity="center_vertical|left"
+                android:layout_marginLeft="20dp"
+                android:textColor="#000"
+                android:textSize="18dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="80dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/rightContainer"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/shopBuy"
+                android:layout_margin="5dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/buttonbuy" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>
