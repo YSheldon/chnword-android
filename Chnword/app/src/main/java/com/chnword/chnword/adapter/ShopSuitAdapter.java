@@ -68,6 +68,6 @@ public class ShopSuitAdapter extends BaseAdapter {
         shopTitle.setText(item.getTitle());
         shopImage.setImageResource(item.getImageIndex());
 
-        return null;
+        return convertView;
     }
 }

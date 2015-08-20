@@ -198,7 +198,7 @@ public class TabActivity extends FragmentActivity {
                     return;
                 }
 
-                String state = data.getString("state");
+                String state = data.getString("status");
                 apkUrl = data.getString("url");
                 String note = data.getString("note");
 
@@ -403,7 +403,7 @@ public class TabActivity extends FragmentActivity {
      * @param view
      */
     public void onShopAnime(View view) {
-        Intent intent = new Intent(this, ShopAnimeActivity.class);
+        Intent intent = new Intent(this, ShopSuitActivity.class);
         startActivity(intent);
     }
 
@@ -412,7 +412,7 @@ public class TabActivity extends FragmentActivity {
      * @param view
      */
     public void onShopSuit(View view) {
-        Intent intent = new Intent(this, ShopSuitActivity.class);
+        Intent intent = new Intent(this, ShopAnimeActivity.class);
         startActivity(intent);
     }
 

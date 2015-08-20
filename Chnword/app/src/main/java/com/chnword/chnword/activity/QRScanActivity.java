@@ -16,6 +16,9 @@ import cn.bingoogolapple.qrcode.zxing.ZXingView;
  * Created by khtc on 15/7/14.
  */
 public class QRScanActivity extends Activity implements QRCodeView.ResultHandler{
+
+    private static final String TAG = QRScanActivity.class.getSimpleName();
+
     private ZXingView mZXingView;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -27,8 +30,10 @@ public class QRScanActivity extends Activity implements QRCodeView.ResultHandler
 
     @Override
     protected void onStart() {
+        Log.e(TAG, "METHOD ONSTART");
         super.onStart();
         mZXingView.startCamera();
+        mZXingView.setResultHandler(this);
     }
 
     @Override
@@ -37,6 +42,9 @@ public class QRScanActivity extends Activity implements QRCodeView.ResultHandler
         super.onStop();
     }
 
+    /**
+     * 震动提示
+     */
     private void vibrate() {
         Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         vibrator.vibrate(200);
@@ -44,50 +52,16 @@ public class QRScanActivity extends Activity implements QRCodeView.ResultHandler
 
     @Override
     public void handleResult(String result) {
-        Log.i("bingo", "result:" + result);
+//        Log.i("bingo", "result:" + result);
+        Log.e(TAG, "SEARCH RESULT:" + result);
         Toast.makeText(this,result,Toast.LENGTH_SHORT).show();
         vibrate();
         mZXingView.startSpot();
-
-
-
     }
 
     @Override
     public void handleCameraError() {
-        Log.e("bingo", "打开相机出错");
-    }
-
-    public void onClick(View v) {
-
-       /*
-        switch (v.getId()) {
-            case R.id.start_spot:
-                mZXingView.startSpot();
-                break;
-            case R.id.stop_spot:
-                mZXingView.stopSpot();
-                break;
-            case R.id.start_spot_showrect:
-                mZXingView.startSpotAndShowRect();
-                break;
-            case R.id.stop_spot_hiddenrect:
-                mZXingView.stopSpotAndHiddenRect();
-                break;
-            case R.id.show_rect:
-                mZXingView.showScanRect();
-                break;
-            case R.id.hidden_rect:
-                mZXingView.hiddenScanRect();
-                break;
-            case R.id.start_preview:
-                mZXingView.startCamera();
-                break;
-            case R.id.stop_preview:
-                mZXingView.stopCamera();
-                break;
-        }
-        */
+        Toast.makeText(this, "无法打开相机.", Toast.LENGTH_LONG).show();
     }
 
 }
