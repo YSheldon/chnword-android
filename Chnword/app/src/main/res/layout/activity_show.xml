@@ -5,11 +5,38 @@
     android:layout_height="match_parent">
 
 
-    <Button
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="share"
-        android:id="@+id/sharedButton" />
+        android:layout_height="45dp"
+        android:background="#ffee3e1e" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="展示"
+            android:id="@+id/textView7"
+            android:layout_gravity="center_horizontal"
+            android:layout_centerInParent="true"
+            android:textColor="#ffffffff"
+            android:textSize="20dp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="分享"
+                android:id="@+id/textView42"
+                android:textSize="18dp" />
+        </LinearLayout>
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

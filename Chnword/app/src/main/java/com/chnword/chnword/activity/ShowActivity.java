@@ -84,17 +84,17 @@ public class ShowActivity extends Activity {
 
         videoFragment = new VideoFragment();
         gifFragment = new GifFragment();
-        getFragmentManager().beginTransaction().add(R.id.fragment_container, videoFragment).commit();
+//        getFragmentManager().beginTransaction().add(R.id.fragment_container, videoFragment).commit();
+        getFragmentManager().beginTransaction().add(R.id.fragment_container, gifFragment).commit();
 
 
 
         try {
-            Log.e(TAG, " counts .");
+
             GifDrawable drawable = new GifDrawable(getResources(), R.drawable.sample);
             Log.e(TAG, "NUMBER COUNT " + drawable.getNumberOfFrames());
-//            Bitmap bitmap = drawable.getCurrentFrame();
+
             for (int i = 0; i < drawable.getNumberOfFrames(); i ++ ) {
-//                drawable.seekToFrameAndGet();
 
             }
 
@@ -166,11 +166,20 @@ public class ShowActivity extends Activity {
 
 
     //Action event handler
+
+    /**
+     * 处理分类按钮点击
+     * @param view
+     */
     public void onBackStage(View view) {
         onBackPressed();
         finish();
     }
 
+    /**
+     * 处理快览按钮点击
+     * @param view
+     */
     public void onQuickLook(View view) {
         //更换fargment
 
@@ -191,11 +200,13 @@ public class ShowActivity extends Activity {
         videoFragment.pause();
     }
 
-
+    /**
+     * 处理扫描按钮点击
+     * @param view
+     */
     public void onScan(View view) {
         //切换到scan页面
-        Intent scanIntent = new Intent(this, ScanActivity.class);
-
+        Intent scanIntent = new Intent(this, QRScanActivity.class);
         startActivity(scanIntent);
         finish();
     }
