@@ -32,6 +32,7 @@ import com.chnword.chnword.net.AbstractNet;
 import com.chnword.chnword.net.NetConf;
 import com.chnword.chnword.net.NetParamFactory;
 import com.chnword.chnword.net.VerifyNet;
+import com.chnword.zxingwapper.zxing.activity.MipcaActivityCapture;
 
 import org.json.JSONObject;
 
@@ -380,13 +381,37 @@ public class TabActivity extends FragmentActivity {
         startActivity(intent);
     }
 
+
+    private final static int SCANNIN_GREQUEST_CODE = 1;
     /**
      * 扫汉字
      * @param view
      */
     public void onScanClicked(View view) {
-        Intent intent = new Intent(this, QRScanActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, QRScanActivity.class);
+//        startActivity(intent);
+
+        Intent intent = new Intent();
+        intent.setClass(this, MipcaActivityCapture.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivityForResult(intent, SCANNIN_GREQUEST_CODE);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case SCANNIN_GREQUEST_CODE:
+                if(resultCode == RESULT_OK){
+                    Bundle bundle = data.getExtras();
+                    //
+//                    mTextView.setText(bundle.getString("result"));
+//                    mImageView.setImageBitmap((Bitmap) data.getParcelableExtra("bitmap"));
+                    Toast.makeText(this, bundle.getString("result"), Toast.LENGTH_LONG).show();
+                }
+                break;
+        }
     }
 
     /**
