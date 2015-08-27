@@ -35,6 +35,7 @@ public class GuideActivity extends Activity {
 
     private int lastIndex = 0;
 
+    private boolean isFromSetting = false;//是否从setting界面过来
 
 
 
@@ -43,7 +44,10 @@ public class GuideActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
 
-        System.gc();
+        String str = getIntent().getExtras().getString("flag");
+        if ("flag".equalsIgnoreCase(str)) {
+            isFromSetting = true;
+        }
 
 
 
@@ -113,11 +117,18 @@ public class GuideActivity extends Activity {
 
     public void onButtonClick(View v){
 
-        Intent i = new Intent(this, RegistActivity.class);
-        startActivity(i);
-        finish();
-
+        if (isFromSetting) {
+            finish();
+        } else {
+            Intent i = new Intent(this, RegistActivity.class);
+            startActivity(i);
+            finish();
+        }
     }
+
+
+
+
 
     class ViewPagerAdapter extends PagerAdapter{
 

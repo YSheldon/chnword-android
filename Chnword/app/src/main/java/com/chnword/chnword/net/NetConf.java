@@ -12,4 +12,11 @@ public class NetConf
     public static final String URL_SHOW    = "http://app.3000zi.com/api/show.php";
     public static final String URL_REGIST  = "http://app.3000zi.com/api/regist.php";
     public static final String URL_VERSION_CHECK = "http://app.3000zi.com/api/version.php";
+
+
+    public static final String URL_MEMBER       = "http://app.3000zi.com/web/member.php";
+    public static final String URL_FEEDBACK     = "http://app.3000zi.com/web/member.php";
+    public static final String URL_DOWNLOAD     = "http://app.3000zi.com/web/download.php";
+    public static final String URL_ABOUT        = "http://app.3000zi.com/web/about.php";
+
 }
