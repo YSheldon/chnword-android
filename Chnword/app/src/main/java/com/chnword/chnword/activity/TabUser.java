@@ -53,7 +53,7 @@ public class TabUser extends Fragment {
         View view = inflater.inflate(R.layout.fragtab_user, container, false);
 
 
-        registPhoneNumber = (EditText) view.findViewById(R.id.registPhoneNumber);
+//        registPhoneNumber = (EditText) view.findViewById(R.id.registPhoneNumber);
 
         LocalStore store = new LocalStore(getActivity());
 

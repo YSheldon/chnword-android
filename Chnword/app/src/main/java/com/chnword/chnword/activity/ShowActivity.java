@@ -206,9 +206,9 @@ public class ShowActivity extends Activity {
      */
     public void onScan(View view) {
         //切换到scan页面
-        Intent scanIntent = new Intent(this, QRScanActivity.class);
-        startActivity(scanIntent);
-        finish();
+//        Intent scanIntent = new Intent(this, QRScanActivity.class);
+//        startActivity(scanIntent);
+//        finish();
     }
 
 
