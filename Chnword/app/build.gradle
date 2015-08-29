@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "21.1.2"
+    buildToolsVersion '21.1.2'
 
     defaultConfig {
         applicationId "com.chnword.chnword"
@@ -42,7 +42,7 @@ dependencies {
     compile files('libs/SocialSDK_WeiXin_2.jar')
     compile files('libs/umeng_social_sdk.jar')
     compile files('libs/core-3.1.0.jar')
-    compile(name: 'qrcodecore-1.0.0', ext: 'aar')
-    compile(name: 'zxing-1.0.0', ext: 'aar')
+    //compile(name: 'qrcodecore-1.0.0', ext: 'aar')
+    //compile(name: 'zxing-1.0.0', ext: 'aar')
     compile project(':zxingwapper')
 }
