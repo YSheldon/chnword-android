@@ -17,9 +17,10 @@
             android:id="@+id/titleLable"
             android:layout_gravity="center_horizontal" />
 
-        <WebView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/webViewIden" />
     </LinearLayout>
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/webViewIden" />
 </LinearLayout>
