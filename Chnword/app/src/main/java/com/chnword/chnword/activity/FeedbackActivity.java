@@ -2,16 +2,76 @@ package com.chnword.chnword.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.chnword.chnword.R;
+
+import io.vov.vitamio.utils.Log;
+
 
 /**
  * Created by khtc on 15/8/27.
  */
 public class FeedbackActivity extends Activity {
 
+    private static final String TAG = FeedbackActivity.class.getSimpleName();
+
+    private TextView feedtextinfo;
+    private EditText feedbacktext, phoneNumber;
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+        setContentView(R.layout.activity_feedback);
+
+        feedtextinfo = (TextView) findViewById(R.id.feedtextinfo);
+        feedbacktext = (EditText) findViewById(R.id.feedbackText);
+        phoneNumber = (EditText) findViewById(R.id.phoneNumber);
+
+
+        feedbacktext.addTextChangedListener(new TextWatcher() {
+
+            private CharSequence temp;//监听前的文本
+
+            private int editStart;//光标开始位置
+            private int editEnd;//光标结束位置
+            private final int charMaxNum = 200;
+
+
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                temp = s;
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                feedtextinfo.setText(s.length() + "/" + charMaxNum);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                editStart = feedbacktext.getSelectionStart();
+                editEnd = feedbacktext.getSelectionEnd();
+                if (temp.length() > charMaxNum) {
+//                    Toast.makeText(getApplicationContext(), "你输入的字数已经超过了限制！", Toast.LENGTH_LONG).show();
+                    s.delete(editStart - 1, editEnd);
+                    int tempSelection = editStart;
+                    feedbacktext.setText(s);
+                    feedbacktext.setSelection(tempSelection);
+                }
+
+            }
+        });
     }
 
     @Override
@@ -23,4 +83,18 @@ public class FeedbackActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
+
+
+    public void onSubmit() {
+        Log.e(TAG, "ON SUBMIT");
+    }
+
+    private Handler handler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    };
 }

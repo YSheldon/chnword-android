@@ -6,7 +6,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:id="@+id/editText2"
+        android:id="@+id/feedbackText"
         android:background="#eee"
         android:layout_margin="10dp"
         android:hint="您的反馈将帮助我们更快的成长"
@@ -14,21 +14,12 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:text="feedback"
-        android:id="@+id/textView22"
-        android:editable="true"
-        android:layout_margin="10dp"
-        android:textSize="18dp"
-        android:background="#eee" />
-
-    <TextView
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/textView23"
+        android:text="0/200"
+        android:id="@+id/feedtextinfo"
         android:layout_margin="2dp"
-        android:gravity="right" />
+        android:gravity="right"
+        android:editable="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -37,4 +28,22 @@
         android:id="@+id/textView24"
         android:layout_margin="2dp"
         android:textSize="18dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/phoneNumber" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="提交"
+        android:id="@+id/submitbutton"
+        android:onClick="onSubmit"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp" />
+
 </LinearLayout>
