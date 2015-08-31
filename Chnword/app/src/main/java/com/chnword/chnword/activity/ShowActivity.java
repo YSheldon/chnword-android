@@ -84,8 +84,8 @@ public class ShowActivity extends Activity {
 
         videoFragment = new VideoFragment();
         gifFragment = new GifFragment();
-//        getFragmentManager().beginTransaction().add(R.id.fragment_container, videoFragment).commit();
-        getFragmentManager().beginTransaction().add(R.id.fragment_container, gifFragment).commit();
+        getFragmentManager().beginTransaction().add(R.id.fragment_container, videoFragment).commit();
+//        getFragmentManager().beginTransaction().add(R.id.fragment_container, gifFragment).commit();
 
 
 
@@ -94,9 +94,6 @@ public class ShowActivity extends Activity {
             GifDrawable drawable = new GifDrawable(getResources(), R.drawable.sample);
             Log.e(TAG, "NUMBER COUNT " + drawable.getNumberOfFrames());
 
-            for (int i = 0; i < drawable.getNumberOfFrames(); i ++ ) {
-
-            }
 
         } catch (Exception e) {
             e.printStackTrace();

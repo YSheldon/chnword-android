@@ -29,7 +29,7 @@ public class VideoFragment extends Fragment {
     private Uri uri;
     private Word word;
 
-    private String path = "http://forum.ea3w.com/coll_ea3w/attach/2008_10/12237832415.3gp";
+    private String path = "http://app.3000zi.com/upload/video/ebbb0cf8d6547612db98d061cf556baf.mp4";
     private VideoView mVideoView;
 
 
@@ -51,13 +51,6 @@ public class VideoFragment extends Fragment {
                 mediaPlayer.setPlaybackSpeed(1.0f);
             }
         });
-
-
-
-
-        
-
-
         return view;
     }
 
