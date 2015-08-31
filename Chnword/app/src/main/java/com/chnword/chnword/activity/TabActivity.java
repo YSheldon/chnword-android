@@ -29,9 +29,11 @@ import android.widget.Toast;
 
 import com.chnword.chnword.R;
 import com.chnword.chnword.net.AbstractNet;
+import com.chnword.chnword.net.DeviceUtil;
 import com.chnword.chnword.net.NetConf;
 import com.chnword.chnword.net.NetParamFactory;
 import com.chnword.chnword.net.VerifyNet;
+import com.chnword.chnword.store.LocalStore;
 import com.chnword.zxingwapper.zxing.activity.MipcaActivityCapture;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
@@ -43,6 +45,7 @@ import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.umeng.socialize.sso.UMSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -407,6 +410,9 @@ public class TabActivity extends FragmentActivity {
 
     }
 
+    private ProgressDialog progressDialog;
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -417,7 +423,21 @@ public class TabActivity extends FragmentActivity {
                     //
 //                    mTextView.setText(bundle.getString("result"));
 //                    mImageView.setImageBitmap((Bitmap) data.getParcelableExtra("bitmap"));
-                    Toast.makeText(this, bundle.getString("result"), Toast.LENGTH_LONG).show();
+//                    Toast.makeText(this, bundle.getString("result"), Toast.LENGTH_LONG).show();
+
+                    //现请求查找index
+                    LocalStore store = new LocalStore(this);
+
+                    String userid = store.getDefaultUser();
+                    String deviceId = DeviceUtil.getDeviceId(this);
+                    String word = bundle.getString("result");
+                    JSONObject param = NetParamFactory.wordParam(userid, deviceId, word);
+                    io.vov.vitamio.utils.Log.e(TAG, param.toString());
+                    AbstractNet net = new VerifyNet(wordHandler, param, NetConf.URL_LIST);
+                    progressDialog = ProgressDialog.show(this, "title", "loading");
+                    net.start();
+
+
                 }
                 break;
         }
@@ -522,4 +542,48 @@ public class TabActivity extends FragmentActivity {
 //            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
 //        }
 //    }
+
+
+    private Handler wordHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+
+
+
+            progressDialog.dismiss();
+            try {
+                if (msg.what == AbstractNet.NETWHAT_SUCESS)
+                {
+
+                    Bundle b = msg.getData();
+                    String str = b.getString("responseBody");
+                    Log.e(TAG, str);
+                    JSONObject obj = new JSONObject(str);
+
+                    JSONArray word_names = obj.getJSONArray("word_name");
+                    JSONArray word_indexs = obj.getJSONArray("word_index");
+                    String wordTips = obj.getString("word_tip");
+
+                    if (word_indexs.length() > 0 && word_names.length()> 0) {
+                        String word = word_names.getString(0);
+                        String word_index = word_indexs.getString(0);
+                        Intent intent = new Intent(TabActivity.this, ShowActivity.class);
+                        intent.putExtra("word", word);
+                        intent.putExtra("word_index", word_index);
+                    } else {
+                        Toast.makeText(TabActivity.this, wordTips, Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                if (msg.what == AbstractNet.NETWHAT_FAIL) {
+                    Toast.makeText(TabActivity.this, "请求失败，请检查网络设置", Toast.LENGTH_LONG).show();
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            super.handleMessage(msg);
+        }
+    };
+
 }

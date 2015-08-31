@@ -233,7 +233,9 @@ public class CategoryActivity extends Activity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            super.handleMessage(msg);
         }
+
     };
 
 

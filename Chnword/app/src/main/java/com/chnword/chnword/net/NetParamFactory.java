@@ -149,4 +149,25 @@ public class NetParamFactory {
         }
         return obj;
     }
+
+    public static JSONObject feedbackParam(String userid, String deviceId, String content, String contact)
+    {
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject();
+            obj.put("opid", UUID.randomUUID().toString());
+            obj.put("userid", userid);
+            obj.put("device", deviceId);
+
+            JSONObject param = new JSONObject();
+            param.put("deviceid", deviceId);
+            param.put("content", content);
+            param.put("contact", contact);
+
+            obj.put("param", param);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
 }

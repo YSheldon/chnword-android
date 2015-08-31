@@ -1,6 +1,7 @@
 package com.chnword.chnword.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,6 +13,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chnword.chnword.R;
+import com.chnword.chnword.beans.Category;
+import com.chnword.chnword.net.AbstractNet;
+import com.chnword.chnword.net.DeviceUtil;
+import com.chnword.chnword.net.NetConf;
+import com.chnword.chnword.net.NetParamFactory;
+import com.chnword.chnword.net.VerifyNet;
+import com.chnword.chnword.store.LocalStore;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import io.vov.vitamio.utils.Log;
 
@@ -25,6 +36,9 @@ public class FeedbackActivity extends Activity {
 
     private TextView feedtextinfo;
     private EditText feedbacktext, phoneNumber;
+
+    private ProgressDialog progressDialog;
+
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -88,12 +102,41 @@ public class FeedbackActivity extends Activity {
 
     public void onSubmit() {
         Log.e(TAG, "ON SUBMIT");
+        LocalStore store = new LocalStore(this);
+
+        String userid = store.getDefaultUser();
+        String deviceId = DeviceUtil.getDeviceId(this);
+        String content = this.feedbacktext.getText().toString();
+        String contact = this.phoneNumber.getText().toString();
+        JSONObject param = NetParamFactory.feedbackParam(userid, deviceId, content, contact);
+        Log.e(TAG, param.toString());
+        AbstractNet net = new VerifyNet(handler, param, NetConf.URL_LIST);
+        progressDialog = ProgressDialog.show(this, "title", "loading");
+        net.start();
+
     }
 
     private Handler handler = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {
+
+            progressDialog.dismiss();
+            try {
+                if (msg.what == AbstractNet.NETWHAT_SUCESS)
+                {
+                    finish();
+
+                }
+
+                if (msg.what == AbstractNet.NETWHAT_FAIL) {
+                    Toast.makeText(FeedbackActivity.this, "请求失败，请检查网络设置", Toast.LENGTH_LONG).show();
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             super.handleMessage(msg);
         }
     };
