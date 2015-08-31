@@ -63,15 +63,16 @@
                 android:text="快览"
                 android:id="@+id/button4"
                 android:layout_weight="1"
-                android:onClick="onQuickLook" />
+                android:onClick="onQuickLook"
+                android:visibility="gone" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="扫描"
+                android:text="视频"
                 android:id="@+id/button5"
                 android:layout_weight="1"
-                android:onClick="onScan" />
+                android:onClick="onShowVideo" />
         </LinearLayout>
 
         <LinearLayout

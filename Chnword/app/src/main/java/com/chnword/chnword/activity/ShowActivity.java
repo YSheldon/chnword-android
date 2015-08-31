@@ -84,7 +84,6 @@ public class ShowActivity extends Activity {
 
         videoFragment = new VideoFragment();
         gifFragment = new GifFragment();
-//        getFragmentManager().beginTransaction().add(R.id.fragment_container, videoFragment).commit();
         getFragmentManager().beginTransaction().add(R.id.fragment_container, gifFragment).commit();
 
 
@@ -283,5 +282,13 @@ public class ShowActivity extends Activity {
         }
     }
 
+
+    public void onShowVideo(View view) {
+        Log.e(TAG, "METHOD onShowVideo");
+
+        Intent intent = new Intent(this, VideoActivity.class);
+        intent.putExtra("videoUrl", "http://app.3000zi.com/upload/video/ebbb0cf8d6547612db98d061cf556baf.mp4");
+        startActivity(intent);
+    }
 
 }
