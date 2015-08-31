@@ -9,10 +9,12 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.chnword.chnword.R;
 import com.chnword.chnword.beans.Word;
@@ -24,6 +26,7 @@ import com.chnword.chnword.net.NetConf;
 import com.chnword.chnword.net.NetParamFactory;
 import com.chnword.chnword.net.VerifyNet;
 import com.chnword.chnword.store.LocalStore;
+import com.chnword.chnword.utils.MD5;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
@@ -37,6 +40,12 @@ import com.umeng.socialize.weixin.controller.UMWXHandler;
 
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import io.vov.vitamio.LibsChecker;
 import pl.droidsonroids.gif.GifDrawable;
 
@@ -47,19 +56,19 @@ public class ShowActivity extends Activity {
     private static final String TAG = ShowActivity.class.getSimpleName();
 
     private Word word ;
-//    private GifImageButton gib;
 
 
     private Fragment fragment;
 
-    private VideoFragment videoFragment;
     private GifFragment gifFragment;
 
     private FragmentManager manager;
 
-    private Uri gifUri, videoUri;
+    private String gifUri, videoUri;
 
     private LocalStore store;
+
+    private ProgressDialog progressDialog;
 
 
 
@@ -82,22 +91,7 @@ public class ShowActivity extends Activity {
         this.word.setWordIndex(word_index);
         this.word.setWord(word);
 
-        videoFragment = new VideoFragment();
         gifFragment = new GifFragment();
-        getFragmentManager().beginTransaction().add(R.id.fragment_container, gifFragment).commit();
-
-
-
-        try {
-
-            GifDrawable drawable = new GifDrawable(getResources(), R.drawable.sample);
-            Log.e(TAG, "NUMBER COUNT " + drawable.getNumberOfFrames());
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
     }
 
     @Override
@@ -124,14 +118,12 @@ public class ShowActivity extends Activity {
 
     }
 
-    private ProgressDialog progressDialog;
-
     Handler handler = new Handler(){
 
         @Override
         public void handleMessage(Message msg) {
             progressDialog.dismiss();
-            progressDialog = null;
+//            progressDialog = null;
             try {
                 if (msg.what == AbstractNet.NETWHAT_SUCESS)
                 {
@@ -143,15 +135,30 @@ public class ShowActivity extends Activity {
                     JSONObject data = obj.getJSONObject("data");
 
                     String location = data.getString("gif");
-                    gifUri = Uri.parse(location);
+//                    gifUri = Uri.parse(location);
+                    gifUri = location;
+                    gifFragment.setUri(Uri.parse(location));
 
                     String video = data.getString("video");
-                    videoUri = Uri.parse(video);
-                    videoFragment.setUri(videoUri);
+//                    videoUri = Uri.parse(video);
+                    videoUri = video;
+
+                    //todo 下载gif图片。
+
+//                    File cache = new File(Environment.getExternalStorageDirectory(), "cache");
+//                    if(!cache.exists()){
+//                        cache.mkdirs();
+//                    }
+//                    Uri uri = getImageURI(gifUri, cache);
+//                    gifFragment.setUri(uri);
+//                    progressDialog.dismiss();
+
                 }
 
                 if (msg.what == AbstractNet.NETWHAT_FAIL) {
-
+                    Toast.makeText(ShowActivity.this, "网络请求失败。", Toast.LENGTH_LONG).show();
+//                    progressDialog.dismiss();
+                    onBackPressed();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -159,6 +166,41 @@ public class ShowActivity extends Activity {
         }
     };
 
+
+    /*
+     * 从网络上获取图片，如果图片在本地存在的话就直接拿，如果不存在再去服务器上下载图片
+     * 这里的path是图片的地址
+     */
+    public Uri getImageURI(String path, File cache) throws Exception {
+        String name = MD5.getMD5(path) + path.substring(path.lastIndexOf("."));
+        File file = new File(cache, name);
+        // 如果图片存在本地缓存目录，则不去服务器下载
+        if (file.exists()) {
+            return Uri.fromFile(file);//Uri.fromFile(path)这个方法能得到文件的URI
+        } else {
+            // 从网络上获取图片
+            URL url = new URL(path);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(5000);
+            conn.setRequestMethod("GET");
+            conn.setDoInput(true);
+            if (conn.getResponseCode() == 200) {
+
+                InputStream is = conn.getInputStream();
+                FileOutputStream fos = new FileOutputStream(file);
+                byte[] buffer = new byte[1024];
+                int len = 0;
+                while ((len = is.read(buffer)) != -1) {
+                    fos.write(buffer, 0, len);
+                }
+                is.close();
+                fos.close();
+                // 返回一个URI对象
+                return Uri.fromFile(file);
+            }
+        }
+        return null;
+    }
 
 
     //Action event handler
@@ -172,51 +214,8 @@ public class ShowActivity extends Activity {
         finish();
     }
 
-    /**
-     * 处理快览按钮点击
-     * @param view
-     */
-    public void onQuickLook(View view) {
-        //更换fargment
-
-//        if (gifUri == null) {
-//            return;
-//        }
-
-        gifFragment.setUri(gifUri);
-        Log.e(TAG, "METHOD onQuickLook");
-
-//        manager.beginTransaction().hide(videoFragment).replace(R.id.fragment, gifFragment).commit();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.hide(videoFragment);
-//        transaction.addToBackStack(null);
-//        transaction.replace(R.id.fragment_container, gifFragment);
-        transaction.add(R.id.fragment_container, gifFragment);
-        transaction.commit();
-        videoFragment.pause();
-    }
-
-    /**
-     * 处理扫描按钮点击
-     * @param view
-     */
-    public void onScan(View view) {
-        //切换到scan页面
-//        Intent scanIntent = new Intent(this, QRScanActivity.class);
-//        startActivity(scanIntent);
-//        finish();
-    }
 
 
-    public void onChangePosition(float position) {
-        FragmentTransaction tx = getFragmentManager().beginTransaction();
-        tx.remove(gifFragment);
-        tx.show(videoFragment);
-        tx.commit();
-        videoFragment.onChangePosition(position);
-        videoFragment.start();
-
-    }
 
     //umeng
     final UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");

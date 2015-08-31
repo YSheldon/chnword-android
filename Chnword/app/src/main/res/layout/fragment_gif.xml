@@ -12,7 +12,8 @@
             android:layout_width="fill_parent"
             android:layout_height="30dp"
             android:id="@+id/linear"
-            android:layout_alignParentBottom="true">
+            android:layout_alignParentBottom="true"
+            android:visibility="gone">
 
             <SeekBar
                 android:layout_width="match_parent"
@@ -26,7 +27,14 @@
             android:layout_height="match_parent"
             class="com.chnword.chnword.gallery.GalleryFlow"
             android:id="@+id/gallery_flow_gif"
-            android:layout_above="@+id/linear" />
+            android:layout_above="@+id/linear"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/gifViewContainer"></LinearLayout>
 
     </RelativeLayout>
 </LinearLayout>

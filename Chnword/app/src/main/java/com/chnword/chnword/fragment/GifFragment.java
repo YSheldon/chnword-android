@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
+import android.widget.MediaController;
 import android.widget.SeekBar;
 
 import com.chnword.chnword.R;
@@ -16,6 +18,9 @@ import com.chnword.chnword.activity.ShowActivity;
 import com.chnword.chnword.adapter.ImageAdapter;
 import com.chnword.chnword.gallery.GalleryFlow;
 import com.chnword.chnword.utils.BitmapScaleDownUtil;
+
+import pl.droidsonroids.gif.GifDrawable;
+import pl.droidsonroids.gif.GifImageButton;
 
 /**
  * Created by khtc on 15/5/31.
@@ -38,17 +43,21 @@ public class GifFragment extends Fragment {
 
     private Uri uri;
 
+    private LinearLayout gifViewContainer;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_gif, container, false);
 
-
+        gifViewContainer = (LinearLayout) view.findViewById(R.id.gifViewContainer);
 
         mContext = getActivity().getApplicationContext();
 
 
-        initGallery(view);
+//        initGallery(view);
+
+        initWithGifView(view);
 
 
 
@@ -81,6 +90,30 @@ public class GifFragment extends Fragment {
     }
 
 
+    public void initWithGifView(View view) {
+        GifImageButton gib = new GifImageButton( getActivity() );
+
+//        setContentView( gib );
+
+//        v
+        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        gifViewContainer.addView(gib, param);
+
+//        gib.setImageResource( R.drawable.sample );
+        gib.setImageURI(uri);
+        final MediaController mc = new MediaController( getActivity() );
+        mc.setMediaPlayer( (GifDrawable) gib.getDrawable() );
+        mc.setAnchorView( gib );
+        mc.show();
+//        gib.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mc.show();
+//            }
+//        });
+    }
+
+    /*
     private void initGallery(View view)
     {
         // 图片ID
@@ -124,35 +157,36 @@ public class GifFragment extends Fragment {
             }
         });
 
-        mGalleryFlow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.e("GIFFRAGMENT", "ON GIF VIEW CLICK.");
-                ShowActivity activity = (ShowActivity) getActivity();
-                //todo 转换并执行position
-                activity.onChangePosition(position/mGalleryFlow.getAdapter().getCount());
-            }
-        });
+//        mGalleryFlow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Log.e("GIFFRAGMENT", "ON GIF VIEW CLICK.");
+//                ShowActivity activity = (ShowActivity) getActivity();
+//                //todo 转换并执行position
+////                activity.onChangePosition(position/mGalleryFlow.getAdapter().getCount());
+//            }
+//        });
 
 
 
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                mGalleryFlow.setSelection(progress);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
+//        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+//            @Override
+//            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+//                mGalleryFlow.setSelection(progress);
+//            }
+//
+//            @Override
+//            public void onStartTrackingTouch(SeekBar seekBar) {
+//
+//            }
+//
+//            @Override
+//            public void onStopTrackingTouch(SeekBar seekBar) {
+//
+//            }
+//        });
     }
+    */
 
     // getter and setter
 
