@@ -84,8 +84,8 @@ public class ShowActivity extends Activity {
 
         videoFragment = new VideoFragment();
         gifFragment = new GifFragment();
-        getFragmentManager().beginTransaction().add(R.id.fragment_container, videoFragment).commit();
-//        getFragmentManager().beginTransaction().add(R.id.fragment_container, gifFragment).commit();
+//        getFragmentManager().beginTransaction().add(R.id.fragment_container, videoFragment).commit();
+        getFragmentManager().beginTransaction().add(R.id.fragment_container, gifFragment).commit();
 
 
 
