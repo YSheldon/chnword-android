@@ -45,6 +45,8 @@ public class GifFragment extends Fragment {
 
     private LinearLayout gifViewContainer;
 
+    GifImageButton gib;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -91,16 +93,13 @@ public class GifFragment extends Fragment {
 
 
     public void initWithGifView(View view) {
-        GifImageButton gib = new GifImageButton( getActivity() );
+        gib = new GifImageButton( getActivity() );
 
-//        setContentView( gib );
-
-//        v
         LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         gifViewContainer.addView(gib, param);
 
-//        gib.setImageResource( R.drawable.sample );
-        gib.setImageURI(uri);
+        gib.setImageResource(R.drawable.sample);
+//        gib.setImageURI(uri);
         final MediaController mc = new MediaController( getActivity() );
         mc.setMediaPlayer( (GifDrawable) gib.getDrawable() );
         mc.setAnchorView( gib );
@@ -196,5 +195,6 @@ public class GifFragment extends Fragment {
 
     public void setUri(Uri uri) {
         this.uri = uri;
+        gib.setImageURI(uri);
     }
 }

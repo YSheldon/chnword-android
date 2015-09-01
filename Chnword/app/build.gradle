@@ -1,9 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'chnword'
+            keyPassword '123456'
+            storeFile file('/Users/khtc/Documents/Chnword.jks')
+            storePassword '123456'
+        }
+    }
     compileSdkVersion 21
     buildToolsVersion '21.1.2'
-
     defaultConfig {
         applicationId "com.chnword.chnword"
         minSdkVersion 16

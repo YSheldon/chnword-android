@@ -59,7 +59,11 @@
         <activity android:name=".activity.VideoActivity"></activity>
 
         <!-- umeng -->
-        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:exported="true" android:name=".wxapi.WXEntryActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <activity android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:name=".wxapi.WXEntryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
 
         <!-- ###################注册SDK使用的Activity###################### -->
@@ -73,7 +77,7 @@
             android:windowSoftInputMode="stateVisible|adjustResize" >
         </activity>
 
-        <!-- ############ QQ空间和QQ SSO授权的Activity注册 ############ -->
+        <!-- ############ QQ空间和QQ SSO授权的Activity注册 ############
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
@@ -83,7 +87,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!-- 100424468，如果你使用的公用账号，则不需要修改；否则修改成你在QQ开放平台申请的 APP ID-->
+
                 <data android:scheme="tencent1104685705" />
             </intent-filter>
         </activity>
@@ -91,10 +95,11 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:screenOrientation="portrait">
         </activity>
+        -->
 
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="5593e9dc67e58ee191001897" >
+            android:value="559bc73c67e58ef33e000fe3" >
         </meta-data>
 
     </application>
