@@ -137,7 +137,7 @@ public class ShowActivity extends Activity {
                     String location = data.getString("gif");
 //                    gifUri = Uri.parse(location);
                     gifUri = location;
-                    gifFragment.setUri(Uri.parse(location));
+//                    gifFragment.setUri(Uri.parse(location));
 
                     String video = data.getString("video");
 //                    videoUri = Uri.parse(video);
@@ -145,19 +145,19 @@ public class ShowActivity extends Activity {
 
                     //todo 下载gif图片。
 
-//                    File cache = new File(Environment.getExternalStorageDirectory(), "cache");
-//                    if(!cache.exists()){
-//                        cache.mkdirs();
-//                    }
-//                    Uri uri = getImageURI(gifUri, cache);
-//                    gifFragment.setUri(uri);
-//                    progressDialog.dismiss();
+                    File cache = new File(Environment.getExternalStorageDirectory(), "cache");
+                    if(!cache.exists()){
+                        cache.mkdirs();
+                    }
+                    Uri uri = getImageURI(gifUri, cache);
+                    gifFragment.setUri(uri);
+                    progressDialog.dismiss();
 
                 }
 
                 if (msg.what == AbstractNet.NETWHAT_FAIL) {
                     Toast.makeText(ShowActivity.this, "网络请求失败。", Toast.LENGTH_LONG).show();
-//                    progressDialog.dismiss();
+                    progressDialog.dismiss();
                     onBackPressed();
                 }
             } catch (Exception e) {

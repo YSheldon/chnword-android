@@ -513,18 +513,18 @@ public class TabActivity extends FragmentActivity {
         wxCircleHandler.addToSocialSDK();
 
         //添加qq的
-        //参数1为当前Activity，参数2为开发者在QQ互联申请的APP ID，参数3为开发者在QQ互联申请的APP kEY.
-        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(this, "1104685705",
-                "TaZo5RPmrGX11nPO");
-        qqSsoHandler.addToSocialSDK();
-
-        //qq空间
-        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(this, "100424468",
-                "c7394704798a158208a74ab60104f0ba");
-        qZoneSsoHandler.addToSocialSDK();
-
-        //添加新浪的
-        mController.getConfig().setSsoHandler(new SinaSsoHandler());
+//        //参数1为当前Activity，参数2为开发者在QQ互联申请的APP ID，参数3为开发者在QQ互联申请的APP kEY.
+//        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(this, "1104685705",
+//                "TaZo5RPmrGX11nPO");
+//        qqSsoHandler.addToSocialSDK();
+//
+//        //qq空间
+//        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(this, "100424468",
+//                "c7394704798a158208a74ab60104f0ba");
+//        qZoneSsoHandler.addToSocialSDK();
+//
+//        //添加新浪的
+//        mController.getConfig().setSsoHandler(new SinaSsoHandler());
 
     }
 
