@@ -3,6 +3,7 @@
 
     <application android:allowBackup="true" android:label="@string/app_name">
 
+        <activity android:name=".zxing.activity.MipcaActivityCapture"></activity>
     </application>
 
 </manifest>
