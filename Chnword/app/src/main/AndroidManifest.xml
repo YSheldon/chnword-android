@@ -92,6 +92,11 @@
             android:screenOrientation="portrait">
         </activity>
 
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5593e9dc67e58ee191001897" >
+        </meta-data>
+
     </application>
 
 </manifest>
