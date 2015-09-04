@@ -433,7 +433,7 @@ public class TabActivity extends FragmentActivity {
                     String word = bundle.getString("result");
                     JSONObject param = NetParamFactory.wordParam(userid, deviceId, word);
                     io.vov.vitamio.utils.Log.e(TAG, param.toString());
-                    AbstractNet net = new VerifyNet(wordHandler, param, NetConf.URL_LIST);
+                    AbstractNet net = new VerifyNet(wordHandler, param, NetConf.URL_WORD);
                     progressDialog = ProgressDialog.show(this, "title", "loading");
                     net.start();
 
@@ -560,19 +560,37 @@ public class TabActivity extends FragmentActivity {
                     Log.e(TAG, str);
                     JSONObject obj = new JSONObject(str);
 
-                    JSONArray word_names = obj.getJSONArray("word_name");
-                    JSONArray word_indexs = obj.getJSONArray("word_index");
-                    String wordTips = obj.getString("word_tip");
+                    String result = obj.getString("result");
+                    String message = obj.getString("message");
+                    if (result != null && "1".equalsIgnoreCase(result)) {
+//                        = obj.getJSONObject("data");
 
-                    if (word_indexs.length() > 0 && word_names.length()> 0) {
-                        String word = word_names.getString(0);
-                        String word_index = word_indexs.getString(0);
-                        Intent intent = new Intent(TabActivity.this, ShowActivity.class);
-                        intent.putExtra("word", word);
-                        intent.putExtra("word_index", word_index);
+                        String dataString = obj.getString("data");
+                        if (dataString != null && !"null".equalsIgnoreCase(dataString)) {
+                            JSONObject objData = new JSONObject(dataString);
+
+                            JSONArray word_names = objData.getJSONArray("word");
+                            JSONArray word_indexs = objData.getJSONArray("unicode");
+
+                            if (word_indexs.length() > 0 && word_names.length()> 0) {
+                                String word = word_names.getString(0);
+                                String word_index = word_indexs.getString(0);
+                                Intent intent = new Intent(TabActivity.this, ShowActivity.class);
+                                intent.putExtra("word", word);
+                                intent.putExtra("word_index", word_index);
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(TabActivity.this, message, Toast.LENGTH_LONG).show();
+                            }
+                        } else {
+                            Toast.makeText(TabActivity.this, "请搜索指定的汉字!", Toast.LENGTH_LONG).show();
+                        }
                     } else {
-                        Toast.makeText(TabActivity.this, wordTips, Toast.LENGTH_LONG).show();
+                        Toast.makeText(TabActivity.this, "网络请求失败，请检查网络!", Toast.LENGTH_LONG).show();
                     }
+
+
+
                 }
 
                 if (msg.what == AbstractNet.NETWHAT_FAIL) {

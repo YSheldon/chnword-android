@@ -4,6 +4,7 @@ import android.util.Log;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -38,9 +39,10 @@ public class NetRunnable implements Runnable{
             httpPost.addHeader(HTTP.CONTENT_TYPE, AbstractNet.APPLICATION_JSON);
 
 //            StringEntity se = new StringEntity(encoderJson);
-            StringEntity se = new StringEntity(abstractNet.param.toString());
+            StringEntity se = new StringEntity(abstractNet.param.toString(), "utf-8");
             se.setContentType(AbstractNet.CONTENT_TYPE_TEXT_JSON);
             se.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, AbstractNet.APPLICATION_JSON));
+
             httpPost.setEntity(se);
             HttpResponse response = httpClient.execute(httpPost);
 
