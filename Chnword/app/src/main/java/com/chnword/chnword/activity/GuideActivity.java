@@ -44,10 +44,14 @@ public class GuideActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
 
-        String str = getIntent().getExtras().getString("flag");
-        if ("flag".equalsIgnoreCase(str)) {
-            isFromSetting = true;
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            String str = getIntent().getExtras().getString("flag", "");
+            if ("flag".equalsIgnoreCase(str)) {
+                isFromSetting = true;
+            }
         }
+
 
 
 
