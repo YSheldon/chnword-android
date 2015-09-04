@@ -92,6 +92,9 @@ public class ShowActivity extends Activity {
         this.word.setWord(word);
 
         gifFragment = new GifFragment();
+
+
+
     }
 
     @Override
@@ -145,13 +148,43 @@ public class ShowActivity extends Activity {
 
                     //todo 下载gif图片。
 
-                    File cache = new File(Environment.getExternalStorageDirectory(), "cache");
-                    if(!cache.exists()){
-                        cache.mkdirs();
-                    }
-                    Uri uri = getImageURI(gifUri, cache);
-                    gifFragment.setUri(uri);
-                    progressDialog.dismiss();
+
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            File cache = new File(Environment.getExternalStorageDirectory(), "cache");
+                            if(!cache.exists()){
+                                cache.mkdirs();
+                            }
+
+                            try {
+                                Log.e(TAG, gifUri);
+                                Uri uri = getImageURI(gifUri, cache);
+
+
+                                Message msg = new Message();
+                                msg.what = 1001;
+
+                                Bundle bundle = new Bundle();
+                                bundle.putString("url", uri.toString());
+
+                                msg.setData(bundle);
+
+                                downloadImageHandler.handleMessage(msg);
+
+                            } catch(Exception e) {
+                                e.printStackTrace();
+                            } finally {
+//                                progressDialog.dismiss();
+                            }
+
+
+                        }
+                    }).start();
+
+
 
                 }
 
@@ -163,6 +196,32 @@ public class ShowActivity extends Activity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+    };
+
+
+    Handler downloadImageHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+
+            if (msg.what == 1001) {
+                Bundle bundle = msg.getData();
+
+                String str = bundle.getString("url", "");
+                if ("".equalsIgnoreCase(str)) {
+                    Toast.makeText(ShowActivity.this, "无效的文件url地址", Toast.LENGTH_LONG).show();
+                } else {
+                    Uri uri = Uri.parse(str);
+                    Log.e(TAG, "gifuri : " + gifUri + " localuri : " + uri.toString());
+                    gifFragment.setUri(uri);
+                    getFragmentManager().beginTransaction().add(R.id.fragment_container, gifFragment).commit();
+                }
+
+            }
+
+            progressDialog.dismiss();
+
+            super.handleMessage(msg);
         }
     };
 

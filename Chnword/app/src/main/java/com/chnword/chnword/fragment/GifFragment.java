@@ -47,6 +47,8 @@ public class GifFragment extends Fragment {
 
     GifImageButton gib;
 
+    View self ;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,7 +58,7 @@ public class GifFragment extends Fragment {
 
         mContext = getActivity().getApplicationContext();
 
-
+        self = view;
 //        initGallery(view);
 
         initWithGifView(view);
@@ -73,6 +75,7 @@ public class GifFragment extends Fragment {
 
     @Override
     public void onStart() {
+        initWithGifView(self);
         super.onStart();
     }
 
@@ -98,18 +101,25 @@ public class GifFragment extends Fragment {
         LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         gifViewContainer.addView(gib, param);
 
-        gib.setImageResource(R.drawable.sample);
-//        gib.setImageURI(uri);
+//        gib.setImageResource(R.drawable.sample);
+        gib.setImageURI(uri);
+
         final MediaController mc = new MediaController( getActivity() );
-        mc.setMediaPlayer( (GifDrawable) gib.getDrawable() );
-        mc.setAnchorView( gib );
-        mc.show();
-//        gib.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mc.show();
-//            }
-//        });
+
+        //判断gif类型
+        if (gib.getDrawable() instanceof pl.droidsonroids.gif.GifDrawable) {
+            mc.setMediaPlayer( (GifDrawable) gib.getDrawable());
+            mc.setAnchorView(gib );
+            mc.show();
+//            gib.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    mc.show();
+//                }
+//            });
+        }
+
+
     }
 
     /*
@@ -195,6 +205,6 @@ public class GifFragment extends Fragment {
 
     public void setUri(Uri uri) {
         this.uri = uri;
-        gib.setImageURI(uri);
+//        gib.setImageURI(uri);
     }
 }
