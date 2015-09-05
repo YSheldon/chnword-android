@@ -8,6 +8,7 @@ import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -100,7 +101,7 @@ public class FeedbackActivity extends Activity {
 
 
 
-    public void onSubmit() {
+    public void onSubmit(View view) {
         Log.e(TAG, "ON SUBMIT");
         LocalStore store = new LocalStore(this);
 
@@ -110,7 +111,7 @@ public class FeedbackActivity extends Activity {
         String contact = this.phoneNumber.getText().toString();
         JSONObject param = NetParamFactory.feedbackParam(userid, deviceId, content, contact);
         Log.e(TAG, param.toString());
-        AbstractNet net = new VerifyNet(handler, param, NetConf.URL_LIST);
+        AbstractNet net = new VerifyNet(handler, param, NetConf.URL_FEEDBACK);
         progressDialog = ProgressDialog.show(this, "title", "loading");
         net.start();
 
@@ -125,6 +126,11 @@ public class FeedbackActivity extends Activity {
             try {
                 if (msg.what == AbstractNet.NETWHAT_SUCESS)
                 {
+                    Toast.makeText(FeedbackActivity.this, "感谢您的宝贵意见，工作人员会及时处理", Toast.LENGTH_LONG).show();
+                    //
+//                    Bundle b = msg.getData();
+//                    String str = b.getString("responseBody");
+//                    android.util.Log.e(TAG, str);
                     finish();
 
                 }
