@@ -19,4 +19,6 @@ public class NetConf
     public static final String URL_DOWNLOAD     = "http://app.3000zi.com/web/download.php";
     public static final String URL_ABOUT        = "http://app.3000zi.com/web/about.php";
 
+    public static final String URL_WXPAY        = "http://app.3000zi.com/api/wx_pay.php";
+
 }

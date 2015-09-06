@@ -1,1 +1,6 @@
-package com.chnword.chnword.wxapi;import com.umeng.socialize.weixin.view.WXCallbackActivity;public class WXEntryActivity extends WXCallbackActivity {}
+package com.chnword.chnword.wxapi;
+import com.umeng.socialize.weixin.view.WXCallbackActivity;
+
+public class WXEntryActivity extends WXCallbackActivity {
+
+}
