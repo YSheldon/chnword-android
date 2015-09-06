@@ -148,6 +148,9 @@ public class ShowActivity extends Activity {
 
                     //todo 下载gif图片。
 
+                    //开启分享
+                    initUmeng();
+
 
 
                     new Thread(new Runnable() {
@@ -279,24 +282,24 @@ public class ShowActivity extends Activity {
     //umeng
     final UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");
 
-    public void setUmeng() {
+    public void initUmeng() {
         // 设置分享内容
         mController.setShareContent("友盟社会化组件（SDK）让移动应用快速整合社交分享功能，http://www.umeng.com/social");
         // 设置分享图片, 参数2为图片的url地址
-        mController.setShareMedia(new UMImage(this, "http://www.umeng.com/images/pic/banner_module_social.png"));
+//        mController.setShareMedia(new UMImage(this, "http://www.umeng.com/images/pic/banner_module_social.png"));
 
         // 设置分享图片，参数2为本地图片的资源引用
-        mController.setShareMedia(new UMImage(this, R.drawable.logo1));
+        mController.setShareMedia(new UMImage(this, R.drawable.logo120));
         // 设置分享图片，参数2为本地图片的路径(绝对路径)
 //        mController.setShareMedia(new UMImage(this, BitmapFactory.decodeFile("/mnt/sdcard/icon.png")));
 
         // 设置分享视频
-        UMVideo umVideo = new UMVideo( "http://v.youku.com/v_show/id_XNTE5ODAwMDM2.html?f=19001023");
+        UMVideo umVideo = new UMVideo(this.videoUri);
         // 设置视频缩略图
-        umVideo.setThumb("http://www.umeng.com/images/pic/banner_module_social.png");
+        umVideo.setThumb(new UMImage(this, R.drawable.logo80));
         umVideo.setTitle("友盟社会化分享!");
         mController.setShareMedia(umVideo);
-//        mController.getConfig().removePlatform( SHARE_MEDIA.RENREN, SHARE_MEDIA.DOUBAN);
+        mController.getConfig().removePlatform(SHARE_MEDIA.RENREN, SHARE_MEDIA.DOUBAN, SHARE_MEDIA.SINA, SHARE_MEDIA.TENCENT);
 
         //添加微信和朋友圈
         String appId = "wx523e7fec6968506f";
@@ -323,6 +326,15 @@ public class ShowActivity extends Activity {
         //添加新浪的
         mController.getConfig().setSsoHandler(new SinaSsoHandler());
 
+    }
+
+    public void openUmeng(View view) {
+        if (mController != null) {
+            mController.openShare(this, false);
+        } else {
+            Toast.makeText(this, "分享初始化失败。", Toast.LENGTH_LONG).show();
+            finish();
+        }
     }
 
     public void onSharedButtonClicked() {

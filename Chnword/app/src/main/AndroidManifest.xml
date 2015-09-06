@@ -77,7 +77,7 @@
             android:windowSoftInputMode="stateVisible|adjustResize" >
         </activity>
 
-        <!-- ############ QQ空间和QQ SSO授权的Activity注册 ############
+        <!-- ############ QQ空间和QQ SSO授权的Activity注册 ############-->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
@@ -95,7 +95,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:screenOrientation="portrait">
         </activity>
-        -->
+
 
         <meta-data
             android:name="UMENG_APPKEY"

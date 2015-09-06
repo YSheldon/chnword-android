@@ -35,6 +35,7 @@ import com.chnword.chnword.net.NetParamFactory;
 import com.chnword.chnword.net.VerifyNet;
 import com.chnword.chnword.store.LocalStore;
 import com.chnword.zxingwapper.zxing.activity.MipcaActivityCapture;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
 import com.umeng.socialize.media.UMImage;
@@ -93,6 +94,12 @@ public class TabActivity extends FragmentActivity {
         tab3.setOnClickListener(new BarItemOnClickListener(2));
 
         versionCheck();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initUmeng();
     }
 
     @Override
@@ -482,24 +489,26 @@ public class TabActivity extends FragmentActivity {
     //umeng
     final UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");
 
-    public void setUmeng() {
+    private void initUmeng() {
         // 设置分享内容
-        mController.setShareContent("友盟社会化组件（SDK）让移动应用快速整合社交分享功能，http://www.umeng.com/social");
+        mController.setShareContent("我正在使用三千字，非常适合你，推荐给你吧。http://app.3000zi.com/web/download.php");
         // 设置分享图片, 参数2为图片的url地址
-        mController.setShareMedia(new UMImage(this, "http://www.umeng.com/images/pic/banner_module_social.png"));
+//        mController.setShareMedia(new UMImage(this, "http://www.umeng.com/images/pic/banner_module_social.png"));
 
         // 设置分享图片，参数2为本地图片的资源引用
-        mController.setShareMedia(new UMImage(this, R.drawable.logo1));
+        mController.setShareMedia(new UMImage(this, R.drawable.logo80));
+
         // 设置分享图片，参数2为本地图片的路径(绝对路径)
 //        mController.setShareMedia(new UMImage(this, BitmapFactory.decodeFile("/mnt/sdcard/icon.png")));
 
         // 设置分享视频
-        UMVideo umVideo = new UMVideo( "http://v.youku.com/v_show/id_XNTE5ODAwMDM2.html?f=19001023");
-        // 设置视频缩略图
-        umVideo.setThumb("http://www.umeng.com/images/pic/banner_module_social.png");
-        umVideo.setTitle("友盟社会化分享!");
-        mController.setShareMedia(umVideo);
-//        mController.getConfig().removePlatform( SHARE_MEDIA.RENREN, SHARE_MEDIA.DOUBAN);
+//        UMVideo umVideo = new UMVideo( "http://v.youku.com/v_show/id_XNTE5ODAwMDM2.html?f=19001023");
+//        // 设置视频缩略图
+//        umVideo.setThumb("http://www.umeng.com/images/pic/banner_module_social.png");
+//        umVideo.setTitle("三千字");
+//        mController.setShareMedia(umVideo);
+
+        mController.getConfig().removePlatform( SHARE_MEDIA.RENREN, SHARE_MEDIA.DOUBAN, SHARE_MEDIA.SINA, SHARE_MEDIA.TENCENT);
 
         //添加微信和朋友圈
         String appId = "wx523e7fec6968506f";
@@ -507,24 +516,32 @@ public class TabActivity extends FragmentActivity {
         // 添加微信平台
         UMWXHandler wxHandler = new UMWXHandler(this, appId, appSecret);
         wxHandler.addToSocialSDK();
+
         // 添加微信朋友圈
         UMWXHandler wxCircleHandler = new UMWXHandler(this, appId, appSecret);
         wxCircleHandler.setToCircle(true);
         wxCircleHandler.addToSocialSDK();
 
         //添加qq的
-//        //参数1为当前Activity，参数2为开发者在QQ互联申请的APP ID，参数3为开发者在QQ互联申请的APP kEY.
-//        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(this, "1104685705",
-//                "TaZo5RPmrGX11nPO");
-//        qqSsoHandler.addToSocialSDK();
-//
-//        //qq空间
-//        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(this, "100424468",
-//                "c7394704798a158208a74ab60104f0ba");
-//        qZoneSsoHandler.addToSocialSDK();
-//
-//        //添加新浪的
-//        mController.getConfig().setSsoHandler(new SinaSsoHandler());
+        //参数1为当前Activity，参数2为开发者在QQ互联申请的APP ID，参数3为开发者在QQ互联申请的APP kEY.
+        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(this, "1104685705",
+                "TaZo5RPmrGX11nPO");
+        qqSsoHandler.addToSocialSDK();
+
+        //qq空间
+        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(this, "100424468",
+                "c7394704798a158208a74ab60104f0ba");
+        qZoneSsoHandler.addToSocialSDK();
+
+        //添加新浪的
+        mController.getConfig().setSsoHandler(new SinaSsoHandler());
+    }
+
+    /**
+     * 开启分享
+     */
+    public void openUmeng() {
+        mController.openShare(this, false);
 
     }
 

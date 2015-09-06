@@ -107,7 +107,7 @@ public class TabUser extends Fragment {
                     case 3:
 
                         //进行分享
-                        ((TabActivity)getActivity()).setUmeng();
+                        ((TabActivity)getActivity()).openUmeng();
 
                         break;
 
