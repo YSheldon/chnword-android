@@ -79,11 +79,11 @@ public class ShopSuitActivity extends Activity {
                 GetPrepayIdTask getPrepayId = new GetPrepayIdTask();
                 getPrepayId.execute();
 
-                //2 生成参数
-                genPayReq();
-
-                //发送请求
-                sendPayReq();
+//                //2 生成参数
+//                genPayReq();
+//
+//                //发送请求
+//                sendPayReq();
 
 
 
@@ -214,6 +214,13 @@ public class ShopSuitActivity extends Activity {
 //            show.setText(sb.toString());
 
             resultunifiedorder=result;
+
+            //2 生成参数
+            genPayReq();
+
+            //发送请求
+            sendPayReq();
+
 
         }
 
@@ -352,6 +359,7 @@ public class ShopSuitActivity extends Activity {
         req.sign = genAppSign(signParams);
 
         sb.append("sign\n"+req.sign+"\n\n");
+        Log.e(TAG, sb.toString());
 
 //        show.setText(sb.toString());
 
