@@ -11,11 +11,11 @@ public class Constants {
 
 
   //商户号
-   public static final String MCH_ID = "1233848001";
+   public static final String MCH_ID = "1261899501";
 
 
 //  API密钥，在商户平台设置
-    public static final  String API_KEY="412fde4e9c2e2bb619514ecea142e449";
+    public static final  String API_KEY="04y2MoeXcNQXQVr3OypRjmIFJoKKa24d";
 
 
 
