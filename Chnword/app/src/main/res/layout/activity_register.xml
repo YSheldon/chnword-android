@@ -57,7 +57,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="120dp">
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -92,7 +92,7 @@
                     android:textColor="#000"
                     android:typeface="serif"
                     android:textSize="30dp"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginLeft="10dp" />
 
                 <RelativeLayout
