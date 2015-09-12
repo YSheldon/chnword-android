@@ -5,27 +5,15 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/imageView4"
-            android:src="@drawable/page03"
+            android:id="@+id/imageView"
+            android:src="@drawable/ad1"
             android:scaleType="fitXY" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="进入三千字的世界"
-            android:id="@+id/textView2"
-            android:textColor="#fff"
-            android:textSize="20dp"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="50dp"
-            android:onClick="onButtonClick"
-            android:clickable="true" />
-
     </RelativeLayout>
+
 </LinearLayout>
