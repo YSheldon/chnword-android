@@ -3,20 +3,51 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eee">
+    android:background="@drawable/main_bg">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="你不一定真正认识汉字，不信？试试看！"
+                android:id="@+id/textView22" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="体验用户，请点击——                      "
+            android:id="@+id/textView23"
+            android:textSize="20dp"
+            android:textColor="#000"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
         android:gravity="center">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/buttontrial"
+            android:background="@drawable/trial_button"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:clickable="true"
@@ -26,8 +57,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_height="150dp">
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -39,7 +69,8 @@
                 android:layout_height="match_parent"
                 android:id="@+id/rela_right"
                 android:layout_alignParentRight="true"
-                android:background="@drawable/inputboy">
+                android:background="@drawable/inputboy"
+                android:layout_alignParentBottom="true">
 
             </LinearLayout>
 
@@ -48,18 +79,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/rela_left"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
-                android:layout_toLeftOf="@+id/rela_right">
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="授权用户"
+                    android:text="授权用户——"
                     android:id="@+id/textView6"
-                    android:layout_margin="10dp"
                     android:textColor="#000"
                     android:typeface="serif"
-                    android:textSize="30dp" />
+                    android:textSize="30dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginLeft="10dp" />
 
                 <RelativeLayout
                     android:layout_width="fill_parent"
@@ -69,8 +103,7 @@
                         android:orientation="vertical"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="40dp">
+                        android:layout_alignParentBottom="true">
 
                         <EditText
                             android:layout_width="wrap_content"
@@ -96,15 +129,15 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:gravity="center_horizontal">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="@drawable/buttonlogin"
-            android:onClick="onLoginClick"
-            android:clickable="true"></LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView11"
+            android:src="@drawable/login_button"
+            android:layout_margin="10dp"
+            android:onClick="onLoginClick" />
     </LinearLayout>
 
 </LinearLayout>
