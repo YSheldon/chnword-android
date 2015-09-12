@@ -5,4 +5,11 @@
         <!-- Customize your theme here. -->
     </style>
 
+
+    <style name="AnimationFade">
+        <!-- PopupWindow上下弹出的效果 -->
+        <item name="android:windowEnterAnimation">@anim/in_uptooright</item>
+        <item name="android:windowExitAnimation">@anim/out_origintodown</item>
+    </style>
+
 </resources>
