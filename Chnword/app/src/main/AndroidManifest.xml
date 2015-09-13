@@ -58,6 +58,9 @@
         <activity android:name=".activity.FeedbackActivity"></activity>
         <activity android:name=".activity.VideoActivity"></activity>
 
+        <activity android:name=".activity.MainMenuActivity"></activity>
+
+
         <!-- umeng -->
         <activity android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
