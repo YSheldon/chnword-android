@@ -151,10 +151,13 @@ public class RegistActivity extends Activity {
     public void onTryButtonClicked(View view){
         Log.e(TAG, "METHOD onTryButtonClicked");
 
-        Intent i = new Intent(this, TabActivity.class);
-        startActivity(i);
-        finish();
+//        Intent i = new Intent(this, TabActivity.class);
+//        startActivity(i);
+//        finish();
 
+        Intent intent = new Intent(this, MainMenuActivity.class);
+        startActivity(intent);
+        finish();
 
         //测试toMany pop window
 
