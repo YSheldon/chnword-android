@@ -43,65 +43,65 @@ import com.google.zxing.ResultPoint;
 public final class ViewfinderView extends View {
 	private static final String TAG = "log";
 	/**
-	 * ˢ�½����ʱ��
+	 * 时间延迟
 	 */
 	private static final long ANIMATION_DELAY = 10L;
 	private static final int OPAQUE = 0xFF;
 
 	/**
-	 * �ĸ���ɫ�߽Ƕ�Ӧ�ĳ���
+	 * 屏幕速率
 	 */
 	private int ScreenRate;
 	
 	/**
-	 * �ĸ���ɫ�߽Ƕ�Ӧ�Ŀ��
+	 * 游标宽度
 	 */
 	private static final int CORNER_WIDTH = 10;
 	/**
-	 * ɨ����е��м��ߵĿ��
+	 * 中线宽度
 	 */
 	private static final int MIDDLE_LINE_WIDTH = 6;
 	
 	/**
-	 * ɨ����е��м��ߵ���ɨ������ҵļ�϶
+	 * 中线的padding
 	 */
 	private static final int MIDDLE_LINE_PADDING = 5;
 	
 	/**
-	 * �м�������ÿ��ˢ���ƶ��ľ���
+	 * space的距离
 	 */
 	private static final int SPEEN_DISTANCE = 5;
 	
 	/**
-	 * �ֻ����Ļ�ܶ�
+	 * 密度
 	 */
 	private static float density;
 	/**
-	 * �����С
+	 * 文字大小
 	 */
 	private static final int TEXT_SIZE = 16;
 	/**
-	 * �������ɨ�������ľ���
+	 * 文字到上边的距离
 	 */
 	private static final int TEXT_PADDING_TOP = 30;
 	
 	/**
-	 * ���ʶ��������
+	 * 画笔
 	 */
 	private Paint paint;
 	
 	/**
-	 * �м们���ߵ����λ��
+	 * 到上端的距离
 	 */
 	private int slideTop;
 	
 	/**
-	 * �м们���ߵ���׶�λ��
+	 * 到下端的距离
 	 */
 	private int slideBottom;
 	
 	/**
-	 * ��ɨ��Ķ�ά��������������û��������ܣ���ʱ������
+	 * 界面属性
 	 */
 	private Bitmap resultBitmap;
 	private final int maskColor;
@@ -117,7 +117,7 @@ public final class ViewfinderView extends View {
 		super(context, attrs);
 		
 		density = context.getResources().getDisplayMetrics().density;
-		//������ת����dp
+		//初始化距离
 		ScreenRate = (int)(20 * density);
 
 		paint = new Paint();
@@ -131,27 +131,26 @@ public final class ViewfinderView extends View {
 
 	@Override
 	public void onDraw(Canvas canvas) {
-		//�м��ɨ�����Ҫ�޸�ɨ���Ĵ�С��ȥCameraManager�����޸�
+		//进行绘制
 		Rect frame = CameraManager.get().getFramingRect();
 		if (frame == null) {
 			return;
 		}
 		
-		//��ʼ���м��߻��������ϱߺ����±�
+		//如果不是首次
 		if(!isFirst){
 			isFirst = true;
 			slideTop = frame.top;
 			slideBottom = frame.bottom;
 		}
 		
-		//��ȡ��Ļ�Ŀ�͸�
+		//获得画布大小
 		int width = canvas.getWidth();
 		int height = canvas.getHeight();
 
 		paint.setColor(resultBitmap != null ? resultColor : maskColor);
 		
-		//����ɨ����������Ӱ���֣����ĸ����֣�ɨ�������浽��Ļ���棬ɨ�������浽��Ļ����
-		//ɨ��������浽��Ļ��ߣ�ɨ�����ұߵ���Ļ�ұ�
+		//绘制
 		canvas.drawRect(0, 0, width, frame.top, paint);
 		canvas.drawRect(0, frame.top, frame.left, frame.bottom + 1, paint);
 		canvas.drawRect(frame.right + 1, frame.top, width, frame.bottom + 1,
@@ -166,7 +165,7 @@ public final class ViewfinderView extends View {
 			canvas.drawBitmap(resultBitmap, frame.left, frame.top, paint);
 		} else {
 
-			//��ɨ�����ϵĽǣ��ܹ�8������
+			//绘制四个小角
 			paint.setColor(Color.GREEN);
 			canvas.drawRect(frame.left, frame.top, frame.left + ScreenRate,
 					frame.top + CORNER_WIDTH, paint);
@@ -186,7 +185,7 @@ public final class ViewfinderView extends View {
 					frame.right, frame.bottom, paint);
 
 			
-			//�����м����,ÿ��ˢ�½��棬�м���������ƶ�SPEEN_DISTANCE
+			//计算 slidetop  SPEEN_DISTANCE;
 			slideTop += SPEEN_DISTANCE;
 			if(slideTop >= frame.bottom){
 				slideTop = frame.top;
@@ -194,7 +193,7 @@ public final class ViewfinderView extends View {
 			canvas.drawRect(frame.left + MIDDLE_LINE_PADDING, slideTop - MIDDLE_LINE_WIDTH/2, frame.right - MIDDLE_LINE_PADDING,slideTop + MIDDLE_LINE_WIDTH/2, paint);
 			
 			
-			//��ɨ����������
+			//绘制提示信息
 			paint.setColor(Color.WHITE);
 			paint.setTextSize(TEXT_SIZE * density);
 			paint.setAlpha(0x40);
@@ -227,13 +226,16 @@ public final class ViewfinderView extends View {
 			}
 
 			
-			//ֻˢ��ɨ�������ݣ�����ط���ˢ��
+			//刷新界面
 			postInvalidateDelayed(ANIMATION_DELAY, frame.left, frame.top,
 					frame.right, frame.bottom);
 			
 		}
 	}
 
+	/**
+	 * 绘制view finder
+	 */
 	public void drawViewfinder() {
 		resultBitmap = null;
 		invalidate();
@@ -248,7 +250,7 @@ public final class ViewfinderView extends View {
 	 */
 	public void drawResultBitmap(Bitmap barcode) {
 		resultBitmap = barcode;
-		invalidate();
+		invalidate();//去掉view
 	}
 
 	public void addPossibleResultPoint(ResultPoint point) {

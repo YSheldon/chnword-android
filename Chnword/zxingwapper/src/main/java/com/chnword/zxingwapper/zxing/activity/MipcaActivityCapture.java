@@ -50,19 +50,20 @@ public class MipcaActivityCapture extends Activity implements Callback {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_capture);
-		//ViewUtil.addTopView(getApplicationContext(), this, R.string.scan_card);
+
 		CameraManager.init(getApplication());
 		viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
 		
-		Button mButtonBack = (Button) findViewById(R.id.button_back);
-		mButtonBack.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				MipcaActivityCapture.this.finish();
-				
-			}
-		});
+//		Button mButtonBack = (Button) findViewById(R.id.button_back);
+//		mButtonBack.setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				MipcaActivityCapture.this.finish();
+//
+//			}
+//		});
+
 		hasSurface = false;
 		inactivityTimer = new InactivityTimer(this);
 	}
@@ -108,7 +109,7 @@ public class MipcaActivityCapture extends Activity implements Callback {
 	}
 	
 	/**
-	 * ����ɨ����
+	 * 解码
 	 * @param result
 	 * @param barcode
 	 */
@@ -128,7 +129,11 @@ public class MipcaActivityCapture extends Activity implements Callback {
 		}
 		MipcaActivityCapture.this.finish();
 	}
-	
+
+	/**
+	 * 初始化Camera
+	 * @param surfaceHolder
+	 */
 	private void initCamera(SurfaceHolder surfaceHolder) {
 		try {
 			CameraManager.get().openDriver(surfaceHolder);
@@ -201,6 +206,7 @@ public class MipcaActivityCapture extends Activity implements Callback {
 		}
 	}
 
+    //震动时常
 	private static final long VIBRATE_DURATION = 200L;
 
 	private void playBeepSoundAndVibrate() {
@@ -222,4 +228,9 @@ public class MipcaActivityCapture extends Activity implements Callback {
 		}
 	};
 
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        finish();
+    }
 }
