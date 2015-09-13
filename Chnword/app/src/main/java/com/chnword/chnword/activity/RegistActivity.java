@@ -7,11 +7,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.chnword.chnword.R;
@@ -20,11 +23,14 @@ import com.chnword.chnword.net.DeviceUtil;
 import com.chnword.chnword.net.NetConf;
 import com.chnword.chnword.net.NetParamFactory;
 import com.chnword.chnword.net.VerifyNet;
+import com.chnword.chnword.popwindow.PopErrorWindow;
+import com.chnword.chnword.popwindow.PopManyWindow;
 import com.chnword.chnword.store.LocalStore;
 
 import org.json.JSONObject;
 
 import java.util.UUID;
+import android.view.ViewGroup.LayoutParams;
 
 /**
  * Created by khtc on 15/4/23.
@@ -35,6 +41,10 @@ public class RegistActivity extends Activity {
     private EditText editText;
 
     private ProgressDialog progressDialog;
+
+    // 声明PopupWindow对象的引用
+    private PopupWindow toManyPopupWindow;
+    private PopupWindow errorPopupWindow;
 
 
     @Override
@@ -51,6 +61,33 @@ public class RegistActivity extends Activity {
             finish();
         }
         editText = (EditText) findViewById(R.id.editText);
+
+        toManyPopupWindow = new PopManyWindow(this, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        errorPopupWindow = new PopErrorWindow(this, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                switch (v.getId()) {
+                    case R.id.btn_buy:
+                    {
+                        //进行跳转
+                        Log.e(TAG, "BUY BUTTON CLICKED.");
+
+                    }
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        });
+
     }
 
     @Override
@@ -117,6 +154,14 @@ public class RegistActivity extends Activity {
         Intent i = new Intent(this, TabActivity.class);
         startActivity(i);
         finish();
+
+
+        //测试toMany pop window
+
+//        toManyPopupWindow.showAtLocation(findViewById(R.id.register_main), Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+
+        //测试error pop window
+//        errorPopupWindow.showAtLocation(findViewById(R.id.register_main), Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
 
@@ -151,5 +196,4 @@ public class RegistActivity extends Activity {
             }
         }
     };
-
 }
