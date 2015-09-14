@@ -64,6 +64,7 @@
 
         <activity android:name=".activity.FaqActivity"></activity>
         <activity android:name=".activity.FeedSucessActivity"></activity>
+        <activity android:name=".activity.PhoneBindActivity"></activity>
 
 
         <!-- umeng -->
