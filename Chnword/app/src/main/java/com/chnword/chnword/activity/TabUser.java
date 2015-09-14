@@ -54,41 +54,10 @@ public class TabUser extends Fragment {
         View view = inflater.inflate(R.layout.fragtab_user, container, false);
 
 
-//        registPhoneNumber = (EditText) view.findViewById(R.id.registPhoneNumber);
-
         LocalStore store = new LocalStore(getActivity());
-
-//        webView.loadUrl("file:///android_asset/guide.html");
-
         settingListView = (ListView) view.findViewById(R.id.settingListView);
 
-
-        List<TabuserItem> info = new ArrayList<TabuserItem>();
-
-        TabuserItem item = new TabuserItem();
-        item.setResourceId(R.drawable.uicon_1);
-        item.setTitle("用户FAQ");
-        info.add(item);
-
-        item = new TabuserItem();
-        item.setResourceId(R.drawable.uicon_2);
-        item.setTitle("信息反馈");
-        info.add(item);
-
-        item = new TabuserItem();
-        item.setResourceId(R.drawable.uicon_3);
-        item.setTitle("手机绑定");
-        info.add(item);
-
-        item = new TabuserItem();
-        item.setResourceId(R.drawable.uicon_4);
-        item.setTitle("分享好友");
-        info.add(item);
-
-        item = new TabuserItem();
-        item.setResourceId(R.drawable.uicon_5);
-        item.setTitle("有偿推广");
-        info.add(item);
+        List<TabuserItem> info = prepareData();
 
 
         SettingAdapter adapter = new SettingAdapter(this.getActivity(), info);
@@ -100,13 +69,9 @@ public class TabUser extends Fragment {
                 switch (position) {
                     case 0:
 
-                        //显示会员特权
-                        Intent intent1 = new Intent(getActivity(), WebActivity.class);
-                        intent1.putExtra("title", "会员特权");
-                        intent1.putExtra("url", NetConf.URL_MEMBER);
+                        //显示常见问题
+                        Intent intent1 = new Intent(getActivity(), FaqActivity.class);
                         startActivity(intent1);
-
-
                         break;
 
                     case 1:
@@ -170,6 +135,35 @@ public class TabUser extends Fragment {
 
 
 
+    private List<TabuserItem> prepareData() {
+        List<TabuserItem> info = new ArrayList<TabuserItem>();
+        TabuserItem item = new TabuserItem();
+        item.setResourceId(R.drawable.uicon_1);
+        item.setTitle("用户FAQ");
+        info.add(item);
+
+        item = new TabuserItem();
+        item.setResourceId(R.drawable.uicon_2);
+        item.setTitle("信息反馈");
+        info.add(item);
+
+        item = new TabuserItem();
+        item.setResourceId(R.drawable.uicon_3);
+        item.setTitle("手机绑定");
+        info.add(item);
+
+        item = new TabuserItem();
+        item.setResourceId(R.drawable.uicon_4);
+        item.setTitle("分享好友");
+        info.add(item);
+
+        item = new TabuserItem();
+        item.setResourceId(R.drawable.uicon_5);
+        item.setTitle("有偿推广");
+        info.add(item);
+
+        return info;
+    }
 
 
 }

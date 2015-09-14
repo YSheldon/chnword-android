@@ -63,6 +63,7 @@
         <activity android:name=".activity.VideoActivity"></activity>
 
         <activity android:name=".activity.FaqActivity"></activity>
+        <activity android:name=".activity.FeedSucessActivity"></activity>
 
 
         <!-- umeng -->
