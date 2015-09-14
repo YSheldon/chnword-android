@@ -21,4 +21,7 @@ public class NetConf
 
     public static final String URL_WXPAY        = "http://app.3000zi.com/api/wx_pay.php";
 
+
+    public static final String URL_FAQ  = "";
+
 }
