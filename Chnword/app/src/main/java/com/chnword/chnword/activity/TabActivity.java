@@ -423,29 +423,29 @@ public class TabActivity extends FragmentActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        switch (requestCode) {
-//            case SCANNIN_GREQUEST_CODE:
-//                if(resultCode == RESULT_OK){
-//                    Bundle bundle = data.getExtras();
-//                    //
-////                    mTextView.setText(bundle.getString("result"));
-////                    mImageView.setImageBitmap((Bitmap) data.getParcelableExtra("bitmap"));
-////                    Toast.makeText(this, bundle.getString("result"), Toast.LENGTH_LONG).show();
-//
-//                    //现请求查找index
-//                    LocalStore store = new LocalStore(this);
-//
-//                    String userid = store.getDefaultUser();
-//                    String deviceId = DeviceUtil.getDeviceId(this);
-//                    String word = bundle.getString("result");
-//                    JSONObject param = NetParamFactory.wordParam(userid, deviceId, word);
-//                    io.vov.vitamio.utils.Log.e(TAG, param.toString());
-//                    AbstractNet net = new VerifyNet(wordHandler, param, NetConf.URL_WORD);
-//                    progressDialog = ProgressDialog.show(this, "title", "loading");
-//                    net.start();
-//                }
-//                break;
-//        }
+        switch (requestCode) {
+            case SCANNIN_GREQUEST_CODE:
+                if(resultCode == RESULT_OK){
+                    Bundle bundle = data.getExtras();
+                    //现请求查找index
+                    LocalStore store = new LocalStore(this);
+
+                    String userid = store.getDefaultUser();
+                    String deviceId = DeviceUtil.getDeviceId(this);
+                    String word = bundle.getString("result");
+
+                    if (word != null && !"".equalsIgnoreCase(word)){
+                        JSONObject param = NetParamFactory.wordParam(userid, deviceId, word);
+                        io.vov.vitamio.utils.Log.e(TAG, param.toString());
+                        AbstractNet net = new VerifyNet(wordHandler, param, NetConf.URL_WORD);
+                        progressDialog = ProgressDialog.show(this, "title", "loading");
+                        net.start();
+                    } else {
+                        //do nothing
+                    }
+                }
+                break;
+        }
 
         /**使用SSO授权必须添加如下代码 */
         UMSsoHandler ssoHandler = mController.getConfig().getSsoHandler(requestCode) ;
@@ -454,14 +454,7 @@ public class TabActivity extends FragmentActivity {
         }
     }
 
-    /**
-     * 字课
-     * @param view
-     */
-    public void onZiKeClicked(View view) {
-//        Intent intent = new Intent(this, WordActivity.class);
-//        startActivity(intent);
-    }
+
 
     /**
      * 三千字套装
@@ -548,16 +541,62 @@ public class TabActivity extends FragmentActivity {
         mController.openShare(this, false);
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        /**使用SSO授权必须添加如下代码 */
-//        UMSsoHandler ssoHandler = mController.getConfig().getSsoHandler(requestCode) ;
-//        if(ssoHandler != null){
-//            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
-//        }
-//    }
 
+    private Handler wordHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+
+            progressDialog.dismiss();
+            try {
+                if (msg.what == AbstractNet.NETWHAT_SUCESS)
+                {
+
+                    Bundle b = msg.getData();
+                    String str = b.getString("responseBody");
+                    android.util.Log.e(TAG, str);
+                    JSONObject obj = new JSONObject(str);
+
+                    String result = obj.getString("result");
+                    String message = obj.getString("message");
+                    if (result != null && "1".equalsIgnoreCase(result)) {
+//                        = obj.getJSONObject("data");
+
+                        String dataString = obj.getString("data");
+                        if (dataString != null && !"null".equalsIgnoreCase(dataString)) {
+                            JSONObject objData = new JSONObject(dataString);
+
+                            JSONArray word_names = objData.getJSONArray("word");
+                            JSONArray word_indexs = objData.getJSONArray("unicode");
+
+                            if (word_indexs.length() > 0 && word_names.length()> 0) {
+                                String word = word_names.getString(0);
+                                String word_index = word_indexs.getString(0);
+                                Intent intent = new Intent(TabActivity.this, ShowActivity.class);
+                                intent.putExtra("word", word);
+                                intent.putExtra("word_index", word_index);
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(TabActivity.this, message, Toast.LENGTH_LONG).show();
+                            }
+                        } else {
+                            Toast.makeText(TabActivity.this, "请搜索指定的汉字!", Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        Toast.makeText(TabActivity.this, "网络请求失败，请检查网络!", Toast.LENGTH_LONG).show();
+                    }
+
+                }
+
+                if (msg.what == AbstractNet.NETWHAT_FAIL) {
+                    Toast.makeText(TabActivity.this, "请求失败，请检查网络设置", Toast.LENGTH_LONG).show();
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            super.handleMessage(msg);
+        }
+    };
 
 
 

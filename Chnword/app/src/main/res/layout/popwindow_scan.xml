@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@drawable/mis_page_bg"
         android:id="@+id/pop_layout">
 
@@ -32,7 +32,7 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:gravity="center_horizontal"
                 android:layout_margin="10dp">
 
@@ -40,7 +40,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/imageView12"
-                    android:src="@drawable/mis_page_over" />
+                    android:src="@drawable/mis_page_disable" />
             </LinearLayout>
 
             <LinearLayout
@@ -51,39 +51,68 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="超过三台设备在使用您的用户码!"
+                    android:text="如果你是《汉字魔卡》产品用户，"
                     android:id="@+id/textView25"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:textSize="18dp"
                     android:textColor="#000" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="请先删除其他设备上的绑定，"
+                    android:text="请输入用户码:"
                     android:id="@+id/textView26"
-                    android:layout_marginTop="10dp"
-                    android:textColor="#000"
-                    android:textSize="18dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="再次在本设备登录。"
-                    android:id="@+id/textView29"
                     android:layout_marginTop="5dp"
                     android:textColor="#000"
                     android:textSize="18dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="（登陆后默认绑定该设备）"
-                    android:id="@+id/textView43"
-                    android:layout_marginTop="5dp"
-                    android:textColor="#000"
-                    android:textSize="18dp" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="bottom">
+
+                    <EditText
+                        android:layout_width="209dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/usercodeEditText"/>
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btn_submit"
+                        android:src="@drawable/userid_submit"
+                        android:layout_margin="5dp"
+                        android:background="#00000000"
+                        android:scaleType="fitCenter"/>
+                </LinearLayout>
+
             </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="我要拥有《汉字魔卡》请点击"
+                    android:id="@+id/textView9"
+                    android:textSize="18dp"
+                    android:textColor="#000"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_card"
+                    android:src="@drawable/cardbox_button"
+                    android:background="#00000000"
+                    android:scaleType="fitCenter"/>
+            </LinearLayout>
+
         </LinearLayout>
     </RelativeLayout>
+
 </LinearLayout>
