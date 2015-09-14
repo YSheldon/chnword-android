@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.chnword.chnword.R;
 import com.chnword.chnword.adapter.SettingAdapter;
+import com.chnword.chnword.beans.TabuserItem;
 import com.chnword.chnword.net.NetConf;
 import com.chnword.chnword.store.LocalStore;
 import com.umeng.socialize.controller.UMServiceFactory;
@@ -62,12 +63,33 @@ public class TabUser extends Fragment {
         settingListView = (ListView) view.findViewById(R.id.settingListView);
 
 
-        List<String> info = new ArrayList<String>();
-        info.add("会员特权");
-        info.add("建议反馈");
-        info.add("用户指引");
-        info.add("邀请好友");
-        info.add("关于");
+        List<TabuserItem> info = new ArrayList<TabuserItem>();
+
+        TabuserItem item = new TabuserItem();
+        item.setResourceId(R.drawable.uicon_1);
+        item.setTitle("用户FAQ");
+        info.add(item);
+
+        item = new TabuserItem();
+        item.setResourceId(R.drawable.uicon_2);
+        item.setTitle("信息反馈");
+        info.add(item);
+
+        item = new TabuserItem();
+        item.setResourceId(R.drawable.uicon_3);
+        item.setTitle("手机绑定");
+        info.add(item);
+
+        item = new TabuserItem();
+        item.setResourceId(R.drawable.uicon_4);
+        item.setTitle("分享好友");
+        info.add(item);
+
+        item = new TabuserItem();
+        item.setResourceId(R.drawable.uicon_5);
+        item.setTitle("有偿推广");
+        info.add(item);
+
 
         SettingAdapter adapter = new SettingAdapter(this.getActivity(), info);
         settingListView.setAdapter(adapter);
