@@ -17,7 +17,7 @@ public class FreewordActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
+        setContentView(R.layout.activity_freeword);
 
         backImageButton = (ImageButton) findViewById(R.id.backImageButton);
         backImageButton.setOnClickListener(new View.OnClickListener() {
