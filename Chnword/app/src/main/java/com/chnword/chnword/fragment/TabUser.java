@@ -1,4 +1,4 @@
-package com.chnword.chnword.activity;
+package com.chnword.chnword.fragment;
 
 
 import android.content.Intent;
@@ -16,6 +16,12 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.chnword.chnword.R;
+import com.chnword.chnword.activity.FaqActivity;
+import com.chnword.chnword.activity.FeedbackActivity;
+import com.chnword.chnword.activity.InfoListActivity;
+import com.chnword.chnword.activity.KnowledgeActivity;
+import com.chnword.chnword.activity.PhoneBindActivity;
+import com.chnword.chnword.activity.TabActivity;
 import com.chnword.chnword.adapter.SettingAdapter;
 import com.chnword.chnword.beans.TabuserItem;
 import com.chnword.chnword.net.NetConf;

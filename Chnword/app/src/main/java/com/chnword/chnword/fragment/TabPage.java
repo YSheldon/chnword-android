@@ -1,7 +1,6 @@
-package com.chnword.chnword.activity;
+package com.chnword.chnword.fragment;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,18 +10,13 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.chnword.chnword.R;
+import com.chnword.chnword.activity.TabActivity;
 import com.chnword.chnword.popwindow.PopScanWindow;
 import com.chnword.chnword.store.LocalStore;
 import com.chnword.zxingwapper.zxing.activity.MipcaActivityCapture;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by khtc on 15/4/23.
@@ -31,7 +25,6 @@ public class TabPage extends Fragment {
 
     private static final String TAG = TabPage.class.getSimpleName();
 
-    private TabActivityListener listener;
 
     private ImageButton btn_scan, btn_study;
 
