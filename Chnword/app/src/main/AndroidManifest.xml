@@ -70,6 +70,12 @@
         <activity android:name=".activity.KnowledgeActivity"></activity>
         <activity android:name=".activity.FeatureActivity"></activity>
         <activity android:name=".activity.VipActivity"></activity>
+        <activity android:name=".activity.ShopActivity"></activity>
+
+        <activity android:name=".activity.FreeCateActivity"></activity>
+        <activity android:name=".activity.FreewordActivity"></activity>
+        <activity android:name=".activity.UsercateActivity"></activity>
+        <activity android:name=".activity.UserwordActivity"></activity>
 
 
         <!-- umeng -->
