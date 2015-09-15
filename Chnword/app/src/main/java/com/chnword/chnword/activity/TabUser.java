@@ -72,6 +72,7 @@ public class TabUser extends Fragment {
                         //显示常见问题
                         Intent intent1 = new Intent(getActivity(), FaqActivity.class);
                         startActivity(intent1);
+
                         break;
 
                     case 1:
@@ -84,27 +85,23 @@ public class TabUser extends Fragment {
 
                     case 2:
 
-                        //显示用户指引
-                        Intent guideIntent = new Intent(getActivity(), GuideActivity.class);
-                        guideIntent.putExtra("flag", "flag");
-                        startActivity(guideIntent);
+                        //手机捆绑
+                        Intent bindIntent = new Intent(getActivity(), PhoneBindActivity.class);
+                        startActivity(bindIntent);
 
                         break;
 
                     case 3:
-
                         //进行分享
-                        ((TabActivity)getActivity()).openUmeng();
+                        ((TabActivity) getActivity()).openUmeng();
 
                         break;
 
                     case 4:
 
-                        //关于
-                        Intent intent2 = new Intent(getActivity(), WebActivity.class);
-                        intent2.putExtra("title", "关于");
-                        intent2.putExtra("url", NetConf.URL_ABOUT);
-                        startActivity(intent2);
+                        //有偿推广
+                        Intent knowledgeIntent = new Intent(getActivity(), KnowledgeActivity.class);
+                        startActivity(knowledgeIntent);
 
                         break;
 
@@ -133,6 +130,15 @@ public class TabUser extends Fragment {
         super.onDestroyView();
     }
 
+
+    public void onInforListButtonClicked(View v) {
+        Intent infolistIntent = new Intent(getActivity(), InfoListActivity.class);
+        startActivity(infolistIntent);
+    }
+
+    public void onShareButtonClicked(View v) {
+        ((TabActivity) getActivity()).openUmeng();
+    }
 
 
     private List<TabuserItem> prepareData() {
