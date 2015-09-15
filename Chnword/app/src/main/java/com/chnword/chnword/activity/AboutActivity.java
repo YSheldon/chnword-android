@@ -28,7 +28,6 @@ public class AboutActivity extends Activity {
             }
         });
 
-
     }
 
     @Override
