@@ -56,6 +56,8 @@ public class InfoListActivity extends Activity {
                         break;
 
                     case 1:
+                        Intent featureIntent = new Intent(InfoListActivity.this, FeatureActivity.class);
+                        startActivity(featureIntent);
                         break;
 
                     case 2:
