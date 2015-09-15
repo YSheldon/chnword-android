@@ -10,14 +10,14 @@ import com.chnword.chnword.R;
 /**
  * Created by khtc on 15/9/15.
  */
-public class FeatureActivity extends Activity {
+public class VipActivity extends Activity {
 
     private ImageButton backImageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_feature);
+        setContentView(R.layout.activity_vip);
 
         backImageButton = (ImageButton) findViewById(R.id.backImageButton);
         backImageButton.setOnClickListener(new View.OnClickListener() {
@@ -26,6 +26,7 @@ public class FeatureActivity extends Activity {
                 onBackPressed();//回退
             }
         });
+
     }
 
     @Override

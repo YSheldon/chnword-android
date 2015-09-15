@@ -69,6 +69,7 @@
         <activity android:name=".activity.AboutActivity"></activity>
         <activity android:name=".activity.KnowledgeActivity"></activity>
         <activity android:name=".activity.FeatureActivity"></activity>
+        <activity android:name=".activity.VipActivity"></activity>
 
 
         <!-- umeng -->
