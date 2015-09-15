@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/main_bg">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#649f835b"
+        android:id="@+id/relativeLayout7">
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/backImageButton"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="false"
+            android:layout_centerVertical="true"
+            android:src="@drawable/t_button_back"
+            android:scaleType="fitXY"
+            android:layout_margin="5dp"
+            android:background="#00000000"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView58"
+            android:layout_centerInParent="true"
+            android:textSize="20dp"
+            android:textColor="#ffffff"
+            android:text="关于我们"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone">
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/imageButton17"
+                android:background="#00000000"
+                android:layout_margin="5dp"
+                android:src="@drawable/t_button_list"
+                android:scaleType="fitCenter"/>
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/imageButton18"
+                android:background="#00000000"
+                android:layout_margin="5dp"
+                android:src="@drawable/t_button_share"
+                android:scaleType="fitCenter"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView20"
+                android:src="@drawable/aboutus_tit"
+                android:scaleType="fitCenter"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="     中聿华源科技（北京）有限公式创立于2006年，是一家集汉字文化信息研究、汉字监狱产品研发、汉字课程推广与一体的教育机构。"
+                android:id="@+id/textView59"
+                android:textSize="20dp"
+                android:textColor="#000000"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="     我们热衷于汉字文化研究，我们谙熟儿童学习认知原理，我们是世界首套中华字课的开创者！"
+                android:id="@+id/textView60"
+                android:textColor="#000000"
+                android:textSize="20dp"
+                android:layout_marginTop="5dp"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="0dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/bottom"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我们不媚俗市场；"
+                    android:id="@+id/textView61"
+                    android:textSize="20dp"
+                    android:textColor="#000000"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/top"
+                android:layout_above="@+id/bottom"
+                android:gravity="center"
+                android:layout_margin="0dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView21"
+                    android:src="@drawable/aboutus_pic1"
+                    android:layout_margin="5dp"
+                    android:scaleType="fitXY"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>
