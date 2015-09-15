@@ -1,27 +1,30 @@
 package com.chnword.chnword.activity;
 
 import android.app.Activity;
-import android.media.Image;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.chnword.chnword.R;
-import com.chnword.chnword.net.NetConf;
+
+import org.w3c.dom.Text;
 
 /**
- * Created by khtc on 15/9/14.
+ * Created by khtc on 15/9/15.
  */
-public class FaqActivity extends Activity{
+public class KnowledgeActivity extends Activity {
+
 
     private ImageButton backImageButton;
-    private WebView webView;
+    private TextView urlTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_faq);
+        setContentView(R.layout.activity_knowledge);
 
         backImageButton = (ImageButton) findViewById(R.id.backImageButton);
         backImageButton.setOnClickListener(new View.OnClickListener() {
@@ -31,8 +34,11 @@ public class FaqActivity extends Activity{
             }
         });
 
-        webView = (WebView) findViewById(R.id.faq_webview);
-        webView.loadUrl(NetConf.URL_FAQ);
+        urlTextView = (TextView) findViewById(R.id.urlTextView);
+        urlTextView.setText(
+                Html.fromHtml("<a href=\"http://www.baidu.com\">详情请浏览中聿华源官网。</a> "));
+        urlTextView.setMovementMethod(LinkMovementMethod.getInstance());
+
 
     }
 
