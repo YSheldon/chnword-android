@@ -51,10 +51,10 @@ public class CategoryActivity extends Activity {
 
     private LocalStore store;
 
-    public static int [] categorys = {R.drawable.category01, R.drawable.category02, R.drawable.category03,
-                        R.drawable.category04, R.drawable.category05, R.drawable.category06,
-                        R.drawable.category07, R.drawable.category08, R.drawable.category09,
-                        R.drawable.category10};
+    public static int [] categorys ; //{R.drawable.category01, R.drawable.category02, R.drawable.category03,
+//                        R.drawable.category04, R.drawable.category05, R.drawable.category06,
+//                        R.drawable.category07, R.drawable.category08, R.drawable.category09,
+//                        R.drawable.category10};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -13,7 +13,9 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import com.chnword.chnword.R;
+import com.chnword.chnword.activity.FreeCateActivity;
 import com.chnword.chnword.activity.TabActivity;
+import com.chnword.chnword.activity.UsercateActivity;
 import com.chnword.chnword.popwindow.PopScanWindow;
 import com.chnword.chnword.store.LocalStore;
 import com.chnword.zxingwapper.zxing.activity.MipcaActivityCapture;
@@ -53,16 +55,23 @@ public class TabPage extends Fragment {
                 Log.e(TAG, "main menu activity. btn scan clicked.");
                 LocalStore store = new LocalStore(getActivity());
                 String user = store.getDefaultUser();
-//                if ("0".equalsIgnoreCase(user)) {
-//                    Log.e(TAG, "default user.");
+                if ("0".equalsIgnoreCase(user)) {
+                    Log.e(TAG, "default user.");
 
-                Intent tabIntent = new Intent(getActivity(), TabActivity.class);
-                getActivity().startActivity(tabIntent);
+                    Intent freecateIntent = new Intent(getActivity(), FreeCateActivity.class);
+                    startActivity(freecateIntent);
+
+//                    Intent usercateIntent = new Intent(getActivity(), UsercateActivity.class);
+//                    startActivity(usercateIntent);
 
 
-//                } else {
-//                    Log.e(TAG, "register user.");
-//                }
+
+                } else {
+                    Log.e(TAG, "register user.");
+                    Intent usercateIntent = new Intent(getActivity(), UsercateActivity.class);
+                    startActivity(usercateIntent);
+
+                }
 
             }
         });

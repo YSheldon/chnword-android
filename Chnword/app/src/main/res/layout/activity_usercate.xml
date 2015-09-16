@@ -30,7 +30,7 @@
             android:layout_centerInParent="true"
             android:textSize="20dp"
             android:textColor="#ffffff"
-            android:text="关于我们"/>
+            android:text="三千字课体系"/>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -59,4 +59,9 @@
                 android:scaleType="fitCenter"/>
         </LinearLayout>
     </RelativeLayout>
+
+    <GridView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/usercateGride"/>
 </LinearLayout>

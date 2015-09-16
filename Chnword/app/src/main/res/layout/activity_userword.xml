@@ -59,4 +59,10 @@
                 android:scaleType="fitCenter"/>
         </LinearLayout>
     </RelativeLayout>
+
+    <GridView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/userwordGridView"
+        android:numColumns="3"/>
 </LinearLayout>
