@@ -37,8 +37,7 @@ public class FeedbackActivity extends Activity {
 
     private static final String TAG = FeedbackActivity.class.getSimpleName();
 
-    private TextView feedtextinfo;
-    private EditText feedbacktext, phoneNumber;
+    private EditText feedbacktext;
 
     private ProgressDialog progressDialog;
 
@@ -94,8 +93,8 @@ public class FeedbackActivity extends Activity {
         if (!"".equalsIgnoreCase(content)) {
             String userid = store.getDefaultUser();
             String deviceId = DeviceUtil.getDeviceId(this);
-            String contact = this.phoneNumber.getText().toString();
-            JSONObject param = NetParamFactory.feedbackParam(userid, deviceId, content, contact);
+//            String contact = this.phoneNumber.getText().toString();
+            JSONObject param = NetParamFactory.feedbackParam(userid, deviceId, content);
             Log.e(TAG, param.toString());
             AbstractNet net = new VerifyNet(handler, param, NetConf.URL_FEEDBACK);
             progressDialog = ProgressDialog.show(this, "title", "loading");

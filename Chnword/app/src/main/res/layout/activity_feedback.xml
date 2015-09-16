@@ -82,7 +82,8 @@
         android:background="#eee"
         android:layout_margin="10dp"
         android:hint="您的反馈将帮助我们更快的成长"
-        android:inputType="textMultiLine" />
+        android:inputType="textMultiLine"
+        android:gravity="top"/>
 
     <LinearLayout
         android:orientation="vertical"
