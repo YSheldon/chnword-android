@@ -105,6 +105,12 @@ public class UsercateActivity extends Activity {
             Category m = list.get(position);
             Log.e(TAG, m.getName() + " " + m.getCname());
 
+//            Intent i = new Intent(UsercateActivity.this, UserwordActivity.class);
+//            i.putExtra("ZoneCode", m.getCname());
+//            i.putExtra("ZoneIndex", position);
+//            i.putExtra("module_name", m.getName());
+//            startActivity(i);
+
             if (!m.isLock()) {
                 Intent i = new Intent(UsercateActivity.this, UserwordActivity.class);
                 i.putExtra("ZoneCode", m.getCname());
