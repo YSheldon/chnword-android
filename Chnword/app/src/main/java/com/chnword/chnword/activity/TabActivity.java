@@ -94,7 +94,7 @@ public class TabActivity extends FragmentActivity {
         tab2.setOnClickListener(new BarItemOnClickListener(1));
         tab3.setOnClickListener(new BarItemOnClickListener(2));
 
-        versionCheck();
+//        versionCheck();
     }
 
     @Override
