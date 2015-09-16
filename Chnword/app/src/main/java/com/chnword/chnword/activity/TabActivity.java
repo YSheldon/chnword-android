@@ -636,4 +636,14 @@ public class TabActivity extends FragmentActivity {
 
     }
 
+
+    public void onInforListButtonClicked(View v) {
+        Intent infolistIntent = new Intent(this, InfoListActivity.class);
+        startActivity(infolistIntent);
+    }
+
+    public void onShareButtonClicked(View v) {
+        openUmeng();
+    }
+
 }

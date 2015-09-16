@@ -137,14 +137,7 @@ public class TabUser extends Fragment {
     }
 
 
-    public void onInforListButtonClicked(View v) {
-        Intent infolistIntent = new Intent(getActivity(), InfoListActivity.class);
-        startActivity(infolistIntent);
-    }
 
-    public void onShareButtonClicked(View v) {
-        ((TabActivity) getActivity()).openUmeng();
-    }
 
 
     private List<TabuserItem> prepareData() {

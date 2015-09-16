@@ -76,6 +76,7 @@
         <activity android:name=".activity.FreewordActivity"></activity>
         <activity android:name=".activity.UsercateActivity"></activity>
         <activity android:name=".activity.UserwordActivity"></activity>
+        <activity android:name=".activity.InfoListActivity"></activity>
 
 
         <!-- umeng -->
