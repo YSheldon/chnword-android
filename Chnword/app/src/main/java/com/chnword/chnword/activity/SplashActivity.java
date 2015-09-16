@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 
 import com.chnword.chnword.utils.PerferenceKey;
 import com.chnword.chnword.R;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 
 public class SplashActivity extends Activity {
@@ -30,6 +32,24 @@ public class SplashActivity extends Activity {
         Animation alphaAnim = new AlphaAnimation(0.3f, 1.0f);
         alphaAnim.setDuration(2000);
         mLayout.startAnimation(alphaAnim);
+
+        //初始化
+        //创建默认的ImageLoader配置参数
+        ImageLoaderConfiguration configuration = ImageLoaderConfiguration
+                .createDefault(this);
+        //Initialize ImageLoader with configuration.
+        ImageLoader.getInstance().init(configuration);
+
+        //使用
+//        ImageLoader imageLoader = ImageLoader.getInstance();
+//
+//        imageLoader.displayImage(imageUri, imageView);
+//        imageLoader.loadImage(imageUri, new SimpleImageLoadingListener() {
+//            @Override
+//            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+//                // Do whatever you want with Bitmap
+//            }
+//        });
 
     }
 
