@@ -28,7 +28,7 @@ public class PopScanWindow extends PopupWindow {
 
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mMenuView = inflater.inflate(R.layout.popwindow_toomany, null);
+        mMenuView = inflater.inflate(R.layout.popwindow_scan, null);
         this.setContentView(mMenuView);
 
 
