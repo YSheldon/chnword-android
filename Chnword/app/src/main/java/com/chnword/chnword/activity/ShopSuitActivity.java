@@ -121,10 +121,11 @@ public class ShopSuitActivity extends Activity {
             "￥ 20.00", "￥ 20.00", "￥ 20.00", "￥ 20.00", "￥ 20.00",
     };
 
-    private int[] images = {
-            R.drawable.folder01, R.drawable.folder02, R.drawable.folder03, R.drawable.folder04, R.drawable.folder05,
-            R.drawable.folder06, R.drawable.folder07, R.drawable.folder08, R.drawable.folder09, R.drawable.folder10
-    };
+    private int[] images ;
+//    = {
+//            R.drawable.folder01, R.drawable.folder02, R.drawable.folder03, R.drawable.folder04, R.drawable.folder05,
+//            R.drawable.folder06, R.drawable.folder07, R.drawable.folder08, R.drawable.folder09, R.drawable.folder10
+//    };
 
     private void initShopItemList() {
         for (int i = 0; i < 10; i ++) {

@@ -6,8 +6,7 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="120dp"
-        android:background="@drawable/brand" >
+        android:layout_height="120dp" >
 
     </RelativeLayout>
 

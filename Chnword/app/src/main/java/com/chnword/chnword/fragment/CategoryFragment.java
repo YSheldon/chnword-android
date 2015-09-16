@@ -27,10 +27,10 @@ public class CategoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_module, container, false);
 
-        listView = (GridView) view.findViewById(R.id.module_listView);
-        categoryAdapter = new CategoryAdapter(getActivity(), ((WordActivity_t) getActivity()).getCategories());
-        listView.setAdapter(categoryAdapter);
-        listView.setOnItemClickListener(moduleItemClick);
+//        listView = (GridView) view.findViewById(R.id.module_listView);
+//        categoryAdapter = new CategoryAdapter(getActivity(), ((WordActivity_t) getActivity()).getCategories());
+//        listView.setAdapter(categoryAdapter);
+//        listView.setOnItemClickListener(moduleItemClick);
 
         return view;
     }
@@ -55,7 +55,7 @@ public class CategoryFragment extends Fragment {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Category category = (Category) categoryAdapter.getItem(position);
-            ((WordActivity_t) getActivity()).showWord(category);
+//            ((WordActivity_t) getActivity()).showWord(category);
         }
     };
 

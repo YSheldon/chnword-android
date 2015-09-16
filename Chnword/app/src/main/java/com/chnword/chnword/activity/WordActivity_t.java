@@ -56,11 +56,11 @@ public class WordActivity_t extends Activity {
         wordFragmentT = new WordFragment_t();
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.add(R.id.word_fragment_container, categoryFragment);
-        transaction.add(R.id.word_fragment_container, wordFragmentT);
-        transaction.add(R.id.word_fragment_container, wordFragment);
-        transaction.hide(wordFragment);
-        transaction.hide(wordFragmentT);
+//        transaction.add(R.id.word_fragment_container, categoryFragment);
+//        transaction.add(R.id.word_fragment_container, wordFragmentT);
+//        transaction.add(R.id.word_fragment_container, wordFragment);
+//        transaction.hide(wordFragment);
+//        transaction.hide(wordFragmentT);
         transaction.commit();
 
         //请求数据
@@ -91,19 +91,19 @@ public class WordActivity_t extends Activity {
 
 
     public void showModule() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.hide(wordFragmentT);
-        transaction.hide(wordFragment);
-        transaction.show(categoryFragment);
-        transaction.commit();
+//        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//        transaction.hide(wordFragmentT);
+//        transaction.hide(wordFragment);
+//        transaction.show(categoryFragment);
+//        transaction.commit();
     }
 
     public void showWord(Category category) {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.hide(categoryFragment);
-        transaction.hide(wordFragment);
-        transaction.show(wordFragmentT);
-        transaction.commit();
+//        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//        transaction.hide(categoryFragment);
+//        transaction.hide(wordFragment);
+//        transaction.show(wordFragmentT);
+//        transaction.commit();
 
         //请求网络数据  sublist
         String userid = store.getDefaultUser();
@@ -116,11 +116,11 @@ public class WordActivity_t extends Activity {
     }
 
     public void showScanResult() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.hide(wordFragmentT);
-        transaction.hide(categoryFragment);
-        transaction.show(wordFragment);
-        transaction.commit();
+//        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//        transaction.hide(wordFragmentT);
+//        transaction.hide(categoryFragment);
+//        transaction.show(wordFragment);
+//        transaction.commit();
     }
 
 

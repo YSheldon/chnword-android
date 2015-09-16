@@ -15,7 +15,7 @@
             android:layout_height="match_parent"
             android:id="@+id/imageView6"
             android:layout_margin="5dp"
-            android:src="@drawable/folder01"
+            android:src="@drawable/kindfolder10_a"
             android:scaleType="fitXY" />
 
         <RelativeLayout
@@ -52,8 +52,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/imageButton5"
                 android:layout_alignParentRight="true"
-                android:layout_margin="5dp"
-                android:background="@drawable/buttonbuy" />
+                android:layout_margin="5dp" />
 
         </RelativeLayout>
 

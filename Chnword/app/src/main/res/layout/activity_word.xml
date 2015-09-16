@@ -7,7 +7,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/word_bg"
-        android:background="@drawable/subbg01">
+        android:background="@drawable/kind1_a">
 
         <LinearLayout
             android:orientation="vertical"
@@ -19,7 +19,7 @@
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="120dp"
-                android:background="@drawable/top01"
+                android:background="@drawable/kind1_a"
                 android:id="@+id/word_top"></LinearLayout>
 
             <GridView

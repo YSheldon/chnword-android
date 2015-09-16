@@ -58,14 +58,16 @@ public class WordActivity extends Activity {
     private WordAdapter wordAdapter;
 
 
-    public static final int[] subtops = {R.drawable.top10, R.drawable.top09, R.drawable.top08,
-                            R.drawable.top07, R.drawable.top06, R.drawable.top05,
-                            R.drawable.top04, R.drawable.top03, R.drawable.top02,
-                            R.drawable.top01};
-    public static final int[] subbgs = {R.drawable.subbg10, R.drawable.subbg09, R.drawable.subbg08,
-            R.drawable.subbg07, R.drawable.subbg06, R.drawable.subbg05, R.drawable.subbg04,
-            R.drawable.subbg03, R.drawable.subbg02, R.drawable.subbg01
-    };
+    public static final int[] subtops = {};
+//    = {R.drawable.top10, R.drawable.top09, R.drawable.top08,
+//                            R.drawable.top07, R.drawable.top06, R.drawable.top05,
+//                            R.drawable.top04, R.drawable.top03, R.drawable.top02,
+//                            R.drawable.top01};
+    public static final int[] subbgs = {};
+//    = {R.drawable.subbg10, R.drawable.subbg09, R.drawable.subbg08,
+//            R.drawable.subbg07, R.drawable.subbg06, R.drawable.subbg05, R.drawable.subbg04,
+//            R.drawable.subbg03, R.drawable.subbg02, R.drawable.subbg01
+//    };
 
 
 

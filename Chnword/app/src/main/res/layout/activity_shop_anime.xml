@@ -93,8 +93,7 @@
                         <ImageView
                             android:layout_width="100dp"
                             android:layout_height="100dp"
-                            android:id="@+id/imageView10"
-                            android:src="@drawable/brand" />
+                            android:id="@+id/imageView10"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -157,8 +156,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:id="@+id/imageView8"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/buttonbuy" />
+                    android:layout_margin="5dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
