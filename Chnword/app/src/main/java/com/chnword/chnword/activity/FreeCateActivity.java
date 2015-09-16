@@ -98,7 +98,7 @@ public class FreeCateActivity extends Activity {
             Category m = list.get(position);
             Log.e(TAG, m.getName() + " " + m.getCname());
 
-            Intent i = new Intent(FreeCateActivity.this, WordActivity.class);
+            Intent i = new Intent(FreeCateActivity.this, FreewordActivity.class);
             i.putExtra("ZoneCode", m.getCname());
             i.putExtra("ZoneIndex", position);
             i.putExtra("module_name", m.getName());
