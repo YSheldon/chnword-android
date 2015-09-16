@@ -8,13 +8,12 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#649f835b"
-        android:id="@+id/backImageButton">
+        android:background="#649f835b">
 
         <ImageButton
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/imageButton29"
+            android:id="@+id/backImageButton"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="false"
             android:layout_centerVertical="true"
@@ -63,5 +62,6 @@
     <GridView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/usercateGride"/>
+        android:id="@+id/usercateGride"
+        android:numColumns="3"/>
 </LinearLayout>
