@@ -129,9 +129,9 @@ public class RegistActivity extends Activity {
         String userCode = editText.getText().toString();
 
         LocalStore store = new LocalStore(this);
-        store.removeDefaultUser();
-        store.addUser(userCode);
-        store.setDefaultUser(userCode);
+//        store.removeDefaultUser();
+//        store.addUser(userCode);
+//        store.setDefaultUser(userCode);
 
         //这里需要进行下注册。
 
@@ -176,18 +176,20 @@ public class RegistActivity extends Activity {
             try {
                 Bundle b = msg.getData();
                 String str = b.getString("responseBody");
-                Log.e(TAG, str);
+                Log.e(TAG, "returned code. " + str);
                 if (msg.what == AbstractNet.NETWHAT_SUCESS)
                 {
+                    if (str == null) {
+                        Log.e(TAG, "无返回数据.");
+                    } else {
+                        LocalStore store = new LocalStore(RegistActivity.this);
+                        store.setDefaultUser(userid);
 
+                        Intent intent = new Intent(RegistActivity.this, TabActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
 
-                    LocalStore store = new LocalStore(RegistActivity.this);
-                    store.setDefaultUser(userid);
-                    store.addUser(userid);
-
-                    Intent intent = new Intent(RegistActivity.this, TabActivity.class);
-                    startActivity(intent);
-                    finish();
 
                 }
 
