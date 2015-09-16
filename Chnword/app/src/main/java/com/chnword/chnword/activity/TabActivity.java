@@ -37,9 +37,12 @@ import com.chnword.chnword.net.NetParamFactory;
 import com.chnword.chnword.net.VerifyNet;
 import com.chnword.chnword.store.LocalStore;
 import com.chnword.zxingwapper.zxing.activity.MipcaActivityCapture;
+import com.umeng.socialize.bean.RequestType;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
+import com.umeng.socialize.controller.listener.SocializeListeners;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.sso.QZoneSsoHandler;
 import com.umeng.socialize.sso.SinaSsoHandler;
@@ -95,12 +98,15 @@ public class TabActivity extends FragmentActivity {
         tab3.setOnClickListener(new BarItemOnClickListener(2));
 
 //        versionCheck();
+
+        initUmeng();
+        registerUmengListener();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        initUmeng();
+
     }
 
     @Override
@@ -115,6 +121,7 @@ public class TabActivity extends FragmentActivity {
 
     @Override
     protected void onDestroy() {
+        unregisterUmengListener();
         super.onDestroy();
     }
 
@@ -500,7 +507,7 @@ public class TabActivity extends FragmentActivity {
 //        umVideo.setTitle("三千字");
 //        mController.setShareMedia(umVideo);
 
-        mController.getConfig().removePlatform( SHARE_MEDIA.RENREN, SHARE_MEDIA.DOUBAN, SHARE_MEDIA.SINA, SHARE_MEDIA.TENCENT);
+//        mController.getConfig().removePlatform( SHARE_MEDIA.RENREN, SHARE_MEDIA.DOUBAN, SHARE_MEDIA.SINA, SHARE_MEDIA.TENCENT);
 
         //添加微信和朋友圈
         String appId = "wx523e7fec6968506f";
@@ -600,5 +607,33 @@ public class TabActivity extends FragmentActivity {
     };
 
 
+
+    private void registerUmengListener() {
+        final UMSocialService mController = UMServiceFactory.getUMSocialService(
+                "com.umeng.share", RequestType.SOCIAL);
+
+        mController.registerListener(umSnsPostListener);
+    }
+
+    SocializeListeners.SnsPostListener umSnsPostListener = new SocializeListeners.SnsPostListener() {
+
+        @Override
+        public void onStart() {
+            Toast.makeText(TabActivity.this, "分享开始", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onComplete(SHARE_MEDIA platform, int eCode,
+                               SocializeEntity entity) {
+            if(eCode == 200){
+                Toast.makeText(TabActivity.this, "分享成功", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+    private void unregisterUmengListener() {
+
+        mController.unregisterListener(umSnsPostListener);
+
+    }
 
 }
