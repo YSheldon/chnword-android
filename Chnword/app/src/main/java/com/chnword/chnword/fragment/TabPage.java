@@ -58,11 +58,11 @@ public class TabPage extends Fragment {
                 if ("0".equalsIgnoreCase(user)) {
                     Log.e(TAG, "default user.");
 
-                    Intent freecateIntent = new Intent(getActivity(), FreeCateActivity.class);
-                    startActivity(freecateIntent);
+//                    Intent freecateIntent = new Intent(getActivity(), FreeCateActivity.class);
+//                    startActivity(freecateIntent);
 
-//                    Intent usercateIntent = new Intent(getActivity(), UsercateActivity.class);
-//                    startActivity(usercateIntent);
+                    Intent usercateIntent = new Intent(getActivity(), UsercateActivity.class);
+                    startActivity(usercateIntent);
 
 
 

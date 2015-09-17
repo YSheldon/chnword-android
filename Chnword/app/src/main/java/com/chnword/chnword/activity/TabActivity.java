@@ -19,6 +19,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,6 +36,7 @@ import com.chnword.chnword.net.DeviceUtil;
 import com.chnword.chnword.net.NetConf;
 import com.chnword.chnword.net.NetParamFactory;
 import com.chnword.chnword.net.VerifyNet;
+import com.chnword.chnword.popwindow.SharePopWindow;
 import com.chnword.chnword.store.LocalStore;
 import com.chnword.zxingwapper.zxing.activity.MipcaActivityCapture;
 import com.umeng.socialize.bean.RequestType;
@@ -76,6 +78,8 @@ public class TabActivity extends FragmentActivity {
 
     private ImageView tab1, tab2, tab3;
 
+    SharePopWindow shareWindow;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,8 +103,8 @@ public class TabActivity extends FragmentActivity {
 
 //        versionCheck();
 
-        initUmeng();
-        registerUmengListener();
+        shareWindow = new SharePopWindow(this);
+
     }
 
     @Override
@@ -121,7 +125,6 @@ public class TabActivity extends FragmentActivity {
 
     @Override
     protected void onDestroy() {
-        unregisterUmengListener();
         super.onDestroy();
     }
 
@@ -454,12 +457,6 @@ public class TabActivity extends FragmentActivity {
                 }
                 break;
         }
-
-        /**使用SSO授权必须添加如下代码 */
-        UMSsoHandler ssoHandler = mController.getConfig().getSsoHandler(requestCode) ;
-        if(ssoHandler != null){
-            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
-        }
     }
 
 
@@ -485,68 +482,21 @@ public class TabActivity extends FragmentActivity {
 
 
 
-    //umeng
-    final UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");
-
-    private void initUmeng() {
-        // 设置分享内容
-        mController.setShareContent("我正在使用三千字，非常适合你，推荐给你吧。http://app.3000zi.com/web/download.php");
-        // 设置分享图片, 参数2为图片的url地址
-//        mController.setShareMedia(new UMImage(this, "http://www.umeng.com/images/pic/banner_module_social.png"));
-
-        // 设置分享图片，参数2为本地图片的资源引用
-        mController.setShareMedia(new UMImage(this, R.drawable.logo80));
-
-        // 设置分享图片，参数2为本地图片的路径(绝对路径)
-//        mController.setShareMedia(new UMImage(this, BitmapFactory.decodeFile("/mnt/sdcard/icon.png")));
-
-        // 设置分享视频
-//        UMVideo umVideo = new UMVideo( "http://v.youku.com/v_show/id_XNTE5ODAwMDM2.html?f=19001023");
-//        // 设置视频缩略图
-//        umVideo.setThumb("http://www.umeng.com/images/pic/banner_module_social.png");
-//        umVideo.setTitle("三千字");
-//        mController.setShareMedia(umVideo);
-
-//        mController.getConfig().removePlatform( SHARE_MEDIA.RENREN, SHARE_MEDIA.DOUBAN, SHARE_MEDIA.SINA, SHARE_MEDIA.TENCENT);
-
-        //添加微信和朋友圈
-        String appId = "wx523e7fec6968506f";
-        String appSecret = "4a01f28bf8671d6b5487094caaffc72e";
-        // 添加微信平台
-        UMWXHandler wxHandler = new UMWXHandler(this, appId, appSecret);
-        wxHandler.addToSocialSDK();
-
-        // 添加微信朋友圈
-        UMWXHandler wxCircleHandler = new UMWXHandler(this, appId, appSecret);
-        wxCircleHandler.setToCircle(true);
-        wxCircleHandler.addToSocialSDK();
-
-        //添加qq的
-        //参数1为当前Activity，参数2为开发者在QQ互联申请的APP ID，参数3为开发者在QQ互联申请的APP kEY.
-        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(this, "1104685705",
-                "TaZo5RPmrGX11nPO");
-        qqSsoHandler.addToSocialSDK();
-
-        //qq空间
-        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(this, "100424468",
-                "c7394704798a158208a74ab60104f0ba");
-        qZoneSsoHandler.addToSocialSDK();
-
-        //添加新浪的
-        mController.getConfig().setSsoHandler(new SinaSsoHandler());
-    }
-
     /**
      * 开启分享
      */
     public void openUmeng() {
-        mController.openShare(this, false);
+//        mController.openShare(this, false);
+
+        View view = findViewById(R.id.tab_main);
+        shareWindow.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
 
     }
 
     public void onSharedButtonClicked() {
         // 是否只有已登录用户才能打开分享选择页
-        mController.openShare(this, false);
+        View view = findViewById(R.id.tab_main);
+        shareWindow.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
 
@@ -608,33 +558,6 @@ public class TabActivity extends FragmentActivity {
 
 
 
-    private void registerUmengListener() {
-        final UMSocialService mController = UMServiceFactory.getUMSocialService(
-                "com.umeng.share", RequestType.SOCIAL);
-
-        mController.registerListener(umSnsPostListener);
-    }
-
-    SocializeListeners.SnsPostListener umSnsPostListener = new SocializeListeners.SnsPostListener() {
-
-        @Override
-        public void onStart() {
-            Toast.makeText(TabActivity.this, "分享开始", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onComplete(SHARE_MEDIA platform, int eCode,
-                               SocializeEntity entity) {
-            if(eCode == 200){
-                Toast.makeText(TabActivity.this, "分享成功", Toast.LENGTH_SHORT).show();
-            }
-        }
-    };
-    private void unregisterUmengListener() {
-
-        mController.unregisterListener(umSnsPostListener);
-
-    }
 
 
     public void onInforListButtonClicked(View v) {
