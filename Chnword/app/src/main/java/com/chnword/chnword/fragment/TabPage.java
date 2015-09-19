@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 
 import com.chnword.chnword.R;
 import com.chnword.chnword.activity.FreeCateActivity;
+import com.chnword.chnword.activity.ShopActivity;
 import com.chnword.chnword.activity.TabActivity;
 import com.chnword.chnword.activity.UsercateActivity;
 import com.chnword.chnword.popwindow.PopScanWindow;
@@ -84,10 +85,16 @@ public class TabPage extends Fragment {
                 switch (v.getId()) {
                     case R.id.btn_submit:
 
+                        String code = popScanWindow.text();
+                        //todo 处理submit
+
                         break;
 
                     case R.id.btn_card:
 
+                        Intent shopIntent = new Intent(getActivity(), ShopActivity.class);
+                        getActivity().startActivity(shopIntent);
+                        popScanWindow.dismiss();
                         break;
 
                     default:

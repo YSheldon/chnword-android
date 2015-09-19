@@ -70,4 +70,8 @@ public class PopScanWindow extends PopupWindow {
             }
         });
     }
+
+    public String text() {
+        return usercodeEditText.getText().toString();
+    }
 }

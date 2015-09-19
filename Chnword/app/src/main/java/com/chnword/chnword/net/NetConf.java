@@ -24,4 +24,6 @@ public class NetConf
 
     public static final String URL_FAQ  = "http://www.3000zi.com/faq.html";
 
+    public static final String URL_BUY = "http://www.baidu.com";
+
 }
