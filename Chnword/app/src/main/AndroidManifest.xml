@@ -80,6 +80,7 @@
 
         <activity android:name=".activity.ShareEditActivity"></activity>
         <activity android:name=".activity.ShareSuccessActivity"></activity>
+        <activity android:name=".activity.ShopVerifyActivity"></activity>
 
         <!-- umeng -->
         <activity android:configChanges="keyboardHidden|orientation|screenSize"
