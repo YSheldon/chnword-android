@@ -86,8 +86,8 @@ public class TabStore extends Fragment {
             @Override
             public void onClick(View v) {
                 if (!cateZikeButton.isSelected()) {
-                    allZikeButton.setSelected(false);
-                    cateZikeButton.setSelected(true);
+                    allZikeButton.setSelected(true);
+                    cateZikeButton.setSelected(false);
                     cardZikeButton.setSelected(false);
 
                     FragmentTransaction fragmentTransaction1 = manager.beginTransaction();
@@ -104,7 +104,7 @@ public class TabStore extends Fragment {
             @Override
             public void onClick(View v) {
                 if (!cardZikeButton.isSelected()) {
-                    allZikeButton.setSelected(false);
+                    allZikeButton.setSelected(true);
                     cateZikeButton.setSelected(false);
                     cardZikeButton.setSelected(true);
 

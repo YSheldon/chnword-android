@@ -449,7 +449,7 @@ public class TabActivity extends FragmentActivity {
                         JSONObject param = NetParamFactory.wordParam(userid, deviceId, word);
                         io.vov.vitamio.utils.Log.e(TAG, param.toString());
                         AbstractNet net = new VerifyNet(wordHandler, param, NetConf.URL_WORD);
-                        progressDialog = ProgressDialog.show(this, "title", "loading");
+//                        progressDialog = ProgressDialog.show(this, "title", "loading");
                         net.start();
                     } else {
                         //do nothing

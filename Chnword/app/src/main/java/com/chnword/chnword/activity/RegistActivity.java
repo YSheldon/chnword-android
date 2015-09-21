@@ -151,6 +151,7 @@ public class RegistActivity extends Activity {
     public void onTryButtonClicked(View view){
         Log.e(TAG, "METHOD onTryButtonClicked");
 
+
         Intent i = new Intent(this, TabActivity.class);
         startActivity(i);
         finish();

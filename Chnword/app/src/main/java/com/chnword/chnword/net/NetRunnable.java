@@ -34,6 +34,8 @@ public class NetRunnable implements Runnable{
             // 将JSON进行UTF-8编码,以便传输中文
 //            String encoderJson = URLEncoder.encode(abstractNet.param.toString(), HTTP.UTF_8);
 
+            Log.e(TAG, abstractNet.url + "");
+
             httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(abstractNet.url);
             httpPost.addHeader(HTTP.CONTENT_TYPE, AbstractNet.APPLICATION_JSON);

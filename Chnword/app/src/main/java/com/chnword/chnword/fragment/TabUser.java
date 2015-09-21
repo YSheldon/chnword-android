@@ -69,6 +69,8 @@ public class TabUser extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragtab_user, container, false);
 
+
+
         settingListView = (ListView) view.findViewById(R.id.settingListView);
         userIdTextView = (TextView) view.findViewById(R.id.userIdTextView);
         userLevelButton = (ImageButton) view.findViewById(R.id.userLevelButton);

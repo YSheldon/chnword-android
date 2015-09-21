@@ -36,10 +36,7 @@ public class ShopActivity extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragtab_store);
-
-
-
+        setContentView(R.layout.activity_shop);
 
         shop_container = (FrameLayout) findViewById(R.id.shop_container);
 
