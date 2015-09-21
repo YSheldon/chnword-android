@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.chnword.chnword.R;
@@ -71,6 +72,9 @@ public class ShowActivity extends Activity {
     private ProgressDialog progressDialog;
 
 
+    private ImageButton backImageButton;
+
+
 
 
     @Override
@@ -94,6 +98,14 @@ public class ShowActivity extends Activity {
         gifFragment = new GifFragment();
 
 
+        backImageButton = (ImageButton) findViewById(R.id.backImageButton);
+        backImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();//回退
+            }
+        });
+
 
     }
 
@@ -109,6 +121,13 @@ public class ShowActivity extends Activity {
         requestNet();
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
 
     private void requestNet() {
 

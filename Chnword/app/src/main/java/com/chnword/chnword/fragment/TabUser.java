@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import com.chnword.chnword.activity.FeedbackActivity;
 import com.chnword.chnword.activity.InfoListActivity;
 import com.chnword.chnword.activity.KnowledgeActivity;
 import com.chnword.chnword.activity.PhoneBindActivity;
+import com.chnword.chnword.activity.RegistActivity;
 import com.chnword.chnword.activity.TabActivity;
 import com.chnword.chnword.adapter.SettingAdapter;
 import com.chnword.chnword.beans.TabuserItem;
@@ -36,6 +38,8 @@ import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.umeng.socialize.sso.UMSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 
+import org.w3c.dom.Text;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,6 +54,12 @@ public class TabUser extends Fragment {
 
     private ListView settingListView;
 
+    private boolean isUserLogin = true;
+    private String userId;
+
+    private TextView userIdTextView;
+    private ImageButton userLevelButton;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,9 +69,21 @@ public class TabUser extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragtab_user, container, false);
 
+        settingListView = (ListView) view.findViewById(R.id.settingListView);
+        userIdTextView = (TextView) view.findViewById(R.id.userIdTextView);
+        userLevelButton = (ImageButton) view.findViewById(R.id.userLevelButton);
 
         LocalStore store = new LocalStore(getActivity());
-        settingListView = (ListView) view.findViewById(R.id.settingListView);
+        String user = store.getDefaultUser();
+
+        if (user == null || "".equalsIgnoreCase(user)) {
+            isUserLogin = false;
+        } else {
+            userId = user;
+            userIdTextView.setText(userId);
+            // TODO: 15/9/21 分级的图片浏览
+            userLevelButton.setImageResource(R.drawable.topicon_no);
+        }
 
         List<TabuserItem> info = prepareData();
 
@@ -75,25 +97,35 @@ public class TabUser extends Fragment {
                 switch (position) {
                     case 0:
 
-                        //显示常见问题
-                        Intent intent1 = new Intent(getActivity(), FaqActivity.class);
-                        startActivity(intent1);
+                        if (isUserLogin) {
+                            //手机捆绑
+                            Intent bindIntent = new Intent(getActivity(), PhoneBindActivity.class);
+                            startActivity(bindIntent);
+
+                        } else {
+                            //手机捆绑
+                            Intent registIntent = new Intent(getActivity(), RegistActivity.class);
+                            startActivity(registIntent);
+                        }
+
 
                         break;
 
                     case 1:
 
-                        //显示建议反馈的界面。
-                        Intent feedback = new Intent(getActivity(), FeedbackActivity.class);
-                        startActivity(feedback);
+                        //显示常见问题
+                        Intent intent1 = new Intent(getActivity(), FaqActivity.class);
+                        startActivity(intent1);
+
 
                         break;
 
                     case 2:
 
-                        //手机捆绑
-                        Intent bindIntent = new Intent(getActivity(), PhoneBindActivity.class);
-                        startActivity(bindIntent);
+                        //显示建议反馈的界面。
+                        Intent feedback = new Intent(getActivity(), FeedbackActivity.class);
+                        startActivity(feedback);
+
 
                         break;
 
@@ -143,6 +175,18 @@ public class TabUser extends Fragment {
     private List<TabuserItem> prepareData() {
         List<TabuserItem> info = new ArrayList<TabuserItem>();
         TabuserItem item = new TabuserItem();
+
+        if (isUserLogin) {
+            item = new TabuserItem();
+            item.setResourceId(R.drawable.uicon_3);
+            item.setTitle("手机绑定");
+            info.add(item);
+        } else {
+            item.setResourceId(R.drawable.uicon_1);
+            item.setTitle("用户FAQ");
+            info.add(item);
+        }
+
         item.setResourceId(R.drawable.uicon_1);
         item.setTitle("用户FAQ");
         info.add(item);
@@ -152,10 +196,7 @@ public class TabUser extends Fragment {
         item.setTitle("信息反馈");
         info.add(item);
 
-        item = new TabuserItem();
-        item.setResourceId(R.drawable.uicon_3);
-        item.setTitle("手机绑定");
-        info.add(item);
+
 
         item = new TabuserItem();
         item.setResourceId(R.drawable.uicon_4);

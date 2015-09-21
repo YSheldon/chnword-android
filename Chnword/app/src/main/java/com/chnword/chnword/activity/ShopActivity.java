@@ -113,7 +113,7 @@ public class ShopActivity extends FragmentActivity {
                 }
             }
         });
-        
+
     }
 
 }
