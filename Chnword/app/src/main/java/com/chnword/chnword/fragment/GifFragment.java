@@ -4,20 +4,15 @@ import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.SeekBar;
 
 import com.chnword.chnword.R;
-import com.chnword.chnword.activity.ShowActivity;
-import com.chnword.chnword.adapter.ImageAdapter;
 import com.chnword.chnword.gallery.GalleryFlow;
-import com.chnword.chnword.utils.BitmapScaleDownUtil;
 
 import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageButton;
@@ -101,7 +96,7 @@ public class GifFragment extends Fragment {
         LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         gifViewContainer.addView(gib, param);
 
-        gib.setImageResource(R.drawable.videoLoading);
+        gib.setImageResource(R.drawable.videoloading);
         gib.setImageURI(uri);
 
         final MediaController mc = new MediaController( getActivity() );
