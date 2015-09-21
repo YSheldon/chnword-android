@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.RadioGroup;
 
 import com.chnword.chnword.R;
@@ -26,12 +28,17 @@ public class ShopActivity extends FragmentActivity {
     private CatezikeFragment catezikeFragment;
     private AllzikeFragment allzikeFragment;
 
+    private ImageButton cardZikeButton;
+    private ImageButton cateZikeButton;
+    private ImageButton allZikeButton;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragtab_store);
+
+
 
 
         shop_container = (FrameLayout) findViewById(R.id.shop_container);
@@ -51,41 +58,62 @@ public class ShopActivity extends FragmentActivity {
         fragmentTransaction.hide(catezikeFragment);
         fragmentTransaction.commit();
 
+        cardZikeButton = (ImageButton) findViewById(R.id.cardZikeButton);
+        cateZikeButton = (ImageButton) findViewById(R.id.cateZikeButton);
+        allZikeButton = (ImageButton) findViewById(R.id.allZikeButton);
 
-        SegmentedRadioGroup group = (SegmentedRadioGroup) findViewById(R.id.segment_text);
-        group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        allZikeButton.setSelected(true);
+        allZikeButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.button_one:
-                        FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                        fragmentTransaction.hide(cardzikeFragment);
-                        fragmentTransaction.hide(catezikeFragment);
-                        fragmentTransaction.show(allzikeFragment);
-                        fragmentTransaction.commit();
-                        break;
+            public void onClick(View v) {
+                if (!allZikeButton.isSelected()) {
+                    allZikeButton.setSelected(true);
+                    cateZikeButton.setSelected(false);
+                    cardZikeButton.setSelected(false);
+                    FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                    fragmentTransaction.hide(cardzikeFragment);
+                    fragmentTransaction.hide(catezikeFragment);
+                    fragmentTransaction.show(allzikeFragment);
+                    fragmentTransaction.commit();
 
-                    case R.id.button_two:
-                        FragmentTransaction fragmentTransaction1 = manager.beginTransaction();
-                        fragmentTransaction1.hide(allzikeFragment);
-                        fragmentTransaction1.hide(cardzikeFragment);
-                        fragmentTransaction1.show(catezikeFragment);
-                        fragmentTransaction1.commit();
-                        break;
-
-                    case R.id.button_three:
-                        FragmentTransaction fragmentTransaction2 = manager.beginTransaction();
-                        fragmentTransaction2.hide(allzikeFragment);
-                        fragmentTransaction2.hide(catezikeFragment);
-                        fragmentTransaction2.show(cardzikeFragment);
-                        fragmentTransaction2.commit();
-                        break;
-
-                    default:
-                        break;
                 }
             }
         });
+
+        cateZikeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!allZikeButton.isSelected()) {
+                    allZikeButton.setSelected(false);
+                    cateZikeButton.setSelected(true);
+                    cardZikeButton.setSelected(false);
+                    FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                    fragmentTransaction.hide(cardzikeFragment);
+                    fragmentTransaction.hide(catezikeFragment);
+                    fragmentTransaction.show(allzikeFragment);
+                    fragmentTransaction.commit();
+
+                }
+            }
+        });
+
+        cardZikeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!allZikeButton.isSelected()) {
+                    allZikeButton.setSelected(false);
+                    cateZikeButton.setSelected(false);
+                    cardZikeButton.setSelected(true);
+                    FragmentTransaction fragmentTransaction = manager.beginTransaction();
+                    fragmentTransaction.hide(cardzikeFragment);
+                    fragmentTransaction.hide(catezikeFragment);
+                    fragmentTransaction.show(allzikeFragment);
+                    fragmentTransaction.commit();
+
+                }
+            }
+        });
+        
     }
 
 }

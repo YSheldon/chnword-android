@@ -66,53 +66,59 @@
         android:layout_height="45dp"
         android:gravity="center">
 
-        <com.chnword.chnword.view.SegmentedRadioGroup
-            android:id="@+id/segment_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dip"
-            android:checkedButton="@+id/button_one"
+        <LinearLayout
             android:orientation="horizontal"
-            >
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <RadioButton
-                android:id="@id/button_one"
-                android:button="@null"
-                android:gravity="center"
-                android:minWidth="50dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="全套字课"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#000000"
-                android:textSize="18dp"/>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
 
-            <RadioButton
-                android:id="@+id/button_two"
-                android:button="@null"
-                android:gravity="center"
-                android:minHeight="33dip"
-                android:minWidth="50dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="分类字课"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#000000"
-                android:textSize="18dp"/>
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/allZikeButton"
+                    android:background="#00000000"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/tabtoppic1"/>
+            </LinearLayout>
 
-            <RadioButton
-                android:id="@+id/button_three"
-                android:button="@null"
-                android:gravity="center"
-                android:minHeight="33dip"
-                android:minWidth="50dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="魔卡套装"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#000000"
-                android:textSize="18dp"/>
-        </com.chnword.chnword.view.SegmentedRadioGroup>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/cateZikeButton"
+                    android:background="#00000000"
+                    android:src="@drawable/tabtoppic2"
+                    android:scaleType="fitCenter"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/cardZikeButton"
+                    android:background="#00000000"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/tabtoppic3"/>
+            </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
