@@ -101,7 +101,7 @@ public class GifFragment extends Fragment {
         LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         gifViewContainer.addView(gib, param);
 
-//        gib.setImageResource(R.drawable.sample);
+        gib.setImageResource(R.drawable.videoLoading);
         gib.setImageURI(uri);
 
         final MediaController mc = new MediaController( getActivity() );

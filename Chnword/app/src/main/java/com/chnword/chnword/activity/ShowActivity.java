@@ -97,7 +97,6 @@ public class ShowActivity extends Activity {
 
         gifFragment = new GifFragment();
 
-
         backImageButton = (ImageButton) findViewById(R.id.backImageButton);
         backImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
