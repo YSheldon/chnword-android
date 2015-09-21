@@ -1,9 +1,8 @@
 package com.chnword.chnword.fragment;
 
 
-import android.app.ProgressDialog;
+
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -12,10 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.RadioGroup;
 
 import com.chnword.chnword.R;
-import com.chnword.chnword.view.SegmentedRadioGroup;
 
 /**
  * Created by khtc on 15/4/23.
@@ -39,18 +36,18 @@ public class TabStore extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragtab_store, container, false);
 
         shop_container = (FrameLayout) view.findViewById(R.id.shop_container);
 
-        manager = getActivity().getSupportFragmentManager();
 
-        FragmentTransaction fragmentTransaction = manager.beginTransaction();
 
         cardzikeFragment = new CardzikeFragment();
         catezikeFragment = new CatezikeFragment();
         allzikeFragment = new AllzikeFragment();
+        manager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = manager.beginTransaction();
 
         fragmentTransaction.add(R.id.shop_container, cardzikeFragment);
         fragmentTransaction.add(R.id.shop_container, catezikeFragment);
@@ -116,9 +113,6 @@ public class TabStore extends Fragment {
                 }
             }
         });
-
-
-
 
         return view;
     }

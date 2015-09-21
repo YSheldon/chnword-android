@@ -51,7 +51,7 @@ public class CatezikeFragment extends Fragment {
         catebuyButton = (ImageButton)view.findViewById(R.id.cateBuyButton);
         catebuyListView = (ListView) view.findViewById(R.id.catebuyListView);
 
-        progressDialog = ProgressDialog.show(getActivity(), "title", "loading");
+//        progressDialog = ProgressDialog.show(getActivity(), "title", "loading");
 
         preparedata();
         adapter = new CatebuyAdapter(getActivity(), lists);

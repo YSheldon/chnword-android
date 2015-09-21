@@ -418,8 +418,6 @@ public class TabActivity extends FragmentActivity {
      * @param view
      */
     public void onScanClicked(View view) {
-//        Intent intent = new Intent(this, QRScanActivity.class);
-//        startActivity(intent);
 
         Intent intent = new Intent();
         intent.setClass(this, MipcaActivityCapture.class);
@@ -428,7 +426,6 @@ public class TabActivity extends FragmentActivity {
 
     }
 
-    private ProgressDialog progressDialog;
 
 
     @Override
@@ -447,9 +444,9 @@ public class TabActivity extends FragmentActivity {
 
                     if (word != null && !"".equalsIgnoreCase(word)){
                         JSONObject param = NetParamFactory.wordParam(userid, deviceId, word);
-                        io.vov.vitamio.utils.Log.e(TAG, param.toString());
+                        Log.e(TAG, param.toString());
                         AbstractNet net = new VerifyNet(wordHandler, param, NetConf.URL_WORD);
-//                        progressDialog = ProgressDialog.show(this, "title", "loading");
+
                         net.start();
                     } else {
                         //do nothing
@@ -504,7 +501,7 @@ public class TabActivity extends FragmentActivity {
         @Override
         public void handleMessage(Message msg) {
 
-            progressDialog.dismiss();
+//            progressDialog.dismiss();
             try {
                 if (msg.what == AbstractNet.NETWHAT_SUCESS)
                 {
