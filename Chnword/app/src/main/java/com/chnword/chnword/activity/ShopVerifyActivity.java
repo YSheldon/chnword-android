@@ -52,7 +52,9 @@ public class ShopVerifyActivity extends Activity {
             @Override
             public void onClick(View v) {
                 // TODO: 15/9/20 添加微信或者支付宝的调用
-                
+
+
+
             }
         });
 

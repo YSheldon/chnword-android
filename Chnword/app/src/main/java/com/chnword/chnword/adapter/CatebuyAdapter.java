@@ -67,12 +67,11 @@ public class CatebuyAdapter extends BaseAdapter {
         catePriceTextView.setText(item.getPriceString());
         cateImageView.setImageResource(item.getResourceId());
 
-        //// TODO: 15/9/19  加入check button组
-//        if (item.isChecked()) {
-//            cateCheckView.setImageDrawable();
-//        } else {
-//            cateCheckView.setImageDrawable();
-//        }
+        if (item.isChecked()) {
+            cateCheckView.setImageResource(R.drawable.choose_y);
+        } else {
+            cateCheckView.setImageResource(R.drawable.choose_n);
+        }
 
         return convertView;
     }

@@ -66,6 +66,7 @@ public class CatezikeFragment extends Fragment {
                     item.setIsChecked(true);
                 }
                 item.calcute(buyer);
+                adapter.notifyDataSetChanged();
             }
         });
 
