@@ -4,8 +4,11 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +17,23 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chnword.chnword.R;
 import com.chnword.chnword.activity.ShopVerifyActivity;
 import com.chnword.chnword.adapter.CatebuyAdapter;
 import com.chnword.chnword.beans.CateBuyItem;
 import com.chnword.chnword.beans.CateBuyer;
+import com.chnword.chnword.beans.Category;
+import com.chnword.chnword.net.AbstractNet;
+import com.chnword.chnword.net.DeviceUtil;
+import com.chnword.chnword.net.NetConf;
+import com.chnword.chnword.net.NetParamFactory;
+import com.chnword.chnword.net.VerifyNet;
+import com.chnword.chnword.store.LocalStore;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -30,6 +43,7 @@ import java.util.List;
  * Created by khtc on 15/9/15.
  */
 public class CatezikeFragment extends Fragment {
+    private static final String TAG = CatezikeFragment.class.getSimpleName();
 
     private TextView priceTextView;
     private ImageButton catebuyButton;
@@ -40,6 +54,7 @@ public class CatezikeFragment extends Fragment {
     private CateBuyer buyer = new CateBuyer(0);
 
     ProgressDialog progressDialog;
+    private boolean shouldRequestNet = true;
 
     @Nullable
     @Override
@@ -51,8 +66,9 @@ public class CatezikeFragment extends Fragment {
         catebuyButton = (ImageButton)view.findViewById(R.id.cateBuyButton);
         catebuyListView = (ListView) view.findViewById(R.id.catebuyListView);
 
+        lists = new ArrayList<CateBuyItem>();
+//        preparedata();
 
-        preparedata();
         adapter = new CatebuyAdapter(getActivity(), lists);
         catebuyListView.setAdapter(adapter);
         catebuyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -75,7 +91,7 @@ public class CatezikeFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                progressDialog.show();
+//                progressDialog.show();
                 //循环，找出checkedItem,
                 Intent intent = new Intent(getActivity(), ShopVerifyActivity.class);
                 getActivity().startActivity(intent);
@@ -99,10 +115,72 @@ public class CatezikeFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+        if (shouldRequestNet) {
+            requestNet();
+        }
     }
 
+    private void requestNet() {
+        LocalStore store = new LocalStore(getActivity());
+        String userid = store.getDefaultUser();
+        String deviceId = DeviceUtil.getDeviceId(getActivity());
+        JSONObject param = NetParamFactory.listParam(userid, deviceId, 0, 0);
+        AbstractNet net = new VerifyNet(handler, param, NetConf.URL_SHOPLIST);
+        progressDialog = ProgressDialog.show(getActivity(), "title", "loading");
+        net.start();
+    }
+    Handler handler = new Handler(){
+
+        @Override
+        public void handleMessage(Message msg) {
+            progressDialog.dismiss();
+            try {
+                if (msg.what == AbstractNet.NETWHAT_SUCESS)
+                {
+                    lists.clear();
+                    Bundle b = msg.getData();
+                    String str = b.getString("responseBody");
+                    Log.e(TAG, str);
+                    JSONObject obj = new JSONObject(str);
+
+                    JSONArray array = obj.getJSONArray("data");
+                    Log.e(TAG, array.toString());
+                    for (int i = 0; i < array.length(); i ++) {
+                        JSONObject cateObj = array.getJSONObject(i);
+
+                        CateBuyItem category = new CateBuyItem();
+
+                        String id = cateObj.getString("id");
+                        String icon = cateObj.getString("icon");
+                        String price = cateObj.getString("price");
+                        String sort = cateObj.getString("sort");
+                        String cname = cateObj.getString("cname");
+                        String name = cateObj.getString("name");
+
+                        category.setName(name);
+                        category.setPriceString(price);
+                        category.setPrice(Float.parseFloat(price));
+//                        category.setResourceId();
+                        category.setIconUrl(icon);
+
+                        lists.add(category);
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+
+                if (msg.what == AbstractNet.NETWHAT_FAIL) {
+                    Toast.makeText(getActivity(), "请求失败，请检查网络设置", Toast.LENGTH_LONG).show();
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            super.handleMessage(msg);
+        }
+
+    };
+
     private void preparedata() {
-        lists = new ArrayList<CateBuyItem>();
 
         CateBuyItem item;
 

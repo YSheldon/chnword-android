@@ -10,6 +10,10 @@ public class CateBuyItem {
     private String priceString;
     private boolean isChecked;
     private int resourceId;
+    private String iconUrl;
+
+    public CateBuyItem() {
+    }
 
     public CateBuyItem(String name, float price, String priceString, boolean isChecked, int resourceId) {
         this.name = name;
@@ -57,6 +61,14 @@ public class CateBuyItem {
 
     public void setResourceId(int resourceId) {
         this.resourceId = resourceId;
+    }
+
+    public String getIconUrl() {
+        return iconUrl;
+    }
+
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl;
     }
 
     public void calcute(CateBuyer buyer) {

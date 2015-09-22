@@ -53,6 +53,20 @@ public class NetParamFactory {
         }
         return obj;
     }
+    public static JSONObject shopListParam(String userid, String deviceId)
+    {
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject();
+            obj.put("opid", UUID.randomUUID().toString());
+            obj.put("userid", userid);
+            obj.put("device", deviceId);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
 
     public static JSONObject subListParam(String userid, String deviceId, String zone, int page, int size)
     {

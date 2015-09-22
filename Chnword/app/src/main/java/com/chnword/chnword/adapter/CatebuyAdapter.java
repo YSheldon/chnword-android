@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.chnword.chnword.R;
 import com.chnword.chnword.beans.CateBuyItem;
 import com.chnword.chnword.beans.Category;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.w3c.dom.Text;
 
@@ -65,7 +66,14 @@ public class CatebuyAdapter extends BaseAdapter {
 
         cateNameTextView.setText(item.getName());
         catePriceTextView.setText(item.getPriceString());
-        cateImageView.setImageResource(item.getResourceId());
+
+
+        if (item.getIconUrl() != null) {
+            ImageLoader.getInstance().displayImage(item.getIconUrl(), cateImageView); // imageUrl代表图片的URL地址，imageView代表承载图片的IMAGEVIEW控件
+        } else {
+            cateImageView.setImageResource(item.getResourceId());
+        }
+
 
         if (item.isChecked()) {
             cateCheckView.setImageResource(R.drawable.choose_y);

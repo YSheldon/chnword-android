@@ -80,7 +80,7 @@ public class ShopActivity extends FragmentActivity {
         cateZikeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!allZikeButton.isSelected()) {
+                if (!cateZikeButton.isSelected()) {
                     allZikeButton.setSelected(false);
                     cateZikeButton.setSelected(true);
                     cardZikeButton.setSelected(false);
@@ -97,7 +97,7 @@ public class ShopActivity extends FragmentActivity {
         cardZikeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!allZikeButton.isSelected()) {
+                if (!cardZikeButton.isSelected()) {
                     allZikeButton.setSelected(false);
                     cateZikeButton.setSelected(false);
                     cardZikeButton.setSelected(true);
