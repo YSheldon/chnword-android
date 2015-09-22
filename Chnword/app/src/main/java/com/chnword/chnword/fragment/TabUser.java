@@ -185,7 +185,7 @@ public class TabUser extends Fragment {
             info.add(item);
         } else {
             item.setResourceId(R.drawable.uicon_1);
-            item.setTitle("用户FAQ");
+            item.setTitle("用户登录");
             info.add(item);
         }
 
