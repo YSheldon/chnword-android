@@ -92,8 +92,8 @@ public class FreewordActivity extends Activity {
     private void requestNet(String zoneCode) {
         String userid = store.getDefaultUser();
         String deviceId = DeviceUtil.getDeviceId(this);
-        JSONObject param = NetParamFactory.subListParam(userid, deviceId, zoneCode, 0, 0);
-        AbstractNet net = new VerifyNet(handler, param, NetConf.URL_SUBLIST);
+        JSONObject param = NetParamFactory.sharedWordParam(userid, deviceId);
+        AbstractNet net = new VerifyNet(handler, param, NetConf.URL_SHARED);
         progressDialog = ProgressDialog.show(this, "提示", "loading...");
         net.start();
     }
@@ -112,6 +112,9 @@ public class FreewordActivity extends Activity {
                     Log.e(TAG, str);
                     JSONObject obj = new JSONObject(str);
                     JSONArray wordArray = obj.getJSONArray("data");
+
+                    LocalStore store = new LocalStore(FreewordActivity.this);
+
 
                     if (wordArray != null && wordArray.length() > 0) {
                         JSONObject wordObj = wordArray.getJSONObject(0);

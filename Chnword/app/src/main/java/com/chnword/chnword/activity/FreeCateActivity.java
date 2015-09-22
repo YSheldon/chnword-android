@@ -71,6 +71,7 @@ public class FreeCateActivity extends Activity {
         requestNet();
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -130,7 +131,9 @@ public class FreeCateActivity extends Activity {
                         category.setName(cateObj.getString("name"));
                         category.setCname(cateObj.getString("cname"));
 
-                        boolean isLock = cateObj.isNull("lock") ? true : cateObj.getInt("lock") == 1;
+                        String isLockStr = cateObj.getString("lock");
+//                        boolean isLock = cateObj.isNull("lock") ? true : cateObj.getInt("lock") == 1;
+                        boolean isLock = "".equals(isLockStr) ? false : "1".equalsIgnoreCase(isLockStr);
                         category.setLock(isLock);
                         category.setRid(kinds[i]);
 
