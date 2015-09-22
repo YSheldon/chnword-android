@@ -168,10 +168,6 @@ public class CategoryActivity extends Activity {
                     "" + m.getName());
             moduleName.setText(m.getName());
 
-            if (store.isUnlockAll(store.getDefaultUser()) || store.getUnlockModels(store.getDefaultUser()).contains(m.getCname())) {
-//                isLock.setText("解锁");
-            }
-//            Log.e(TAG, m.getName() + " + " + m.getCname());
 
             return convertView;
         }
