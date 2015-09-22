@@ -13,7 +13,7 @@ import java.util.UUID;
 public class NetParamFactory {
 
 
-    public static JSONObject verifyParam(String userid, String deviceId, String code, String user)
+    public static JSONObject verifyParam(String userid, String deviceId, String code)
     {
         JSONObject obj = null;
         try {
@@ -21,12 +21,13 @@ public class NetParamFactory {
             obj.put("opid", UUID.randomUUID().toString());
             obj.put("userid", userid);
             obj.put("device", deviceId);
+            obj.put("code", code);
 
-            JSONObject param = new JSONObject();
-            param.put("code", code);
-            param.put("user", user);
+//            JSONObject param = new JSONObject();
+//            param.put("code", code);
+//            param.put("user", user);
+//            obj.put("param", param);
 
-            obj.put("param", param);
         } catch (Exception e) {
             e.printStackTrace();
         }

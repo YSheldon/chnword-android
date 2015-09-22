@@ -126,18 +126,14 @@ public class RegistActivity extends Activity {
     public void onLoginClick(View view){
         Log.i(TAG, "METHOD onLoginClick");
 
-        String userCode = editText.getText().toString();
-
         LocalStore store = new LocalStore(this);
-//        store.removeDefaultUser();
-//        store.addUser(userCode);
-//        store.setDefaultUser(userCode);
 
         //这里需要进行下注册。
 
         userid = DeviceUtil.getPhoneNumber(this) == null ?  UUID.randomUUID().toString()  : DeviceUtil.getPhoneNumber(this) ;
+        String userCode = editText.getText().toString();
         String deviceId = DeviceUtil.getDeviceId(this);
-        JSONObject param = NetParamFactory.verifyParam(userid, deviceId, userid, deviceId);
+        JSONObject param = NetParamFactory.verifyParam(userid, deviceId, userCode);
 
         AbstractNet net = new VerifyNet(handler, param, NetConf.URL_VERIFY);
         progressDialog = ProgressDialog.show(this, "title", "loading");
@@ -155,17 +151,6 @@ public class RegistActivity extends Activity {
         Intent i = new Intent(this, TabActivity.class);
         startActivity(i);
         finish();
-
-//        Intent intent = new Intent(this, MainMenuActivity.class);
-//        startActivity(intent);
-//        finish();
-
-        //测试toMany pop window
-
-//        toManyPopupWindow.showAtLocation(findViewById(R.id.register_main), Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
-
-        //测试error pop window
-//        errorPopupWindow.showAtLocation(findViewById(R.id.register_main), Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
 
@@ -180,9 +165,18 @@ public class RegistActivity extends Activity {
                 Log.e(TAG, "returned code. " + str);
                 if (msg.what == AbstractNet.NETWHAT_SUCESS)
                 {
-                    if (str == null) {
-                        Log.e(TAG, "无返回数据.");
-                    } else {
+                    JSONObject obj = new JSONObject(str);
+                    int result = obj.getInt("result");
+                    if (result == 0 ){
+                        //激活码无效
+                        errorPopupWindow.showAtLocation(findViewById(R.id.register_main), Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+
+                    } else if (result == 2) {
+                        //绑定设备太多了
+                        toManyPopupWindow.showAtLocation(findViewById(R.id.register_main), Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+
+                    } else if (result == 1) {
+                        //正确
                         LocalStore store = new LocalStore(RegistActivity.this);
                         store.setDefaultUser(userid);
 
@@ -190,8 +184,7 @@ public class RegistActivity extends Activity {
                         startActivity(intent);
                         finish();
                     }
-
-
+                    
                 }
 
                 if (msg.what == AbstractNet.NETWHAT_FAIL) {
