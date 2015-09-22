@@ -132,7 +132,6 @@ public class FreeCateActivity extends Activity {
                         category.setCname(cateObj.getString("cname"));
 
                         String isLockStr = cateObj.getString("lock");
-//                        boolean isLock = cateObj.isNull("lock") ? true : cateObj.getInt("lock") == 1;
                         boolean isLock = "".equals(isLockStr) ? false : "1".equalsIgnoreCase(isLockStr);
                         category.setLock(isLock);
                         category.setRid(kinds[i]);

@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chnword.chnword.R;
 import com.chnword.chnword.adapter.WordAdapter;
@@ -124,22 +125,24 @@ public class UserwordActivity extends Activity {
                     String str = b.getString("responseBody");
                     Log.e(TAG, str);
                     JSONObject obj = new JSONObject(str);
-                    JSONArray wordArray = obj.getJSONArray("data");
-                    for (int i = 0; i < wordArray.length(); i ++) {
-                        JSONObject wordObj = wordArray.getJSONObject(i);
-                        Word word = new Word();
-                        word.setWord(wordObj.getString("word"));
-                        word.setWordIndex(wordObj.getString("unicode"));
-                        Log.e(TAG, word.getWord() + " " + word.getWordIndex());
-                        wordList.add(word);
+                    if (!obj.isNull("data")){
+                        JSONArray wordArray = obj.getJSONArray("data");
+                        for (int i = 0; i < wordArray.length(); i ++) {
+                            JSONObject wordObj = wordArray.getJSONObject(i);
+                            Word word = new Word();
+                            word.setWord(wordObj.getString("word"));
+                            word.setWordIndex(wordObj.getString("unicode"));
+                            Log.e(TAG, word.getWord() + " " + word.getWordIndex());
+                            wordList.add(word);
+                        }
+                        wordAdapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(UserwordActivity.this, "服务器无数据返回", Toast.LENGTH_LONG).show();
                     }
-                    wordAdapter.notifyDataSetChanged();
-
-
                 }
 
                 if (msg.what == AbstractNet.NETWHAT_FAIL) {
-
+                    Toast.makeText(UserwordActivity.this, "请选择网络", Toast.LENGTH_LONG).show();
                 }
             } catch (Exception e) {
                 e.printStackTrace();

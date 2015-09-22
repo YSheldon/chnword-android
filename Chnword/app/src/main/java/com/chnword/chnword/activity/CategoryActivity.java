@@ -209,12 +209,11 @@ public class CategoryActivity extends Activity {
                         category.setName(cateObj.getString("name"));
                         category.setCname(cateObj.getString("cname"));
 
-//                        category.setLock(cateObj.getInt("lock") != 0);
-//                        JSONObject lock = cateObj.getJSONObject("lock");
-                        boolean isLock = cateObj.isNull("lock") ? true : cateObj.getInt("lock") == 1;
+
+                        String isLockStr = cateObj.getString("lock");
+                        boolean isLock = "".equals(isLockStr) ? false : "1".equalsIgnoreCase(isLockStr);
                         category.setLock(isLock);
 
-//                        Log.e(TAG, category.getName() + " " + category.getCname());
                         list.add(category);
                     }
 //                    store.setDefaultModule(list);

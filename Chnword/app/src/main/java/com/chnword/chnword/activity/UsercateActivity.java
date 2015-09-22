@@ -147,7 +147,8 @@ public class UsercateActivity extends Activity {
                         category.setName(cateObj.getString("name"));
                         category.setCname(cateObj.getString("cname"));
 
-                        boolean isLock = cateObj.isNull("lock") ? true : cateObj.getInt("lock") == 1;
+                        String isLockStr = cateObj.getString("lock");
+                        boolean isLock = "".equals(isLockStr) ? false : "1".equalsIgnoreCase(isLockStr);
                         category.setLock(isLock);
                         if (isLock) {
                             category.setRid(locked[i]);
