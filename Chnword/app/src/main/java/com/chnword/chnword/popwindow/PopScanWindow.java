@@ -50,8 +50,8 @@ public class PopScanWindow extends PopupWindow {
 
 
 
-        this.setWidth(ViewGroup.LayoutParams.FILL_PARENT);
-        this.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+        this.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        this.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         this.setFocusable(true);
         this.setAnimationStyle(R.style.AnimationFade);
 
