@@ -51,7 +51,6 @@ public class CatezikeFragment extends Fragment {
         catebuyButton = (ImageButton)view.findViewById(R.id.cateBuyButton);
         catebuyListView = (ListView) view.findViewById(R.id.catebuyListView);
 
-//        progressDialog = ProgressDialog.show(getActivity(), "title", "loading");
 
         preparedata();
         adapter = new CatebuyAdapter(getActivity(), lists);
@@ -66,6 +65,7 @@ public class CatezikeFragment extends Fragment {
                     item.setIsChecked(true);
                 }
                 item.calcute(buyer);
+                priceTextView.setText(buyer.getPriceText() + "");
                 adapter.notifyDataSetChanged();
             }
         });
@@ -93,6 +93,12 @@ public class CatezikeFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
     }
 
     private void preparedata() {
@@ -128,8 +134,6 @@ public class CatezikeFragment extends Fragment {
         lists.add(item);
 
         item = new CateBuyItem("文化篇", 18.0f, "￥18.0", false, R.drawable.sm_folder10);
-        lists.add(item);
-
         lists.add(item);
 
 

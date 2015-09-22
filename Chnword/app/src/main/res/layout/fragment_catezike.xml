@@ -19,54 +19,63 @@
             android:textColor="#663300"/>
     </LinearLayout>
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:id="@+id/catebuyListView"/>
-
-    <LinearLayout
-        android:orientation="horizontal"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp">
+        android:layout_height="match_parent"
+        >
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center">
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/cateBottom">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="总计："
-                android:id="@+id/textView71"
-                android:textColor="#000000"
-                android:textSize="18dp"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="54.0"
-                android:id="@+id/priceTextView"
-                android:textSize="18dp"
-                android:textColor="#ff0000"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="总计："
+                    android:id="@+id/textView71"
+                    android:textColor="#000000"
+                    android:textSize="18dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="54.0"
+                    android:id="@+id/priceTextView"
+                    android:textSize="18dp"
+                    android:textColor="#ff0000"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cateBuyButton"
+                    android:src="@drawable/order_icon"
+                    android:scaleType="fitCenter"
+                    android:background="#00000000"/>
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/cateBuyButton"
-                android:src="@drawable/order_icon"
-                android:scaleType="fitCenter"
-                android:background="#00000000"/>
-        </LinearLayout>
-    </LinearLayout>
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/catebuyListView"
+            android:layout_above="@+id/cateBottom"/>
+    </RelativeLayout>
 
 </LinearLayout>
