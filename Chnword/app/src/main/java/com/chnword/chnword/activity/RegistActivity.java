@@ -130,7 +130,8 @@ public class RegistActivity extends Activity {
         String deviceId = DeviceUtil.getDeviceId(this);
         JSONObject param = NetParamFactory.loginParam(userId, deviceId);
 
-        AbstractNet net = new VerifyNet(loginHandler, param, NetConf.URL_VERIFY);
+        AbstractNet net = new VerifyNet(loginHandler, param, NetConf.URL_LOGIN);
+        Log.e(TAG, "USER LOGIN. URL" + NetConf.URL_LOGIN);
         progressDialog = ProgressDialog.show(this, "title", "loading");
         net.start();
         Log.e(TAG, param.toString());
