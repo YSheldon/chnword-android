@@ -148,7 +148,10 @@ public class RegistActivity extends Activity {
 
         //这里需要进行下注册。
 
-        userid = DeviceUtil.getPhoneNumber(this) == null ?  UUID.randomUUID().toString()  : DeviceUtil.getPhoneNumber(this) ;
+//        userid = DeviceUtil.getPhoneNumber(this) == null ?  UUID.randomUUID().toString()  : DeviceUtil.getPhoneNumber(this) ;
+
+        userid = editText.getText().toString();
+
         String userCode = editText.getText().toString();
         String deviceId = DeviceUtil.getDeviceId(this);
         JSONObject param = NetParamFactory.verifyParam(userid, deviceId, userCode);

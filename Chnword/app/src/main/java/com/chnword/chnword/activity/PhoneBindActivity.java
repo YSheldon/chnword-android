@@ -39,6 +39,7 @@ public class PhoneBindActivity extends Activity {
 
     private ProgressDialog progressDialog;
 
+    private String sessionId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
