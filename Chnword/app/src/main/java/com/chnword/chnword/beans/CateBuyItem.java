@@ -1,9 +1,12 @@
 package com.chnword.chnword.beans;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by khtc on 15/9/19.
  */
-public class CateBuyItem {
+public class CateBuyItem implements Parcelable {
 
     private String name;
     private float price;
@@ -77,5 +80,51 @@ public class CateBuyItem {
         } else {
             buyer.sub(this);
         }
+    }
+
+    public static final Parcelable.Creator<CateBuyItem> CREATOR = new Creator<CateBuyItem>(){
+
+        public CateBuyItem createFromParcel(Parcel source) {
+            // TODO Auto-generated method stub
+            CateBuyItem cus = new CateBuyItem();
+            cus.name = source.readString();
+            cus.price = source.readFloat();
+            cus.priceString = source.readString();
+            cus.iconUrl = source.readString();
+            cus.resourceId = source.readInt();
+            return cus;
+        }
+
+        public CateBuyItem[] newArray(int size) {
+            // TODO Auto-generated method stub
+            return new CateBuyItem[size];
+        }
+
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeFloat(price);
+        dest.writeString(priceString);
+        dest.writeString(iconUrl);
+        dest.writeInt(resourceId);
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        sb.append("name : " + name);
+        sb.append(" price : " + price);
+        sb.append(" priceString : " + priceString);
+        sb.append(" iconUrl : " + iconUrl);
+        sb.append(" resourceId : " + resourceId);
+
+        return sb.toString();
     }
 }

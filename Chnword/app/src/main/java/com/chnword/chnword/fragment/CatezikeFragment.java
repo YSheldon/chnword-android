@@ -6,6 +6,7 @@ import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -93,7 +94,32 @@ public class CatezikeFragment extends Fragment {
 
 //                progressDialog.show();
                 //循环，找出checkedItem,
+
+                List<CateBuyItem> buyed = new ArrayList<CateBuyItem>();
+
+                for (int i = 0; i < lists.size(); i ++ ) {
+                    CateBuyItem item = lists.get(i);
+                    if (item.isChecked()) {
+                        buyed.add(item);
+                    }
+                }
+
+                if (buyed.size() < 1) {
+                    Toast.makeText(getActivity(), "请选择要购买的字课.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                CateBuyItem[] parcelables = new CateBuyItem[buyed.size()];
+                for (int i = 0; i < buyed.size(); i ++) {
+                    parcelables[i] = buyed.get(i);
+                }
+
                 Intent intent = new Intent(getActivity(), ShopVerifyActivity.class);
+                Bundle bundle = new Bundle();
+
+                bundle.putParcelableArray("BUYITEMS", parcelables);
+                intent.putExtra("bundle", bundle);
+
                 getActivity().startActivity(intent);
 
             }
@@ -138,6 +164,8 @@ public class CatezikeFragment extends Fragment {
                 if (msg.what == AbstractNet.NETWHAT_SUCESS)
                 {
                     lists.clear();
+                    buyer.reset();
+                    shouldRequestNet = false;
                     Bundle b = msg.getData();
                     String str = b.getString("responseBody");
                     Log.e(TAG, str);
