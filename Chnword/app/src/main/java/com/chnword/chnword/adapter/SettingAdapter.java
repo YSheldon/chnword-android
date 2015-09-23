@@ -59,4 +59,12 @@ public class SettingAdapter extends BaseAdapter {
 
         return convertView;
     }
+
+    public List<TabuserItem> getInfos() {
+        return infos;
+    }
+
+    public void setInfos(List<TabuserItem> infos) {
+        this.infos = infos;
+    }
 }

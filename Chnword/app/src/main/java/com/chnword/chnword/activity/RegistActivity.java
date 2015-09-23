@@ -56,9 +56,12 @@ public class RegistActivity extends Activity {
         LocalStore store = new LocalStore(this);
         if (!"0".equalsIgnoreCase(store.getDefaultUser()))
         {
-            Intent intent = new Intent(this, TabActivity.class);
-            startActivity(intent);
-            finish();
+//            Intent intent = new Intent(this, TabActivity.class);
+//            startActivity(intent);
+//            finish();
+
+            userLoginOn(store.getDefaultUser());
+
         }
         editText = (EditText) findViewById(R.id.editText);
 
@@ -120,6 +123,20 @@ public class RegistActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    public void userLoginOn(String userId) {
+        //默认用户登录接口
+
+        String deviceId = DeviceUtil.getDeviceId(this);
+        JSONObject param = NetParamFactory.loginParam(userId, deviceId);
+
+        AbstractNet net = new VerifyNet(loginHandler, param, NetConf.URL_VERIFY);
+        progressDialog = ProgressDialog.show(this, "title", "loading");
+        net.start();
+        Log.e(TAG, param.toString());
+
+
+    }
 
 
     //提交
@@ -185,6 +202,41 @@ public class RegistActivity extends Activity {
                         finish();
                     }
                     
+                }
+
+                if (msg.what == AbstractNet.NETWHAT_FAIL) {
+                    Toast.makeText(RegistActivity.this, "请检查网络设置。", Toast.LENGTH_LONG).show();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
+    Handler loginHandler = new Handler(){
+
+        @Override
+        public void handleMessage(Message msg) {
+            progressDialog.dismiss();
+            try {
+                Bundle b = msg.getData();
+                String str = b.getString("responseBody");
+                Log.e(TAG, "returned code. " + str);
+                if (msg.what == AbstractNet.NETWHAT_SUCESS)
+                {
+                    JSONObject obj = new JSONObject(str);
+                    int result = obj.getInt("result");
+                    if (result == 0 ){
+                        //该用户不存在
+                        Toast.makeText(RegistActivity.this, "该用户不存在", Toast.LENGTH_LONG).show();
+
+                    } else if (result == 1) {
+                        //正确
+
+                        Intent intent = new Intent(RegistActivity.this, TabActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+
                 }
 
                 if (msg.what == AbstractNet.NETWHAT_FAIL) {

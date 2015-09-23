@@ -60,6 +60,8 @@ public class TabUser extends Fragment {
     private TextView userIdTextView;
     private ImageButton userLevelButton;
 
+    SettingAdapter adapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,23 +77,10 @@ public class TabUser extends Fragment {
         userIdTextView = (TextView) view.findViewById(R.id.userIdTextView);
         userLevelButton = (ImageButton) view.findViewById(R.id.userLevelButton);
 
-        LocalStore store = new LocalStore(getActivity());
-        String user = store.getDefaultUser();
-
-        if (user == null || "".equalsIgnoreCase(user) || "0".equalsIgnoreCase(user)) {
-            isUserLogin = false;
-        } else {
-            isUserLogin = true;
-            userId = user;
-            userIdTextView.setText(userId);
-            // TODO: 15/9/21 分级的图片浏览
-            userLevelButton.setImageResource(R.drawable.topicon_no);
-        }
-
         List<TabuserItem> info = prepareData();
 
 
-        SettingAdapter adapter = new SettingAdapter(this.getActivity(), info);
+        adapter = new SettingAdapter(this.getActivity(), info);
         settingListView.setAdapter(adapter);
         settingListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -159,6 +148,22 @@ public class TabUser extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        LocalStore store = new LocalStore(getActivity());
+        String user = store.getDefaultUser();
+        if (user == null || "".equalsIgnoreCase(user) || "0".equalsIgnoreCase(user)) {
+            isUserLogin = false;
+        } else {
+            isUserLogin = true;
+            userId = user;
+            userIdTextView.setText(userId);
+            // TODO: 15/9/21 分级的图片浏览
+            userLevelButton.setImageResource(R.drawable.topicon_no);
+        }
+
+        List<TabuserItem> info = prepareData();
+        adapter.setInfos(info);
+
     }
 
     @Override

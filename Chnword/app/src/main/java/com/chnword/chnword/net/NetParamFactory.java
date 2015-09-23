@@ -12,6 +12,20 @@ import java.util.UUID;
  */
 public class NetParamFactory {
 
+    public static JSONObject loginParam(String userid, String deviceId)
+    {
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject();
+            obj.put("opid", UUID.randomUUID().toString());
+            obj.put("userid", userid);
+            obj.put("device", deviceId);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
 
     public static JSONObject verifyParam(String userid, String deviceId, String code)
     {
@@ -77,12 +91,15 @@ public class NetParamFactory {
             obj.put("userid", userid);
             obj.put("device", deviceId);
 
-            JSONObject param = new JSONObject();
-            param.put("page", page);
-            param.put("size", size);
-            param.put("list", zone);
+            obj.put("page", page);
+            obj.put("size", size);
+            obj.put("list", zone);
 
-            obj.put("param", param);
+//            JSONObject param = new JSONObject();
+//            param.put("page", page);
+//            param.put("size", size);
+//            param.put("list", zone);
+//            obj.put("param", param);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -131,11 +148,11 @@ public class NetParamFactory {
             obj.put("opid", UUID.randomUUID().toString());
             obj.put("userid", userid);
             obj.put("device", deviceId);
+            obj.put("word_code", wordCode);
 
-            JSONObject param = new JSONObject();
-            param.put("word_code", wordCode);
-
-            obj.put("param", param);
+//            JSONObject param = new JSONObject();
+//            param.put("word_code", wordCode);
+//            obj.put("param", param);
         } catch (Exception e) {
             e.printStackTrace();
         }
