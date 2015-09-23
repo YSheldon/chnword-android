@@ -183,7 +183,7 @@ public class NetParamFactory {
         return obj;
     }
 
-    public static JSONObject versionParam(int versionCode)
+    public static JSONObject versionParam(int versionCode, String userid, String deviceId)
     {
         JSONObject obj = null;
         try {

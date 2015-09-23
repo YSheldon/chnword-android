@@ -101,7 +101,7 @@ public class TabActivity extends FragmentActivity {
         tab2.setOnClickListener(new BarItemOnClickListener(1));
         tab3.setOnClickListener(new BarItemOnClickListener(2));
 
-//        versionCheck();
+        versionCheck();
 
         shareWindow = new SharePopWindow(this);
 
@@ -202,8 +202,11 @@ public class TabActivity extends FragmentActivity {
             PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), 0);
 
             int versionCode = info.versionCode;
+            LocalStore store = new LocalStore(this);
+            String userId = store.getDefaultUser();
+            String deviceId = DeviceUtil.getDeviceId(this);
 
-            JSONObject param = NetParamFactory.versionParam(versionCode);
+            JSONObject param = NetParamFactory.versionParam(versionCode, userId, deviceId);
             AbstractNet net = new VerifyNet(versionCheckHandler, param, NetConf.URL_VERSION_CHECK);
             net.start();
 
@@ -223,44 +226,54 @@ public class TabActivity extends FragmentActivity {
                 Bundle b = msg.getData();
                 String str = b.getString("responseBody");
                 JSONObject obj = new JSONObject(str);
-                JSONObject data = obj.getJSONObject("data");
 
-                if (data == null) {
+
+                int result = obj.getInt("result");
+                if (result == 0 ){
+                    //无效参数,什么都不做
                     return;
-                }
 
-                String state = data.getString("status");
-                apkUrl = data.getString("url");
-                String note = data.getString("note");
+                } else if (result == 1) {
+                    JSONObject data = obj.getJSONObject("data");
+
+                    if (data == null) {
+                        return;
+                    }
+
+                    String state = data.getString("status");
+                    apkUrl = data.getString("url");
+                    String note = data.getString("note");
 
 
-                if (msg.what == AbstractNet.NETWHAT_SUCESS) {
-                    if ("1".equalsIgnoreCase(state)) {
-                        //可选升级
-                        AlertDialog.Builder builder = new AlertDialog.Builder(TabActivity.this);
+                    if (msg.what == AbstractNet.NETWHAT_SUCESS) {
+                        if ("1".equalsIgnoreCase(state)) {
+                            //可选升级
+                            AlertDialog.Builder builder = new AlertDialog.Builder(TabActivity.this);
 //                    builder.setIcon(R.drawable.icon);
-                        builder.setTitle("更新提示");
-                        builder.setMessage("Message");
-                        builder.setPositiveButton("确定",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int whichButton) {
-                                        updateApplication();
-                                    }
-                                });
-                        builder.setNeutralButton("下次再说",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int whichButton) {
+                            builder.setTitle("更新提示");
+                            builder.setMessage("Message");
+                            builder.setPositiveButton("确定",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int whichButton) {
+                                            updateApplication();
+                                        }
+                                    });
+                            builder.setNeutralButton("下次再说",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int whichButton) {
 //                                    setTitle("点击了对话框上的Button2");
-                                        dialog.dismiss();
-                                    }
+                                            dialog.dismiss();
+                                        }
 
-                                });
-                        builder.show();
-                    } else if ("2".equalsIgnoreCase(state)) {
-                        //强制升级
-                        updateApplication();
+                                    });
+                            builder.show();
+                        } else if ("2".equalsIgnoreCase(state)) {
+                            //强制升级
+                            updateApplication();
+                        }
                     }
                 }
+
                 if (msg.what == AbstractNet.NETWHAT_FAIL) {
 
                 }
