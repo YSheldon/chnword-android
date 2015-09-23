@@ -16,14 +16,14 @@
         android:layout_height="55dp"
         android:id="@+id/main_buttom"
         android:layout_alignParentBottom="true"
-        android:background="#ddd">
+        android:background="#a38760">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/linearLayout"
-            android:background="#ff0000">
+            android:background="#a38760">
 
             <LinearLayout
                 android:orientation="vertical"

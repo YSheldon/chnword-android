@@ -78,9 +78,10 @@ public class TabUser extends Fragment {
         LocalStore store = new LocalStore(getActivity());
         String user = store.getDefaultUser();
 
-        if (user == null || "".equalsIgnoreCase(user)) {
+        if (user == null || "".equalsIgnoreCase(user) || "0".equalsIgnoreCase(user)) {
             isUserLogin = false;
         } else {
+            isUserLogin = true;
             userId = user;
             userIdTextView.setText(userId);
             // TODO: 15/9/21 分级的图片浏览
@@ -179,7 +180,6 @@ public class TabUser extends Fragment {
         TabuserItem item = new TabuserItem();
 
         if (isUserLogin) {
-            item = new TabuserItem();
             item.setResourceId(R.drawable.uicon_3);
             item.setTitle("手机绑定");
             info.add(item);
@@ -189,6 +189,7 @@ public class TabUser extends Fragment {
             info.add(item);
         }
 
+        item = new TabuserItem();
         item.setResourceId(R.drawable.uicon_1);
         item.setTitle("用户FAQ");
         info.add(item);
