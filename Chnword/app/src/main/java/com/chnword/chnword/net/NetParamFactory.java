@@ -67,6 +67,43 @@ public class NetParamFactory {
         }
         return obj;
     }
+
+    public static JSONObject yzmParam(String userid, String deviceId, String phoneNumber)
+    {
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject();
+            obj.put("opid", UUID.randomUUID().toString());
+            obj.put("userid", userid);
+            obj.put("device", deviceId);
+            obj.put("tel", phoneNumber);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+
+    public static JSONObject verifyParam(String userid, String deviceId, int page, int size)
+    {
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject();
+            obj.put("opid", UUID.randomUUID().toString());
+            obj.put("userid", userid);
+            obj.put("device", deviceId);
+
+            JSONObject param = new JSONObject();
+            param.put("page", page);
+            param.put("size", size);
+
+            obj.put("param", param);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+
     public static JSONObject shopListParam(String userid, String deviceId)
     {
         JSONObject obj = null;

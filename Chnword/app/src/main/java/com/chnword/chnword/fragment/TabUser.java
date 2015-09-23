@@ -95,7 +95,7 @@ public class TabUser extends Fragment {
                             startActivity(bindIntent);
 
                         } else {
-                            //手机捆绑
+                            //登录
                             Intent registIntent = new Intent(getActivity(), RegistActivity.class);
                             startActivity(registIntent);
                         }
