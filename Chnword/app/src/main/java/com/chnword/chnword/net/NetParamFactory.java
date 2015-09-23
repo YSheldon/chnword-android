@@ -84,7 +84,7 @@ public class NetParamFactory {
         return obj;
     }
 
-    public static JSONObject verifyParam(String userid, String deviceId, int page, int size)
+    public static JSONObject verifyParam(String userid, String deviceId, String tel, String code, String sn, String yzm)
     {
         JSONObject obj = null;
         try {
@@ -92,12 +92,10 @@ public class NetParamFactory {
             obj.put("opid", UUID.randomUUID().toString());
             obj.put("userid", userid);
             obj.put("device", deviceId);
-
-            JSONObject param = new JSONObject();
-            param.put("page", page);
-            param.put("size", size);
-
-            obj.put("param", param);
+            obj.put("code", code);
+            obj.put("tel", tel);
+            obj.put("sn", sn);
+            obj.put("yzm", yzm);
         } catch (Exception e) {
             e.printStackTrace();
         }

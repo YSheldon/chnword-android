@@ -41,6 +41,8 @@ public class PhoneBindActivity extends Activity {
 
     private String sessionId = "";
 
+    boolean canVerify = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,13 +114,24 @@ public class PhoneBindActivity extends Activity {
 
     private void verifyYzm() {
 
-        LocalStore store = new LocalStore(this);
-        String userid = store.getDefaultUser();
-        String deviceId = DeviceUtil.getDeviceId(this);
-        JSONObject param = NetParamFactory.verifyParam(userid, deviceId, 0, 0);
-        AbstractNet net = new VerifyNet(verifyHandler, param, NetConf.URL_BIND);
-        progressDialog = ProgressDialog.show(this, "title", "loading");
-        net.start();
+        if (canVerify) {
+            LocalStore store = new LocalStore(this);
+            String userid = store.getDefaultUser();
+            String deviceId = DeviceUtil.getDeviceId(this);
+            String tel = phoneNumber.getText().toString();
+            String code = userid;
+            code = "58076171";
+            String yzm = verifyNumber.getText().toString();
+
+            JSONObject param = NetParamFactory.verifyParam(userid, deviceId, tel, code, sessionId, yzm);
+            AbstractNet net = new VerifyNet(verifyHandler, param, NetConf.URL_BIND);
+            progressDialog = ProgressDialog.show(this, "title", "loading");
+            net.start();
+        } else {
+            Toast.makeText(this, "请先获取验证码", Toast.LENGTH_LONG).show();
+        }
+
+
     }
 
     Handler yzmHandler = new Handler(){
@@ -145,6 +158,10 @@ public class PhoneBindActivity extends Activity {
                         sendButton.setEnabled(false);
 
                         verifyButton.setEnabled(true);
+                        JSONObject data = obj.getJSONObject("data");
+                        sessionId = data.getString("sn");
+
+                        canVerify = true;
 
                     } else if (result == -1) {
                         //手机号有误
@@ -180,19 +197,35 @@ public class PhoneBindActivity extends Activity {
                     Log.e(TAG, str);
                     JSONObject obj = new JSONObject(str);
 
-                    JSONArray array = obj.getJSONArray("data");
-                    Log.e(TAG, array.toString());
-                    for (int i = 0; i < array.length(); i ++) {
-                        JSONObject cateObj = array.getJSONObject(i);
-                        Category category = new Category();
-                        category.setName(cateObj.getString("name"));
-                        category.setCname(cateObj.getString("cname"));
+                    int result = obj.getInt("result");
+                    if (result == 0 ){
+                        //激活码无效
+                        Toast.makeText(PhoneBindActivity.this, "激活码无效", Toast.LENGTH_LONG).show();
+                        return;
 
-                        String isLockStr = cateObj.getString("lock");
-                        boolean isLock = "".equals(isLockStr) ? false : "1".equalsIgnoreCase(isLockStr);
-                        category.setLock(isLock);
+                    } else if (result == 1) {
+                        Toast.makeText(PhoneBindActivity.this, "绑定成功", Toast.LENGTH_LONG).show();
+                        return;
+                    } else if (result == 2) {
+                        //验证码已过期，请从新获取.
+                        Toast.makeText(PhoneBindActivity.this, "验证码已过期，请从新获取.", Toast.LENGTH_LONG).show();
 
+                        phoneNumber.setEnabled(true);//设置不可用
+                        sendButton.setEnabled(true);
+
+                        verifyButton.setEnabled(false);
+                        JSONObject data = obj.getJSONObject("data");
+                        sessionId = data.getString("sn");
+
+                        canVerify = false;
+                        return;
+
+                    } else if (result == 3) {
+                        //验证码错误
+                        Toast.makeText(PhoneBindActivity.this, "验证码错误", Toast.LENGTH_LONG).show();
+                        return;
                     }
+
 
                 }
 
