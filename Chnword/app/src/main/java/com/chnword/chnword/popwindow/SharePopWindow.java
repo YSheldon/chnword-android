@@ -103,24 +103,24 @@ public class SharePopWindow extends PopupWindow implements View.OnClickListener{
 
         switch (v.getId()) {
             case R.id.snslogo1 :
-                shareEditIntent.putExtra("share_type", SHARE_MEDIA.WEIXIN);
+                shareEditIntent.putExtra("share_type", SHARE_MEDIA.WEIXIN.toString());
                 break;
 
             case R.id.snslogo2:
-                shareEditIntent.putExtra("share_type", SHARE_MEDIA.WEIXIN_CIRCLE);
+                shareEditIntent.putExtra("share_type", SHARE_MEDIA.WEIXIN_CIRCLE.toString());
                 break;
 
             case R.id.snslogo3:
-                shareEditIntent.putExtra("share_type", SHARE_MEDIA.SINA);
+                shareEditIntent.putExtra("share_type", SHARE_MEDIA.SINA.toString());
                 break;
             case R.id.snslogo4:
-                shareEditIntent.putExtra("share_type", SHARE_MEDIA.QQ);
+                shareEditIntent.putExtra("share_type", SHARE_MEDIA.QQ.toString());
                 break;
             case R.id.snslogo5:
-                shareEditIntent.putExtra("share_type", SHARE_MEDIA.QZONE);
+                shareEditIntent.putExtra("share_type", SHARE_MEDIA.QZONE.toString());
                 break;
             case R.id.snslogo6:
-                shareEditIntent.putExtra("share_type", SHARE_MEDIA.TENCENT);
+                shareEditIntent.putExtra("share_type", SHARE_MEDIA.TENCENT.toString());
                 break;
             default:
                 break;

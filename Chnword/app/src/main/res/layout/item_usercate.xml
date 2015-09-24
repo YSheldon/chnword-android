@@ -4,20 +4,27 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:id="@+id/usercate_image"
-        android:src="@drawable/kind1_a" />
-
-    <TextView
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="模块名称"
-        android:id="@+id/usercate_name"
-        android:gravity="center"
-        android:layout_margin="3dp"
-        android:textSize="18dp"
-        android:textColor="#000" />
+        android:layout_margin="10dp">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:id="@+id/usercate_image"
+            android:src="@drawable/kind1_a" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="模块名称"
+            android:id="@+id/usercate_name"
+            android:gravity="center"
+            android:layout_margin="3dp"
+            android:textSize="18dp"
+            android:textColor="#000" />
+    </LinearLayout>
 
 </LinearLayout>
