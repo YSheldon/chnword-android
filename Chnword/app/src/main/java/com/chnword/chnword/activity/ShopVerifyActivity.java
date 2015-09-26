@@ -415,11 +415,11 @@ public class ShopVerifyActivity extends Activity {
 
 
     // 商户PID
-    public static final String PARTNER = "";
+    public static final String PARTNER = "2088021351529570";
     // 商户收款账号
     public static final String SELLER = "";
     // 商户私钥，pkcs8格式
-    public static final String RSA_PRIVATE = "";
+    public static final String RSA_PRIVATE = "tqnspyb9h1068p34hm6z9lmk479kefc5";
     // 支付宝公钥
     public static final String RSA_PUBLIC = "";
     private static final int SDK_PAY_FLAG = 1;
