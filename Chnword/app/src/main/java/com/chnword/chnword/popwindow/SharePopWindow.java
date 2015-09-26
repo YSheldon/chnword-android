@@ -96,6 +96,66 @@ public class SharePopWindow extends PopupWindow implements View.OnClickListener{
 
     }
 
+    public SharePopWindow(Activity context, View.OnClickListener onClickListener) {
+        super(context);
+
+        this.mActivity = context;
+
+        LayoutInflater inflater = LayoutInflater.from(context);
+        mMenuView = inflater.inflate(R.layout.popwindow_share, null);
+        setContentView(mMenuView);
+
+        btn_cancel = (ImageButton) mMenuView.findViewById(R.id.btn_cancel);
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+
+            }
+        });
+
+        snslogo1 = (ImageButton) mMenuView.findViewById(R.id.snslogo1);
+        snslogo1.setOnClickListener(onClickListener);
+
+        snslogo2 = (ImageButton) mMenuView.findViewById(R.id.snslogo2);
+        snslogo2.setOnClickListener(onClickListener);
+
+        snslogo3 = (ImageButton) mMenuView.findViewById(R.id.snslogo3);
+        snslogo3.setOnClickListener(onClickListener);
+
+        snslogo4 = (ImageButton) mMenuView.findViewById(R.id.snslogo4);
+        snslogo4.setOnClickListener(onClickListener);
+
+        snslogo5 = (ImageButton) mMenuView.findViewById(R.id.snslogo5);
+        snslogo5.setOnClickListener(onClickListener);
+
+        snslogo6 = (ImageButton) mMenuView.findViewById(R.id.snslogo6);
+        snslogo6.setOnClickListener(onClickListener);
+
+        this.setWidth(ViewGroup.LayoutParams.FILL_PARENT);
+        this.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        this.setFocusable(true);
+        this.setTouchable(true);
+        this.setAnimationStyle(R.style.AnimationFade);
+
+        mMenuView.setOnTouchListener(new View.OnTouchListener() {
+
+            public boolean onTouch(View v, MotionEvent event) {
+
+                int height = mMenuView.findViewById(R.id.pop_layout).getTop();
+                int y = (int) event.getY();
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (y < height) {
+                        dismiss();
+                    }
+                }
+                return true;
+            }
+        });
+
+
+    }
+
     @Override
     public void onClick(View v) {
         Intent shareEditIntent = new Intent(mActivity, ShareEditActivity.class);

@@ -42,6 +42,7 @@ import com.chnword.zxingwapper.zxing.activity.MipcaActivityCapture;
 import com.umeng.socialize.bean.RequestType;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeEntity;
+import com.umeng.socialize.bean.StatusCode;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
 import com.umeng.socialize.controller.listener.SocializeListeners;
@@ -71,6 +72,8 @@ import java.util.List;
 public class TabActivity extends FragmentActivity {
 
     private static final String TAG = TabActivity.class.getSimpleName();
+
+    private UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");
 
     private List<Fragment> mFragments = new ArrayList<Fragment>();
     private ViewPager mViewPager;
@@ -103,7 +106,39 @@ public class TabActivity extends FragmentActivity {
 
         versionCheck();
 
-        shareWindow = new SharePopWindow(this);
+        shareWindow = new SharePopWindow(this, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                onShared();
+                switch (v.getId()) {
+
+                    case R.id.snslogo1 :
+                        performShare(SHARE_MEDIA.WEIXIN);
+                        break;
+
+                    case R.id.snslogo2:
+                        performShare(SHARE_MEDIA.WEIXIN_CIRCLE);
+                        break;
+
+                    case R.id.snslogo3:
+                        performShare(SHARE_MEDIA.SINA);
+                        break;
+                    case R.id.snslogo4:
+                        performShare(SHARE_MEDIA.QQ);
+                        break;
+                    case R.id.snslogo5:
+                        performShare(SHARE_MEDIA.QZONE);
+                        break;
+                    case R.id.snslogo6:
+                        performShare(SHARE_MEDIA.TENCENT);
+                        break;
+                    default:
+                        break;
+
+                }
+            }
+        });
 
     }
 
@@ -467,6 +502,12 @@ public class TabActivity extends FragmentActivity {
                 }
                 break;
         }
+
+        /**使用SSO授权必须添加如下代码 */
+        UMSsoHandler ssoHandler = mController.getConfig().getSsoHandler(requestCode) ;
+        if(ssoHandler != null){
+            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+        }
     }
 
 
@@ -577,6 +618,87 @@ public class TabActivity extends FragmentActivity {
 
     public void onShareButtonClicked(View v) {
         openUmeng();
+    }
+
+
+
+    private void onShared() {
+        // 设置分享内容
+        mController.setShareContent("我正在使用三千字，非常适合你，推荐给你吧。http://app.3000zi.com/web/download.php");
+        // 设置分享图片, 参数2为图片的url地址
+//        mController.setShareMedia(new UMImage(this, "http://www.umeng.com/images/pic/banner_module_social.png"));
+
+        // 设置分享图片，参数2为本地图片的资源引用
+        mController.setShareMedia(new UMImage(TabActivity.this, R.drawable.logo80));
+
+        // 设置分享图片，参数2为本地图片的路径(绝对路径)
+//        mController.setShareMedia(new UMImage(this, BitmapFactory.decodeFile("/mnt/sdcard/icon.png")));
+
+        // 设置分享视频
+//        UMVideo umVideo = new UMVideo( "http://v.youku.com/v_show/id_XNTE5ODAwMDM2.html?f=19001023");
+//        // 设置视频缩略图
+//        umVideo.setThumb("http://www.umeng.com/images/pic/banner_module_social.png");
+//        umVideo.setTitle("三千字");
+//        mController.setShareMedia(umVideo);
+
+//        mController.getConfig().removePlatform( SHARE_MEDIA.RENREN, SHARE_MEDIA.DOUBAN, SHARE_MEDIA.SINA, SHARE_MEDIA.TENCENT);
+
+
+
+
+//                UMSsoHandler ssoHandler = mController.getConfig().getSsoHandler(requestCode) ;
+
+        //添加微信和朋友圈
+        String appId = "wx523e7fec6968506f";
+        String appSecret = "4a01f28bf8671d6b5487094caaffc72e";
+        // 添加微信平台
+        UMWXHandler wxHandler = new UMWXHandler(TabActivity.this, appId, appSecret);
+        wxHandler.addToSocialSDK();
+
+        // 添加微信朋友圈
+        UMWXHandler wxCircleHandler = new UMWXHandler(TabActivity.this, appId, appSecret);
+        wxCircleHandler.setToCircle(true);
+        wxCircleHandler.addToSocialSDK();
+
+        //添加qq的
+        //参数1为当前Activity，参数2为开发者在QQ互联申请的APP ID，参数3为开发者在QQ互联申请的APP kEY.
+        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(TabActivity.this, "1104685705", "TaZo5RPmrGX11nPO");
+        qqSsoHandler.addToSocialSDK();
+
+        //qq空间
+        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(TabActivity.this, "100424468", "c7394704798a158208a74ab60104f0ba");
+        qZoneSsoHandler.addToSocialSDK();
+
+        //添加新浪的
+        mController.getConfig().setSsoHandler(new SinaSsoHandler());
+    }
+
+    private void performShare(SHARE_MEDIA platform) {
+        mController.postShare(this, platform, new SocializeListeners.SnsPostListener() {
+
+            @Override
+            public void onStart() {
+
+            }
+
+            @Override
+            public void onComplete(SHARE_MEDIA platform, int eCode, SocializeEntity entity) {
+                String showText = platform.toString();
+                if (eCode == StatusCode.ST_CODE_SUCCESSED) {
+                    showText += "平台分享成功";
+
+                    Intent successIntent = new Intent(TabActivity.this, ShareSuccessActivity.class);
+                    startActivity(successIntent);
+                    finish();
+
+                } else {
+                    showText += "平台分享失败";
+
+                }
+                Toast.makeText(TabActivity.this, showText, Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
 }
