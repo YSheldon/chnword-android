@@ -126,6 +126,21 @@
             android:value="559bc73c67e58ef33e000fe3" >
         </meta-data>
 
+
+
+
+
+        <!-- 支付宝 -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity" android:configChanges="orientation|keyboardHidden|navigation" android:exported="false"
+            android:screenOrientation="behind" >
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity" android:configChanges="orientation|keyboardHidden|navigation" android:exported="false"
+            android:screenOrientation="behind"></activity>
+
+
+
     </application>
 
 </manifest>
