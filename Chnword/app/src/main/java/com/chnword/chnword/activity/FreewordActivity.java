@@ -161,12 +161,6 @@ public class FreewordActivity extends Activity {
     }
 
     private void requestNet(String zoneCode) {
-//        String userid = store.getDefaultUser();
-//        String deviceId = DeviceUtil.getDeviceId(this);
-//        JSONObject param = NetParamFactory.sharedWordParam(userid, deviceId);
-//        AbstractNet net = new VerifyNet(handler, param, NetConf.URL_SHARED);
-//        progressDialog = ProgressDialog.show(this, "提示", "loading...");
-//        net.start();
 
         String userid = store.getDefaultUser();
         String deviceId = DeviceUtil.getDeviceId(this);
@@ -186,23 +180,6 @@ public class FreewordActivity extends Activity {
             try {
                 if (msg.what == AbstractNet.NETWHAT_SUCESS)
                 {
-//                    Bundle b = msg.getData();
-//                    String str = b.getString("responseBody");
-//                    Log.e(TAG, str);
-//                    JSONObject obj = new JSONObject(str);
-//                    JSONArray wordArray = obj.getJSONArray("data");
-//
-//                    LocalStore store = new LocalStore(FreewordActivity.this);
-//
-//
-//                    if (wordArray != null && wordArray.length() > 0) {
-//                        JSONObject wordObj = wordArray.getJSONObject(0);
-//                        Word word = new Word();
-//                        word.setWord(wordObj.getString("word"));
-//                        word.setWordIndex(wordObj.getString("unicode"));
-//                        Log.e(TAG, word.getWord() + " " + word.getWordIndex());
-//                        currentWord = word;
-//                    }
 
                     Bundle b = msg.getData();
                     String str = b.getString("responseBody");
