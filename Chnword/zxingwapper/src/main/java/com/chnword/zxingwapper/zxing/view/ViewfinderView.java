@@ -27,6 +27,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -48,55 +49,58 @@ public final class ViewfinderView extends View {
 	private static final long ANIMATION_DELAY = 10L;
 	private static final int OPAQUE = 0xFF;
 
-	/**
-	 * 屏幕速率
-	 */
-	private int ScreenRate;
-	
-	/**
-	 * 游标宽度
-	 */
+    /**
+     * 四个绿色边角对应的长度
+     */
+    private int ScreenRate;
+
+    /**
+     * 四个绿色边角对应的宽度
+     */
 	private static final int CORNER_WIDTH = 10;
-	/**
-	 * 中线宽度
-	 */
-	private static final int MIDDLE_LINE_WIDTH = 6;
+
+    /**
+     * 扫描框中的中间线的宽度
+     */
+    private static final int MIDDLE_LINE_WIDTH = 6;
+
+    /**
+     * 扫描框中的中间线的与扫描框左右的间隙
+     */
+    private static final int MIDDLE_LINE_PADDING = 5;
 	
 	/**
-	 * 中线的padding
-	 */
-	private static final int MIDDLE_LINE_PADDING = 5;
-	
-	/**
-	 * space的距离
+	 * 中间那条线每次刷新移动的距离
 	 */
 	private static final int SPEEN_DISTANCE = 5;
 	
 	/**
-	 * 密度
+	 * 手机的屏幕密度
 	 */
 	private static float density;
+
 	/**
-	 * 文字大小
+	 * 字体大小
 	 */
 	private static final int TEXT_SIZE = 16;
+
 	/**
-	 * 文字到上边的距离
+	 * 字体距离扫描框下面的距离
 	 */
 	private static final int TEXT_PADDING_TOP = 30;
 	
 	/**
-	 * 画笔
+	 * 画笔对象的引用
 	 */
 	private Paint paint;
 	
 	/**
-	 * 到上端的距离
+	 * 中间滑动线的最顶端位置
 	 */
 	private int slideTop;
 	
 	/**
-	 * 到下端的距离
+	 * 中间滑动线的最底端位置
 	 */
 	private int slideBottom;
 	
@@ -117,7 +121,7 @@ public final class ViewfinderView extends View {
 		super(context, attrs);
 		
 		density = context.getResources().getDisplayMetrics().density;
-		//初始化距离
+		////将像素转换成dp
 		ScreenRate = (int)(20 * density);
 
 		paint = new Paint();
@@ -131,33 +135,43 @@ public final class ViewfinderView extends View {
 
 	@Override
 	public void onDraw(Canvas canvas) {
-		//进行绘制
+		////中间的扫描框，你要修改扫描框的大小，去CameraManager里面修改
 		Rect frame = CameraManager.get().getFramingRect();
 		if (frame == null) {
 			return;
 		}
 		
-		//如果不是首次
+		//初始化中间线滑动的最上边和最下边
 		if(!isFirst){
 			isFirst = true;
 			slideTop = frame.top;
 			slideBottom = frame.bottom;
 		}
 		
-		//获得画布大小
+		//获取屏幕的宽和高
 		int width = canvas.getWidth();
 		int height = canvas.getHeight();
 
 		paint.setColor(resultBitmap != null ? resultColor : maskColor);
 		
-		//绘制
+		//画出扫描框外面的阴影部分，共四个部分，扫描框的上面到屏幕上面，扫描框的下面到屏幕下面
+        //扫描框的左边面到屏幕左边，扫描框的右边到屏幕右边
 		canvas.drawRect(0, 0, width, frame.top, paint);
 		canvas.drawRect(0, frame.top, frame.left, frame.bottom + 1, paint);
 		canvas.drawRect(frame.right + 1, frame.top, width, frame.bottom + 1,
 				paint);
 		canvas.drawRect(0, frame.bottom + 1, width, height, paint);
-		
-		
+
+        Rect topRect = new Rect(0, 0, width, frame.top);
+        Rect leftRect = new Rect(0, frame.top, frame.left, frame.bottom + 1);
+        Rect rightRect = new Rect(frame.right + 1, frame.top, width, frame.bottom + 1);
+        Rect bottomRect = new Rect(0, frame.bottom + 1, width, height);
+
+        canvas.drawBitmap(((BitmapDrawable) (getResources().getDrawable(R.drawable.scan_top))).getBitmap(), null, topRect, paint);
+        canvas.drawBitmap(((BitmapDrawable) (getResources().getDrawable(R.drawable.scan_left))).getBitmap(), null, leftRect, paint);
+        canvas.drawBitmap(((BitmapDrawable) (getResources().getDrawable(R.drawable.scan_right))).getBitmap(), null, rightRect, paint);
+        canvas.drawBitmap(((BitmapDrawable) (getResources().getDrawable(R.drawable.scan_bottom))).getBitmap(), null, bottomRect, paint);
+
 
 		if (resultBitmap != null) {
 			// Draw the opaque result bitmap over the scanning rectangle
@@ -165,8 +179,8 @@ public final class ViewfinderView extends View {
 			canvas.drawBitmap(resultBitmap, frame.left, frame.top, paint);
 		} else {
 
-			//绘制四个小角
-			paint.setColor(Color.GREEN);
+			////画扫描框边上的角，总共8个部分
+			paint.setColor(Color.RED);
 			canvas.drawRect(frame.left, frame.top, frame.left + ScreenRate,
 					frame.top + CORNER_WIDTH, paint);
 			canvas.drawRect(frame.left, frame.top, frame.left + CORNER_WIDTH, frame.top
@@ -176,7 +190,7 @@ public final class ViewfinderView extends View {
 			canvas.drawRect(frame.right - CORNER_WIDTH, frame.top, frame.right, frame.top
 					+ ScreenRate, paint);
 			canvas.drawRect(frame.left, frame.bottom - CORNER_WIDTH, frame.left
-					+ ScreenRate, frame.bottom, paint);
+                    + ScreenRate, frame.bottom, paint);
 			canvas.drawRect(frame.left, frame.bottom - ScreenRate,
 					frame.left + CORNER_WIDTH, frame.bottom, paint);
 			canvas.drawRect(frame.right - ScreenRate, frame.bottom - CORNER_WIDTH,
@@ -185,15 +199,20 @@ public final class ViewfinderView extends View {
 					frame.right, frame.bottom, paint);
 
 			
-			//计算 slidetop  SPEEN_DISTANCE;
+			//绘制中间的线,每次刷新界面，中间的线往下移动SPEEN_DISTANCE
 			slideTop += SPEEN_DISTANCE;
 			if(slideTop >= frame.bottom){
 				slideTop = frame.top;
 			}
-			canvas.drawRect(frame.left + MIDDLE_LINE_PADDING, slideTop - MIDDLE_LINE_WIDTH/2, frame.right - MIDDLE_LINE_PADDING,slideTop + MIDDLE_LINE_WIDTH/2, paint);
+//			canvas.drawRect(frame.left + MIDDLE_LINE_PADDING, slideTop - MIDDLE_LINE_WIDTH/2, frame.right - MIDDLE_LINE_PADDING,slideTop + MIDDLE_LINE_WIDTH/2, paint);
+            Rect lineRect = new Rect();
+            lineRect.left = frame.left;
+            lineRect.right = frame.right;
+            lineRect.top = slideTop;
+            lineRect.bottom = slideTop + 18;
+            canvas.drawBitmap(((BitmapDrawable) (getResources().getDrawable(R.drawable.scanline))).getBitmap(), null, lineRect, paint);
 			
-			
-			//绘制提示信息
+			//画扫描框下面的字
 			paint.setColor(Color.WHITE);
 			paint.setTextSize(TEXT_SIZE * density);
 			paint.setAlpha(0x40);
@@ -226,7 +245,7 @@ public final class ViewfinderView extends View {
 			}
 
 			
-			//刷新界面
+			//只刷新扫描框的内容，其他地方不刷新
 			postInvalidateDelayed(ANIMATION_DELAY, frame.left, frame.top,
 					frame.right, frame.bottom);
 			
