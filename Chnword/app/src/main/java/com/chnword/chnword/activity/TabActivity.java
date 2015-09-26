@@ -233,7 +233,7 @@ public class TabActivity extends FragmentActivity {
                     //无效参数,什么都不做
                     return;
 
-                } else if (result == 1) {
+                } else if (result >= 1) {
                     JSONObject data = obj.getJSONObject("data");
 
                     if (data == null) {

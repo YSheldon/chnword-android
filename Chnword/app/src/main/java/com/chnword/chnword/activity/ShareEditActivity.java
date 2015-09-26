@@ -19,6 +19,7 @@ import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.sso.QZoneSsoHandler;
 import com.umeng.socialize.sso.SinaSsoHandler;
 import com.umeng.socialize.sso.UMQQSsoHandler;
+import com.umeng.socialize.sso.UMSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 
 import io.vov.vitamio.utils.Log;
@@ -93,6 +94,11 @@ public class ShareEditActivity extends Activity {
 
 //        mController.getConfig().removePlatform( SHARE_MEDIA.RENREN, SHARE_MEDIA.DOUBAN, SHARE_MEDIA.SINA, SHARE_MEDIA.TENCENT);
 
+
+
+
+//                UMSsoHandler ssoHandler = mController.getConfig().getSsoHandler(requestCode) ;
+
                 //添加微信和朋友圈
                 String appId = "wx523e7fec6968506f";
                 String appSecret = "4a01f28bf8671d6b5487094caaffc72e";
@@ -116,6 +122,7 @@ public class ShareEditActivity extends Activity {
 
                 //添加新浪的
                 mController.getConfig().setSsoHandler(new SinaSsoHandler());
+
 
 
                 performShare(mediaType);
@@ -158,4 +165,15 @@ public class ShareEditActivity extends Activity {
             }
         });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        /**使用SSO授权必须添加如下代码 */
+        UMSsoHandler ssoHandler = mController.getConfig().getSsoHandler(requestCode) ;
+        if(ssoHandler != null){
+            ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+        }
+    }
+
 }
