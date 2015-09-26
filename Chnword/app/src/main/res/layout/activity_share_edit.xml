@@ -82,7 +82,7 @@
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="160dp"
                 android:id="@+id/shareText"
                 android:background="#eee"
                 android:layout_margin="10dp"
@@ -120,18 +120,11 @@
                 android:id="@+id/top"
                 android:layout_above="@+id/bottom">
 
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:clickable="false"
-                    android:id="@+id/buttonRadioButton">
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/radioButton"
-                        android:drawableRight="@drawable/kind10_a"/>
-                </RadioGroup>
+                <GridView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/shared_edit_grid"
+                    android:numColumns="2"/>
 
             </LinearLayout>
         </RelativeLayout>

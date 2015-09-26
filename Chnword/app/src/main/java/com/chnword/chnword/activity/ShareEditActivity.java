@@ -1,14 +1,29 @@
 package com.chnword.chnword.activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.chnword.chnword.R;
+import com.chnword.chnword.adapter.ShareEditAdapter;
+import com.chnword.chnword.beans.Word;
+import com.chnword.chnword.beans.WordShare;
+import com.chnword.chnword.net.AbstractNet;
+import com.chnword.chnword.net.DeviceUtil;
+import com.chnword.chnword.net.NetConf;
+import com.chnword.chnword.net.NetParamFactory;
+import com.chnword.chnword.net.VerifyNet;
+import com.chnword.chnword.store.LocalStore;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.bean.StatusCode;
@@ -22,6 +37,12 @@ import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.umeng.socialize.sso.UMSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import io.vov.vitamio.utils.Log;
 
 /**
@@ -33,11 +54,18 @@ public class ShareEditActivity extends Activity {
 
     private UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");
 
+    private ProgressDialog progressDialog;
+
+
     private SHARE_MEDIA mediaType;
 
     private ImageButton backImageButton;
     private ImageButton sharedButton;
     private EditText shareText;
+
+    private List<WordShare> wordList;
+    ShareEditAdapter adapter;
+    GridView gridView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +94,17 @@ public class ShareEditActivity extends Activity {
         mediaType = SHARE_MEDIA.convertToEmun(type);
 
         shareText = (EditText) findViewById(R.id.shareText);
+
+        wordList = new ArrayList<WordShare>();
+        adapter = new ShareEditAdapter(this, wordList);
+        gridView = (GridView) findViewById(R.id.shared_edit_grid);
+        gridView.setAdapter(adapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //
+            }
+        });
 
 
         sharedButton = (ImageButton) findViewById(R.id.sharedButton);
@@ -129,6 +168,7 @@ public class ShareEditActivity extends Activity {
             }
         });
 
+        requestNet();
 
     }
 
@@ -176,4 +216,69 @@ public class ShareEditActivity extends Activity {
         }
     }
 
+
+    private void requestNet() {
+        LocalStore store = new LocalStore(this);
+        String userid = store.getDefaultUser();
+        String deviceId = DeviceUtil.getDeviceId(this);
+        JSONObject param = NetParamFactory.sharedWordParam(userid, deviceId);
+        AbstractNet net = new VerifyNet(handler, param, NetConf.URL_SHARED);
+        progressDialog = ProgressDialog.show(this, "提示", "loading...");
+        net.start();
+
+    }
+
+    Handler handler = new Handler(){
+
+        @Override
+        public void handleMessage(Message msg) {
+            progressDialog.dismiss();
+            progressDialog = null;
+            try {
+                if (msg.what == AbstractNet.NETWHAT_SUCESS)
+                {
+                    wordList.clear();
+                    Bundle b = msg.getData();
+                    String str = b.getString("responseBody");
+                    android.util.Log.e(TAG, str);
+                    JSONObject obj = new JSONObject(str);
+                    if (!obj.isNull("data")){
+
+                        JSONArray wordArray = obj.getJSONArray("data");
+                        for (int i = 0; i < wordArray.length(); i ++) {
+                            JSONObject wordObj = wordArray.getJSONObject(i);
+                            WordShare word = new WordShare();
+
+                            word.setGifUrl(wordObj.getString("gif"));
+                            word.setVideoUrl(wordObj.getString("video"));
+                            word.setIconUrl(wordObj.getString("icon"));
+                            word.setWord(wordObj.getString("word"));
+                            word.setSort(wordObj.getString("sort"));
+                            word.setShareTitle(wordObj.getString("share_title"));
+                            word.setShareDesc(wordObj.getString("share_desc"));
+                            word.setShareIcon(wordObj.getString("share_icon"));
+                            word.setShareUrl(wordObj.getString("share_url"));
+//                            word.setWordIndex(wordObj.getString("unicode"));
+                            wordList.add(word);
+
+                        }
+
+//                        ImageLoader imageLoader = ImageLoader.getInstance();
+//                        imageLoader.displayImage(url, wordImageView);
+                        adapter.notifyDataSetChanged();
+
+                    } else {
+                        Toast.makeText(ShareEditActivity.this, "服务器无数据返回", Toast.LENGTH_LONG).show();
+                    }
+
+                }
+
+                if (msg.what == AbstractNet.NETWHAT_FAIL) {
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
 }
