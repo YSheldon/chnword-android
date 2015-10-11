@@ -86,4 +86,19 @@ public class WordShare {
     public void setShareIcon(String shareIcon) {
         this.shareIcon = shareIcon;
     }
+
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        sb.append(" gifurl: " + gifUrl);
+        sb.append(" videoUrl: " + videoUrl);
+        sb.append(" iconUrl: " + iconUrl);
+        sb.append(" word: " + word);
+        sb.append(" sort: " + sort);
+        sb.append(" shareTitle: " + shareTitle);
+        sb.append(" shareDesc: " + shareDesc);
+        sb.append(" shareUrl: " + shareUrl);
+        sb.append(" shareIcon: " + shareIcon);
+        return sb.toString();
+    }
 }

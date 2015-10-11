@@ -111,16 +111,16 @@ public class UsercateActivity extends Activity {
 //            i.putExtra("module_name", m.getName());
 //            startActivity(i);
 
-            if (!m.isLock()) {
+//            if (!m.isLock()) {
                 Intent i = new Intent(UsercateActivity.this, UserwordActivity.class);
                 i.putExtra("ZoneCode", m.getCname());
                 i.putExtra("ZoneIndex", position);
                 i.putExtra("module_name", m.getName());
 
                 startActivity(i);
-            } else {
-                Toast.makeText(UsercateActivity.this, "请购买三字字课产品!", Toast.LENGTH_LONG).show();
-            }
+//            } else {
+//                Toast.makeText(UsercateActivity.this, "请购买三字字课产品!", Toast.LENGTH_LONG).show();
+//            }
         }
     };
 

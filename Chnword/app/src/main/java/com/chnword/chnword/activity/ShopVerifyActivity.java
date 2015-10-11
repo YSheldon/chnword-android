@@ -154,7 +154,8 @@ public class ShopVerifyActivity extends Activity {
                 }
 
                 if (payByZfb.isChecked()) {
-                    Log.e(TAG, "payBywexin CHECKED");
+                    Log.e(TAG, "payByzfb CHECKED");
+                    pay(null);
                 }
 
             }
@@ -417,11 +418,11 @@ public class ShopVerifyActivity extends Activity {
     // 商户PID
     public static final String PARTNER = "2088021351529570";
     // 商户收款账号
-    public static final String SELLER = "";
+    public static final String SELLER = "2088021351529570";
     // 商户私钥，pkcs8格式
     public static final String RSA_PRIVATE = "tqnspyb9h1068p34hm6z9lmk479kefc5";
     // 支付宝公钥
-    public static final String RSA_PUBLIC = "";
+    public static final String RSA_PUBLIC = "tqnspyb9h1068p34hm6z9lmk479kefc5";
     private static final int SDK_PAY_FLAG = 1;
 
     private static final int SDK_CHECK_FLAG = 2;
@@ -496,6 +497,7 @@ public class ShopVerifyActivity extends Activity {
         String sign = sign(orderInfo);
         try {
             // 仅需对sign 做URL编码
+            Log.e(TAG, sign + "");
             sign = URLEncoder.encode(sign, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

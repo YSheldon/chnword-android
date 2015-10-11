@@ -96,6 +96,7 @@ public class FreewordActivity extends Activity {
     SharePopWindow shareWindow;
     String url = "";
 
+    private TextView freewordCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +118,8 @@ public class FreewordActivity extends Activity {
         bottomLinear = (LinearLayout) findViewById(R.id.bottomLinear);
         freeTopLinear = (LinearLayout) findViewById(R.id.freeTopLinear);
 
+        freewordCode = (TextView) findViewById(R.id.freewordCode);
+
         Intent intent = getIntent();
         Bundle b = intent.getExtras();
 
@@ -131,6 +134,8 @@ public class FreewordActivity extends Activity {
             Log.e(TAG, "NO TITLE, BACK");
             finish();
         }
+
+
 
         //
         modulNameTextView.setText(title);
@@ -197,12 +202,13 @@ public class FreewordActivity extends Activity {
                             if ("0".equalsIgnoreCase(wordObj.getString("free"))) {
                                 currentWord = word;
                                 url = wordObj.getString("icon");
+                                freewordCode.setText(currentWord.getWord());
                                 break;
                             }
                         }
 
-                        ImageLoader imageLoader = ImageLoader.getInstance();
-                        imageLoader.displayImage(url, wordImageView);
+//                        ImageLoader imageLoader = ImageLoader.getInstance();
+//                        imageLoader.displayImage(url, wordImageView);
 
                     } else {
                         Toast.makeText(FreewordActivity.this, "服务器无数据返回", Toast.LENGTH_LONG).show();

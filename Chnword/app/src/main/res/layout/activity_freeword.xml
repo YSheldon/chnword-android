@@ -102,10 +102,24 @@
                                 android:layout_height="match_parent"
                                 android:background="@drawable/tzg">
 
-                                <ImageView
+                                <FrameLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:id="@+id/wordImageView"/>
+                                    android:layout_height="match_parent">
+
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:id="@+id/wordImageView"/>
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:text="字"
+                                        android:id="@+id/freewordCode"
+                                        android:gravity="center"
+                                        android:textColor="#000000"
+                                        android:textSize="60dp"/>
+                                </FrameLayout>
                             </LinearLayout>
                         </LinearLayout>
 

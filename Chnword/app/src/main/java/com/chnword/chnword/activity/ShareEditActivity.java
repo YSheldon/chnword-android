@@ -249,6 +249,16 @@ public class ShareEditActivity extends Activity {
                             JSONObject wordObj = wordArray.getJSONObject(i);
                             WordShare word = new WordShare();
 
+                            Log.e(TAG, wordObj.getString("gif"));
+                            Log.e(TAG, wordObj.getString("video"));
+                            Log.e(TAG, wordObj.getString("icon"));
+                            Log.e(TAG, wordObj.getString("sort"));
+                            Log.e(TAG, wordObj.getString("word"));
+                            Log.e(TAG, wordObj.getString("share_title"));
+                            Log.e(TAG, wordObj.getString("share_desc"));
+                            Log.e(TAG, wordObj.getString("share_icon"));
+                            Log.e(TAG, wordObj.getString("share_url"));
+
                             word.setGifUrl(wordObj.getString("gif"));
                             word.setVideoUrl(wordObj.getString("video"));
                             word.setIconUrl(wordObj.getString("icon"));
@@ -259,6 +269,8 @@ public class ShareEditActivity extends Activity {
                             word.setShareIcon(wordObj.getString("share_icon"));
                             word.setShareUrl(wordObj.getString("share_url"));
 //                            word.setWordIndex(wordObj.getString("unicode"));
+                            Log.e(TAG, "OBJ:" + wordObj.toString());
+                            Log.e(TAG, word.toString());
                             wordList.add(word);
 
                         }
