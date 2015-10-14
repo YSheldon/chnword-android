@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -59,12 +60,21 @@ public class ShareEditAdapter extends BaseAdapter {
 
         WordShare word = (WordShare) getItem(position);
 
-        RadioButton radioButton = (RadioButton) convertView.findViewById(R.id.shared_radio);
+        ImageView radioView = (ImageView) convertView.findViewById(R.id.shared_radio);
 
         ImageView imageView = (ImageView) convertView.findViewById(R.id.sharedWordImage);
-
-
         ImageLoader.getInstance().displayImage(word.getIconUrl(), imageView);
+
+        if (word.isSelected()) {
+            radioView.setImageResource(R.drawable.radio_03);
+        } else {
+            radioView.setImageResource(R.drawable.radio_05);
+        }
+
+//        radioButton.setSelected(word.isSelected());
+//        radioButton.setClickable(false);
+//
+//        convertView.setClickable(false);
 
 
         return convertView;

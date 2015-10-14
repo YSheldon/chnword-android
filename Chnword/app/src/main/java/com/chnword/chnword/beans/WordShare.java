@@ -15,6 +15,16 @@ public class WordShare {
     private String shareUrl;
     private String shareIcon;
 
+    private boolean isSelected;
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setIsSelected(boolean isSelected) {
+        this.isSelected = isSelected;
+    }
+
     public String getGifUrl() {
         return gifUrl;
     }
