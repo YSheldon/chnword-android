@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/mis_page_bg"
+        android:background="@drawable/share_bg"
         android:id="@+id/pop_layout">
 
         <ImageButton
