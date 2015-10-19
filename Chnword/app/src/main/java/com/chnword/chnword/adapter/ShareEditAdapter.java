@@ -66,9 +66,9 @@ public class ShareEditAdapter extends BaseAdapter {
         ImageLoader.getInstance().displayImage(word.getIconUrl(), imageView);
 
         if (word.isSelected()) {
-            radioView.setImageResource(R.drawable.radio_03);
+            radioView.setImageResource(R.drawable.radio_y);
         } else {
-            radioView.setImageResource(R.drawable.radio_05);
+            radioView.setImageResource(R.drawable.radio_n);
         }
 
 //        radioButton.setSelected(word.isSelected());
