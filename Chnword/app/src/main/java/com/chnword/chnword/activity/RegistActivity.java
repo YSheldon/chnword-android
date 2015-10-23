@@ -201,6 +201,16 @@ public class RegistActivity extends Activity {
                         LocalStore store = new LocalStore(RegistActivity.this);
                         store.setDefaultUser(userid);
 
+                        JSONObject data = obj.getJSONObject("data");
+                        int usertype = data.getInt("type");
+                        store.setUserType(usertype);
+
+                        int userBind = data.getInt("binding");
+                        if (userBind == 1) {
+                            store.setUserBind(true);
+                        }
+
+
                         Intent intent = new Intent(RegistActivity.this, TabActivity.class);
                         startActivity(intent);
                         finish();
@@ -229,12 +239,21 @@ public class RegistActivity extends Activity {
                 {
                     JSONObject obj = new JSONObject(str);
                     int result = obj.getInt("result");
+
+
+
+
                     if (result == 0 ){
                         //该用户不存在
                         Toast.makeText(RegistActivity.this, "该用户不存在", Toast.LENGTH_LONG).show();
 
                     } else if (result == 1) {
                         //正确
+
+//                        JSONObject data = obj.getJSONObject("data");
+//                        int usertype = data.getInt("type");
+//                        LocalStore store = new LocalStore(RegistActivity.this);
+//                        store.setUserType(usertype);
 
                         Intent intent = new Intent(RegistActivity.this, TabActivity.class);
                         startActivity(intent);

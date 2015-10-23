@@ -44,6 +44,33 @@ public class LocalStore {
         return perference.getString(DEFAULT_USER_KEY, "0");
     }
 
+    //用户类型，用户扫描
+    private static final String USER_TYPE = "USER_TYPE";
+
+    public void setUserType(int type) {
+        SharedPreferences.Editor editor = perference.edit();
+        editor.putInt(USER_TYPE, type);
+        editor.commit();
+    }
+    public int getUserType() {
+        return perference.getInt(USER_TYPE, 0);
+    }
+
+
+    private static final String USER_BIND = "USER_BIND";
+    public void setUserBind(boolean type) {
+        SharedPreferences.Editor editor = perference.edit();
+        editor.putBoolean(USER_TYPE, type);
+        editor.commit();
+    }
+    public boolean getUserBind() {
+        return perference.getBoolean(USER_TYPE, false);
+    }
+
+
+
+
+
 
 
     public Set<String> getUnlockModels(String userCode) {
