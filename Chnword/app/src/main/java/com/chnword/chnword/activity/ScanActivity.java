@@ -438,7 +438,8 @@ public class ScanActivity extends Activity {
         LocalStore store = new LocalStore(ScanActivity.this);
         String userid = store.getDefaultUser();
         String deviceId = DeviceUtil.getDeviceId(this);
-        JSONObject param = NetParamFactory.wordParam(userid, deviceId, text);
+        int usertype = store.getUserType();
+        JSONObject param = NetParamFactory.wordParam(userid, deviceId, text, usertype);
         AbstractNet net = new VerifyNet(handler, param, NetConf.URL_WORD);
         net.start();
 

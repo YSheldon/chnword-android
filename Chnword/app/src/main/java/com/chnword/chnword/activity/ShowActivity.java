@@ -132,7 +132,8 @@ public class ShowActivity extends Activity {
 
         String userid = store.getDefaultUser();
         String deviceId = DeviceUtil.getDeviceId(this);;
-        JSONObject param = NetParamFactory.showParam(userid, deviceId, word.getWordIndex());
+        int usertype = store.getUserType();
+        JSONObject param = NetParamFactory.showParam(userid, deviceId, word.getWordIndex(), usertype);
         AbstractNet net = new VerifyNet(handler, param, NetConf.URL_SHOW);
         progressDialog = ProgressDialog.show(this, "提示", "loading...");
         net.start();

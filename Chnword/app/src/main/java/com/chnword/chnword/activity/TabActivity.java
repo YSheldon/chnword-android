@@ -492,7 +492,9 @@ public class TabActivity extends FragmentActivity {
                     String word = bundle.getString("result");
 
                     if (word != null && !"".equalsIgnoreCase(word)){
-                        JSONObject param = NetParamFactory.wordParam(userid, deviceId, word);
+//                        LocalStore store = new LocalStore(TabActivity.this);
+                        int usertype = store.getUserType();
+                        JSONObject param = NetParamFactory.wordParam(userid, deviceId, word, usertype);
                         Log.e(TAG, param.toString());
                         AbstractNet net = new VerifyNet(wordHandler, param, NetConf.URL_WORD);
 

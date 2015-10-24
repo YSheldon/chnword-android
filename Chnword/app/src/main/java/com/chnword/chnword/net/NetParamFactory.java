@@ -148,7 +148,7 @@ public class NetParamFactory {
         return obj;
     }
 
-    public static JSONObject wordParam(String userid, String deviceId, String word)
+    public static JSONObject wordParam(String userid, String deviceId, String word, int usertype)
     {
         JSONObject obj = null;
         try {
@@ -157,6 +157,7 @@ public class NetParamFactory {
             obj.put("userid", userid);
 //            obj.put("device", deviceId.substring(0, 16));
             obj.put("device", "2");
+            obj.put("type", usertype + "");
 
             JSONObject param = new JSONObject();
             param.put("word", word);
@@ -168,7 +169,7 @@ public class NetParamFactory {
         return obj;
     }
 
-    public static JSONObject sharedWordParam(String userid, String deviceId)
+    public static JSONObject sharedWordParam(String userid, String deviceId, int usertype)
     {
         JSONObject obj = null;
         try {
@@ -177,6 +178,7 @@ public class NetParamFactory {
             obj.put("userid", userid);
 //            obj.put("device", deviceId.substring(0, 16));
             obj.put("device", "2");
+            obj.put("type", usertype + "");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -184,7 +186,7 @@ public class NetParamFactory {
         return obj;
     }
 
-    public static JSONObject showParam(String userid, String deviceId, String wordCode)
+    public static JSONObject showParam(String userid, String deviceId, String wordCode, int usertype)
     {
         JSONObject obj = null;
         try {
@@ -193,6 +195,7 @@ public class NetParamFactory {
             obj.put("userid", userid);
 //            obj.put("device", deviceId.substring(0, 16));
             obj.put("device", "2");
+            obj.put("type", usertype + "");
 
             obj.put("word_code", wordCode);
 
