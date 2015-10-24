@@ -60,6 +60,7 @@ public class ShareEditActivity extends Activity {
 
 
     private SHARE_MEDIA mediaType;
+    private String type;
 
     private ImageButton backImageButton;
     private ImageButton sharedButton;
@@ -86,14 +87,15 @@ public class ShareEditActivity extends Activity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
-        String type = bundle.getString("share_type");
-        if (type == null || "".equalsIgnoreCase(type))
+        String share_type = bundle.getString("share_type");
+        type = bundle.getString("share_type_user");
+        if (share_type == null || "".equalsIgnoreCase(share_type))
         {
             Log.e(TAG, "INVALIDAGE TYPE.");
             finish();
         }
 
-        mediaType = SHARE_MEDIA.convertToEmun(type);
+        mediaType = SHARE_MEDIA.convertToEmun(share_type);
 
         shareText = (EditText) findViewById(R.id.shareText);
 
@@ -247,7 +249,8 @@ public class ShareEditActivity extends Activity {
         LocalStore store = new LocalStore(this);
         String userid = store.getDefaultUser();
         String deviceId = DeviceUtil.getDeviceId(this);
-        JSONObject param = NetParamFactory.sharedWordParam(userid, deviceId);
+
+        JSONObject param = NetParamFactory.sharedWordParam(userid, deviceId, type);
         AbstractNet net = new VerifyNet(handler, param, NetConf.URL_SHARED);
         progressDialog = ProgressDialog.show(this, "提示", "loading...");
         net.start();
