@@ -420,7 +420,20 @@ public class ShopVerifyActivity extends Activity {
     // 商户收款账号
     public static final String SELLER = "2088021351529570";
     // 商户私钥，pkcs8格式
-    public static final String RSA_PRIVATE = "tqnspyb9h1068p34hm6z9lmk479kefc5";
+    public static final String RSA_PRIVATE = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBANRJZTucoCjQ5qaw" +
+            "Pyjp6qjpO7Rv6wCkhEpeC0AmjqfGKZRm/aOXU5PMpgLQDrqeEl78lg7K7a9eWuFV" +
+            "CdZ7xZNvb0IaD7240qa1wFoYdNkj1x79vpgBfCq3e7+GU4JLjK2F7Qz+R5VmrgnK" +
+            "E36OWosUHJdw5KiYHn45siaMbWITAgMBAAECgYBvr+3C3zSkRMQVDsUsEWWUWKFA" +
+            "3WEWhXfUaIYiyiZjvq5Bla38U7F1IUZ2VGBrbp7buqh4P+utSEcoJkV2wse/RJnY" +
+            "faMcKUy65J1jTzTd/3eci8WjOH5LcbtwZymxdBDMdtfOoVFl3ON0EmL5f24+AsfG" +
+            "EPfOd9IHZ5IVH1EFgQJBAO16cAj4y8KcuDomemsCzg6yK5HoNpybRCKOiRIUXrbq" +
+            "TlWiq8F6fUgy463MMLfVUo+qvrbH2e3iXlYyBgJiDp0CQQDk1/mwL9GtNJf9vL19" +
+            "gtBdzeeitCzmtWSfF3zCsbXzai22u6sPLyoR0dxqRgcjUoPTKW+HpB4FlVggIi+d" +
+            "mXxvAkEAgzs93jdeolTomXnZ/Hi4VfavjRm91B0ZMd+Cb7NCA+LHFxulvm1p/hPh" +
+            "LZHA+lWwIiRA79DQ5VxKtWc/WuHFIQJADT2x5M/fgfYZFUVmcWywQb04OeHS90Zn" +
+            "nAzv2xQNQxhRrNEPBMHl3UIXTs7eety7Y+xx15dXZVtOzg0sVCIdYQJAWk7bO+Eo" +
+            "nip9OM6GzUw4pGb+TR8VyFJMXWoXK7NwoTa7vT/X0mtEfbQqOy2n1m/auj8wcRPQ" +
+            "veRatX1n3b/xQg==";
     // 支付宝公钥
     public static final String RSA_PUBLIC = "tqnspyb9h1068p34hm6z9lmk479kefc5";
     private static final int SDK_PAY_FLAG = 1;
