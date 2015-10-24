@@ -31,6 +31,8 @@ public class SharePopWindow extends PopupWindow implements View.OnClickListener{
     private UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");
     private Activity mActivity;
 
+    private String type;
+
 
     private ImageButton btn_cancel;
     private ImageButton snslogo1,snslogo2,snslogo3, snslogo4, snslogo5, snslogo6;
@@ -160,6 +162,7 @@ public class SharePopWindow extends PopupWindow implements View.OnClickListener{
     public void onClick(View v) {
         Intent shareEditIntent = new Intent(mActivity, ShareEditActivity.class);
 
+        shareEditIntent.putExtra("share_type_user", type);
 
         switch (v.getId()) {
             case R.id.snslogo1 :
@@ -191,4 +194,11 @@ public class SharePopWindow extends PopupWindow implements View.OnClickListener{
     }
 
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }

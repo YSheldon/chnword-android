@@ -169,7 +169,7 @@ public class NetParamFactory {
         return obj;
     }
 
-    public static JSONObject sharedWordParam(String userid, String deviceId, int usertype)
+    public static JSONObject sharedWordParam(String userid, String deviceId, String usertype)
     {
         JSONObject obj = null;
         try {

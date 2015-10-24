@@ -26,6 +26,12 @@ import com.chnword.chnword.net.VerifyNet;
 import com.chnword.chnword.popwindow.SharePopWindow;
 import com.chnword.chnword.store.LocalStore;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.sso.QZoneSsoHandler;
+import com.umeng.socialize.sso.SinaSsoHandler;
+import com.umeng.socialize.sso.UMQQSsoHandler;
+import com.umeng.socialize.weixin.controller.UMWXHandler;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -47,6 +53,7 @@ public class FreewordActivity extends Activity {
 
     String zoneCode = "";
     String title = "";
+    String type = "";
     int index = 0;
     int resourceIndex = 0;  //模块的下标
 
@@ -129,13 +136,12 @@ public class FreewordActivity extends Activity {
         index = b.getInt("ZoneIndex");
 
         title = b.getString("module_name", "");
+        type = b.getString("module_type", "");
         resourceIndex = b.getInt("module_index", 0);
         if ("".equalsIgnoreCase(title)){
             Log.e(TAG, "NO TITLE, BACK");
             finish();
         }
-
-
 
         //
         modulNameTextView.setText(title);
@@ -145,6 +151,7 @@ public class FreewordActivity extends Activity {
         freeTopLinear.setBackgroundResource(tops[resourceIndex]);
 
         shareWindow = new SharePopWindow(this);
+        shareWindow.setType(type);
 
         titleTextView = (TextView) findViewById(R.id.titleTextView);
         titleTextView.setText(title);
@@ -245,5 +252,37 @@ public class FreewordActivity extends Activity {
         startActivity(intent);
     }
 
+
+//    private void onShared() {
+//        // 设置分享内容
+//        mController.setShareContent("我正在使用三千字，非常适合你，推荐给你吧。http://app.3000zi.com/web/download.php");
+//        // 设置分享图片，参数2为本地图片的资源引用
+//        mController.setShareMedia(new UMImage(TabActivity.this, R.drawable.logo80));
+//
+//
+//        //添加微信和朋友圈
+//        String appId = "wx523e7fec6968506f";
+//        String appSecret = "4a01f28bf8671d6b5487094caaffc72e";
+//        // 添加微信平台
+//        UMWXHandler wxHandler = new UMWXHandler(TabActivity.this, appId, appSecret);
+//        wxHandler.addToSocialSDK();
+//
+//        // 添加微信朋友圈
+//        UMWXHandler wxCircleHandler = new UMWXHandler(TabActivity.this, appId, appSecret);
+//        wxCircleHandler.setToCircle(true);
+//        wxCircleHandler.addToSocialSDK();
+//
+//        //添加qq的
+//        //参数1为当前Activity，参数2为开发者在QQ互联申请的APP ID，参数3为开发者在QQ互联申请的APP kEY.
+//        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(TabActivity.this, "1104685705", "TaZo5RPmrGX11nPO");
+//        qqSsoHandler.addToSocialSDK();
+//
+//        //qq空间
+//        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(TabActivity.this, "100424468", "c7394704798a158208a74ab60104f0ba");
+//        qZoneSsoHandler.addToSocialSDK();
+//
+//        //添加新浪的
+//        mController.getConfig().setSsoHandler(new SinaSsoHandler());
+//    }
 
 }

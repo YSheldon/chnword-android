@@ -103,6 +103,7 @@ public class FreeCateActivity extends Activity {
             i.putExtra("ZoneCode", m.getCname());
             i.putExtra("ZoneIndex", position);
             i.putExtra("module_name", m.getName());
+            i.putExtra("module_type", m.getType());
 
             startActivity(i);
         }
@@ -130,6 +131,8 @@ public class FreeCateActivity extends Activity {
                         Category category = new Category();
                         category.setName(cateObj.getString("name"));
                         category.setCname(cateObj.getString("cname"));
+
+                        category.setType(cateObj.getString("type"));
 
                         String isLockStr = cateObj.getString("lock");
                         boolean isLock = "".equals(isLockStr) ? false : "1".equalsIgnoreCase(isLockStr);
