@@ -187,7 +187,19 @@ public class CatezikeFragment extends Fragment {
 
                         category.setName(name);
                         category.setPriceString(price);
-                        category.setPrice(Float.parseFloat(price));
+
+                        if ("".equalsIgnoreCase(price)) {
+                            category.setPrice(0);
+                        } else {
+                            try {
+                                category.setPrice(Float.parseFloat(price));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                category.setPrice(0);
+                            }
+                        }
+
+
 //                        category.setResourceId();
                         category.setIconUrl(icon);
 
