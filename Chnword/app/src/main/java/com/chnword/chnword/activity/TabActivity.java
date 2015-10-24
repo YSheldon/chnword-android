@@ -140,6 +140,7 @@ public class TabActivity extends FragmentActivity {
             }
         });
 
+        System.gc();
     }
 
     @Override

@@ -91,6 +91,7 @@ public class GifFragment extends Fragment {
 
 
     public void initWithGifView(View view) {
+        System.gc();
         gib = new GifImageButton( getActivity() );
 
         LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -103,9 +104,9 @@ public class GifFragment extends Fragment {
 
         //判断gif类型
         if (gib.getDrawable() instanceof pl.droidsonroids.gif.GifDrawable) {
-            mc.setMediaPlayer( (GifDrawable) gib.getDrawable());
-            mc.setAnchorView(gib );
-            mc.show();
+//            mc.setMediaPlayer( (GifDrawable) gib.getDrawable());
+//            mc.setAnchorView(gib );
+//            mc.show();
 //            gib.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {
