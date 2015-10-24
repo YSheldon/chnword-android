@@ -60,11 +60,11 @@ public class LocalStore {
     private static final String USER_BIND = "USER_BIND";
     public void setUserBind(boolean type) {
         SharedPreferences.Editor editor = perference.edit();
-        editor.putBoolean(USER_TYPE, type);
+        editor.putBoolean(USER_BIND, type);
         editor.commit();
     }
     public boolean getUserBind() {
-        return perference.getBoolean(USER_TYPE, false);
+        return perference.getBoolean(USER_BIND, false);
     }
 
 
