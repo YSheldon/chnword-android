@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.chnword.chnword.R;
-import com.chnword.chnword.activity.WordActivity_t;
 import com.chnword.chnword.adapter.CategoryAdapter;
 import com.chnword.chnword.beans.Category;
 
