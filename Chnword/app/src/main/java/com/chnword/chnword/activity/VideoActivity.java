@@ -3,6 +3,7 @@ package com.chnword.chnword.activity;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.chnword.chnword.R;
 import com.chnword.chnword.beans.Word;
@@ -21,7 +22,7 @@ public class VideoActivity extends Activity
     private Uri uri;
     private Word word;
 
-    private String path = "http://app.3000zi.com/upload/video/ebbb0cf8d6547612db98d061cf556baf.mp4";
+    private String path;
     private VideoView mVideoView;
 
 
@@ -32,6 +33,7 @@ public class VideoActivity extends Activity
         setContentView(R.layout.activity_video);
 
         path = getIntent().getExtras().getString("videoUrl");
+        Log.e(TAG, path);
 
         mVideoView = (VideoView) findViewById(R.id.surface_view);
 
