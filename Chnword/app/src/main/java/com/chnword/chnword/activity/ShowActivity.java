@@ -15,6 +15,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.chnword.chnword.R;
@@ -46,6 +47,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import io.vov.vitamio.LibsChecker;
 import pl.droidsonroids.gif.GifDrawable;
@@ -57,9 +60,6 @@ public class ShowActivity extends Activity {
     private static final String TAG = ShowActivity.class.getSimpleName();
 
     private Word word ;
-
-
-    private Fragment fragment;
 
     private GifFragment gifFragment;
 
@@ -75,6 +75,7 @@ public class ShowActivity extends Activity {
     private ImageButton backImageButton;
 
 
+    private SeekBar seekBar;
 
 
     @Override
@@ -97,6 +98,8 @@ public class ShowActivity extends Activity {
 
         gifFragment = new GifFragment();
 
+        getFragmentManager().beginTransaction().add(R.id.fragment_container, gifFragment).commit();
+
         backImageButton = (ImageButton) findViewById(R.id.backImageButton);
         backImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +108,36 @@ public class ShowActivity extends Activity {
             }
         });
 
+        seekBar = (SeekBar) findViewById(R.id.seekBar2);
+        seekBar.setMax(100);
+        seekBar.setProgress(0);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+//                mGalleryFlow.setSelection(progress);
+
+                synchronized (isFromTask) {
+                    if (!isFromTask) {
+                        gifFragment.updateState(progress);
+                        Log.e(TAG, "" + progress);
+                    }
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                synchronized (isFromTask) {
+                    isFromTask = false;
+                }
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                synchronized (isFromTask) {
+                    isFromTask = true;
+                }
+            }
+        });
 
     }
 
@@ -119,6 +152,12 @@ public class ShowActivity extends Activity {
 
         requestNet();
 
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        timer.cancel();
     }
 
     @Override
@@ -236,7 +275,8 @@ public class ShowActivity extends Activity {
                     Uri uri = Uri.parse(str);
                     Log.e(TAG, "gifuri : " + gifUri + " localuri : " + uri.toString());
                     gifFragment.setUri(uri);
-                    getFragmentManager().beginTransaction().add(R.id.fragment_container, gifFragment).commit();
+                    seekBar.setMax(gifFragment.getLength());
+                    initTimerTask();
                 }
 
             }
@@ -376,8 +416,44 @@ public class ShowActivity extends Activity {
         Log.e(TAG, "METHOD onShowVideo");
 
         Intent intent = new Intent(this, VideoActivity.class);
-        intent.putExtra("videoUrl", "http://app.3000zi.com/upload/video/ebbb0cf8d6547612db98d061cf556baf.mp4");
+        intent.putExtra("videoUrl", videoUri);
         startActivity(intent);
+        finish();
     }
 
+    public void nextButton(View view) {
+        gifFragment.next();
+    }
+
+    public void priviousButton(View view) {
+        gifFragment.privous();
+    }
+
+    Boolean isFromTask = new Boolean(true);
+    Timer timer = new Timer() ;
+    TimerTask tack = new TimerTask() {
+        @Override
+        public void run() {
+            synchronized (isFromTask) {
+                if (isFromTask) {
+                    if (gifFragment.getCurrentProgress() >= gifFragment.getLength()) {
+                        //开启video，关闭
+                        Intent intent = new Intent(ShowActivity.this, VideoActivity.class);
+                        intent.putExtra("videoUrl", videoUri);
+                        startActivity(intent);
+                        finish();
+                        tack.cancel();
+                    } else {
+                        seekBar.setProgress(gifFragment.getCurrentProgress());
+                    }
+                }
+            }
+
+        }
+    };
+    Handler mHandler = new Handler();
+    public void initTimerTask() {
+        Log.e(TAG, "initTimerTask");
+        timer.schedule(tack, 10, 100);
+    }
 }

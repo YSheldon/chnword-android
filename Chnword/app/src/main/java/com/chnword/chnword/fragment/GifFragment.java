@@ -2,8 +2,11 @@ package com.chnword.chnword.fragment;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +15,7 @@ import android.widget.MediaController;
 import android.widget.SeekBar;
 
 import com.chnword.chnword.R;
+import com.chnword.chnword.activity.ShowActivity;
 import com.chnword.chnword.gallery.GalleryFlow;
 
 import pl.droidsonroids.gif.GifDrawable;
@@ -33,7 +37,7 @@ public class GifFragment extends Fragment {
     // 控件
     private GalleryFlow mGalleryFlow;
 
-    private SeekBar seekBar;
+    MediaController mc;
 
 
     private Uri uri;
@@ -54,11 +58,8 @@ public class GifFragment extends Fragment {
         mContext = getActivity().getApplicationContext();
 
         self = view;
-//        initGallery(view);
 
         initWithGifView(view);
-
-
 
         return view;
     }
@@ -70,7 +71,6 @@ public class GifFragment extends Fragment {
 
     @Override
     public void onStart() {
-        initWithGifView(self);
         super.onStart();
     }
 
@@ -96,102 +96,31 @@ public class GifFragment extends Fragment {
 
         LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         gifViewContainer.addView(gib, param);
+        gib.setBackgroundColor(0x00000000);
 
         gib.setImageResource(R.drawable.videoloading);
-        gib.setImageURI(uri);
+//        gib.setImageURI(uri);
+
+        GifDrawable gif = (GifDrawable) gib.getDrawable();
+
+        mc = new MediaController( getActivity() );
 
         final MediaController mc = new MediaController( getActivity() );
 
         //判断gif类型
-        if (gib.getDrawable() instanceof pl.droidsonroids.gif.GifDrawable) {
-//            mc.setMediaPlayer( (GifDrawable) gib.getDrawable());
-//            mc.setAnchorView(gib );
-//            mc.show();
+//        if (gib.getDrawable() instanceof pl.droidsonroids.gif.GifDrawable) {
+////            mc.setMediaPlayer( (GifDrawable) gib.getDrawable());
+////            mc.setAnchorView(gib );
+////            mc.show();
 //            gib.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {
 //                    mc.show();
 //                }
 //            });
-        }
-
+//        }
 
     }
-
-    /*
-    private void initGallery(View view)
-    {
-        // 图片ID
-        int[] images = {
-                R.drawable.bgmain,
-                R.drawable.playbg,
-                R.drawable.subbg01,
-                R.drawable.subbg02,
-                R.drawable.subbg03};
-//        int[] images = {R.drawable.index};
-
-        ImageAdapter adapter = new ImageAdapter(mContext, images);
-        // 计算图片的宽高
-        int[] dimension = BitmapScaleDownUtil.getScreenDimension(getActivity().getWindowManager().getDefaultDisplay());
-        int imageWidth = dimension[0] / SCALE_FACTOR;
-        int imageHeight = dimension[1] / SCALE_FACTOR;
-        // 初始化图片
-        adapter.createImages(imageWidth, imageHeight);
-
-        // 设置Adapter，显示位置位于控件中间，这样使得左右均可"无限"滑动
-        mGalleryFlow = (GalleryFlow) view.findViewById(R.id.gallery_flow_gif);
-        mGalleryFlow.setSpacing(GALLERY_SPACING);
-        mGalleryFlow.setAdapter(adapter);
-        mGalleryFlow.setSelection(Integer.MAX_VALUE / 2);
-
-        seekBar = (SeekBar) view.findViewById(R.id.seekBar);
-        seekBar.setMax(images.length);
-        seekBar.setProgress(0);
-
-        //添加事件
-
-        mGalleryFlow.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                seekBar.setProgress(position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-//        mGalleryFlow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Log.e("GIFFRAGMENT", "ON GIF VIEW CLICK.");
-//                ShowActivity activity = (ShowActivity) getActivity();
-//                //todo 转换并执行position
-////                activity.onChangePosition(position/mGalleryFlow.getAdapter().getCount());
-//            }
-//        });
-
-
-
-//        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-//            @Override
-//            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//                mGalleryFlow.setSelection(progress);
-//            }
-//
-//            @Override
-//            public void onStartTrackingTouch(SeekBar seekBar) {
-//
-//            }
-//
-//            @Override
-//            public void onStopTrackingTouch(SeekBar seekBar) {
-//
-//            }
-//        });
-    }
-    */
 
     // getter and setter
 
@@ -201,6 +130,57 @@ public class GifFragment extends Fragment {
 
     public void setUri(Uri uri) {
         this.uri = uri;
-//        gib.setImageURI(uri);
+        try {
+            gib.setImageURI(uri);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getLength() {
+        GifDrawable gif = (GifDrawable) gib.getDrawable();
+        int i = gif.getNumberOfFrames();
+        return i - 1;
+    }
+
+    public int getCurrentProgress() {
+        GifDrawable gif = (GifDrawable) gib.getDrawable();
+        return gif.getCurrentFrameIndex();
+    }
+
+    public void updateState(int index) {
+        GifDrawable gif = (GifDrawable) gib.getDrawable();
+        try {
+            gif.stop();
+            gif.seekToFrame(index);
+            gif.start();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void next() {
+        GifDrawable gif = (GifDrawable) gib.getDrawable();
+//        int i = gif.getNumberOfFrames();
+        int i = gif.getCurrentFrameIndex();
+        try {
+            gif.stop();
+            gif.seekToFrame(i + 5);
+            gif.start();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void privous() {
+        GifDrawable gif = (GifDrawable) gib.getDrawable();
+        int i = gif.getCurrentFrameIndex();
+        try {
+            gif.stop();
+            gif.seekToFrame(i - 5);
+            gif.start();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
