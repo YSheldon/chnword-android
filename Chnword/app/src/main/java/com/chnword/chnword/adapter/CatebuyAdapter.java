@@ -14,6 +14,7 @@ import com.chnword.chnword.R;
 import com.chnword.chnword.beans.CateBuyItem;
 import com.chnword.chnword.beans.Category;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import org.w3c.dom.Text;
 
@@ -32,6 +33,9 @@ public class CatebuyAdapter extends BaseAdapter {
     public CatebuyAdapter(Context mContext, List<CateBuyItem> categoryList) {
         this.mContext = mContext;
         this.categoryList = categoryList;
+        ImageLoaderConfiguration configuration = ImageLoaderConfiguration
+                .createDefault(mContext);
+        ImageLoader.getInstance().init(configuration);
     }
 
     @Override
