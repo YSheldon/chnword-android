@@ -22,4 +22,6 @@
         <item name="android:thumbOffset">10.0dip</item>
     </style>
 
+    <style name="Widget_GifView"></style>
+
 </resources>
