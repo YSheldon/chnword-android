@@ -17,10 +17,10 @@ public class NetParamFactory {
         JSONObject obj = null;
         try {
             obj = new JSONObject();
-            obj.put("opid", UUID.randomUUID().toString().substring(0, 16));
+            obj.put("opid", UUID.randomUUID().toString() );
             obj.put("userid", userid);
-//            obj.put("device", deviceId.substring(0, 16));
-            obj.put("device", "2");
+            obj.put("device", deviceId );
+//            obj.put("device", "2");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -33,10 +33,10 @@ public class NetParamFactory {
         JSONObject obj = null;
         try {
             obj = new JSONObject();
-            obj.put("opid", UUID.randomUUID().toString().substring(0, 16));
+            obj.put("opid", UUID.randomUUID().toString() );
             obj.put("userid", userid);
-//            obj.put("device", deviceId);
-            obj.put("device", "2");
+            obj.put("device", deviceId);
+//            obj.put("device", "2");
             obj.put("code", code);
 
 //            JSONObject param = new JSONObject();
@@ -55,10 +55,10 @@ public class NetParamFactory {
         JSONObject obj = null;
         try {
             obj = new JSONObject();
-            obj.put("opid", UUID.randomUUID().toString().substring(0, 16));
+            obj.put("opid", UUID.randomUUID().toString() );
             obj.put("userid", userid);
-//            obj.put("device", deviceId.substring(0, 16));
-            obj.put("device", "2");
+            obj.put("device", deviceId );
+//            obj.put("device", "2");
 
             JSONObject param = new JSONObject();
             param.put("page", page);
@@ -76,10 +76,10 @@ public class NetParamFactory {
         JSONObject obj = null;
         try {
             obj = new JSONObject();
-            obj.put("opid", UUID.randomUUID().toString().substring(0, 16));
+            obj.put("opid", UUID.randomUUID().toString() );
             obj.put("userid", userid);
-//            obj.put("device", deviceId.substring(0, 16));
-            obj.put("device", "2");
+            obj.put("device", deviceId );
+//            obj.put("device", "2");
             obj.put("tel", phoneNumber);
 
         } catch (Exception e) {
@@ -93,10 +93,10 @@ public class NetParamFactory {
         JSONObject obj = null;
         try {
             obj = new JSONObject();
-            obj.put("opid", UUID.randomUUID().toString().substring(0, 16));
+            obj.put("opid", UUID.randomUUID().toString() );
             obj.put("userid", userid);
-//            obj.put("device", deviceId.substring(0, 16));
-            obj.put("device", "2");
+            obj.put("device", deviceId );
+//            obj.put("device", "2");
             obj.put("code", code);
             obj.put("tel", tel);
             obj.put("sn", sn);
@@ -112,10 +112,10 @@ public class NetParamFactory {
         JSONObject obj = null;
         try {
             obj = new JSONObject();
-            obj.put("opid", UUID.randomUUID().toString().substring(0, 16));
+            obj.put("opid", UUID.randomUUID().toString() );
             obj.put("userid", userid);
-//            obj.put("device", deviceId.substring(0, 16));
-            obj.put("device", "2");
+            obj.put("device", deviceId );
+//            obj.put("device", "2");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -128,10 +128,10 @@ public class NetParamFactory {
         JSONObject obj = null;
         try {
             obj = new JSONObject();
-            obj.put("opid", UUID.randomUUID().toString().substring(0, 16));
+            obj.put("opid", UUID.randomUUID().toString() );
             obj.put("userid", userid);
-//            obj.put("device", deviceId.substring(0, 16));
-            obj.put("device", "2");
+            obj.put("device", deviceId );
+//            obj.put("device", "2");
 
             obj.put("page", page);
             obj.put("size", size);
@@ -153,10 +153,10 @@ public class NetParamFactory {
         JSONObject obj = null;
         try {
             obj = new JSONObject();
-            obj.put("opid", UUID.randomUUID().toString().substring(0, 16));
+            obj.put("opid", UUID.randomUUID().toString() );
             obj.put("userid", userid);
-//            obj.put("device", deviceId.substring(0, 16));
-            obj.put("device", "2");
+            obj.put("device", deviceId );
+//            obj.put("device", "2");
             obj.put("type", usertype + "");
 
             JSONObject param = new JSONObject();
@@ -174,10 +174,10 @@ public class NetParamFactory {
         JSONObject obj = null;
         try {
             obj = new JSONObject();
-            obj.put("opid", UUID.randomUUID().toString().substring(0, 16));
+            obj.put("opid", UUID.randomUUID().toString() );
             obj.put("userid", userid);
-//            obj.put("device", deviceId.substring(0, 16));
-            obj.put("device", "2");
+            obj.put("device", deviceId );
+//            obj.put("device", "2");
             obj.put("type", usertype + "");
 
         } catch (Exception e) {
@@ -191,10 +191,10 @@ public class NetParamFactory {
         JSONObject obj = null;
         try {
             obj = new JSONObject();
-            obj.put("opid", UUID.randomUUID().toString().substring(0, 16));
+            obj.put("opid", UUID.randomUUID().toString() );
             obj.put("userid", userid);
-//            obj.put("device", deviceId.substring(0, 16));
-            obj.put("device", "2");
+            obj.put("device", deviceId );
+//            obj.put("device", "2");
             obj.put("type", usertype + "");
 
             obj.put("word_code", wordCode);
@@ -215,14 +215,14 @@ public class NetParamFactory {
         JSONObject obj = null;
         try {
             obj = new JSONObject();
-            obj.put("opid", UUID.randomUUID().toString().substring(0, 16));
+            obj.put("opid", UUID.randomUUID().toString() );
             obj.put("userid", userid);
-//            obj.put("device", deviceId.substring(0, 16));
-            obj.put("device", "2");
+            obj.put("device", deviceId );
+//            obj.put("device", "2");
 
             JSONObject param = new JSONObject();
             param.put("usercode", usercode);
-            param.put("deviceid", deviceid.substring(0, 16));
+            param.put("deviceid", deviceid );
             param.put("session", session);
             param.put("verify", verify);
 
@@ -238,7 +238,7 @@ public class NetParamFactory {
         JSONObject obj = null;
         try {
             obj = new JSONObject();
-            obj.put("opid", UUID.randomUUID().toString().substring(0, 16));
+            obj.put("opid", UUID.randomUUID().toString() );
             obj.put("key", "1");
             obj.put("version", versionCode);
         } catch (Exception e) {
@@ -252,13 +252,13 @@ public class NetParamFactory {
         JSONObject obj = null;
         try {
             obj = new JSONObject();
-            obj.put("opid", UUID.randomUUID().toString().substring(0, 16));
+            obj.put("opid", UUID.randomUUID().toString() );
             obj.put("userid", userid);
-//            obj.put("device", deviceId);
-            obj.put("device", "2");
+            obj.put("device", deviceId);
+//            obj.put("device", "2");
 
             JSONObject param = new JSONObject();
-            param.put("deviceid", deviceId.substring(0, 16));
+            param.put("deviceid", deviceId );
             param.put("content", content);
             param.put("contact", contact);
 
@@ -274,13 +274,13 @@ public class NetParamFactory {
         JSONObject obj = null;
         try {
             obj = new JSONObject();
-            obj.put("opid", UUID.randomUUID().toString().substring(0, 16));
+            obj.put("opid", UUID.randomUUID().toString() );
             obj.put("userid", userid);
-//            obj.put("device", deviceId);
-            obj.put("device", "2");
+            obj.put("device", deviceId);
+//            obj.put("device", "2");
 
             JSONObject param = new JSONObject();
-            param.put("deviceid", deviceId.substring(0, 16));
+            param.put("deviceid", deviceId );
             param.put("content", content);
             param.put("contact", "");
 
