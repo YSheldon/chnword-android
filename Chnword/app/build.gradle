@@ -52,4 +52,6 @@ dependencies {
     compile project(':zxingwapper')
     compile files('libs/universal-image-loader-1.9.4.jar')
     compile files('libs/alipaySDK-20150818.jar')
+    //添加fresco资源库
+//    compile 'com.facebook.fresco:fresco:0.7.0+'
 }
