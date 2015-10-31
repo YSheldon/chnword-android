@@ -524,14 +524,6 @@ public class TabActivity extends FragmentActivity {
         startActivity(intent);
     }
 
-    /**
-     * 三千字资源库
-     * @param view
-     */
-    public void onShopSuit(View view) {
-        Intent intent = new Intent(this, ShopAnimeActivity.class);
-        startActivity(intent);
-    }
 
 
 
