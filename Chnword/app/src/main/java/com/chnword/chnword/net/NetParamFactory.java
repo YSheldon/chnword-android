@@ -1,5 +1,7 @@
 package com.chnword.chnword.net;
 
+import com.chnword.chnword.beans.CateBuyItem;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -285,6 +287,53 @@ public class NetParamFactory {
             param.put("contact", "");
 
             obj.put("param", param);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+
+    public static JSONObject shopOrderParam(String userid, String deviceId, String trueprice, String orderNumber, String paytype, List<CateBuyItem> buyed) {
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject();
+            obj.put("opid", UUID.randomUUID().toString() );
+            obj.put("userid", userid);
+            obj.put("device", deviceId);
+            obj.put("trueprice", trueprice);
+            obj.put("orderNumber", orderNumber);
+            obj.put("paytype", paytype);
+
+            JSONArray array = new JSONArray();
+            for (int i = 0; i < buyed.size(); i ++ ) {
+                JSONObject item = new JSONObject();
+                CateBuyItem buyItem = buyed.get(i);
+                item.put("name", buyItem.getName());
+                item.put("cname", buyItem.getcName());
+                item.put("pid", buyItem.getPid());
+                item.put("price", buyItem.getPriceString());
+                item.put("icon", buyItem.getIconUrl());
+                array.put(item);
+            }
+            obj.put("product", array);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+
+    public static JSONObject shopOrderPaymentParam(String userid, String deviceId, String trueprice, String orderNumber, String paytype) {
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject();
+            obj.put("opid", UUID.randomUUID().toString() );
+            obj.put("userid", userid);
+            obj.put("device", deviceId);
+            obj.put("trueprice", trueprice);
+            obj.put("orderNumber", orderNumber);
+            obj.put("paytype", paytype);
+
         } catch (Exception e) {
             e.printStackTrace();
         }

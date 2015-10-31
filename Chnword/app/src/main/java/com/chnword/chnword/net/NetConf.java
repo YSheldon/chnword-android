@@ -36,7 +36,9 @@ public class NetConf
     public static final String URL_SHOPLIST = "http://app.3000zi.com/api/shop_list.php";//商品列表
 
 
-
+    //商品接口
+    public static final String URL_SHOP_ORDER = "http://app.3000zi.com/api/shop_order.php";
+    public static final String URL_SHOP_PAYMENT = "http://app.3000zi.com/api/shop_order_payment.php";
 
 
 
