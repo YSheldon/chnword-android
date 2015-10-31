@@ -3,7 +3,10 @@ package com.chnword.chnword.activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,6 +32,14 @@ import com.chnword.chnword.alipy.PayResult;
 import com.chnword.chnword.alipy.SignUtils;
 import com.chnword.chnword.beans.CateBuyItem;
 import com.chnword.chnword.beans.CateBuyer;
+import com.chnword.chnword.beans.Category;
+import com.chnword.chnword.net.AbstractNet;
+import com.chnword.chnword.net.DeviceUtil;
+import com.chnword.chnword.net.NetConf;
+import com.chnword.chnword.net.NetParamFactory;
+import com.chnword.chnword.net.VerifyNet;
+import com.chnword.chnword.store.LocalStore;
+import com.chnword.chnword.utils.NotificationName;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.tencent.mm.sdk.modelpay.PayReq;
@@ -41,6 +52,8 @@ import net.sourceforge.simcpux.Util;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 
 import java.io.StringReader;
@@ -113,6 +126,7 @@ public class ShopVerifyActivity extends Activity {
 //            Log.e("ShopVerifyActivity", parcelables[i] + "");
         }
 
+
         shoplistView = (ListView) findViewById(R.id.shoplistView);
         adapter = new VerifyAdapter(this, buyed);
         shoplistView.setAdapter(adapter);
@@ -155,6 +169,7 @@ public class ShopVerifyActivity extends Activity {
 
                 if (payByZfb.isChecked()) {
                     Log.e(TAG, "payByzfb CHECKED");
+
                     pay(null);
                 }
 
@@ -166,6 +181,9 @@ public class ShopVerifyActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
     }
 
 
@@ -232,33 +250,33 @@ public class ShopVerifyActivity extends Activity {
 
     private class GetPrepayIdTask extends AsyncTask<Void, Void, Map<String,String>> {
 
-        private ProgressDialog dialog;
-
-
         @Override
         protected void onPreExecute() {
-            dialog = ProgressDialog.show(ShopVerifyActivity.this, getString(R.string.app_tip), getString(R.string.getting_prepayid));
+//            dialog = ProgressDialog.show(ShopVerifyActivity.this, getString(R.string.app_tip), getString(R.string.getting_prepayid));
+            openDialod();
         }
 
         @Override
         protected void onPostExecute(Map<String,String> result) {
-            if (dialog != null) {
-                dialog.dismiss();
-            }
+
 //            sb.append("prepay_id\n"+result.get("prepay_id")+"\n\n");
 //            show.setText(sb.toString());
 
             Log.e(TAG, "prepay_id\n"+result.get("prepay_id")+"\n\n");
 
+            //请求shop order 接口
+            currentNumber = result.get("prepay_id");
+            currentPayment = SHOP_PAYMENT_WECHAT;
+
+            requestShopOrder(currentPayment);
 
             resultunifiedorder=result;
 
-            //2 生成参数
-            genPayReq();
-
-            //发送请求
-            sendPayReq();
-
+//            //2 生成参数
+//            genPayReq();
+//
+//            //发送请求
+//            sendPayReq();
 
         }
 
@@ -285,6 +303,9 @@ public class ShopVerifyActivity extends Activity {
         }
     }
 
+    public void openDialod() {
+        progressDialog = ProgressDialog.show(ShopVerifyActivity.this, getString(R.string.app_tip), "正在支付");
+    }
 
 
     public Map<String,String> decodeXml(String content) {
@@ -403,11 +424,12 @@ public class ShopVerifyActivity extends Activity {
 
     }
     private void sendPayReq() {
-
-
         msgApi.registerApp(Constants.APP_ID);
         msgApi.sendReq(req);
     }
+
+
+
 
 
     //==============================================================================================
@@ -454,19 +476,22 @@ public class ShopVerifyActivity extends Activity {
 
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                     if (TextUtils.equals(resultStatus, "9000")) {
-                        Toast.makeText(ShopVerifyActivity.this, "支付成功",
-                                Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(ShopVerifyActivity.this, "支付成功",
+//                                Toast.LENGTH_SHORT).show();
+                        requestShopOrderPayment();
                     } else {
                         // 判断resultStatus 为非“9000”则代表可能支付失败
                         // “8000”代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
                         if (TextUtils.equals(resultStatus, "8000")) {
                             Toast.makeText(ShopVerifyActivity.this, "支付结果确认中",
                                     Toast.LENGTH_SHORT).show();
+                            finish();
 
                         } else {
                             // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
                             Toast.makeText(ShopVerifyActivity.this, "支付失败",
                                     Toast.LENGTH_SHORT).show();
+                            finish();
 
                         }
                     }
@@ -487,6 +512,7 @@ public class ShopVerifyActivity extends Activity {
      * call alipay sdk pay. 调用SDK支付
      *
      */
+    private String currentOrderInfo;
     public void pay(View v) {
         if (TextUtils.isEmpty(PARTNER) || TextUtils.isEmpty(RSA_PRIVATE)
                 || TextUtils.isEmpty(SELLER)) {
@@ -503,42 +529,44 @@ public class ShopVerifyActivity extends Activity {
                             }).show();
             return;
         }
+        progressDialog = ProgressDialog.show(ShopVerifyActivity.this, getString(R.string.app_tip), "正在支付");
         // 订单
-        String orderInfo = getOrderInfo("测试的商品", "该测试商品的详细描述", "0.01");
-
-        // 对订单做RSA 签名
-        String sign = sign(orderInfo);
-        try {
-            // 仅需对sign 做URL编码
-            Log.e(TAG, sign + "");
-            sign = URLEncoder.encode(sign, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-        // 完整的符合支付宝参数规范的订单信息
-        final String payInfo = orderInfo + "&sign=\"" + sign + "\"&"
-                + getSignType();
-
-        Runnable payRunnable = new Runnable() {
-
-            @Override
-            public void run() {
-                // 构造PayTask 对象
-                PayTask alipay = new PayTask(ShopVerifyActivity.this);
-                // 调用支付接口，获取支付结果
-                String result = alipay.pay(payInfo);
-
-                Message msg = new Message();
-                msg.what = SDK_PAY_FLAG;
-                msg.obj = result;
-                mHandler.sendMessage(msg);
-            }
-        };
-
-        // 必须异步调用
-        Thread payThread = new Thread(payRunnable);
-        payThread.start();
+//        String orderInfo = getOrderInfo("测试的商品", "该测试商品的详细描述", "0.01");
+        currentOrderInfo = getOrderInfo("测试的商品", "该测试商品的详细描述", "0.01");
+        requestShopOrder(SHOP_PAYMENT_ALI);
+//        // 对订单做RSA 签名
+//        String sign = sign(orderInfo);
+//        try {
+//            // 仅需对sign 做URL编码
+//            Log.e(TAG, sign + "");
+//            sign = URLEncoder.encode(sign, "UTF-8");
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
+//
+//        // 完整的符合支付宝参数规范的订单信息
+//        final String payInfo = orderInfo + "&sign=\"" + sign + "\"&"
+//                + getSignType();
+//
+//        Runnable payRunnable = new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                // 构造PayTask 对象
+//                PayTask alipay = new PayTask(ShopVerifyActivity.this);
+//                // 调用支付接口，获取支付结果
+//                String result = alipay.pay(payInfo);
+//
+//                Message msg = new Message();
+//                msg.what = SDK_PAY_FLAG;
+//                msg.obj = result;
+//                mHandler.sendMessage(msg);
+//            }
+//        };
+//
+//        // 必须异步调用
+//        Thread payThread = new Thread(payRunnable);
+//        payThread.start();
     }
 
     /**
@@ -648,6 +676,7 @@ public class ShopVerifyActivity extends Activity {
         Random r = new Random();
         key = key + r.nextInt();
         key = key.substring(0, 15);
+        currentNumber = key;
         return key;
     }
 
@@ -674,6 +703,166 @@ public class ShopVerifyActivity extends Activity {
 
 
 
+    //==============================================================================================
+    //=======================             net request for shop order ===============================
+    //==============================================================================================
+    public static final String SHOP_PAYMENT_WECHAT = "1";
+    public static final String SHOP_PAYMENT_ALI = "2";
 
+    private ProgressDialog progressDialog;
+
+    private String currentNumber = null;
+    private String currentPayment = SHOP_PAYMENT_WECHAT;
+
+    private void requestShopOrder(String payment) {
+        LocalStore store = new LocalStore(this);
+        String userid = store.getDefaultUser();
+        String deviceId = DeviceUtil.getDeviceId(this);
+        JSONObject param = NetParamFactory.shopOrderParam(userid, deviceId, buyer.getPriceText(), currentNumber, currentPayment, buyed);
+        AbstractNet net = new VerifyNet(shopOrderHandler, param, NetConf.URL_SHOP_ORDER);
+        net.start();
+    }
+
+    private void requestShopOrderPayment() {
+        LocalStore store = new LocalStore(this);
+        String userid = store.getDefaultUser();
+        String deviceId = DeviceUtil.getDeviceId(this);
+        JSONObject param = NetParamFactory.shopOrderPaymentParam(userid, deviceId, buyer.getPriceText(), currentNumber, currentPayment);
+        AbstractNet net = new VerifyNet(shopOrderPaymentHandler, param, NetConf.URL_SHOP_PAYMENT);
+
+        net.start();
+    }
+
+    Handler shopOrderHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            try {
+                if (msg.what == AbstractNet.NETWHAT_SUCESS)
+                {
+                    Bundle b = msg.getData();
+                    String str = b.getString("responseBody");
+                    Log.e(TAG, str);
+                    JSONObject obj = new JSONObject(str);
+
+                    String result = obj.getString("result");
+                    if (result != null && "1".equalsIgnoreCase(result)) {
+                        if (SHOP_PAYMENT_WECHAT.equalsIgnoreCase(currentPayment)) {
+                            //2 生成参数
+                            genPayReq();
+
+                            //发送请求
+                            sendPayReq();
+                        } else {
+
+                            // 对订单做RSA 签名
+                            String sign = sign(currentOrderInfo);
+                            try {
+                                // 仅需对sign 做URL编码
+                                Log.e(TAG, sign + "");
+                                sign = URLEncoder.encode(sign, "UTF-8");
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            }
+
+                            // 完整的符合支付宝参数规范的订单信息
+                            final String payInfo = currentOrderInfo + "&sign=\"" + sign + "\"&"
+                                    + getSignType();
+
+                            Runnable payRunnable = new Runnable() {
+
+                                @Override
+                                public void run() {
+                                    // 构造PayTask 对象
+                                    PayTask alipay = new PayTask(ShopVerifyActivity.this);
+                                    // 调用支付接口，获取支付结果
+                                    String result = alipay.pay(payInfo);
+
+                                    Message msg = new Message();
+                                    msg.what = SDK_PAY_FLAG;
+                                    msg.obj = result;
+                                    mHandler.sendMessage(msg);
+                                }
+                            };
+
+                            // 必须异步调用
+                            Thread payThread = new Thread(payRunnable);
+                            payThread.start();
+                        }
+                    } else {
+                        Toast.makeText(ShopVerifyActivity.this, "支付失败", Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+                }
+
+                if (msg.what == AbstractNet.NETWHAT_FAIL) {
+
+                    Toast.makeText(ShopVerifyActivity.this, "支付失败", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            super.handleMessage(msg);
+        }
+    };
+
+    Handler shopOrderPaymentHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if (progressDialog != null) {
+                progressDialog.dismiss();
+                progressDialog = null;
+            }
+            try {
+                if (msg.what == AbstractNet.NETWHAT_SUCESS)
+                {
+                    Bundle b = msg.getData();
+                    String str = b.getString("responseBody");
+                    Log.e(TAG, str);
+                    JSONObject obj = new JSONObject(str);
+
+                    String result = obj.getString("result");
+                    if (result != null && "1".equalsIgnoreCase(result)) {
+                        Toast.makeText(ShopVerifyActivity.this, "支付成功", Toast.LENGTH_LONG).show();
+                        finish();
+                    } else {
+                        Toast.makeText(ShopVerifyActivity.this, "支付失败", Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+
+                }
+
+                if (msg.what == AbstractNet.NETWHAT_FAIL) {
+                    Toast.makeText(ShopVerifyActivity.this, "支付失败", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            super.handleMessage(msg);
+        }
+    };
+
+
+    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (NotificationName.NOTIFICATION_ALIPAYEMNT.equalsIgnoreCase(action)) {
+
+            } else if (NotificationName.NOTIFICATION_WXPAYMENT.equalsIgnoreCase(action)) {
+                int errorCode = intent.getIntExtra(NotificationName.Extra_WX_ErrorCode, 0);
+                String errorStr = intent.getStringExtra(NotificationName.Extra_WX_ErrorStr);
+                if (errorCode == 0) {
+                    //支付成功
+                    requestShopOrderPayment();
+                } else {
+                    //支付失败
+                    Toast.makeText(ShopVerifyActivity.this, "支付失败", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+            }
+        }
+    };
 
 }

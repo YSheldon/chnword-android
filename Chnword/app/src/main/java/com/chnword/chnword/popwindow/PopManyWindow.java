@@ -28,6 +28,7 @@ public class PopManyWindow extends PopupWindow {
     public PopManyWindow(Context context, View.OnClickListener itemsOnClick) {
         super(context);
 
+
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mMenuView = inflater.inflate(R.layout.popwindow_toomany, null);

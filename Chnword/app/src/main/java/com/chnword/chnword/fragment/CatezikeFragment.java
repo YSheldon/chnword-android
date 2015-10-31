@@ -185,6 +185,9 @@ public class CatezikeFragment extends Fragment {
                         String cname = cateObj.getString("cname");
                         String name = cateObj.getString("name");
 
+                        category.setcName(cname);
+                        category.setPid(id);
+
                         category.setName(name);
                         category.setPriceString(price);
 

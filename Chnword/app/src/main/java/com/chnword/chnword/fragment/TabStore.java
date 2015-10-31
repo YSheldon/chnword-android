@@ -41,8 +41,6 @@ public class TabStore extends Fragment {
 
         shop_container = (FrameLayout) view.findViewById(R.id.shop_container);
 
-
-
         cardzikeFragment = new CardzikeFragment();
         catezikeFragment = new CatezikeFragment();
         allzikeFragment = new AllzikeFragment();

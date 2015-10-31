@@ -15,6 +15,9 @@ public class CateBuyItem implements Parcelable {
     private int resourceId;
     private String iconUrl;
 
+    private String cName;
+    private String pid;
+
     public CateBuyItem() {
     }
 
@@ -82,6 +85,22 @@ public class CateBuyItem implements Parcelable {
         }
     }
 
+    public String getcName() {
+        return cName;
+    }
+
+    public void setcName(String cName) {
+        this.cName = cName;
+    }
+
+    public String getPid() {
+        return pid;
+    }
+
+    public void setPid(String pid) {
+        this.pid = pid;
+    }
+
     public static final Parcelable.Creator<CateBuyItem> CREATOR = new Creator<CateBuyItem>(){
 
         public CateBuyItem createFromParcel(Parcel source) {
@@ -92,6 +111,8 @@ public class CateBuyItem implements Parcelable {
             cus.priceString = source.readString();
             cus.iconUrl = source.readString();
             cus.resourceId = source.readInt();
+            cus.pid = source.readString();
+            cus.cName = source.readString();
             return cus;
         }
 
@@ -114,6 +135,8 @@ public class CateBuyItem implements Parcelable {
         dest.writeString(priceString);
         dest.writeString(iconUrl);
         dest.writeInt(resourceId);
+        dest.writeString(pid);
+        dest.writeString(cName);
     }
 
     @Override
@@ -124,6 +147,8 @@ public class CateBuyItem implements Parcelable {
         sb.append(" priceString : " + priceString);
         sb.append(" iconUrl : " + iconUrl);
         sb.append(" resourceId : " + resourceId);
+        sb.append(" pid : " + pid);
+        sb.append(" cName : " + cName);
 
         return sb.toString();
     }
