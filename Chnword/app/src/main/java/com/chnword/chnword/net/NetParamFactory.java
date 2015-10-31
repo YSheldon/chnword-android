@@ -301,8 +301,10 @@ public class NetParamFactory {
             obj.put("userid", userid);
             obj.put("device", deviceId);
             obj.put("trueprice", trueprice);
-            obj.put("orderNumber", orderNumber);
+            obj.put("ordernum", orderNumber);
             obj.put("paytype", paytype);
+
+            obj.put("remark", "");
 
             JSONArray array = new JSONArray();
             for (int i = 0; i < buyed.size(); i ++ ) {
@@ -331,8 +333,10 @@ public class NetParamFactory {
             obj.put("userid", userid);
             obj.put("device", deviceId);
             obj.put("trueprice", trueprice);
-            obj.put("orderNumber", orderNumber);
+            obj.put("ordernum", orderNumber);
             obj.put("paytype", paytype);
+
+            obj.put("remark", "");
 
         } catch (Exception e) {
             e.printStackTrace();
