@@ -75,6 +75,11 @@ public class FreeCateActivity extends Activity {
         requestNet();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        update();
+    }
 
     @Override
     protected void onDestroy() {
@@ -159,6 +164,7 @@ public class FreeCateActivity extends Activity {
 
                         list.add(category);
                         cateNames.add(cateObj.getString("cname"));
+                        isFirst = true;
                     }
 
                     freecateAdapter.notifyDataSetChanged();
@@ -177,4 +183,21 @@ public class FreeCateActivity extends Activity {
 
     };
 
+    private boolean isFirst = false;
+    private void update() {
+        if (isFirst) {
+            for (int i = 0; i < list.size(); i ++ ) {
+                Category category = list.get(i);
+                String cname = category.getCname();
+                if (i == 0) {
+                    category.setLock(true);
+                    store.unLockCategory(cname);
+                } else {
+                    boolean isLock = store.isLock(cname);
+                    category.setLock(isLock);
+                }
+            }
+        }
+
+    }
 }
