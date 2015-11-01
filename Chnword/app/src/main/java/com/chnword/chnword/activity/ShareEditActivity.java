@@ -70,6 +70,10 @@ public class ShareEditActivity extends Activity {
     ShareEditAdapter adapter;
     GridView gridView;
 
+    String zoneCode = ""; //cname
+    String currentShareWord = "";
+    private LocalStore store;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,14 +90,16 @@ public class ShareEditActivity extends Activity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
+        zoneCode = bundle.getString("ZoneCode");
 
-        String share_type = bundle.getString("share_type");
+        final String share_type = bundle.getString("share_type");
         type = bundle.getString("share_type_user");
         if (share_type == null || "".equalsIgnoreCase(share_type))
         {
             Log.e(TAG, "INVALIDAGE TYPE.");
             finish();
         }
+        store = new LocalStore(this);
 
         mediaType = SHARE_MEDIA.convertToEmun(share_type);
 
@@ -110,41 +116,16 @@ public class ShareEditActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //
 
-
-
-
                 for (int i = 0; i < wordList.size(); i ++) {
                     WordShare share = wordList.get(i);
                     if (i == position) {
                         share.setIsSelected(true);
+                        currentShareWord = share.getWord();
                     } else {
                         share.setIsSelected(false);
                     }
                 }
                 WordShare wordShare = wordList.get(position);
-//                Log.e(TAG, position +  "ITEM CLICKED." + wordShare.getWord());
-
-                /*
-                // 设置分享内容
-                mController.setShareContent("我正在使用三千字，非常适合你，推荐给你吧。http://app.3000zi.com/web/download.php");
-                // 设置分享图片, 参数2为图片的url地址
-//        mController.setShareMedia(new UMImage(this, "http://www.umeng.com/images/pic/banner_module_social.png"));
-
-                // 设置分享图片，参数2为本地图片的资源引用
-                mController.setShareMedia(new UMImage(ShareEditActivity.this, R.drawable.logo80));
-
-                // 设置分享图片，参数2为本地图片的路径(绝对路径)
-//        mController.setShareMedia(new UMImage(this, BitmapFactory.decodeFile("/mnt/sdcard/icon.png")));
-
-                // 设置分享视频
-//        UMVideo umVideo = new UMVideo( "http://v.youku.com/v_show/id_XNTE5ODAwMDM2.html?f=19001023");
-//        // 设置视频缩略图
-//        umVideo.setThumb("http://www.umeng.com/images/pic/banner_module_social.png");
-//        umVideo.setTitle("三千字");
-//        mController.setShareMedia(umVideo);
-
-//        mController.getConfig().removePlatform( SHARE_MEDIA.RENREN, SHARE_MEDIA.DOUBAN, SHARE_MEDIA.SINA, SHARE_MEDIA.TENCENT);
-*/
 
                 // 设置分享内容
                 mController.setShareContent(shareText.getText().toString());
@@ -220,6 +201,22 @@ public class ShareEditActivity extends Activity {
                 if (eCode == StatusCode.ST_CODE_SUCCESSED) {
                     showText += "平台分享成功";
 
+                    //调用说明成功
+                    boolean flag = false;
+                    for (int i = 0; i < wordList.size(); i ++) {
+                        WordShare wordShare = wordList.get(i);
+                        if (!store.isWordShared(wordShare.getWord())) {
+                            flag = true;
+                        }
+                    }
+                    if (flag) {
+                        //有没分享的字
+                        store.setWordShared(currentShareWord);
+                    } else {
+                        store.unLockNextCategory();
+                    }
+
+
                     Intent successIntent = new Intent(ShareEditActivity.this, ShareSuccessActivity.class);
                     startActivity(successIntent);
                     finish();
@@ -284,16 +281,6 @@ public class ShareEditActivity extends Activity {
                             if (i == 0 ) {
                                 word.setIsSelected(true);
                             }
-
-//                            Log.e(TAG, wordObj.getString("gif"));
-//                            Log.e(TAG, wordObj.getString("video"));
-//                            Log.e(TAG, wordObj.getString("icon"));
-//                            Log.e(TAG, wordObj.getString("sort"));
-//                            Log.e(TAG, wordObj.getString("word"));
-//                            Log.e(TAG, wordObj.getString("share_title"));
-//                            Log.e(TAG, wordObj.getString("share_desc"));
-//                            Log.e(TAG, wordObj.getString("share_icon"));
-//                            Log.e(TAG, wordObj.getString("share_url"));
 
                             word.setGifUrl(wordObj.getString("gif"));
                             word.setVideoUrl(wordObj.getString("video"));

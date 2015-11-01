@@ -20,8 +20,6 @@ public class LocalStore {
 
     private static final String WORDDEFAULTKEY = "WORDDEFAULTKEY";
 
-    private static final String CHNWORD_UNLOCK_USER = "CHNWORD_UNLOCK_USER";
-    private static final String CHNWORD_UNLOCK_ALL_USER = "CHNWORD_UNLOCK_ALL_USER";
 
     private SharedPreferences perference;
 
@@ -73,43 +71,6 @@ public class LocalStore {
 
 
 
-    public Set<String> getUnlockModels(String userCode) {
-        SharedPreferences.Editor editor = perference.edit();
-
-        String key = CHNWORD_UNLOCK_USER + "_" + userCode;
-
-        Set<String> values;
-
-        values = perference.getStringSet(key, new HashSet<String>());
-
-//        List<String> lists = new ArrayList<String>();
-//        for (String str : values) {
-//            lists.add(str);
-//        }
-        return values;
-    }
-
-
-
-    //
-    private static final String SHAREDWORDLIST_KEY = "SHAREDWORDLIST_KEY";
-
-    public void setSharedwordlist(String userCode) {
-        SharedPreferences.Editor editor = perference.edit();
-        editor.putString(SHAREDWORDLIST_KEY, userCode);
-        editor.commit();
-
-    }
-
-
-
-
-
-
-
-
-
-
 
     //-------------------default module and word
 
@@ -122,7 +83,6 @@ public class LocalStore {
         SharedPreferences.Editor editor = perference.edit();
         editor.putStringSet(WORDDEFAULTKEY, set);
         editor.commit();
-
     }
 
     public List<Category> getDefaultModule() {
@@ -142,7 +102,56 @@ public class LocalStore {
     }
 
 
+    //==============================================================================================
+    //===========================   用户的category的分享的添加 ========================================
+    //==============================================================================================
 
+    public boolean isLock(String category) {
+        boolean flag = false;
+        flag = perference.getBoolean(category, false);
+        return flag;
+    }
+
+    public void unLockCategory(String category) {
+        SharedPreferences.Editor editor = perference.edit();
+        editor.putBoolean(category, true);
+        editor.commit();
+    }
+
+    public boolean isWordShared(String word) {
+        boolean flag = false;
+        flag = perference.getBoolean(word, false);
+        return flag;
+    }
+
+    public void setWordShared(String word) {
+        SharedPreferences.Editor editor = perference.edit();
+        editor.putBoolean(word, true);
+        editor.commit();
+    }
+
+    public void setCategory(List<String> list) {
+        Set<String> set = new HashSet<String>();
+        for (String category : list ) {
+            set.add(category);
+        }
+        SharedPreferences.Editor editor = perference.edit();
+        editor.putStringSet(WORDDEFAULTKEY, set);
+        editor.commit();
+    }
+
+    private static final String CategorySetKey = "CategorySetKey";
+
+    public void unLockNextCategory() {
+        Set<String> set = perference.getStringSet(CategorySetKey, new HashSet<String>());
+
+        for (String str : set) {
+            if (isLock(str)) {
+                unLockCategory(str);
+                break;
+            }
+        }
+    }
 
 
 }

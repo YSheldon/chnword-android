@@ -51,7 +51,7 @@ public class FreewordActivity extends Activity {
     private Word currentWord;
     private LocalStore store;
 
-    String zoneCode = "";
+    String zoneCode = ""; //cname
     String title = "";
     String type = "";
     int index = 0;
@@ -150,7 +150,47 @@ public class FreewordActivity extends Activity {
         bottomLinear.setBackgroundResource(mids[resourceIndex]);
         freeTopLinear.setBackgroundResource(tops[resourceIndex]);
 
-        shareWindow = new SharePopWindow(this);
+        shareWindow = new SharePopWindow(this, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent shareEditIntent = new Intent(FreewordActivity.this, ShareEditActivity.class);
+
+                shareEditIntent.putExtra("share_type_user", type);
+
+                switch (v.getId()) {
+                    case R.id.snslogo1 :
+                        shareEditIntent.putExtra("share_type", SHARE_MEDIA.WEIXIN.toString());
+                        shareEditIntent.putExtra("ZoneCode", zoneCode);
+                        break;
+
+                    case R.id.snslogo2:
+                        shareEditIntent.putExtra("share_type", SHARE_MEDIA.WEIXIN_CIRCLE.toString());
+                        shareEditIntent.putExtra("ZoneCode", zoneCode);
+                        break;
+
+                    case R.id.snslogo3:
+                        shareEditIntent.putExtra("share_type", SHARE_MEDIA.SINA.toString());
+                        shareEditIntent.putExtra("ZoneCode", zoneCode);
+                        break;
+                    case R.id.snslogo4:
+                        shareEditIntent.putExtra("share_type", SHARE_MEDIA.QQ.toString());
+                        shareEditIntent.putExtra("ZoneCode", zoneCode);
+                        break;
+                    case R.id.snslogo5:
+                        shareEditIntent.putExtra("share_type", SHARE_MEDIA.QZONE.toString());
+                        shareEditIntent.putExtra("ZoneCode", zoneCode);
+                        break;
+                    case R.id.snslogo6:
+                        shareEditIntent.putExtra("share_type", SHARE_MEDIA.TENCENT.toString());
+                        shareEditIntent.putExtra("ZoneCode", zoneCode);
+                        break;
+                    default:
+                        break;
+                }
+                startActivity(shareEditIntent);
+                shareWindow.dismiss();
+            }
+        });
         shareWindow.setType(type);
 
         titleTextView = (TextView) findViewById(R.id.titleTextView);

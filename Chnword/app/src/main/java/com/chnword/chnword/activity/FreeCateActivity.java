@@ -42,6 +42,8 @@ public class FreeCateActivity extends Activity {
     private FreecateAdapter freecateAdapter;
     private List<Category> list;
 
+    private LocalStore store;
+
     public static int [] kinds = {R.drawable.kind1, R.drawable.kind2, R.drawable.kind3,
             R.drawable.kind4, R.drawable.kind5, R.drawable.kind6,
             R.drawable.kind7, R.drawable.kind8, R.drawable.kind9,
@@ -67,6 +69,8 @@ public class FreeCateActivity extends Activity {
         freecateAdapter = new FreecateAdapter(this, list);
         freecateGrid.setAdapter(freecateAdapter);
         freecateGrid.setOnItemClickListener(onItemClickListener);
+
+        store = new LocalStore(this);
 
         requestNet();
     }
@@ -110,6 +114,7 @@ public class FreeCateActivity extends Activity {
     };
 
 
+
     Handler handler = new Handler(){
 
         @Override
@@ -125,22 +130,37 @@ public class FreeCateActivity extends Activity {
                     JSONObject obj = new JSONObject(str);
 
                     JSONArray array = obj.getJSONArray("data");
-                    Log.e(TAG, array.toString());
+//                    Log.e(TAG, array.toString());
+                    List<String> cateNames = new ArrayList<>();
                     for (int i = 0; i < array.length(); i ++) {
                         JSONObject cateObj = array.getJSONObject(i);
                         Category category = new Category();
                         category.setName(cateObj.getString("name"));
                         category.setCname(cateObj.getString("cname"));
 
+                        String cname = cateObj.getString("cname");
+
                         category.setType(cateObj.getString("type"));
 
                         String isLockStr = cateObj.getString("lock");
-                        boolean isLock = "".equals(isLockStr) ? false : "1".equalsIgnoreCase(isLockStr);
-                        category.setLock(isLock);
+//                        boolean isLock = "".equals(isLockStr) ? false : "1".equalsIgnoreCase(isLockStr);
+//                        category.setLock(isLock);
+
+                        if (i == 0) {
+                            category.setLock(true);
+                            store.unLockCategory(cname);
+                        } else {
+                            boolean isLock = store.isLock(cname);
+                            category.setLock(isLock);
+                        }
+
+
                         category.setRid(kinds[i]);
 
                         list.add(category);
+                        cateNames.add(cateObj.getString("cname"));
                     }
+
                     freecateAdapter.notifyDataSetChanged();
 
                 }
