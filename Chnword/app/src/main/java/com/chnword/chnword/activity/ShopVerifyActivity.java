@@ -160,7 +160,7 @@ public class ShopVerifyActivity extends Activity {
 
                 if (payBywexin.isChecked()) {
                     Log.e(TAG, "payBywexin CHECKED");
-
+                    currentPayment = SHOP_PAYMENT_WECHAT;
                     //生成预支付订单
                     GetPrepayIdTask getPrepayId = new GetPrepayIdTask();
                     getPrepayId.execute();
@@ -169,7 +169,7 @@ public class ShopVerifyActivity extends Activity {
 
                 if (payByZfb.isChecked()) {
                     Log.e(TAG, "payByzfb CHECKED");
-
+                    currentPayment = SHOP_PAYMENT_ALI;
                     pay(null);
                 }
 
@@ -787,6 +787,7 @@ public class ShopVerifyActivity extends Activity {
                             // 必须异步调用
                             Thread payThread = new Thread(payRunnable);
                             payThread.start();
+//                            mHandler.post(payRunnable);
                         }
                     } else {
                         Toast.makeText(ShopVerifyActivity.this, "支付失败", Toast.LENGTH_LONG).show();
