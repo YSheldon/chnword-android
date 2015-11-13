@@ -9,6 +9,7 @@ import net.sourceforge.simcpux.Constants;
 
 
 import com.chnword.chnword.R;
+import com.chnword.chnword.utils.NotificationName;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
@@ -24,7 +25,7 @@ import android.util.Log;
 
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler{
 
-    private static final String TAG = "MicroMsg.SDKSample.WXPayEntryActivity";
+    private static final String TAG = "WXPAYMENT";
 
     private IWXAPI api;
 
@@ -51,13 +52,12 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler{
 
     @Override
     public void onResp(BaseResp resp) {
-        Log.e("WXPAYMENT", "onPayFinish, errCode = " + resp.errCode);
+        Log.e(TAG, "onPayFinish, errCode = " + resp.errCode);
 
         if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(R.string.app_tip);
-            builder.setMessage(getString(R.string.pay_result_callback_msg, resp.errStr +";code=" + String.valueOf(resp.errCode)));
-            builder.show();
+            Intent intent = new Intent();
+            intent.setAction(NotificationName.NOTIFICATION_WXPAYMENT);
+            sendBroadcast(intent);
         }
     }
 }

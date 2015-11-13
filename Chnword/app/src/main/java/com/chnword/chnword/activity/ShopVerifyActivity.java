@@ -849,19 +849,8 @@ public class ShopVerifyActivity extends Activity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if (NotificationName.NOTIFICATION_ALIPAYEMNT.equalsIgnoreCase(action)) {
-
-            } else if (NotificationName.NOTIFICATION_WXPAYMENT.equalsIgnoreCase(action)) {
-                int errorCode = intent.getIntExtra(NotificationName.Extra_WX_ErrorCode, 0);
-                String errorStr = intent.getStringExtra(NotificationName.Extra_WX_ErrorStr);
-                if (errorCode == 0) {
-                    //支付成功
-                    requestShopOrderPayment();
-                } else {
-                    //支付失败
-                    Toast.makeText(ShopVerifyActivity.this, "支付失败", Toast.LENGTH_LONG).show();
-                    finish();
-                }
+            if (NotificationName.NOTIFICATION_WXPAYMENT.equalsIgnoreCase(action)) {
+                requestShopOrderPayment();
             }
         }
     };
