@@ -75,7 +75,7 @@ public class ShowActivity extends Activity {
     private ImageButton backImageButton;
 
 
-    private SeekBar seekBar;
+//    private SeekBar seekBar;
 
 
     @Override
@@ -108,36 +108,36 @@ public class ShowActivity extends Activity {
             }
         });
 
-        seekBar = (SeekBar) findViewById(R.id.seekBar2);
-        seekBar.setMax(100);
-        seekBar.setProgress(0);
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//                mGalleryFlow.setSelection(progress);
-
-                synchronized (isFromTask) {
-                    if (!isFromTask) {
-                        gifFragment.updateState(progress);
-                        Log.e(TAG, "" + progress);
-                    }
-                }
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                synchronized (isFromTask) {
-                    isFromTask = false;
-                }
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                synchronized (isFromTask) {
-                    isFromTask = true;
-                }
-            }
-        });
+//        seekBar = (SeekBar) findViewById(R.id.seekBar2);
+//        seekBar.setMax(100);
+//        seekBar.setProgress(0);
+//        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+//            @Override
+//            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+////                mGalleryFlow.setSelection(progress);
+//
+//                synchronized (isFromTask) {
+//                    if (!isFromTask) {
+//                        gifFragment.updateState(progress);
+//                        Log.e(TAG, "" + progress);
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onStartTrackingTouch(SeekBar seekBar) {
+//                synchronized (isFromTask) {
+//                    isFromTask = false;
+//                }
+//            }
+//
+//            @Override
+//            public void onStopTrackingTouch(SeekBar seekBar) {
+//                synchronized (isFromTask) {
+//                    isFromTask = true;
+//                }
+//            }
+//        });
 
     }
 
@@ -157,7 +157,7 @@ public class ShowActivity extends Activity {
     @Override
     protected void onStop() {
         super.onStop();
-        timer.cancel();
+//        timer.cancel();
     }
 
     @Override
@@ -275,8 +275,8 @@ public class ShowActivity extends Activity {
                     Uri uri = Uri.parse(str);
                     Log.e(TAG, "gifuri : " + gifUri + " localuri : " + uri.toString());
                     gifFragment.setUri(uri);
-                    seekBar.setMax(gifFragment.getLength());
-                    initTimerTask();
+//                    seekBar.setMax(gifFragment.getLength());
+//                    initTimerTask();
                 }
 
             }
@@ -429,31 +429,31 @@ public class ShowActivity extends Activity {
         gifFragment.privous();
     }
 
-    Boolean isFromTask = new Boolean(true);
-    Timer timer = new Timer() ;
-    TimerTask tack = new TimerTask() {
-        @Override
-        public void run() {
-            synchronized (isFromTask) {
-                if (isFromTask) {
-                    if (gifFragment.getCurrentProgress() >= gifFragment.getLength()) {
-                        //开启video，关闭
-                        Intent intent = new Intent(ShowActivity.this, VideoActivity.class);
-                        intent.putExtra("videoUrl", videoUri);
-                        startActivity(intent);
-                        finish();
-                        tack.cancel();
-                    } else {
-                        seekBar.setProgress(gifFragment.getCurrentProgress());
-                    }
-                }
-            }
-
-        }
-    };
-    Handler mHandler = new Handler();
-    public void initTimerTask() {
-        Log.e(TAG, "initTimerTask");
-        timer.schedule(tack, 10, 100);
-    }
+//    Boolean isFromTask = new Boolean(true);
+//    Timer timer = new Timer() ;
+//    TimerTask tack = new TimerTask() {
+//        @Override
+//        public void run() {
+//            synchronized (isFromTask) {
+//                if (isFromTask) {
+//                    if (gifFragment.getCurrentProgress() >= gifFragment.getLength()) {
+//                        //开启video，关闭
+//                        Intent intent = new Intent(ShowActivity.this, VideoActivity.class);
+//                        intent.putExtra("videoUrl", videoUri);
+//                        startActivity(intent);
+//                        finish();
+//                        tack.cancel();
+//                    } else {
+//                        seekBar.setProgress(gifFragment.getCurrentProgress());
+//                    }
+//                }
+//            }
+//
+//        }
+//    };
+//    Handler mHandler = new Handler();
+//    public void initTimerTask() {
+//        Log.e(TAG, "initTimerTask");
+//        timer.schedule(tack, 10, 100);
+//    }
 }
