@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,11 +67,19 @@ public class FreewordActivity extends Activity {
 
     private TextView titleTextView;
     private ImageView wordImageView;
+
+    private ImageView wordImageView2;
+
+    private RelativeLayout guideLayout;
+
     private TextView modulNameTextView;
 
     private LinearLayout freewordTop;//draw图片
     private LinearLayout bottomLinear;//mid图片
     private LinearLayout freeTopLinear;//top big图片
+
+    private UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");
+    String currentShareWord = "";
 
 
     private static int [] draws = {R.drawable.draw_1,
@@ -110,7 +119,7 @@ public class FreewordActivity extends Activity {
     SharePopWindow shareWindow;
     String url = "";
 
-    private TextView freewordCode;
+    private TextView freewordCode, freewordCode2;
     private List<WordShare> wordList;
 
     @Override
@@ -129,11 +138,17 @@ public class FreewordActivity extends Activity {
         wordImageView = (ImageView) findViewById(R.id.wordImageView);
         modulNameTextView = (TextView) findViewById(R.id.modulNameTextView);
 
+        wordImageView2 = (ImageView) findViewById(R.id.wordImageView2);
+
+        guideLayout = (RelativeLayout) findViewById(R.id.guideLayout);
+
         freewordTop = (LinearLayout) findViewById(R.id.freewordTop);
         bottomLinear = (LinearLayout) findViewById(R.id.bottomLinear);
         freeTopLinear = (LinearLayout) findViewById(R.id.freeTopLinear);
 
         freewordCode = (TextView) findViewById(R.id.freewordCode);
+        freewordCode2 = (TextView) findViewById(R.id.freewordCode2);
+
 
         Intent intent = getIntent();
         Bundle b = intent.getExtras();
@@ -162,41 +177,47 @@ public class FreewordActivity extends Activity {
         shareWindow = new SharePopWindow(this, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent shareEditIntent = new Intent(FreewordActivity.this, ShareEditActivity.class);
-
-                shareEditIntent.putExtra("share_type_user", type);
+//                Intent shareEditIntent = new Intent(FreewordActivity.this, ShareEditActivity.class);
+//
+//                shareEditIntent.putExtra("share_type_user", type);
 
                 switch (v.getId()) {
                     case R.id.snslogo1 :
-                        shareEditIntent.putExtra("share_type", SHARE_MEDIA.WEIXIN.toString());
-                        shareEditIntent.putExtra("ZoneCode", zoneCode);
+//                        shareEditIntent.putExtra("share_type", SHARE_MEDIA.WEIXIN.toString());
+//                        shareEditIntent.putExtra("ZoneCode", zoneCode);
+                        performShare(SHARE_MEDIA.WEIXIN);
                         break;
 
                     case R.id.snslogo2:
-                        shareEditIntent.putExtra("share_type", SHARE_MEDIA.WEIXIN_CIRCLE.toString());
-                        shareEditIntent.putExtra("ZoneCode", zoneCode);
+//                        shareEditIntent.putExtra("share_type", SHARE_MEDIA.WEIXIN_CIRCLE.toString());
+//                        shareEditIntent.putExtra("ZoneCode", zoneCode);
+                        performShare(SHARE_MEDIA.WEIXIN_CIRCLE);
                         break;
 
                     case R.id.snslogo3:
-                        shareEditIntent.putExtra("share_type", SHARE_MEDIA.SINA.toString());
-                        shareEditIntent.putExtra("ZoneCode", zoneCode);
+//                        shareEditIntent.putExtra("share_type", SHARE_MEDIA.SINA.toString());
+//                        shareEditIntent.putExtra("ZoneCode", zoneCode);
+                        performShare(SHARE_MEDIA.SINA);
                         break;
                     case R.id.snslogo4:
-                        shareEditIntent.putExtra("share_type", SHARE_MEDIA.QQ.toString());
-                        shareEditIntent.putExtra("ZoneCode", zoneCode);
+//                        shareEditIntent.putExtra("share_type", SHARE_MEDIA.QQ.toString());
+//                        shareEditIntent.putExtra("ZoneCode", zoneCode);
+                        performShare(SHARE_MEDIA.QQ);
                         break;
                     case R.id.snslogo5:
-                        shareEditIntent.putExtra("share_type", SHARE_MEDIA.QZONE.toString());
-                        shareEditIntent.putExtra("ZoneCode", zoneCode);
+//                        shareEditIntent.putExtra("share_type", SHARE_MEDIA.QZONE.toString());
+//                        shareEditIntent.putExtra("ZoneCode", zoneCode);
+                        performShare(SHARE_MEDIA.QZONE);
                         break;
                     case R.id.snslogo6:
-                        shareEditIntent.putExtra("share_type", SHARE_MEDIA.TENCENT.toString());
-                        shareEditIntent.putExtra("ZoneCode", zoneCode);
+//                        shareEditIntent.putExtra("share_type", SHARE_MEDIA.TENCENT.toString());
+//                        shareEditIntent.putExtra("ZoneCode", zoneCode);
+                        performShare(SHARE_MEDIA.TENCENT);
                         break;
                     default:
                         break;
                 }
-                startActivity(shareEditIntent);
+//                startActivity(shareEditIntent);
                 shareWindow.dismiss();
             }
         });
@@ -234,20 +255,20 @@ public class FreewordActivity extends Activity {
         net.start();
     }
 
-    private UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");
-    String currentShareWord = "";
 
-    private void setUpSharedContent() {
+
+    private void setUpSharedContent(WordShare word) {
         // 设置分享内容
-        mController.setShareContent("123333333");
-        // 设置分享图片, 参数2为图片的url地址
-        mController.setShareMedia(new UMImage(FreewordActivity.this, "123333333"));
+        mController.setShareContent("你真的认识汉字吗? 他让你大吃一惊, 让孩子受益终身!");
+//        // 设置分享图片, 参数2为图片的url地址
+//        mController.setShareMedia(new UMImage(FreewordActivity.this, "123333333"));
         // 设置分享视频
-        UMVideo umVideo = new UMVideo("123333333");
+        UMVideo umVideo = new UMVideo(word.getVideoUrl());
         // 设置视频缩略图
-        umVideo.setThumb("123333333");
+        umVideo.setThumb(word.getIconUrl());
         umVideo.setTitle("三千字");
         mController.setShareMedia(umVideo);
+
 
         //添加微信和朋友圈
         String appId = "wx523e7fec6968506f";
@@ -294,7 +315,7 @@ public class FreewordActivity extends Activity {
 
                     //调用说明成功
                     boolean flag = false;
-                    for (int i = 0; i < wordList.size(); i ++) {
+                    for (int i = 0; i < wordList.size(); i++) {
                         WordShare wordShare = wordList.get(i);
                         if (!store.isWordShared(wordShare.getWord())) {
                             flag = true;
@@ -360,8 +381,29 @@ public class FreewordActivity extends Activity {
                         }
                         //// TODO: 15/11/14 根据显示的数目进行判断
                         if (wordList.size() == 1) {
+                            ImageLoader imageLoader = ImageLoader.getInstance();
+                            imageLoader.displayImage(url, wordImageView);
+
+                            WordShare word = wordList.get(0);
+//                            guideLayout.setVisibility(View.INVISIBLE);
+//                            imageLoader.displayImage(url, wordImageView2);
+                            freewordCode2.setText(word.getWord());
+                            setUpSharedContent(word);
 
                         } else if (wordList.size() == 2) {
+
+                            ImageLoader imageLoader = ImageLoader.getInstance();
+                            WordShare word = wordList.get(0);
+                            guideLayout.setVisibility(View.INVISIBLE);
+//                            imageLoader.displayImage(word.getIconUrl(), wordImageView2);
+                            freewordCode.setText(word.getWord());
+
+                            WordShare word2 = wordList.get(1);
+                            guideLayout.setVisibility(View.INVISIBLE);
+//                            imageLoader.displayImage(word2.getIconUrl(), wordImageView);
+                            freewordCode2.setText(word.getWord());
+
+                            setUpSharedContent(word2);
 
                         } else {
                             //多于两个，错误
@@ -403,41 +445,6 @@ public class FreewordActivity extends Activity {
         startActivity(intent);
     }
 
-
-//    private void onShared() {
-//        // 设置分享内容
-//        mController.setShareContent("我正在使用三千字，非常适合你，推荐给你吧。http://app.3000zi.com/web/download.php");
-//        // 设置分享图片，参数2为本地图片的资源引用
-//        mController.setShareMedia(new UMImage(TabActivity.this, R.drawable.logo80));
-//
-//
-//        //添加微信和朋友圈
-//        String appId = "wx523e7fec6968506f";
-//        String appSecret = "4a01f28bf8671d6b5487094caaffc72e";
-//        // 添加微信平台
-//        UMWXHandler wxHandler = new UMWXHandler(TabActivity.this, appId, appSecret);
-//        wxHandler.addToSocialSDK();
-//
-//        // 添加微信朋友圈
-//        UMWXHandler wxCircleHandler = new UMWXHandler(TabActivity.this, appId, appSecret);
-//        wxCircleHandler.setToCircle(true);
-//        wxCircleHandler.addToSocialSDK();
-//
-//        //添加qq的
-//        //参数1为当前Activity，参数2为开发者在QQ互联申请的APP ID，参数3为开发者在QQ互联申请的APP kEY.
-//        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(TabActivity.this, "1104685705", "TaZo5RPmrGX11nPO");
-//        qqSsoHandler.addToSocialSDK();
-//
-//        //qq空间
-//        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(TabActivity.this, "100424468", "c7394704798a158208a74ab60104f0ba");
-//        qZoneSsoHandler.addToSocialSDK();
-//
-//        //添加新浪的
-//        mController.getConfig().setSsoHandler(new SinaSsoHandler());
-//    }
-
-
-    //
 
 
 

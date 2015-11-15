@@ -90,36 +90,81 @@
                         android:gravity="center_vertical">
 
                         <LinearLayout
-                            android:orientation="vertical"
+                            android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="80dp"
-                            android:layout_weight="3"
-                            android:gravity="center">
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical">
 
                             <LinearLayout
                                 android:orientation="vertical"
-                                android:layout_width="80dp"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/tzg">
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp"
+                                android:layout_weight="2"
+                                android:gravity="center">
 
-                                <FrameLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
+                                <LinearLayout
+                                    android:orientation="vertical"
+                                    android:layout_width="80dp"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/tzg">
 
-                                    <ImageView
+                                    <FrameLayout
                                         android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:id="@+id/wordImageView"/>
+                                        android:layout_height="match_parent">
 
-                                    <TextView
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:id="@+id/wordImageView2"/>
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:text="字"
+                                            android:id="@+id/freewordCode2"
+                                            android:gravity="center"
+                                            android:textColor="#000000"
+                                            android:textSize="60dp"/>
+                                    </FrameLayout>
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="80dp"
+                                android:layout_weight="2"
+                                android:gravity="center"
+                                >
+
+                                <LinearLayout
+                                    android:orientation="vertical"
+                                    android:layout_width="80dp"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/tzg">
+
+                                    <FrameLayout
                                         android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:text="字"
-                                        android:id="@+id/freewordCode"
-                                        android:gravity="center"
-                                        android:textColor="#000000"
-                                        android:textSize="60dp"/>
-                                </FrameLayout>
+                                        android:layout_height="match_parent">
+
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:id="@+id/wordImageView"
+                                            />
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:text="字"
+                                            android:id="@+id/freewordCode"
+                                            android:gravity="center"
+                                            android:textColor="#000000"
+                                            android:textSize="60dp"
+                                            android:visibility="gone"/>
+                                    </FrameLayout>
+                                </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>
 
@@ -132,33 +177,40 @@
 
                             <LinearLayout
                                 android:orientation="vertical"
-                                android:layout_width="290dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:background="@drawable/tzg_x3">
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
 
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/guideLayout">
+
+                        <ImageView
+                            android:layout_width="120dp"
+                            android:layout_height="80dp"
+                            android:id="@+id/imageView30"
+                            android:layout_marginRight="5dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="5dp"
+                            android:src="@drawable/share_arrow"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="点击分享给朋友，获取更多免费内容"
+                            android:id="@+id/textView76"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="30dp"
+                            android:layout_marginRight="20dp"/>
+                    </RelativeLayout>
+
                 </FrameLayout>
 
-                <ImageView
-                    android:layout_width="120dp"
-                    android:layout_height="80dp"
-                    android:id="@+id/imageView30"
-                    android:layout_marginRight="5dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="5dp"
-                    android:src="@drawable/share_arrow"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="点击分享给朋友，获取更多免费内容"
-                    android:id="@+id/textView76"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="30dp"
-                    android:layout_marginRight="20dp"/>
             </RelativeLayout>
 
         </LinearLayout>
@@ -190,7 +242,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
                     android:id="@+id/freewordBottom"
-                    android:layout_alignParentBottom="true">
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center">
 
                     <ImageButton
                         android:layout_width="wrap_content"
@@ -210,7 +263,10 @@
                     android:id="@+id/freewordTop"
                     android:layout_above="@+id/freewordBottom"
                     android:gravity="bottom"
-                    android:layout_marginLeft="20dp">
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp">
 
                     <TextView
                         android:layout_width="wrap_content"
