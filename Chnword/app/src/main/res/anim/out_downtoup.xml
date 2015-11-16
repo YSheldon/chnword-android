@@ -4,8 +4,7 @@
     <!-- 定义从上向下动画退出动画 -->
     <translate
         android:duration="500"
-
-        android:fromYDelta="100%"
-        android:toYDelta="0"
+        android:fromYDelta="0"
+        android:toYDelta="-100%"
         />
 </set>
