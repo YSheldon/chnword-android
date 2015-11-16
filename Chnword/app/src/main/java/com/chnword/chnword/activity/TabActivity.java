@@ -24,6 +24,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ import com.chnword.chnword.net.DeviceUtil;
 import com.chnword.chnword.net.NetConf;
 import com.chnword.chnword.net.NetParamFactory;
 import com.chnword.chnword.net.VerifyNet;
+import com.chnword.chnword.popwindow.PopListWindow;
 import com.chnword.chnword.popwindow.SharePopWindow;
 import com.chnword.chnword.store.LocalStore;
 import com.chnword.zxingwapper.zxing.activity.MipcaActivityCapture;
@@ -82,6 +84,7 @@ public class TabActivity extends FragmentActivity {
     private ImageView tab1, tab2, tab3;
 
     SharePopWindow shareWindow;
+    PopListWindow popListWindow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +140,42 @@ public class TabActivity extends FragmentActivity {
                         break;
 
                 }
+            }
+        });
+
+        popListWindow = new PopListWindow(this, new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        //在线产品订购
+
+
+                        break;
+                    case 1:
+                        //三千字课特点
+
+                        break;
+
+                    case 2:
+                        //会员尊享权益
+
+                        break;
+
+                    case 3:
+                        //知识创富计划
+
+                        break;
+                    case 4:
+                        //关于中聿华源
+
+
+                        break;
+
+                    default:
+                        break;
+                }
+                popListWindow.dismiss();
             }
         });
 
@@ -694,6 +733,13 @@ public class TabActivity extends FragmentActivity {
 
             }
         });
+    }
+
+
+    public void showTopList(View v) {
+        Log.e(TAG, "METHOD SHOW TOP LIST VIEW");
+        View view = findViewById(R.id.tab_main);
+        popListWindow.showAtLocation(view, Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
 }

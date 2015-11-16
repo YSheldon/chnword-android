@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:visibility="gone">
+            >
 
             <ImageButton
                 android:layout_width="40dp"
@@ -48,7 +48,7 @@
                 android:layout_margin="5dp"
                 android:src="@drawable/t_button_list"
                 android:scaleType="fitCenter"
-                android:onClick="onInforListButtonClicked"/>
+                android:onClick="showTopList"/>
 
             <ImageButton
                 android:layout_width="40dp"
@@ -58,7 +58,8 @@
                 android:layout_margin="5dp"
                 android:src="@drawable/t_button_share"
                 android:scaleType="fitCenter"
-                android:onClick="onShareButtonClicked"/>
+                android:onClick="onShareButtonClicked"
+                android:visibility="gone"/>
         </LinearLayout>
     </RelativeLayout>
 

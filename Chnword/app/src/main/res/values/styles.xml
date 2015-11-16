@@ -12,6 +12,12 @@
         <item name="android:windowExitAnimation">@anim/out_origintodown</item>
     </style>
 
+    <style name="AnimationFadeInvert">
+        <!-- PopupWindow上下弹出的效果 -->
+        <item name="android:windowEnterAnimation">@anim/in_uptodown</item>
+        <item name="android:windowExitAnimation">@anim/out_downtoup</item>
+    </style>
+
     <style name="Widget.SeekBar.Normal" parent="@android:style/Widget.SeekBar">
         <item name="android:maxHeight">10.0dip</item>
         <item name="android:indeterminateOnly">false</item>

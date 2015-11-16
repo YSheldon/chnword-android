@@ -47,7 +47,8 @@
                 android:background="#00000000"
                 android:layout_margin="5dp"
                 android:src="@drawable/t_button_list"
-                android:scaleType="fitCenter"/>
+                android:scaleType="fitCenter"
+                android:onClick="showTopList"/>
 
             <ImageButton
                 android:layout_width="40dp"
