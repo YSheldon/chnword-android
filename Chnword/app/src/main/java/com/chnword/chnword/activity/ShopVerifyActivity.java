@@ -15,8 +15,10 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Xml;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -89,6 +91,7 @@ public class ShopVerifyActivity extends Activity {
     private VerifyAdapter adapter;
     private CateBuyer buyer = new CateBuyer(0);
 
+    private String promoCode = "";//优惠码
 
 
 
@@ -855,4 +858,22 @@ public class ShopVerifyActivity extends Activity {
         }
     };
 
+
+    public void showPromoDialog(View v) {
+        AlertDialog.Builder customDia=new AlertDialog.Builder(ShopVerifyActivity.this);
+        final View viewDia= LayoutInflater.from(ShopVerifyActivity.this).inflate(R.layout.custom_dialog, null);
+        customDia.setTitle("自定义对话框");
+        customDia.setView(viewDia);
+        customDia.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // TODO Auto-generated method stub
+                EditText diaInput=(EditText) viewDia.findViewById(R.id.txt_cusDiaInput);
+//                showClickMessage(diaInput.getText().toString());
+                promoCode = diaInput.getText().toString();
+            }
+        });
+        customDia.create().show();
+    }
 }
