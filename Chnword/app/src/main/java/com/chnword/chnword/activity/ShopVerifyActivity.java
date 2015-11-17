@@ -862,7 +862,7 @@ public class ShopVerifyActivity extends Activity {
     public void showPromoDialog(View v) {
         AlertDialog.Builder customDia=new AlertDialog.Builder(ShopVerifyActivity.this);
         final View viewDia= LayoutInflater.from(ShopVerifyActivity.this).inflate(R.layout.custom_dialog, null);
-        customDia.setTitle("自定义对话框");
+        customDia.setTitle("请输入优惠码");
         customDia.setView(viewDia);
         customDia.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
@@ -872,6 +872,7 @@ public class ShopVerifyActivity extends Activity {
                 EditText diaInput=(EditText) viewDia.findViewById(R.id.txt_cusDiaInput);
 //                showClickMessage(diaInput.getText().toString());
                 promoCode = diaInput.getText().toString();
+                Log.e(TAG, promoCode);
             }
         });
         customDia.create().show();

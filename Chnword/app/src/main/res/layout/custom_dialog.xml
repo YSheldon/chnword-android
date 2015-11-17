@@ -11,17 +11,10 @@
         android:layout_margin="5dp"
         android:gravity="center">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="请输入优惠码:"
-            android:id="@+id/textView38"
-            android:textSize="22dp"/>
-
         <EditText
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:id="@+id/txt_cusDiaInput"
-            android:layout_marginLeft="10dp"/>
+            />
     </LinearLayout>
 </LinearLayout>
