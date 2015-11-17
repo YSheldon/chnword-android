@@ -46,17 +46,11 @@
         <!--用户指引界面-->
         <activity android:name=".activity.GuideActivity"></activity>
         <!--主页面-->
-        <activity android:name=".activity.MainMenuActivity"></activity>
 
 
         <activity android:name=".activity.TabActivity" android:launchMode="singleTask"></activity>
-        <activity android:name=".activity.ScanActivity" android:screenOrientation="landscape"></activity>
         <activity android:name=".activity.RegistActivity"></activity>
         <activity android:name=".activity.ShowActivity"></activity>
-        <activity android:name=".activity.WordActivity"></activity>
-        <activity android:name=".activity.ShopSuitActivity"></activity>
-        <activity android:name=".activity.CategoryActivity"></activity>
-        <activity android:name=".activity.WebActivity"></activity>
         <activity android:name=".activity.FeedbackActivity"></activity>
         <activity android:name=".activity.VideoActivity"></activity>
 
@@ -74,7 +68,6 @@
         <activity android:name=".activity.FreewordActivity"></activity>
         <activity android:name=".activity.UsercateActivity"></activity>
         <activity android:name=".activity.UserwordActivity"></activity>
-        <activity android:name=".activity.InfoListActivity"></activity>
 
         <activity android:name=".activity.ShareEditActivity"></activity>
         <activity android:name=".activity.ShareSuccessActivity"></activity>

@@ -8,41 +8,24 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.chnword.chnword.R;
 import com.chnword.chnword.activity.FaqActivity;
 import com.chnword.chnword.activity.FeedbackActivity;
-import com.chnword.chnword.activity.InfoListActivity;
 import com.chnword.chnword.activity.KnowledgeActivity;
 import com.chnword.chnword.activity.PhoneBindActivity;
 import com.chnword.chnword.activity.RegistActivity;
 import com.chnword.chnword.activity.TabActivity;
 import com.chnword.chnword.adapter.SettingAdapter;
 import com.chnword.chnword.beans.TabuserItem;
-import com.chnword.chnword.net.NetConf;
 import com.chnword.chnword.store.LocalStore;
-import com.umeng.socialize.controller.UMServiceFactory;
-import com.umeng.socialize.controller.UMSocialService;
-import com.umeng.socialize.media.UMImage;
-import com.umeng.socialize.media.UMVideo;
-import com.umeng.socialize.sso.QZoneSsoHandler;
-import com.umeng.socialize.sso.SinaSsoHandler;
-import com.umeng.socialize.sso.UMQQSsoHandler;
-import com.umeng.socialize.sso.UMSsoHandler;
-import com.umeng.socialize.weixin.controller.UMWXHandler;
 
-import org.w3c.dom.Text;
-
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**

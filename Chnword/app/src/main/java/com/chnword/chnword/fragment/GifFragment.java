@@ -12,11 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
-import android.widget.SeekBar;
 
 import com.chnword.chnword.R;
-import com.chnword.chnword.activity.ShowActivity;
-import com.chnword.chnword.gallery.GalleryFlow;
 
 import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageButton;
@@ -28,17 +25,7 @@ public class GifFragment extends Fragment {
 
     private Context mContext;
 
-    // 图片缩放倍率（相对屏幕尺寸的缩小倍率）
-    public static final int SCALE_FACTOR = 8;
-
-    // 图片间距（控制各图片之间的距离）
-    private final int GALLERY_SPACING = -10;
-
-    // 控件
-    private GalleryFlow mGalleryFlow;
-
     MediaController mc;
-
 
     private Uri uri;
 

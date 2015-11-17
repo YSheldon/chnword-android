@@ -56,10 +56,6 @@ public class RegistActivity extends Activity {
         LocalStore store = new LocalStore(this);
         if (!"0".equalsIgnoreCase(store.getDefaultUser()))
         {
-//            Intent intent = new Intent(this, TabActivity.class);
-//            startActivity(intent);
-//            finish();
-
             userLoginOn(store.getDefaultUser());
 
         }

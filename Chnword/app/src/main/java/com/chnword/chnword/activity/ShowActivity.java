@@ -21,7 +21,6 @@ import android.widget.Toast;
 import com.chnword.chnword.R;
 import com.chnword.chnword.beans.Word;
 import com.chnword.chnword.fragment.GifFragment;
-import com.chnword.chnword.fragment.VideoFragment;
 import com.chnword.chnword.net.AbstractNet;
 import com.chnword.chnword.net.DeviceUtil;
 import com.chnword.chnword.net.NetConf;
