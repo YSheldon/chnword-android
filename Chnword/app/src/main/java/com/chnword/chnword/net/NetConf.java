@@ -41,5 +41,12 @@ public class NetConf
     public static final String URL_SHOP_PAYMENT = "http://app.3000zi.com/api/shop_order_payment.php";
 
 
+    //商品链接
+    public static final String URL_SHOP_LINK = "http://app.3000zi.com/api/shop.php";
+    
+    //分享后链接
+    public static final String URL_SHARED_LINK = "http://app.3000zi.com/api/share.php";
+
+
 
 }
