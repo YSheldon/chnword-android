@@ -25,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -41,7 +42,6 @@ import com.chnword.chnword.popwindow.PopListWindow;
 import com.chnword.chnword.popwindow.SharePopWindow;
 import com.chnword.chnword.store.LocalStore;
 import com.chnword.zxingwapper.zxing.activity.MipcaActivityCapture;
-import com.umeng.socialize.bean.RequestType;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.bean.StatusCode;
@@ -81,7 +81,7 @@ public class TabActivity extends FragmentActivity {
     private ViewPager mViewPager;
     private ViewPager.OnPageChangeListener mPageChangeListener;
 
-    private ImageView tab1, tab2, tab3;
+    private ImageButton tab1, tab2, tab3, selectedTab;
 
     SharePopWindow shareWindow;
     PopListWindow popListWindow;
@@ -99,10 +99,14 @@ public class TabActivity extends FragmentActivity {
 
         FragmentManager fm = getSupportFragmentManager();
         mViewPager.setAdapter(new ViewPagerAdapter(fm, mFragments));
+        mViewPager.setOnPageChangeListener(new ViewPagerChanger());
 
-        tab1 = (ImageView) findViewById(R.id.tab_page);
-        tab2 = (ImageView) findViewById(R.id.tab_store);
-        tab3 = (ImageView) findViewById(R.id.tab_user);
+        tab1 = (ImageButton) findViewById(R.id.tab_page);
+        tab2 = (ImageButton) findViewById(R.id.tab_store);
+        tab3 = (ImageButton) findViewById(R.id.tab_user);
+        selectedTab = tab1;
+        selectedTab.setSelected(true);
+
         tab1.setOnClickListener(new BarItemOnClickListener(0));
         tab2.setOnClickListener(new BarItemOnClickListener(1));
         tab3.setOnClickListener(new BarItemOnClickListener(2));
@@ -249,6 +253,23 @@ public class TabActivity extends FragmentActivity {
         @Override
         public void onPageSelected(int index) {
 
+            selectedTab.setSelected(false);
+            switch (index) {
+                case 0:
+                    selectedTab = tab1;
+                    selectedTab.setSelected(true);
+                    break;
+                case 1:
+                    selectedTab = tab2;
+                    selectedTab.setSelected(true);
+                    break;
+                case 2:
+                    selectedTab = tab3;
+                    selectedTab.setSelected(true);
+                    break;
+                default:
+                    break;
+            }
         }
 
         @Override
@@ -266,7 +287,24 @@ public class TabActivity extends FragmentActivity {
 
         @Override
         public void onClick(View v) {
+            selectedTab.setSelected(false);
             mViewPager.setCurrentItem(index);
+            switch (index) {
+                case 0:
+                    selectedTab = tab1;
+                    selectedTab.setSelected(true);
+                    break;
+                case 1:
+                    selectedTab = tab2;
+                    selectedTab.setSelected(true);
+                    break;
+                case 2:
+                    selectedTab = tab3;
+                    selectedTab.setSelected(true);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -488,18 +526,6 @@ public class TabActivity extends FragmentActivity {
 
     };
 
-
-    /**
-     * 字动画
-     * @param view
-     */
-    public void onAnimClicked(View view) {
-        Log.e(TAG, "METHOD ");
-        Intent intent = new Intent(this, CategoryActivity.class);
-        startActivity(intent);
-    }
-
-
     private final static int SCANNIN_GREQUEST_CODE = 1;
     /**
      * 扫汉字
@@ -551,20 +577,6 @@ public class TabActivity extends FragmentActivity {
             ssoHandler.authorizeCallBack(requestCode, resultCode, data);
         }
     }
-
-
-
-    /**
-     * 三千字套装
-     * @param view
-     */
-    public void onShopAnime(View view) {
-        Intent intent = new Intent(this, ShopSuitActivity.class);
-        startActivity(intent);
-    }
-
-
-
 
 
     /**
@@ -642,13 +654,6 @@ public class TabActivity extends FragmentActivity {
     };
 
 
-
-
-
-    public void onInforListButtonClicked(View v) {
-        Intent infolistIntent = new Intent(this, InfoListActivity.class);
-        startActivity(infolistIntent);
-    }
 
     public void onShareButtonClicked(View v) {
         openUmeng();
