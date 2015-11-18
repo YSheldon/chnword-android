@@ -1,6 +1,7 @@
 package com.chnword.chnword.activity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.chnword.chnword.R;
 import com.chnword.chnword.adapter.FreecateAdapter;
 import com.chnword.chnword.beans.Category;
+import com.chnword.chnword.dialogs.DialogUtil;
 import com.chnword.chnword.net.AbstractNet;
 import com.chnword.chnword.net.DeviceUtil;
 import com.chnword.chnword.net.NetConf;
@@ -37,7 +39,7 @@ public class FreeCateActivity extends Activity {
 
     private ImageButton backImageButton;
     private GridView freecateGrid;
-    private ProgressDialog progressDialog;
+    private Dialog progressDialog;
 
     private FreecateAdapter freecateAdapter;
     private List<Category> list;
@@ -98,7 +100,9 @@ public class FreeCateActivity extends Activity {
         String deviceId = DeviceUtil.getDeviceId(this);
         JSONObject param = NetParamFactory.listParam(userid, deviceId, 0, 0);
         AbstractNet net = new VerifyNet(handler, param, NetConf.URL_LIST);
-        progressDialog = ProgressDialog.show(this, "title", "loading");
+//        progressDialog = ProgressDialog.show(this, "title", "loading");
+        progressDialog = DialogUtil.createLoadingDialog(this, "数据加载中...");
+        progressDialog.show();
         net.start();
     }
 

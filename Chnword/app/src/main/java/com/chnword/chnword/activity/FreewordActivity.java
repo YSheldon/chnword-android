@@ -1,6 +1,7 @@
 package com.chnword.chnword.activity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import com.chnword.chnword.R;
 import com.chnword.chnword.beans.Word;
 import com.chnword.chnword.beans.WordShare;
+import com.chnword.chnword.dialogs.DialogUtil;
 import com.chnword.chnword.net.AbstractNet;
 import com.chnword.chnword.net.DeviceUtil;
 import com.chnword.chnword.net.NetConf;
@@ -55,7 +57,7 @@ public class FreewordActivity extends Activity {
     private static final String TAG = FreewordActivity.class.getSimpleName();
 
     private ImageButton backImageButton;
-    private ProgressDialog progressDialog;
+    private Dialog progressDialog;
     private Word currentWord;
     private LocalStore store;
 
@@ -251,7 +253,8 @@ public class FreewordActivity extends Activity {
 
         JSONObject param = NetParamFactory.sharedWordParam(userid, deviceId, type);
         AbstractNet net = new VerifyNet(sharehandler, param, NetConf.URL_SHARED);
-        progressDialog = ProgressDialog.show(this, "提示", "loading...");
+        progressDialog = DialogUtil.createLoadingDialog(this, "数据加载中...");
+        progressDialog.show();
         net.start();
     }
 
@@ -458,7 +461,8 @@ public class FreewordActivity extends Activity {
         String deviceId = DeviceUtil.getDeviceId(this);
         JSONObject param = NetParamFactory.subListParam(userid, deviceId, zoneCode, 0, 0);
         AbstractNet net = new VerifyNet(handler, param, NetConf.URL_SUBLIST);
-        progressDialog = ProgressDialog.show(this, "提示", "loading...");
+        progressDialog = DialogUtil.createLoadingDialog(this, "数据加载中...");
+        progressDialog.show();
         net.start();
     }
 

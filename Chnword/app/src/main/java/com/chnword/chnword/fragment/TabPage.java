@@ -1,5 +1,6 @@
 package com.chnword.chnword.fragment;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,7 +33,6 @@ public class TabPage extends Fragment {
     private ImageButton btn_scan, btn_study;
 
     private final static int SCANNIN_GREQUEST_CODE = 1;//扫汉字
-    private ProgressDialog progressDialog;          //弹出框
 
     private PopScanWindow popScanWindow;
 

@@ -1,6 +1,7 @@
 package com.chnword.chnword.activity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.chnword.chnword.R;
+import com.chnword.chnword.dialogs.DialogUtil;
 import com.chnword.chnword.net.AbstractNet;
 import com.chnword.chnword.net.DeviceUtil;
 import com.chnword.chnword.net.NetConf;
@@ -40,7 +42,7 @@ public class RegistActivity extends Activity {
 
     private EditText editText;
 
-    private ProgressDialog progressDialog;
+    private Dialog progressDialog;
 
     // 声明PopupWindow对象的引用
     private PopupWindow toManyPopupWindow;
@@ -128,7 +130,8 @@ public class RegistActivity extends Activity {
 
         AbstractNet net = new VerifyNet(loginHandler, param, NetConf.URL_LOGIN);
         Log.e(TAG, "USER LOGIN. URL" + NetConf.URL_LOGIN);
-        progressDialog = ProgressDialog.show(this, "title", "loading");
+//        progressDialog = ProgressDialog.show(this, "title", "loading");
+        progressDialog = DialogUtil.createLoadingDialog(this, "数据加载中...");
         net.start();
         Log.e(TAG, param.toString());
 
@@ -145,15 +148,17 @@ public class RegistActivity extends Activity {
         //这里需要进行下注册。
 
 //        userid = DeviceUtil.getPhoneNumber(this) == null ?  UUID.randomUUID().toString()  : DeviceUtil.getPhoneNumber(this) ;
-
-        userid = editText.getText().toString();
+//        userid = editText.getText().toString();
+//        userid = "0";
 
         String userCode = editText.getText().toString();
         String deviceId = DeviceUtil.getDeviceId(this);
-        JSONObject param = NetParamFactory.verifyParam(userid, deviceId, userCode);
+        JSONObject param = NetParamFactory.verifyParam("0", deviceId, userCode);
 
         AbstractNet net = new VerifyNet(handler, param, NetConf.URL_VERIFY);
-        progressDialog = ProgressDialog.show(this, "title", "loading");
+        progressDialog = DialogUtil.createLoadingDialog(this, "数据加载中...");
+        progressDialog.show();
+
         net.start();
         Log.e(TAG, param.toString());
 
@@ -195,11 +200,12 @@ public class RegistActivity extends Activity {
                     } else if (result == 1) {
                         //正确
                         LocalStore store = new LocalStore(RegistActivity.this);
-                        store.setDefaultUser(userid);
+
 
                         JSONObject data = obj.getJSONObject("data");
                         int usertype = data.getInt("type");
                         store.setUserType(usertype);
+                        store.setDefaultUser(data.getString("userid"));
 
                         int userBind = data.getInt("binding");
                         if (userBind == 1) {

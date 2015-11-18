@@ -1,6 +1,7 @@
 package com.chnword.chnword.activity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.media.Image;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.chnword.chnword.R;
 import com.chnword.chnword.beans.Category;
+import com.chnword.chnword.dialogs.DialogUtil;
 import com.chnword.chnword.net.AbstractNet;
 import com.chnword.chnword.net.DeviceUtil;
 import com.chnword.chnword.net.NetConf;
@@ -37,7 +39,7 @@ public class PhoneBindActivity extends Activity {
 
     private ImageButton sendButton, verifyButton;
 
-    private ProgressDialog progressDialog;
+    private Dialog progressDialog;
 
     private String sessionId = "";
 
@@ -107,7 +109,8 @@ public class PhoneBindActivity extends Activity {
         String tel = phoneNumber.getText().toString();
         JSONObject param = NetParamFactory.yzmParam(userid, deviceId, tel);
         AbstractNet net = new VerifyNet(yzmHandler, param, NetConf.URL_SEND);
-        progressDialog = ProgressDialog.show(this, "title", "loading");
+        progressDialog = DialogUtil.createLoadingDialog(this, "数据加载中...");
+        progressDialog.show();
         net.start();
     }
 
@@ -125,7 +128,8 @@ public class PhoneBindActivity extends Activity {
 
             JSONObject param = NetParamFactory.verifyParam(userid, deviceId, tel, code, sessionId, yzm);
             AbstractNet net = new VerifyNet(verifyHandler, param, NetConf.URL_BIND);
-            progressDialog = ProgressDialog.show(this, "title", "loading");
+            progressDialog = DialogUtil.createLoadingDialog(this, "数据加载中...");
+            progressDialog.show();
             net.start();
         } else {
             Toast.makeText(this, "请先获取验证码", Toast.LENGTH_LONG).show();

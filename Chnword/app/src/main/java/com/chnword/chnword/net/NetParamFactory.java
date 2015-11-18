@@ -38,13 +38,7 @@ public class NetParamFactory {
             obj.put("opid", UUID.randomUUID().toString() );
             obj.put("userid", userid);
             obj.put("device", deviceId);
-//            obj.put("device", "2");
             obj.put("code", code);
-
-//            JSONObject param = new JSONObject();
-//            param.put("code", code);
-//            param.put("user", user);
-//            obj.put("param", param);
 
         } catch (Exception e) {
             e.printStackTrace();

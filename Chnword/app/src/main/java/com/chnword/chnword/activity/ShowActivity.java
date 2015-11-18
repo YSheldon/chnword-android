@@ -1,6 +1,7 @@
 package com.chnword.chnword.activity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.chnword.chnword.R;
 import com.chnword.chnword.beans.Word;
+import com.chnword.chnword.dialogs.DialogUtil;
 import com.chnword.chnword.fragment.GifFragment;
 import com.chnword.chnword.net.AbstractNet;
 import com.chnword.chnword.net.DeviceUtil;
@@ -68,7 +70,7 @@ public class ShowActivity extends Activity {
 
     private LocalStore store;
 
-    private ProgressDialog progressDialog;
+    private Dialog progressDialog;
 
 
     private ImageButton backImageButton;
@@ -173,7 +175,8 @@ public class ShowActivity extends Activity {
         int usertype = store.getUserType();
         JSONObject param = NetParamFactory.showParam(userid, deviceId, word.getWordIndex(), usertype);
         AbstractNet net = new VerifyNet(handler, param, NetConf.URL_SHOW);
-        progressDialog = ProgressDialog.show(this, "提示", "loading...");
+        progressDialog = DialogUtil.createLoadingDialog(this, "数据加载中...");
+        progressDialog.show();
         net.start();
 
     }

@@ -2,6 +2,7 @@ package com.chnword.chnword.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -35,6 +36,7 @@ import com.chnword.chnword.alipy.SignUtils;
 import com.chnword.chnword.beans.CateBuyItem;
 import com.chnword.chnword.beans.CateBuyer;
 import com.chnword.chnword.beans.Category;
+import com.chnword.chnword.dialogs.DialogUtil;
 import com.chnword.chnword.net.AbstractNet;
 import com.chnword.chnword.net.DeviceUtil;
 import com.chnword.chnword.net.NetConf;
@@ -307,7 +309,9 @@ public class ShopVerifyActivity extends Activity {
     }
 
     public void openDialod() {
-        progressDialog = ProgressDialog.show(ShopVerifyActivity.this, getString(R.string.app_tip), "正在支付");
+//        progressDialog = ProgressDialog.show(ShopVerifyActivity.this, getString(R.string.app_tip), "正在支付");
+        progressDialog = DialogUtil.createLoadingDialog(ShopVerifyActivity.this, "正在支付...");
+        progressDialog.show();
     }
 
 
@@ -532,7 +536,9 @@ public class ShopVerifyActivity extends Activity {
                             }).show();
             return;
         }
-        progressDialog = ProgressDialog.show(ShopVerifyActivity.this, getString(R.string.app_tip), "正在支付");
+//        progressDialog = ProgressDialog.show(ShopVerifyActivity.this, getString(R.string.app_tip), "正在支付");
+        progressDialog = DialogUtil.createLoadingDialog(ShopVerifyActivity.this, "正在支付...");
+        progressDialog.show();
         // 订单
 //        String orderInfo = getOrderInfo("测试的商品", "该测试商品的详细描述", "0.01");
         currentOrderInfo = getOrderInfo("测试的商品", "该测试商品的详细描述", "0.01");
@@ -712,7 +718,7 @@ public class ShopVerifyActivity extends Activity {
     public static final String SHOP_PAYMENT_WECHAT = "1";
     public static final String SHOP_PAYMENT_ALI = "2";
 
-    private ProgressDialog progressDialog;
+    private Dialog progressDialog;
 
     private String currentNumber = null;
     private String currentPayment = SHOP_PAYMENT_WECHAT;

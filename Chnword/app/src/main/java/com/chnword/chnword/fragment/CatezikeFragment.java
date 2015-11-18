@@ -1,5 +1,6 @@
 package com.chnword.chnword.fragment;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.media.Image;
@@ -26,6 +27,7 @@ import com.chnword.chnword.adapter.CatebuyAdapter;
 import com.chnword.chnword.beans.CateBuyItem;
 import com.chnword.chnword.beans.CateBuyer;
 import com.chnword.chnword.beans.Category;
+import com.chnword.chnword.dialogs.DialogUtil;
 import com.chnword.chnword.net.AbstractNet;
 import com.chnword.chnword.net.DeviceUtil;
 import com.chnword.chnword.net.NetConf;
@@ -54,7 +56,7 @@ public class CatezikeFragment extends Fragment {
 
     private CateBuyer buyer = new CateBuyer(0);
 
-    ProgressDialog progressDialog;
+    Dialog progressDialog;
     private boolean shouldRequestNet = true;
 
     @Nullable
@@ -152,7 +154,9 @@ public class CatezikeFragment extends Fragment {
         String deviceId = DeviceUtil.getDeviceId(getActivity());
         JSONObject param = NetParamFactory.listParam(userid, deviceId, 0, 0);
         AbstractNet net = new VerifyNet(handler, param, NetConf.URL_SHOPLIST);
-        progressDialog = ProgressDialog.show(getActivity(), "title", "loading");
+//        progressDialog = ProgressDialog.show(getActivity(), "title", "loading");
+        progressDialog = DialogUtil.createLoadingDialog(getActivity(), "数据加载中...");
+        progressDialog.show();
         net.start();
     }
     Handler handler = new Handler(){

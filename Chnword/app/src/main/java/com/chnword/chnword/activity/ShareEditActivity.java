@@ -1,6 +1,7 @@
 package com.chnword.chnword.activity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.chnword.chnword.R;
 import com.chnword.chnword.adapter.ShareEditAdapter;
 import com.chnword.chnword.beans.Word;
 import com.chnword.chnword.beans.WordShare;
+import com.chnword.chnword.dialogs.DialogUtil;
 import com.chnword.chnword.net.AbstractNet;
 import com.chnword.chnword.net.DeviceUtil;
 import com.chnword.chnword.net.NetConf;
@@ -56,7 +58,7 @@ public class ShareEditActivity extends Activity {
 
     private UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");
 
-    private ProgressDialog progressDialog;
+    private Dialog progressDialog;
 
 
     private SHARE_MEDIA mediaType;
@@ -249,7 +251,8 @@ public class ShareEditActivity extends Activity {
 
         JSONObject param = NetParamFactory.sharedWordParam(userid, deviceId, type);
         AbstractNet net = new VerifyNet(handler, param, NetConf.URL_SHARED);
-        progressDialog = ProgressDialog.show(this, "提示", "loading...");
+        progressDialog = DialogUtil.createLoadingDialog(this, "数据加载中...");
+        progressDialog.show();
         net.start();
 
     }

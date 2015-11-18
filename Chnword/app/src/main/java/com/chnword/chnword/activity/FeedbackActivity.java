@@ -1,6 +1,7 @@
 package com.chnword.chnword.activity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.chnword.chnword.R;
 import com.chnword.chnword.beans.Category;
+import com.chnword.chnword.dialogs.DialogUtil;
 import com.chnword.chnword.net.AbstractNet;
 import com.chnword.chnword.net.DeviceUtil;
 import com.chnword.chnword.net.NetConf;
@@ -39,7 +41,7 @@ public class FeedbackActivity extends Activity {
 
     private EditText feedbacktext;
 
-    private ProgressDialog progressDialog;
+    private Dialog progressDialog;
 
     private ImageButton infoSubmitButton;
     private ImageButton backImageButton;
@@ -97,7 +99,8 @@ public class FeedbackActivity extends Activity {
             JSONObject param = NetParamFactory.feedbackParam(userid, deviceId, content);
             Log.e(TAG, param.toString());
             AbstractNet net = new VerifyNet(handler, param, NetConf.URL_FEEDBACK);
-            progressDialog = ProgressDialog.show(this, "title", "loading");
+            progressDialog = DialogUtil.createLoadingDialog(this, "数据加载中...");
+            progressDialog.show();
             net.start();
         } else {
             Toast.makeText(this, "请输入文字", Toast.LENGTH_LONG).show();
