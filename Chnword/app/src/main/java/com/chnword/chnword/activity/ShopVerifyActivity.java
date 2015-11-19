@@ -914,22 +914,27 @@ public class ShopVerifyActivity extends Activity {
 
                     String result = obj.getString("result");
                     String message = obj.getString("message");
+                    JSONObject data = obj.getJSONObject("data");
                     if (result != null) {
-
                         if ("1".equalsIgnoreCase(result)) {
                             //优惠劵可用
 
+                            float price = (float)data.getDouble("price");
+                            Toast.makeText(ShopVerifyActivity.this, "优惠劵可用, 优惠金额 ：" + price, Toast.LENGTH_LONG).show();
+                            buyer.sub(price);
+                            totalPriceTextView.setText(buyer.getPriceText());
                         }else if ("0".equalsIgnoreCase(result)){
                             //优惠劵不可用
-
+                            Toast.makeText(ShopVerifyActivity.this, "优惠劵不可用", Toast.LENGTH_LONG).show();
                         } else if ("2".equalsIgnoreCase(result)) {
                             //优惠劵已过期
-
+                            Toast.makeText(ShopVerifyActivity.this, "优惠劵已过期", Toast.LENGTH_LONG).show();
                         }else if ("3".equalsIgnoreCase(result)) {
                             //优惠劵已使用
-
+                            Toast.makeText(ShopVerifyActivity.this, "优惠劵已使用", Toast.LENGTH_LONG).show();
                         }else if ("4".equalsIgnoreCase(result)) {
                             //优惠劵正在使用
+                            Toast.makeText(ShopVerifyActivity.this, "优惠劵正在使用", Toast.LENGTH_LONG).show();
 
                         }
                     } else {

@@ -37,6 +37,10 @@ public class CateBuyer {
         this.price -= item.getPrice();
     }
 
+    public void sub(float price) {
+        this.price -= price;
+    }
+
     public void reset() {
         price = 0.0f;
     }
