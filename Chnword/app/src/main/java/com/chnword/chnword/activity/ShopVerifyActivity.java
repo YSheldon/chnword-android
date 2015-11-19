@@ -879,8 +879,73 @@ public class ShopVerifyActivity extends Activity {
 //                showClickMessage(diaInput.getText().toString());
                 promoCode = diaInput.getText().toString();
                 Log.e(TAG, promoCode);
+                requestCoupon(promoCode);
             }
         });
         customDia.create().show();
     }
+
+    private Dialog couponDialog;
+    private void requestCoupon(String str) {
+        LocalStore store = new LocalStore(this);
+        String userid = store.getDefaultUser();
+        String deviceId = DeviceUtil.getDeviceId(this);
+        JSONObject param = NetParamFactory.couponParam(userid, deviceId, str);
+        Log.e(TAG, param.toString());
+        AbstractNet net = new VerifyNet(couponHandler, param, NetConf.URL_COUPON);
+        net.start();
+        couponDialog = DialogUtil.createLoadingDialog(this, "数据加载中...");
+        couponDialog.show();
+    }
+    private Handler couponHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+
+            couponDialog.dismiss();
+            couponDialog = null;
+            try {
+                if (msg.what == AbstractNet.NETWHAT_SUCESS)
+                {
+
+                    Bundle b = msg.getData();
+                    String str = b.getString("responseBody");
+                    android.util.Log.e(TAG, str);
+                    JSONObject obj = new JSONObject(str);
+
+                    String result = obj.getString("result");
+                    String message = obj.getString("message");
+                    if (result != null) {
+
+                        if ("1".equalsIgnoreCase(result)) {
+                            //优惠劵可用
+
+                        }else if ("0".equalsIgnoreCase(result)){
+                            //优惠劵不可用
+
+                        } else if ("2".equalsIgnoreCase(result)) {
+                            //优惠劵已过期
+
+                        }else if ("3".equalsIgnoreCase(result)) {
+                            //优惠劵已使用
+
+                        }else if ("4".equalsIgnoreCase(result)) {
+                            //优惠劵正在使用
+
+                        }
+                    } else {
+                        Toast.makeText(ShopVerifyActivity.this, "网络请求失败，请检查网络!", Toast.LENGTH_LONG).show();
+                    }
+
+                }
+
+                if (msg.what == AbstractNet.NETWHAT_FAIL) {
+                    Toast.makeText(ShopVerifyActivity.this, "请求失败，请检查网络设置", Toast.LENGTH_LONG).show();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            super.handleMessage(msg);
+        }
+    };
+
 }
