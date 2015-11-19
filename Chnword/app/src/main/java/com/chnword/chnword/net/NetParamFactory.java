@@ -152,7 +152,6 @@ public class NetParamFactory {
             obj.put("opid", UUID.randomUUID().toString() );
             obj.put("userid", userid);
             obj.put("device", deviceId );
-//            obj.put("device", "2");
             obj.put("type", usertype + "");
 
             JSONObject param = new JSONObject();
@@ -331,6 +330,21 @@ public class NetParamFactory {
             obj.put("paytype", paytype);
 
             obj.put("remark", "");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+
+    public static JSONObject couponParam(String userid, String deviceId, String coupon) {
+        JSONObject obj = null;
+        try {
+            obj = new JSONObject();
+            obj.put("opid", UUID.randomUUID().toString() );
+            obj.put("userid", userid);
+            obj.put("device", deviceId);
+            obj.put("coupon", coupon);
 
         } catch (Exception e) {
             e.printStackTrace();

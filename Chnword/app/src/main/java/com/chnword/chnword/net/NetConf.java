@@ -34,6 +34,7 @@ public class NetConf
     public static final String URL_FORGET = "http://app.3000zi.com/api/forget.php";//找回密码
     public static final String URL_SHARED = "http://app.3000zi.com/api/share_word.php";//获取分享的字
     public static final String URL_SHOPLIST = "http://app.3000zi.com/api/shop_list.php";//商品列表
+    public static final String URL_COUPON = "http://app.3000zi.com/api/coupon.php";//优惠码接口
 
 
     //商品接口
