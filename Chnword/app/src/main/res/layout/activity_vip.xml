@@ -30,7 +30,7 @@
             android:layout_centerInParent="true"
             android:textSize="20dp"
             android:textColor="#ffffff"
-            android:text="三千字课特点"/>
+            android:text="会员尊享权益"/>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -69,6 +69,176 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView39"
+                    android:src="@drawable/vip_tit"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="30dp">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_margin="20dp"
+                            android:background="#fff">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/vip_text1"
+                                android:id="@+id/textView27"
+                                android:layout_margin="5dp"/>
+                        </LinearLayout>
+                    </FrameLayout>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:id="@+id/imageView43"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/topicon_vip1"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="30dp">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_margin="20dp"
+                            android:background="#fff">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/vip_text2"
+                                android:id="@+id/textView"
+                                android:layout_margin="5dp"/>
+                        </LinearLayout>
+                    </FrameLayout>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:id="@+id/imageView40"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/topicon_vip2"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="30dp">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_margin="20dp"
+                            android:background="#fff">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/vip_text3"
+                                android:id="@+id/textView8"
+                                android:layout_margin="5dp"/>
+                        </LinearLayout>
+                    </FrameLayout>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:id="@+id/imageView41"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/topicon_vip3"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="30dp">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_margin="20dp"
+                            android:background="#fff">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/vip_text4"
+                                android:id="@+id/textView10"
+                                android:layout_margin="5dp"/>
+                        </LinearLayout>
+                    </FrameLayout>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:id="@+id/imageView42"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/topicon_vip4"/>
+            </RelativeLayout>
+
         </LinearLayout>
     </ScrollView>
 
