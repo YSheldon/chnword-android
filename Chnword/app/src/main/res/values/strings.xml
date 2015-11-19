@@ -213,4 +213,11 @@
     <string name="bc_pay_wx_title">微信支付</string>
     <string name="bc_pay_goto_wx">打开微信支付</string>
 
+
+
+    <!--会员尊享权益中-->
+    <string name="vip_text1">文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案</string>
+    <string name="vip_text2">文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案</string>
+    <string name="vip_text3">文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案</string>
+    <string name="vip_text4">文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案文案</string>
 </resources>
