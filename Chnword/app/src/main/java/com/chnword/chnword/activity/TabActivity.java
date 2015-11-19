@@ -150,6 +150,7 @@ public class TabActivity extends FragmentActivity {
         popListWindow = new PopListWindow(this, new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent;
                 switch (position) {
                     case 0:
                         //在线产品订购
@@ -158,21 +159,26 @@ public class TabActivity extends FragmentActivity {
                         break;
                     case 1:
                         //三千字课特点
+                        intent = new Intent(TabActivity.this, FeatureActivity.class);
+                        startActivity(intent);
 
                         break;
 
                     case 2:
                         //会员尊享权益
-
+                        intent = new Intent(TabActivity.this, VipActivity.class);
+                        startActivity(intent);
                         break;
 
                     case 3:
                         //知识创富计划
-
+                        intent = new Intent(TabActivity.this, KnowledgeActivity.class);
+                        startActivity(intent);
                         break;
                     case 4:
                         //关于中聿华源
-
+                        intent = new Intent(TabActivity.this, AboutActivity.class);
+                        startActivity(intent);
 
                         break;
 
