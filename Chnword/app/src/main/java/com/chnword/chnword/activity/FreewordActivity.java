@@ -43,10 +43,15 @@ import com.umeng.socialize.sso.SinaSsoHandler;
 import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.security.spec.ECField;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -330,6 +335,23 @@ public class FreewordActivity extends Activity {
                     } else {
                         store.unLockNextCategory();
                     }
+
+                    //// TODO: 15/11/21  添加调用，分享成功后的。
+                    Handler handler = new Handler();
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                String url = NetConf.URL_SHARED_LINK + "?userid=" + store.getDefaultUser() + "&wordid=" + currentWord;
+                                HttpClient httpClient = new DefaultHttpClient();
+                                HttpPost httpPost = new HttpPost(url);
+                                HttpResponse response = httpClient.execute(httpPost);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
 
                 } else {
                     showText += "平台分享失败";
