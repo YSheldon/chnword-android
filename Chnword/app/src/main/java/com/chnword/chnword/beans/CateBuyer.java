@@ -8,9 +8,11 @@ import java.text.DecimalFormat;
 public class CateBuyer {
 
     private float price;
+    private float couponPrice;
 
     public CateBuyer(float price) {
         this.price = price;
+        couponPrice = 0.0f;
     }
 
     public float getPrice() {
@@ -43,5 +45,23 @@ public class CateBuyer {
 
     public void reset() {
         price = 0.0f;
+        couponPrice = 0.0f;
+    }
+
+    public void setCouponPrice(float couponPrice) {
+        this.couponPrice = couponPrice;
+    }
+
+    public float getRealPrice() {
+        if (price > couponPrice) {
+            return  price - couponPrice;
+        } else {
+            return  couponPrice - price ;
+        }
+    }
+
+    public String getRealPriceText() {
+        DecimalFormat df1 = new DecimalFormat("###,###.0");
+        return df1.format(getRealPrice());
     }
 }

@@ -286,7 +286,7 @@ public class NetParamFactory {
         return obj;
     }
 
-    public static JSONObject shopOrderParam(String userid, String deviceId, String trueprice, String orderNumber, String paytype, List<CateBuyItem> buyed) {
+    public static JSONObject shopOrderParam(String userid, String deviceId, String trueprice, String orderNumber, String paytype, List<CateBuyItem> buyed, String couponCode) {
         JSONObject obj = null;
         try {
             obj = new JSONObject();
@@ -296,6 +296,10 @@ public class NetParamFactory {
             obj.put("trueprice", trueprice);
             obj.put("ordernum", orderNumber);
             obj.put("paytype", paytype);
+            if (couponCode != null && !"".equalsIgnoreCase(couponCode)) {
+                obj.put("coupon", couponCode);
+            }
+
 
             obj.put("remark", "");
 
@@ -318,7 +322,7 @@ public class NetParamFactory {
         return obj;
     }
 
-    public static JSONObject shopOrderPaymentParam(String userid, String deviceId, String trueprice, String orderNumber, String paytype) {
+    public static JSONObject shopOrderPaymentParam(String userid, String deviceId, String trueprice, String orderNumber, String paytype, String couponCode) {
         JSONObject obj = null;
         try {
             obj = new JSONObject();
@@ -328,6 +332,9 @@ public class NetParamFactory {
             obj.put("trueprice", trueprice);
             obj.put("ordernum", orderNumber);
             obj.put("paytype", paytype);
+            if (couponCode != null && !"".equalsIgnoreCase(couponCode)) {
+                obj.put("coupon", couponCode);
+            }
 
             obj.put("remark", "");
 

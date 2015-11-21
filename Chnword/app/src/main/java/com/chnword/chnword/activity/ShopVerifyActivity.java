@@ -94,6 +94,7 @@ public class ShopVerifyActivity extends Activity {
     private CateBuyer buyer = new CateBuyer(0);
 
     private String promoCode = "";//优惠码
+//    private String couponCode = "";//提交的优惠码
 
 
 
@@ -135,7 +136,7 @@ public class ShopVerifyActivity extends Activity {
         shoplistView = (ListView) findViewById(R.id.shoplistView);
         adapter = new VerifyAdapter(this, buyed);
         shoplistView.setAdapter(adapter);
-        totalPriceTextView.setText(buyer.getPriceText());
+        totalPriceTextView.setText(buyer.getRealPriceText());
 
         payBywexin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -727,7 +728,7 @@ public class ShopVerifyActivity extends Activity {
         LocalStore store = new LocalStore(this);
         String userid = store.getDefaultUser();
         String deviceId = DeviceUtil.getDeviceId(this);
-        JSONObject param = NetParamFactory.shopOrderParam(userid, deviceId, buyer.getPriceText(), currentNumber, currentPayment, buyed);
+        JSONObject param = NetParamFactory.shopOrderParam(userid, deviceId, buyer.getPriceText(), currentNumber, currentPayment, buyed, promoCode);
         AbstractNet net = new VerifyNet(shopOrderHandler, param, NetConf.URL_SHOP_ORDER);
         net.start();
     }
@@ -736,7 +737,7 @@ public class ShopVerifyActivity extends Activity {
         LocalStore store = new LocalStore(this);
         String userid = store.getDefaultUser();
         String deviceId = DeviceUtil.getDeviceId(this);
-        JSONObject param = NetParamFactory.shopOrderPaymentParam(userid, deviceId, buyer.getPriceText(), currentNumber, currentPayment);
+        JSONObject param = NetParamFactory.shopOrderPaymentParam(userid, deviceId, buyer.getPriceText(), currentNumber, currentPayment, promoCode);
         AbstractNet net = new VerifyNet(shopOrderPaymentHandler, param, NetConf.URL_SHOP_PAYMENT);
 
         net.start();
@@ -921,8 +922,9 @@ public class ShopVerifyActivity extends Activity {
 
                             float price = (float)data.getDouble("price");
                             Toast.makeText(ShopVerifyActivity.this, "优惠劵可用, 优惠金额 ：" + price, Toast.LENGTH_LONG).show();
-                            buyer.sub(price);
-                            totalPriceTextView.setText(buyer.getPriceText());
+//                            buyer.sub(price);
+                            buyer.setCouponPrice(price);
+                            totalPriceTextView.setText(buyer.getRealPriceText());
                         }else if ("0".equalsIgnoreCase(result)){
                             //优惠劵不可用
                             Toast.makeText(ShopVerifyActivity.this, "优惠劵不可用", Toast.LENGTH_LONG).show();
