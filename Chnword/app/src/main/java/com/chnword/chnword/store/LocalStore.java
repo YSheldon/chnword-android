@@ -19,13 +19,14 @@ public class LocalStore {
     private static final String USERNAMEKEY = "USERNAMEKEY";
 
     private static final String WORDDEFAULTKEY = "WORDDEFAULTKEY";
+    private static final String SHOULD_BIND_IPHONE = "SHOULD_BIND_IPHONE";
 
 
     private SharedPreferences perference;
 
 
     public LocalStore(Context context) {
-        perference = context.getSharedPreferences("LocalStore", Context.MODE_PRIVATE);
+        perference = context.getSharedPreferences("LocalStore", Context.MODE_MULTI_PROCESS);
 
     }
 
@@ -153,5 +154,17 @@ public class LocalStore {
         }
     }
 
+    //==============================================================================================
+    //=============================             BIND PHONE          ================================
+    //==============================================================================================
 
+    public  void setShouldBindIphoneNumber(boolean shouldBindIphoneNumber) {
+        SharedPreferences.Editor editor = perference.edit();
+        editor.putBoolean(SHOULD_BIND_IPHONE, shouldBindIphoneNumber);
+        editor.commit();
+    }
+
+    public boolean getShouldBindIphoneNumber() {
+        return perference.getBoolean(SHOULD_BIND_IPHONE, false);
+    }
 }
