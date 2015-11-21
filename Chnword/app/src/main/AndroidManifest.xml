@@ -144,6 +144,8 @@
             </intent-filter>
         </receiver>
 
+        <service android:name=".services.LoginServices"></service>
+
 
     </application>
 
