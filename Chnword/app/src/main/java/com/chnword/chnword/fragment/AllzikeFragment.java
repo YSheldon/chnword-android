@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 
 import com.chnword.chnword.R;
 import com.chnword.chnword.net.NetConf;
+import com.chnword.chnword.store.LocalStore;
 
 /**
  * Created by khtc on 15/9/15.
@@ -31,7 +32,9 @@ public class AllzikeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //跳转
-                Uri uri = Uri.parse(NetConf.URL_BUY);
+                LocalStore store = new LocalStore(getActivity());
+//                if ("0".equalsIgnoreCase()) {
+                Uri uri = Uri.parse(NetConf.URL_SHOPLIST + "?userid=" + store.getDefaultUser());
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
 
