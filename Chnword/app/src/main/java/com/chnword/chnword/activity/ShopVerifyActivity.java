@@ -834,6 +834,24 @@ public class ShopVerifyActivity extends Activity {
 
                     String result = obj.getString("result");
                     if (result != null && "1".equalsIgnoreCase(result)) {
+                        try {
+                            LocalStore store = new LocalStore(ShopVerifyActivity.this);
+                            if ("0".equalsIgnoreCase(store.getDefaultUser())) {
+                                JSONObject data = obj.getJSONObject("data");
+                                if (data != null) {
+                                    String code = data.getString("code");
+                                    String userId = data.getString("userid");
+                                    store.setDefaultUser(userId);
+                                    //// TODO: 15/11/21 show dialog
+                                    AlertDialog dialog = DialogUtil.createAlertDialog(ShopVerifyActivity.this, "请牢记您的激活码:" + code);
+                                    dialog.show();
+                                }
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
                         Toast.makeText(ShopVerifyActivity.this, "支付成功", Toast.LENGTH_LONG).show();
                         finish();
                     } else {
