@@ -9,6 +9,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
+import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
@@ -37,6 +38,11 @@ public class NetRunnable implements Runnable{
             Log.e(TAG, abstractNet.url + "");
 
             httpClient = new DefaultHttpClient();
+
+            httpClient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 2000);//连接时间
+            httpClient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 2000);//数据传输时间
+
+
             HttpPost httpPost = new HttpPost(abstractNet.url);
             httpPost.addHeader(HTTP.CONTENT_TYPE, AbstractNet.APPLICATION_JSON);
 
