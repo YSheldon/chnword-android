@@ -63,6 +63,7 @@ public class RegistActivity extends Activity {
             startActivity(intent);
             Intent service = new Intent(this, LoginServices.class);
             startService(service);
+            finish();
 
         } else {
 
