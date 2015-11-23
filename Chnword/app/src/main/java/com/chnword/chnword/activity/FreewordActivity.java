@@ -100,27 +100,27 @@ public class FreewordActivity extends Activity {
             R.drawable.draw_9,
             R.drawable.draw_10};
 
-    private static int[] tops = {R.drawable.topbg_1,
-            R.drawable.topbg_2,
-            R.drawable.topbg_3,
-            R.drawable.topbg_4,
-            R.drawable.topbg_5,
-            R.drawable.topbg_6,
-            R.drawable.topbg_7,
-            R.drawable.topbg_8,
-            R.drawable.topbg_9,
-            R.drawable.topbg_10};
+    private static int[] tops = {R.drawable.topbackg_1,
+            R.drawable.topbackg_2,
+            R.drawable.topbackg_3,
+            R.drawable.topbackg_4,
+            R.drawable.topbackg_5,
+            R.drawable.topbackg_6,
+            R.drawable.topbackg_7,
+            R.drawable.topbackg_8,
+            R.drawable.topbackg_9,
+            R.drawable.topbackg_10};
 
-    private static int[] mids = {R.drawable.midbg_1,
-            R.drawable.midbg_2,
-            R.drawable.midbg_3,
-            R.drawable.midbg_4,
-            R.drawable.midbg_5,
-            R.drawable.midbg_6,
-            R.drawable.midbg_7,
-            R.drawable.midbg_8,
-            R.drawable.midbg_9,
-            R.drawable.midbg_10};
+    private static int[] mids = {R.drawable.midbackg_1,
+            R.drawable.midbackg_2,
+            R.drawable.midbackg_3,
+            R.drawable.midbackg_4,
+            R.drawable.midbackg_5,
+            R.drawable.midbackg_6,
+            R.drawable.midbackg_7,
+            R.drawable.midbackg_8,
+            R.drawable.midbackg_9,
+            R.drawable.midbackg_10};
 
 
     SharePopWindow shareWindow;
