@@ -39,8 +39,8 @@ public class NetRunnable implements Runnable{
 
             httpClient = new DefaultHttpClient();
 
-            httpClient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 2000);//连接时间
-            httpClient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 2000);//数据传输时间
+            httpClient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 10 * 1000);//连接时间
+            httpClient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 10 * 1000);//数据传输时间
 
 
             HttpPost httpPost = new HttpPost(abstractNet.url);
