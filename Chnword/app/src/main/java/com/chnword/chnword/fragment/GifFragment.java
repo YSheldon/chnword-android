@@ -115,13 +115,18 @@ public class GifFragment extends Fragment {
         return uri;
     }
 
-    public void setUri(Uri uri) {
-        this.uri = uri;
-        try {
-            gib.setImageURI(uri);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void setUri(final Uri theUri) {
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                uri = theUri;
+                try {
+                    gib.setImageURI(uri);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public int getLength() {
