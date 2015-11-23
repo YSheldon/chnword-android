@@ -128,7 +128,9 @@
                     android:layout_width="437dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/phoneNumber"
-                    android:layout_marginLeft="20dp"/>
+                    android:layout_marginLeft="20dp"
+                    android:singleLine="true"
+                    android:inputType="number"/>
             </LinearLayout>
 
             <LinearLayout
@@ -200,7 +202,9 @@
                     <EditText
                         android:layout_width="248dp"
                         android:layout_height="wrap_content"
-                        android:id="@+id/verifyNumber"/>
+                        android:id="@+id/verifyNumber"
+                        android:singleLine="true"
+                        android:inputType="number"/>
                 </LinearLayout>
             </LinearLayout>
 
