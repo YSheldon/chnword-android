@@ -12,6 +12,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.LinearLayout;
 
+import com.chnword.chnword.store.LocalStore;
 import com.chnword.chnword.utils.PerferenceKey;
 import com.chnword.chnword.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -40,16 +41,6 @@ public class SplashActivity extends Activity {
         //Initialize ImageLoader with configuration.
         ImageLoader.getInstance().init(configuration);
 
-        //使用
-//        ImageLoader imageLoader = ImageLoader.getInstance();
-//
-//        imageLoader.displayImage(imageUri, imageView);
-//        imageLoader.loadImage(imageUri, new SimpleImageLoadingListener() {
-//            @Override
-//            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-//                // Do whatever you want with Bitmap
-//            }
-//        });
 
     }
 
@@ -65,20 +56,32 @@ public class SplashActivity extends Activity {
             @Override
             public void run() {
 
-                SharedPreferences perferences = getSharedPreferences(PerferenceKey.FirstLoginPreferences, Context.MODE_PRIVATE);
-                boolean isFirstLogin = perferences.getBoolean(PerferenceKey.firstLoginKey, true);
-                if (!isFirstLogin) {
+                LocalStore stroe = new LocalStore(SplashActivity.this);
+                if (!"0".equalsIgnoreCase(stroe.getDefaultUser())) {
+                    //免费用户
                     Intent intent = new Intent(SplashActivity.this, RegistActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
-                    SharedPreferences.Editor editor = perferences.edit();
-                    editor.putBoolean(PerferenceKey.firstLoginKey, false);
-                    editor.commit();
                     Intent i = new Intent(SplashActivity.this, GuideActivity.class);
                     startActivity(i);
                     finish();
                 }
+
+//                SharedPreferences perferences = getSharedPreferences(PerferenceKey.FirstLoginPreferences, Context.MODE_PRIVATE);
+//                boolean isFirstLogin = perferences.getBoolean(PerferenceKey.firstLoginKey, true);
+//                if (!isFirstLogin) {
+//                    Intent intent = new Intent(SplashActivity.this, RegistActivity.class);
+//                    startActivity(intent);
+//                    finish();
+//                } else {
+//                    SharedPreferences.Editor editor = perferences.edit();
+//                    editor.putBoolean(PerferenceKey.firstLoginKey, false);
+//                    editor.commit();
+//                    Intent i = new Intent(SplashActivity.this, GuideActivity.class);
+//                    startActivity(i);
+//                    finish();
+//                }
             }
         }, 2000);
     }
