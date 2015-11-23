@@ -244,4 +244,5 @@ public class PhoneBindActivity extends Activity {
         }
 
     };
+
 }
