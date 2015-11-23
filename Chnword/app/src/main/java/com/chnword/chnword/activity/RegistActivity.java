@@ -137,6 +137,12 @@ public class RegistActivity extends Activity {
     public void onLoginClick(View view){
         Log.i(TAG, "METHOD onLoginClick");
 
+        if ("".equalsIgnoreCase(editText.getText().toString().trim())) {
+            Toast.makeText(this, "请输入激活码!", Toast.LENGTH_LONG);
+            return;
+        }
+
+
         LocalStore store = new LocalStore(this);
 
         //这里需要进行下注册。
