@@ -154,7 +154,10 @@ public class TabActivity extends FragmentActivity {
                 switch (position) {
                     case 0:
                         //在线产品订购
-
+                        LocalStore store = new LocalStore(TabActivity.this);
+                        Uri uri = Uri.parse(NetConf.URL_SHOPLIST + "?userid=" + store.getDefaultUser());
+                        intent = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(intent);
 
                         break;
                     case 1:
@@ -201,6 +204,7 @@ public class TabActivity extends FragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        checkIsShouldBindPhone();
     }
 
     @Override
@@ -751,6 +755,18 @@ public class TabActivity extends FragmentActivity {
         Log.e(TAG, "METHOD SHOW TOP LIST VIEW");
         View view = findViewById(R.id.tab_main);
         popListWindow.showAtLocation(view, Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
+    }
+
+
+    private void checkIsShouldBindPhone() {
+        LocalStore store = new LocalStore(this);
+        if (!"0".equalsIgnoreCase(store.getDefaultUser())) {
+            if (store.getShouldBindIphoneNumber()) {
+                //
+                Intent intent = new Intent(this, PhoneBindActivity.class);
+                startActivity(intent);
+            }
+        }
     }
 
 }

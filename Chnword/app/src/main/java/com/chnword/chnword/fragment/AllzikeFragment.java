@@ -33,7 +33,6 @@ public class AllzikeFragment extends Fragment {
             public void onClick(View v) {
                 //跳转
                 LocalStore store = new LocalStore(getActivity());
-//                if ("0".equalsIgnoreCase()) {
                 Uri uri = Uri.parse(NetConf.URL_SHOPLIST + "?userid=" + store.getDefaultUser());
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
