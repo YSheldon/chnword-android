@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import com.chnword.chnword.R;
+import com.chnword.chnword.activity.WebActivity;
 import com.chnword.chnword.net.NetConf;
 import com.chnword.chnword.store.LocalStore;
 
@@ -33,8 +34,12 @@ public class AllzikeFragment extends Fragment {
             public void onClick(View v) {
                 //跳转
                 LocalStore store = new LocalStore(getActivity());
-                Uri uri = Uri.parse(NetConf.URL_SHOPLIST + "?userid=" + store.getDefaultUser());
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//                Uri uri = Uri.parse(NetConf.URL_SHOPLIST + "?userid=" + store.getDefaultUser());
+//                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//                startActivity(intent);
+
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra(WebActivity.URL_KEY, NetConf.URL_SHOPLIST + "?userid=" + store.getDefaultUser());
                 startActivity(intent);
 
             }

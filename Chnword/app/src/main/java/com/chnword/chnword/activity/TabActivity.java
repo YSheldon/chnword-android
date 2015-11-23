@@ -155,8 +155,12 @@ public class TabActivity extends FragmentActivity {
                     case 0:
                         //在线产品订购
                         LocalStore store = new LocalStore(TabActivity.this);
-                        Uri uri = Uri.parse(NetConf.URL_SHOPLIST + "?userid=" + store.getDefaultUser());
-                        intent = new Intent(Intent.ACTION_VIEW, uri);
+//                        Uri uri = Uri.parse(NetConf.URL_SHOPLIST + "?userid=" + store.getDefaultUser());
+//                        intent = new Intent(Intent.ACTION_VIEW, uri);
+//                        startActivity(intent);
+
+                        intent = new Intent(TabActivity.this, WebActivity.class);
+                        intent.putExtra(WebActivity.URL_KEY, NetConf.URL_SHOPLIST + "?userid=" + store.getDefaultUser());
                         startActivity(intent);
 
                         break;

@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import com.chnword.chnword.R;
+import com.chnword.chnword.activity.WebActivity;
 import com.chnword.chnword.net.NetConf;
+import com.chnword.chnword.store.LocalStore;
 
 /**
  * Created by khtc on 15/9/15.
@@ -31,8 +33,9 @@ public class CardzikeFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 //跳转
-                Uri uri = Uri.parse(NetConf.URL_BUY);
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                LocalStore store = new LocalStore(getActivity());
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                intent.putExtra(WebActivity.URL_KEY, NetConf.URL_SHOPLIST + "?userid=" + store.getDefaultUser());
                 startActivity(intent);
             }
         });
