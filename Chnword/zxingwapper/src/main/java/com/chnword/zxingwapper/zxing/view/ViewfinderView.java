@@ -217,8 +217,13 @@ public final class ViewfinderView extends View {
 			paint.setTextSize(TEXT_SIZE * density);
 			paint.setAlpha(0x40);
 			paint.setTypeface(Typeface.create("System", Typeface.BOLD));
-			canvas.drawText(getResources().getString(R.string.scan_text), frame.left, (float) (frame.bottom + (float)TEXT_PADDING_TOP *density), paint);
-			
+//			canvas.drawText(getResources().getString(R.string.scan_text), frame.left, (float) (frame.bottom + (float)TEXT_PADDING_TOP *density), paint);
+            Paint.FontMetricsInt fontMetrics = paint.getFontMetricsInt();
+            Rect targetRect = new Rect(frame.left, frame.bottom + 4, frame.right, frame.bottom + 30);
+            int baseline = (targetRect.bottom + targetRect.top - fontMetrics.bottom - fontMetrics.top) / 2;
+            // 下面这行是实现水平居中，drawText对应改为传入targetRect.centerX()
+            paint.setTextAlign(Paint.Align.CENTER);
+            canvas.drawText(getResources().getString(R.string.scan_text), targetRect.centerX(), baseline, paint);
 			
 
 			Collection<ResultPoint> currentPossible = possibleResultPoints;
