@@ -6,8 +6,8 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
         android:background="@drawable/word">
 
         <TextView
@@ -16,6 +16,6 @@
             android:text="字"
             android:id="@+id/word_aname"
             android:gravity="center"
-            android:textSize="120dp" />
+            android:textSize="100dp" />
     </LinearLayout>
 </LinearLayout>
