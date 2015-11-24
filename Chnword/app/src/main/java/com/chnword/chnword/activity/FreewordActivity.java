@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -177,9 +178,14 @@ public class FreewordActivity extends Activity {
         //
         modulNameTextView.setText(title);
 
-        freewordTop.setBackgroundResource(draws[resourceIndex]);
-        bottomLinear.setBackgroundResource(mids[resourceIndex]);
-        freeTopLinear.setBackgroundResource(tops[resourceIndex]);
+//        BitmapDrawable drawable1 = (BitmapDrawable) getResources().getDrawable(draws[index]);
+//        BitmapDrawable drawable2 = (BitmapDrawable) getResources().getDrawable(draws[index]);
+//        BitmapDrawable drawable1 = (BitmapDrawable) getResources().getDrawable(draws[index]);
+
+        freewordTop.setBackground(getResources().getDrawable(draws[index]));
+        bottomLinear.setBackground(getResources().getDrawable(mids[index]));
+        freeTopLinear.setBackground(getResources().getDrawable(tops[index]));
+//        freeTopLinear.setBackground();
 
         shareWindow = new SharePopWindow(this, new View.OnClickListener() {
             @Override
