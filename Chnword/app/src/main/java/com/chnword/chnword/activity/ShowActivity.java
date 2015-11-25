@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.chnword.chnword.R;
 import com.chnword.chnword.beans.Word;
+import com.chnword.chnword.demo.VitamioListActivity;
 import com.chnword.chnword.dialogs.DialogUtil;
 import com.chnword.chnword.fragment.GifFragment;
 import com.chnword.chnword.net.AbstractNet;
@@ -417,10 +418,19 @@ public class ShowActivity extends Activity {
     public void onShowVideo(View view) {
         Log.e(TAG, "METHOD onShowVideo");
 
-        Intent intent = new Intent(this, VideoActivity.class);
+//        Intent intent = new Intent(this, VideoActivity.class);
+//        intent.putExtra("videoUrl", videoUri);
+//        startActivity(intent);
+//        finish();
+
+        Intent intent = new Intent(this, VideoPlayerActivity.class);
         intent.putExtra("videoUrl", videoUri);
         startActivity(intent);
         finish();
+
+//        Intent intent = new Intent(this, VitamioListActivity.class);
+//        startActivity(intent);
+//        finish();
     }
 
     public void nextButton(View view) {
