@@ -25,6 +25,12 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+
 
     <application
         android:allowBackup="true"
@@ -38,7 +44,6 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -117,10 +122,7 @@
             android:name="UMENG_APPKEY"
             android:value="559bc73c67e58ef33e000fe3" >
         </meta-data>
-
-
-
-
+        
 
         <!-- 支付宝 -->
         <activity
@@ -148,6 +150,18 @@
         <service android:name=".services.LoginServices"></service>
 
 
+        <activity android:name=".activity.VideoPlayerActivity"></activity>
+
+
+
+        <!--vitamio demo-->
+        <!-- Don't forgot InitActivity -->
+        <activity
+            android:name="io.vov.vitamio.activity.InitActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
 
     </application>
 
