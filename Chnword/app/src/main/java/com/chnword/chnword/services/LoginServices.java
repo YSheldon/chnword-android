@@ -89,6 +89,7 @@ public class LoginServices extends Service {
                     } else if (result == 1) {
                         //正确
                         Intent intent = new Intent(LoginServices.this, TabActivity.class);
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                         startActivity(intent);
                     }
 
