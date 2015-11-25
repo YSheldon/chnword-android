@@ -148,6 +148,7 @@
         <service android:name=".services.LoginServices"></service>
 
 
+
     </application>
 
 </manifest>
