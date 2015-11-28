@@ -7,15 +7,21 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
+        android:layout_height="4px"
+        android:background="#dfdfdf"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="40dp">
+        android:layout_margin="20dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="分类选购字课资源"
             android:id="@+id/textView65"
-            android:textSize="40dp"
+            android:textSize="24dp"
             android:textColor="#663300"/>
     </LinearLayout>
 
@@ -25,51 +31,64 @@
         >
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:layout_alignParentBottom="true"
             android:id="@+id/cateBottom">
 
             <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="总计："
-                    android:id="@+id/textView71"
-                    android:textColor="#000000"
-                    android:textSize="26dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0.0"
-                    android:id="@+id/priceTextView"
-                    android:textSize="26dp"
-                    android:textColor="#ff0000"/>
-            </LinearLayout>
-
-            <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center">
+                android:layout_height="4px"
+                android:background="#dfdfdf"/>
 
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/cateBuyButton"
-                    android:src="@drawable/order_icon"
-                    android:scaleType="fitCenter"
-                    android:background="#00000000"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="总计："
+                        android:id="@+id/textView71"
+                        android:textColor="#000000"
+                        android:textSize="26dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0.0"
+                        android:id="@+id/priceTextView"
+                        android:textSize="26dp"
+                        android:textColor="#ff0000"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/cateBuyButton"
+                        android:src="@drawable/order_icon"
+                        android:scaleType="fitCenter"
+                        android:background="#00000000"/>
+                </LinearLayout>
             </LinearLayout>
+
         </LinearLayout>
 
         <ListView
