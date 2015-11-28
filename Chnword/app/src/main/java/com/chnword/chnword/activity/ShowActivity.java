@@ -200,8 +200,6 @@ public class ShowActivity extends Activity {
                     } finally {
 //                                progressDialog.dismiss();
                     }
-
-
                 }
             });
         } else {
