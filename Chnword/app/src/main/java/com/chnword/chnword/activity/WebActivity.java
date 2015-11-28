@@ -20,6 +20,8 @@ public class WebActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.activity_web);
+
         Bundle bundle = getIntent().getExtras();
         String url = bundle.getString(URL_KEY);
 
