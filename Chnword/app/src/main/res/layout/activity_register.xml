@@ -92,7 +92,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="授权用户——"
+                    android:text="授权用户"
                     android:id="@+id/textView6"
                     android:textColor="#000"
                     android:typeface="serif"
@@ -112,11 +112,12 @@
 
                         <EditText
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="35dp"
                             android:inputType="number"
                             android:ems="10"
                             android:id="@+id/editText"
-                            android:layout_marginLeft="5dp"/>
+                            android:layout_marginLeft="5dp"
+                            android:background="@null"/>
 
                         <LinearLayout
                             android:orientation="vertical"
@@ -135,7 +136,8 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_marginTop="30dp">
 
         <ImageView
             android:layout_width="wrap_content"
