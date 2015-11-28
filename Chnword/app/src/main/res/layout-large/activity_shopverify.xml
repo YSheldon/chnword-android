@@ -7,20 +7,20 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="100dp"
         android:background="#649f835b"
         android:id="@+id/relativeLayout15">
 
         <ImageButton
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:id="@+id/backImageButton"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="false"
             android:layout_centerVertical="true"
             android:src="@drawable/t_button_back"
             android:scaleType="fitXY"
-            android:layout_margin="10dp"
+            android:layout_margin="15dp"
             android:background="#00000000"/>
 
         <TextView
@@ -178,7 +178,9 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:id="@+id/top">
+                    android:id="@+id/top"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp">
 
                     <RadioGroup
                         android:layout_width="match_parent"
@@ -189,7 +191,8 @@
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="1">
+                            android:layout_weight="1"
+                            android:layout_margin="20dp">
 
                             <LinearLayout
                                 android:orientation="vertical"
@@ -265,10 +268,11 @@
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_alignParentBottom="true"
-                    android:id="@+id/bottom">
+                    android:id="@+id/bottom"
+                    android:layout_marginBottom="30dp">
 
                     <ImageButton
                         android:layout_width="wrap_content"

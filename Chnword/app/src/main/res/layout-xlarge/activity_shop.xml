@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/main_bg">
+              android:orientation="vertical" android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/main_bg">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="120dp"
         android:background="#649f835b"
         android:id="@+id/relativeLayout9">
 
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/textView3"
             android:layout_centerInParent="true"
-            android:textSize="24dp"
+            android:textSize="20dp"
             android:textColor="#ffffff"
             android:text="商城"/>
 
@@ -38,17 +38,16 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            >
+            android:visibility="gone">
 
             <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:id="@+id/imageButton21"
                 android:background="#00000000"
-                android:layout_margin="15dp"
+                android:layout_margin="5dp"
                 android:src="@drawable/t_button_list"
-                android:scaleType="fitCenter"
-                android:onClick="showTopList"/>
+                android:scaleType="fitCenter"/>
 
             <ImageButton
                 android:layout_width="40dp"
@@ -57,15 +56,14 @@
                 android:background="#00000000"
                 android:layout_margin="5dp"
                 android:src="@drawable/t_button_share"
-                android:scaleType="fitCenter"
-                android:visibility="gone"/>
+                android:scaleType="fitCenter"/>
         </LinearLayout>
     </RelativeLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="80dp"
         android:gravity="center">
 
         <LinearLayout
@@ -85,7 +83,7 @@
                     android:layout_height="match_parent"
                     android:id="@+id/allZikeButton"
                     android:background="#00000000"
-                    android:scaleType="fitCenter"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/tabtoppic1"/>
             </LinearLayout>
 
@@ -102,7 +100,7 @@
                     android:id="@+id/cateZikeButton"
                     android:background="#00000000"
                     android:src="@drawable/tabtoppic2"
-                    android:scaleType="fitCenter"/>
+                    android:scaleType="centerCrop"/>
             </LinearLayout>
 
             <LinearLayout
@@ -117,7 +115,7 @@
                     android:layout_height="match_parent"
                     android:id="@+id/cardZikeButton"
                     android:background="#00000000"
-                    android:scaleType="fitCenter"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/tabtoppic3"/>
             </LinearLayout>
         </LinearLayout>

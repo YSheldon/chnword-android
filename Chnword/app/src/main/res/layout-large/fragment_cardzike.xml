@@ -25,33 +25,35 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/imageView23"
                     android:src="@drawable/order3pic1"
-                    android:scaleType="fitXY"/>
+                    android:scaleType="fitCenter"/>
             </LinearLayout>
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/imageView24"
-                    android:scaleType="fitXY"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/order3pic2"/>
             </LinearLayout>
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/imageView25"
                     android:src="@drawable/order3pic4"
-                    android:scaleType="fitXY"
+                    android:scaleType="fitCenter"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"/>
             </LinearLayout>
@@ -59,25 +61,27 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/imageView26"
                     android:src="@drawable/order3pic5"
-                    android:scaleType="fitXY"
+                    android:scaleType="fitCenter"
                     android:layout_margin="8dp"/>
             </LinearLayout>
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:gravity="center">
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="10dp">
 
                 <ImageButton
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/orderBuyButton"
                     android:src="@drawable/order_icon"

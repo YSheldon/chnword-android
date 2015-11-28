@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_bg"
+    android:background="@drawable/m_bg"
     android:id="@+id/register_main">
 
     <LinearLayout
@@ -16,43 +16,47 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="你不一定真正认识汉字，不信？试试看！"
                 android:id="@+id/textView22" />
-        </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="体验用户，请点击——                      "
-            android:id="@+id/textView23"
-            android:textSize="20dp"
-            android:textColor="#000"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="体验用户，请点击——                      "
+                android:id="@+id/textView23"
+                android:layout_marginTop="5dp" />
+        </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:gravity="center">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/trial_button"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
             android:clickable="true"
-            android:onClick="onTryButtonClicked"></LinearLayout>
+            android:onClick="onTryButtonClicked">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView44"
+                android:src="@drawable/trial_button"
+                android:scaleType="fitXY"/>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -107,16 +111,17 @@
                         android:layout_alignParentBottom="true">
 
                         <EditText
-                            android:layout_width="230dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:inputType="number"
                             android:ems="10"
-                            android:id="@+id/editText" />
+                            android:id="@+id/editText"
+                            android:layout_marginLeft="5dp"/>
 
                         <LinearLayout
                             android:orientation="vertical"
                             android:layout_width="fill_parent"
-                            android:layout_height="5dp"
+                            android:layout_height="match_parent"
                             android:background="@drawable/inputboyline"></LinearLayout>
                     </LinearLayout>
                 </RelativeLayout>
@@ -130,14 +135,13 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal">
+        android:gravity="center">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageView11"
             android:src="@drawable/login_button"
-            android:layout_margin="10dp"
             android:onClick="onLoginClick" />
     </LinearLayout>
 

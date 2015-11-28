@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -12,15 +14,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.chnword.chnword.R;
 import com.chnword.chnword.activity.FreeCateActivity;
+import com.chnword.chnword.activity.RegistActivity;
 import com.chnword.chnword.activity.ShopActivity;
 import com.chnword.chnword.activity.TabActivity;
 import com.chnword.chnword.activity.UsercateActivity;
+import com.chnword.chnword.dialogs.DialogUtil;
+import com.chnword.chnword.net.AbstractNet;
+import com.chnword.chnword.net.DeviceUtil;
+import com.chnword.chnword.net.NetConf;
+import com.chnword.chnword.net.NetParamFactory;
+import com.chnword.chnword.net.VerifyNet;
 import com.chnword.chnword.popwindow.PopScanWindow;
 import com.chnword.chnword.store.LocalStore;
 import com.chnword.zxingwapper.zxing.activity.MipcaActivityCapture;
+
+import org.json.JSONObject;
 
 /**
  * Created by khtc on 15/4/23.
@@ -88,6 +100,11 @@ public class TabPage extends Fragment {
                         String code = popScanWindow.text();
                         //todo 处理submit
 
+                        Intent intent  = new Intent(getActivity(), RegistActivity.class);
+                        startActivity(intent);
+
+
+
                         break;
 
                     case R.id.btn_card:
@@ -146,5 +163,4 @@ public class TabPage extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
     }
-
 }

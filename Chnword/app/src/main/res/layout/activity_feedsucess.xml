@@ -12,15 +12,15 @@
         android:id="@+id/relativeLayout3">
 
         <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:id="@+id/backImageButton"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="false"
             android:layout_centerVertical="true"
             android:src="@drawable/t_button_back"
             android:scaleType="fitXY"
-            android:layout_margin="5dp"
+            android:layout_margin="15dp"
             android:background="#00000000"/>
 
         <TextView
@@ -62,11 +62,12 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center">
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:id="@+id/imageView14"
             android:src="@drawable/info_success"
             android:scaleType="fitCenter"/>
@@ -84,7 +85,7 @@
             android:layout_height="wrap_content"
             android:text="谢谢您的支持，我们将做的更好。"
             android:id="@+id/textView24"
-            android:textSize="24dp"
+            android:textSize="20dp"
             android:textColor="#000000"
             android:gravity="center"/>
     </LinearLayout>

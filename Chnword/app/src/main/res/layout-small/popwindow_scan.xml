@@ -34,13 +34,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:gravity="center_horizontal"
-                android:layout_margin="10dp">
+                android:layout_margin="10dp"
+                android:weightSum="1">
 
                 <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="158dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/imageView12"
-                    android:src="@drawable/mis_page_disable" />
+                    android:src="@drawable/mis_page_disable"
+                    android:layout_weight="0.81"/>
             </LinearLayout>
 
             <LinearLayout
@@ -70,7 +72,8 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:gravity="bottom">
+                    android:gravity="bottom"
+                    android:layout_margin="10dp">
 
                     <EditText
                         android:layout_width="209dp"
@@ -109,7 +112,8 @@
                     android:id="@+id/btn_card"
                     android:src="@drawable/cardbox_button"
                     android:background="#00000000"
-                    android:scaleType="fitCenter"/>
+                    android:scaleType="fitCenter"
+                    android:layout_margin="10dp"/>
             </LinearLayout>
 
         </LinearLayout>

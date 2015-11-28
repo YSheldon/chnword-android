@@ -12,15 +12,15 @@
         android:id="@+id/relativeLayout2">
 
         <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:id="@+id/backImageButton"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="false"
             android:layout_centerVertical="true"
             android:src="@drawable/t_button_back"
             android:scaleType="fitXY"
-            android:layout_margin="20dp"
+            android:layout_margin="15dp"
             android:background="#00000000"/>
 
         <TextView
@@ -82,7 +82,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:id="@+id/feedbackText"
-        android:background="#eee"
+        android:background="#ffffff"
         android:layout_margin="10dp"
         android:hint="您的反馈将帮助我们更快的成长"
         android:inputType="textMultiLine"

@@ -88,6 +88,10 @@ public class RegistActivity extends Activity {
                     {
                         //进行跳转
                         Log.e(TAG, "BUY BUTTON CLICKED.");
+                        LocalStore store1 = new LocalStore(RegistActivity.this);
+                        Intent intent = new Intent(RegistActivity.this, WebActivity.class);
+                        intent.putExtra(WebActivity.URL_KEY, NetConf.URL_SHOPLIST + "?userid=" + store1.getDefaultUser());
+                        startActivity(intent);
 
                     }
                         break;

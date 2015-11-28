@@ -69,7 +69,7 @@ public class CatebuyAdapter extends BaseAdapter {
         ImageView cateCheckView = (ImageView) convertView.findViewById(R.id.cateCheckView);
 
         cateNameTextView.setText(item.getName());
-        catePriceTextView.setText(item.getPriceString());
+        catePriceTextView.setText("￥" + item.getPriceString());
 
 
         if (item.getIconUrl() != null) {

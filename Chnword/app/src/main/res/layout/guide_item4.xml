@@ -5,7 +5,9 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:onClick="onButtonClick">
 
         <ImageView
             android:layout_width="match_parent"
@@ -27,7 +29,8 @@
             android:onClick="onButtonClick"
             android:clickable="true"
             android:background="#ca8310"
-            android:padding="5dp"/>
+            android:padding="5dp"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 
