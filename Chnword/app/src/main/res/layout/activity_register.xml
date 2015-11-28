@@ -70,8 +70,8 @@
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="120dp"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/rela_right"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/inputboy"
@@ -111,13 +111,15 @@
                         android:layout_alignParentBottom="true">
 
                         <EditText
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="35dp"
                             android:inputType="number"
                             android:ems="10"
                             android:id="@+id/editText"
-                            android:layout_marginLeft="5dp"
-                            android:background="@null"/>
+                            android:layout_marginLeft="30dp"
+                            android:background="@null"
+                            android:layout_marginRight="40dp"
+                            android:gravity="center"/>
 
                         <LinearLayout
                             android:orientation="vertical"
