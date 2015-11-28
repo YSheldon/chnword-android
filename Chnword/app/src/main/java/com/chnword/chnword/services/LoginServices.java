@@ -77,20 +77,23 @@ public class LoginServices extends Service {
                 if (msg.what == AbstractNet.NETWHAT_SUCESS)
                 {
                     JSONObject obj = new JSONObject(str);
-                    int result = obj.getInt("result");
+//                    int result = obj.getInt("result");
+
+                    String result = obj.getString("result");
 
 
 
-
-                    if (result == 0 ){
+                    if ("0".equalsIgnoreCase(result)){
                         //该用户不存在
-                        Toast.makeText(LoginServices.this, "该用户不存在", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginServices.this, "请重新登录", Toast.LENGTH_LONG).show();
 
-                    } else if (result == 1) {
-                        //正确
                         Intent intent = new Intent(LoginServices.this, TabActivity.class);
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                         startActivity(intent);
+
+                    } else if ("1".equalsIgnoreCase(result)) {
+                        //正确
+
                     }
 
                 }
