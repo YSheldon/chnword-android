@@ -391,56 +391,57 @@ public class FreewordActivity extends Activity {
 
                         Log.e(TAG, obj.getString("data"));
                         JSONArray wordArray = obj.getJSONArray("data");
-                        Log.e(TAG, wordArray.toString());
-                        for (int i = 0; i < wordArray.length(); i ++) {
-                            JSONObject wordObj = wordArray.getJSONObject(i);
-                            WordShare word = new WordShare();
+                        if (wordArray != null ) {
+                            Log.e(TAG, wordArray.toString());
+                            for (int i = 0; i < wordArray.length(); i ++) {
+                                JSONObject wordObj = wordArray.getJSONObject(i);
+                                WordShare word = new WordShare();
 
-                            word.setGifUrl(wordObj.getString("gif"));
-                            word.setVideoUrl(wordObj.getString("video"));
-                            word.setIconUrl(wordObj.getString("icon"));
-                            word.setWord(wordObj.getString("word"));
-                            word.setSort(wordObj.getString("sort"));
-                            word.setShareTitle(wordObj.getString("share_title"));
-                            word.setShareDesc(wordObj.getString("share_desc"));
-                            word.setShareIcon(wordObj.getString("share_icon"));
-                            word.setShareUrl(wordObj.getString("share_url"));
+                                word.setGifUrl(wordObj.getString("gif"));
+                                word.setVideoUrl(wordObj.getString("video"));
+                                word.setIconUrl(wordObj.getString("icon"));
+                                word.setWord(wordObj.getString("word"));
+                                word.setSort(wordObj.getString("sort"));
+                                word.setShareTitle(wordObj.getString("share_title"));
+                                word.setShareDesc(wordObj.getString("share_desc"));
+                                word.setShareIcon(wordObj.getString("share_icon"));
+                                word.setShareUrl(wordObj.getString("share_url"));
 //                            word.setWordIndex(wordObj.getString("unicode"));
-                            Log.e(TAG, "OBJ:" + wordObj.toString());
-                            Log.e(TAG, word.toString());
-                            wordList.add(word);
-                        }
-                        //// TODO: 15/11/14 根据显示的数目进行判断
-                        if (wordList.size() == 1) {
-                            ImageLoader imageLoader = ImageLoader.getInstance();
-                            imageLoader.displayImage(url, wordImageView);
+                                Log.e(TAG, "OBJ:" + wordObj.toString());
+                                Log.e(TAG, word.toString());
+                                wordList.add(word);
+                            }
+                            //// TODO: 15/11/14 根据显示的数目进行判断
+                            if (wordList.size() == 1) {
+                                ImageLoader imageLoader = ImageLoader.getInstance();
+                                imageLoader.displayImage(url, wordImageView);
 
-                            WordShare word = wordList.get(0);
+                                WordShare word = wordList.get(0);
 //                            guideLayout.setVisibility(View.INVISIBLE);
 //                            imageLoader.displayImage(url, wordImageView2);
-                            freewordCode2.setText(word.getWord());
-                            setUpSharedContent(word);
+                                freewordCode2.setText(word.getWord());
+                                setUpSharedContent(word);
 
-                        } else if (wordList.size() == 2) {
+                            } else if (wordList.size() == 2) {
 
-                            ImageLoader imageLoader = ImageLoader.getInstance();
-                            WordShare word = wordList.get(0);
-                            guideLayout.setVisibility(View.INVISIBLE);
+                                ImageLoader imageLoader = ImageLoader.getInstance();
+                                WordShare word = wordList.get(0);
+                                guideLayout.setVisibility(View.INVISIBLE);
 //                            imageLoader.displayImage(word.getIconUrl(), wordImageView2);
-                            freewordCode.setText(word.getWord());
+                                freewordCode.setText(word.getWord());
 
-                            WordShare word2 = wordList.get(1);
-                            guideLayout.setVisibility(View.INVISIBLE);
+                                WordShare word2 = wordList.get(1);
+                                guideLayout.setVisibility(View.INVISIBLE);
 //                            imageLoader.displayImage(word2.getIconUrl(), wordImageView);
-                            freewordCode2.setText(word.getWord());
+                                freewordCode2.setText(word.getWord());
 
-                            setUpSharedContent(word2);
+                                setUpSharedContent(word2);
 
-                        } else {
-                            //多于两个，错误
+                            } else {
+                                //多于两个，错误
 
+                            }
                         }
-
                     } else {
                         Toast.makeText(FreewordActivity.this, "服务器无数据返回", Toast.LENGTH_LONG).show();
                     }
@@ -544,5 +545,40 @@ public class FreewordActivity extends Activity {
     };
 
 
+    public void onFirstWordClicked(View v) {
+//        Word word = wordList.get(position);
+
+        if (wordList.size() > 0) {
+            WordShare word = wordList.get(0);
+            Intent intent = new Intent(this, ShowActivity.class);
+
+//            intent.putExtra("word", word.getWord());
+//            intent.putExtra("word_index", word.getWord());
+            intent.putExtra("freetype", "1");
+            intent.putExtra("gifurl", word.getGifUrl());
+            intent.putExtra("mp4url", word.getVideoUrl());
+
+            startActivity(intent);
+        }
+
+
+    }
+    public void onSecondWordClicked(View v) {
+
+        if (wordList.size() == 1) {
+            WordShare word = wordList.get(1);
+            Intent intent = new Intent(this, ShowActivity.class);
+
+//            intent.putExtra("word", word.getWord());
+//            intent.putExtra("word_index", word.getWord());
+            intent.putExtra("freetype", "1");
+            intent.putExtra("gifurl", word.getGifUrl());
+            intent.putExtra("mp4url", word.getVideoUrl());
+            startActivity(intent);
+        }
+
+
+
+    }
 
 }

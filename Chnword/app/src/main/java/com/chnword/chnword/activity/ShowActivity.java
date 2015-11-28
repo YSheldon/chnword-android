@@ -75,6 +75,10 @@ public class ShowActivity extends Activity {
 
     private ImageButton backImageButton;
 
+    private String freetype;//标志位，1，表明是用于show的。
+    private String gifUrl;
+    private String mp4Url;
+
 
 //    private SeekBar seekBar;
 
@@ -90,12 +94,26 @@ public class ShowActivity extends Activity {
         store = new LocalStore(this);
 
         Intent intent = getIntent();
-        String word = intent.getStringExtra("word");
-        String word_index = intent.getStringExtra("word_index");
 
-        this.word = new Word();
-        this.word.setWordIndex(word_index);
-        this.word.setWord(word);
+        Bundle bundle = intent.getExtras();
+        freetype = bundle.getString("freetype", "0");
+        if ("1".equalsIgnoreCase(freetype)) {
+            //获得gif url 和 MP4 url
+            gifUrl = bundle.getString("gifurl", "");
+            mp4Url = bundle.getString("mp4url", "");
+
+
+        } else {
+            //初始化word
+            String word = intent.getStringExtra("word");
+            String word_index = intent.getStringExtra("word_index");
+
+            this.word = new Word();
+            this.word.setWordIndex(word_index);
+            this.word.setWord(word);
+        }
+
+
 
         gifFragment = new GifFragment();
 
@@ -151,8 +169,44 @@ public class ShowActivity extends Activity {
     protected void onStart() {
         super.onStart();
 
-        requestNet();
+        if ("1".equalsIgnoreCase(freetype)){
+//            gifFragment.setUri(Uri.parse(gifUrl));
+            new Handler().post(new Runnable() {
+                @Override
+                public void run() {
 
+                    File cache = new File(Environment.getExternalStorageDirectory(), "cache");
+                    if (!cache.exists()) {
+                        cache.mkdirs();
+                    }
+
+                    try {
+                        Log.e(TAG, gifUrl);
+                        Uri uri = getImageURI(gifUrl, cache);
+
+
+                        Message msg = new Message();
+                        msg.what = 1001;
+
+                        Bundle bundle = new Bundle();
+                        bundle.putString("url", uri.toString());
+
+                        msg.setData(bundle);
+
+                        downloadImageHandler.handleMessage(msg);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+//                                progressDialog.dismiss();
+                    }
+
+
+                }
+            });
+        } else {
+            requestNet();
+        }
     }
 
     @Override
@@ -212,13 +266,12 @@ public class ShowActivity extends Activity {
                     initUmeng();
 
 
-
-                    new Thread(new Runnable() {
+                    new Handler().post(new Runnable() {
                         @Override
                         public void run() {
 
                             File cache = new File(Environment.getExternalStorageDirectory(), "cache");
-                            if(!cache.exists()){
+                            if (!cache.exists()) {
                                 cache.mkdirs();
                             }
 
@@ -237,7 +290,7 @@ public class ShowActivity extends Activity {
 
                                 downloadImageHandler.handleMessage(msg);
 
-                            } catch(Exception e) {
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             } finally {
 //                                progressDialog.dismiss();
@@ -245,7 +298,7 @@ public class ShowActivity extends Activity {
 
 
                         }
-                    }).start();
+                    });
 
 
 
@@ -422,8 +475,14 @@ public class ShowActivity extends Activity {
 //        startActivity(intent);
 //        finish();
 
+
+
         Intent intent = new Intent(this, VideoPlayerActivity.class);
-        intent.putExtra("videoUrl", videoUri);
+        if ("1".equalsIgnoreCase(freetype)) {
+            intent.putExtra("videoUrl", mp4Url);
+        }else {
+            intent.putExtra("videoUrl", videoUri);
+        }
         startActivity(intent);
         finish();
 

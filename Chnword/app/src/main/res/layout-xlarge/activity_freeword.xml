@@ -100,7 +100,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="80dp"
                                 android:layout_weight="2"
-                                android:gravity="center">
+                                android:gravity="center"
+                                android:onClick="onFirstWordClicked"
+                                android:clickable="true">
 
                                 <LinearLayout
                                     android:orientation="vertical"
@@ -120,7 +122,6 @@
                                         <TextView
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent"
-                                            android:text="字"
                                             android:id="@+id/freewordCode2"
                                             android:gravity="center"
                                             android:textColor="#000000"
@@ -135,7 +136,8 @@
                                 android:layout_height="80dp"
                                 android:layout_weight="2"
                                 android:gravity="center"
-                                >
+                                android:onClick="onSecondWordClicked"
+                                android:clickable="true">
 
                                 <LinearLayout
                                     android:orientation="vertical"
