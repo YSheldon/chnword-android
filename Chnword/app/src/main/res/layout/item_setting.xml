@@ -6,12 +6,12 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="50dp"
         android:background="@drawable/ubg">
 
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:id="@+id/settingImg"
             android:layout_margin="3dp"/>
 
@@ -47,8 +47,8 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:id="@+id/imageView16"
                     android:src="@drawable/uarow"
                     android:layout_margin="10dp"/>

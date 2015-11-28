@@ -73,14 +73,14 @@
             android:layout_height="240dp">
 
             <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
                 android:id="@+id/userLevelButton"
                 android:layout_centerInParent="true"
                 android:background="#00000000"
                 android:src="@drawable/topicon_no"
                 android:scaleType="fitCenter"
-                android:layout_margin="5dp"/>
+                android:layout_margin="20dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
