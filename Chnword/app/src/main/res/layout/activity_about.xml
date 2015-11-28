@@ -69,14 +69,16 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_margin="20dp">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageView20"
                 android:src="@drawable/aboutus_tit"
-                android:scaleType="fitCenter"/>
+                android:scaleType="fitCenter"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -101,7 +103,7 @@
                 android:id="@+id/textView60"
                 android:textColor="#000000"
                 android:textSize="20dp"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="10dp"/>
         </LinearLayout>
 
         <RelativeLayout
@@ -143,10 +145,13 @@
                     android:id="@+id/imageView21"
                     android:src="@drawable/aboutus_pic1"
                     android:layout_margin="5dp"
-                    android:scaleType="fitXY"/>
+                    android:scaleType="fitXY"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"/>
             </LinearLayout>
 
         </RelativeLayout>
 
     </LinearLayout>
+
 </LinearLayout>
