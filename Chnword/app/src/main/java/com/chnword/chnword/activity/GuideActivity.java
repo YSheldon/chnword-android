@@ -182,7 +182,7 @@ public class GuideActivity extends Activity {
 
         @Override
         public void onPageScrolled(int i, float v, int i2) {
-            
+
         }
 
         @Override

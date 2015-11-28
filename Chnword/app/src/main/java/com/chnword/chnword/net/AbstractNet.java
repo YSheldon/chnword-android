@@ -56,7 +56,7 @@ public class AbstractNet {
 
     protected void didFail() {
         Message message = new Message();
-        message.what = AbstractNet.NETWHAT_SUCESS;
+        message.what = AbstractNet.NETWHAT_FAIL;
         Bundle b = new Bundle();
         handler.sendMessage(message);
     }

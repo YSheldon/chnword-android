@@ -81,7 +81,7 @@ public class NetRunnable implements Runnable{
 
         } catch (Exception e) {
             abstractNet.didFail();
-            e.printStackTrace();
+//            e.printStackTrace();
         }finally {
             //关闭连接等
 
