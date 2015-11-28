@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -151,13 +152,20 @@ public class GuideActivity extends Activity {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {  //这个方法用来实例化页卡
-            container.addView(mListViews.get(position), 0);//添加页卡
-            return mListViews.get(position);
+
+            if (position == mListViews.size()) {
+                onButtonClick(null);
+            } else {
+                container.addView(mListViews.get(position), 0);//添加页卡
+                return mListViews.get(position);
+            }
+            return null;
+
         }
 
         @Override
         public int getCount() {
-            return  mListViews.size();//返回页卡的数量
+            return  mListViews.size() + 1;//返回页卡的数量
         }
 
         @Override
@@ -174,7 +182,7 @@ public class GuideActivity extends Activity {
 
         @Override
         public void onPageScrolled(int i, float v, int i2) {
-
+            
         }
 
         @Override
