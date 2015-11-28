@@ -78,7 +78,7 @@
                 android:layout_alignParentRight="true"
                 android:background="@drawable/inputboy"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="20dp">
+                >
 
             </LinearLayout>
 
