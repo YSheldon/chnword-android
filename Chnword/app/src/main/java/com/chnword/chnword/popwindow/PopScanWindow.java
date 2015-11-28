@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
@@ -22,6 +23,7 @@ public class PopScanWindow extends PopupWindow {
 
     private ImageButton btn_submit,btn_card;
     private EditText usercodeEditText;
+    private Button gotoLogonButton;
 
     public PopScanWindow(Context context, View.OnClickListener itemsOnClick) {
         super(context);
@@ -47,6 +49,9 @@ public class PopScanWindow extends PopupWindow {
 
         btn_submit = (ImageButton) mMenuView.findViewById(R.id.btn_submit);
         btn_submit.setOnClickListener(itemsOnClick);
+
+        gotoLogonButton = (Button) mMenuView.findViewById(R.id.gotoLogonButton);
+        gotoLogonButton.setOnClickListener(itemsOnClick);
 
 
 

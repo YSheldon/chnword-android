@@ -98,13 +98,11 @@ public class TabPage extends Fragment {
                     case R.id.btn_submit:
 
                         String code = popScanWindow.text();
-                        //todo 处理submit
 
+                        break;
+                    case R.id.gotoLogonButton:
                         Intent intent  = new Intent(getActivity(), RegistActivity.class);
                         startActivity(intent);
-
-
-
                         break;
 
                     case R.id.btn_card:
