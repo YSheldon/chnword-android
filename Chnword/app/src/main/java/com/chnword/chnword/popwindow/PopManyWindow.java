@@ -51,10 +51,16 @@ public class PopManyWindow extends PopupWindow {
 
 
 
-        this.setWidth(ViewGroup.LayoutParams.FILL_PARENT);
+        this.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         this.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         this.setFocusable(true);
         this.setAnimationStyle(R.style.AnimationFade);
+
+        //实例化一个ColorDrawable颜色为半透明
+        ColorDrawable dw = new ColorDrawable(0xb0000000);
+        //设置SelectPicPopupWindow弹出窗体的背景
+        this.setBackgroundDrawable(dw);
+
 
 //        ColorDrawable dw = new ColorDrawable(0xb0000000);
 //        this.setBackgroundDrawable(dw);

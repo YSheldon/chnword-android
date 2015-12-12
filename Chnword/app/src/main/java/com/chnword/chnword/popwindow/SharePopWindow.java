@@ -3,6 +3,7 @@ package com.chnword.chnword.popwindow;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
@@ -74,11 +75,16 @@ public class SharePopWindow extends PopupWindow implements View.OnClickListener{
         snslogo6 = (ImageButton) mMenuView.findViewById(R.id.snslogo6);
         snslogo6.setOnClickListener(this);
 
-        this.setWidth(ViewGroup.LayoutParams.FILL_PARENT);
+        this.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         this.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         this.setFocusable(true);
         this.setTouchable(true);
         this.setAnimationStyle(R.style.AnimationFade);
+
+        //实例化一个ColorDrawable颜色为半透明
+        ColorDrawable dw = new ColorDrawable(0xb0000000);
+        //设置SelectPicPopupWindow弹出窗体的背景
+        this.setBackgroundDrawable(dw);
 
         mMenuView.setOnTouchListener(new View.OnTouchListener() {
 
@@ -139,6 +145,12 @@ public class SharePopWindow extends PopupWindow implements View.OnClickListener{
         this.setFocusable(true);
         this.setTouchable(true);
         this.setAnimationStyle(R.style.AnimationFade);
+
+        //实例化一个ColorDrawable颜色为半透明
+        ColorDrawable dw = new ColorDrawable(0xb0000000);
+        //设置SelectPicPopupWindow弹出窗体的背景
+        this.setBackgroundDrawable(dw);
+
 
         mMenuView.setOnTouchListener(new View.OnTouchListener() {
 
