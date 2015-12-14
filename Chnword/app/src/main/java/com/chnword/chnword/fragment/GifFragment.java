@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -85,7 +87,7 @@ public class GifFragment extends Fragment {
         gifViewContainer.addView(gib, param);
         gib.setBackgroundColor(0x00000000);
 
-        gib.setImageResource(R.drawable.videoloading);
+//        gib.setImageResource(R.drawable.videoloading);
 //        gib.setImageURI(uri);
 
         GifDrawable gif = (GifDrawable) gib.getDrawable();
@@ -115,19 +117,41 @@ public class GifFragment extends Fragment {
         return uri;
     }
 
+
     public void setUri(final Uri theUri) {
-        new Handler().post(new Runnable() {
+        Log.e("GIFFRAGMENT URL", "theUri");
+        uri = theUri;
+//        Message msg = new Message();
+//        msg.what = 1;
+//        handler.handleMessage(msg);
+
+        getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                uri = theUri;
                 try {
                     gib.setImageURI(uri);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    Log.e("GIFFRAGMENT URL", "error");
                 }
             }
         });
+
     }
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+
+            try {
+                gib.setImageURI(uri);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e("GIFFRAGMENT URL", "error");
+            }
+
+            super.handleMessage(msg);
+        }
+    };
 
     public int getLength() {
         GifDrawable gif = (GifDrawable) gib.getDrawable();

@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
@@ -175,7 +176,7 @@ public class ShowActivity extends Activity {
                 @Override
                 public void run() {
 
-                    File cache = new File(Environment.getExternalStorageDirectory(), "cache");
+                    File cache = new File(ShowActivity.this.getExternalCacheDir(), "cache");
                     if (!cache.exists()) {
                         cache.mkdirs();
                     }
@@ -183,7 +184,6 @@ public class ShowActivity extends Activity {
                     try {
                         Log.e(TAG, gifUrl);
                         Uri uri = getImageURI(gifUrl, cache);
-
 
                         Message msg = new Message();
                         msg.what = 1001;
@@ -196,6 +196,7 @@ public class ShowActivity extends Activity {
                         downloadImageHandler.handleMessage(msg);
 
                     } catch (Exception e) {
+                        Log.e(TAG, "EXCEPTION");
                         e.printStackTrace();
                     } finally {
 //                                progressDialog.dismiss();
@@ -264,11 +265,12 @@ public class ShowActivity extends Activity {
                     initUmeng();
 
 
-                    new Handler().post(new Runnable() {
+                    new Thread(new Runnable() {
                         @Override
                         public void run() {
+//                            Looper.prepare();
 
-                            File cache = new File(Environment.getExternalStorageDirectory(), "cache");
+                            File cache = new File(ShowActivity.this.getExternalCacheDir(), "cache");
                             if (!cache.exists()) {
                                 cache.mkdirs();
                             }
@@ -278,25 +280,26 @@ public class ShowActivity extends Activity {
                                 Uri uri = getImageURI(gifUri, cache);
 
 
-                                Message msg = new Message();
-                                msg.what = 1001;
+                                Message msg1 = new Message();
+                                msg1.what = 1001;
 
                                 Bundle bundle = new Bundle();
                                 bundle.putString("url", uri.toString());
 
-                                msg.setData(bundle);
+                                msg1.setData(bundle);
 
-                                downloadImageHandler.handleMessage(msg);
+                                downloadImageHandler.handleMessage(msg1);
 
                             } catch (Exception e) {
+                                Log.e(TAG, "DOWNLOAD FILE FAILED.");
                                 e.printStackTrace();
                             } finally {
 //                                progressDialog.dismiss();
                             }
-
+//                            Looper.loop();
 
                         }
-                    });
+                    }).start();
 
 
 
@@ -328,10 +331,7 @@ public class ShowActivity extends Activity {
                     Uri uri = Uri.parse(str);
                     Log.e(TAG, "gifuri : " + gifUri + " localuri : " + uri.toString());
                     gifFragment.setUri(uri);
-//                    seekBar.setMax(gifFragment.getLength());
-//                    initTimerTask();
                 }
-
             }
 
             progressDialog.dismiss();
@@ -355,7 +355,7 @@ public class ShowActivity extends Activity {
             // 从网络上获取图片
             URL url = new URL(path);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setConnectTimeout(5000);
+            conn.setConnectTimeout(20 * 1000);
             conn.setRequestMethod("GET");
             conn.setDoInput(true);
             if (conn.getResponseCode() == 200) {
