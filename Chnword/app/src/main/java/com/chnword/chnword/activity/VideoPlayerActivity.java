@@ -21,6 +21,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
@@ -60,6 +61,9 @@ public class VideoPlayerActivity extends Activity
             path = intent.getData().toString();
 
         Log.e("VideoPlayerActivity", path);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);//隐藏标题栏
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//隐藏状态栏
 
         setContentView(R.layout.activity_video_player);
         mVideoView = (VideoView) findViewById(R.id.surface_view);
