@@ -117,7 +117,7 @@ public class PhoneBindActivity extends Activity {
 
     private void verifyYzm() {
 
-        if (canVerify) {
+//        if (canVerify) {
             LocalStore store = new LocalStore(this);
             String userid = store.getDefaultUser();
             String deviceId = DeviceUtil.getDeviceId(this);
@@ -131,9 +131,9 @@ public class PhoneBindActivity extends Activity {
             progressDialog = DialogUtil.createLoadingDialog(this, "数据加载中...");
             progressDialog.show();
             net.start();
-        } else {
-            Toast.makeText(this, "请先获取验证码", Toast.LENGTH_LONG).show();
-        }
+//        } else {
+//            Toast.makeText(this, "请先获取验证码", Toast.LENGTH_LONG).show();
+//        }
 
 
     }

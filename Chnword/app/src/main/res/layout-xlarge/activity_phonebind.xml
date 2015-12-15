@@ -86,7 +86,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="为保障您的权益和便捷使用"
+                android:text="为保障您的权益和便捷使用，请绑定手机号码。"
                 android:id="@+id/textView46"
                 android:textSize="35dp"
                 android:textColor="#000000"
@@ -96,7 +96,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="请绑定手机号"
+                android:text="（您可以用绑定的手机号代替用户码进行登录）"
                 android:id="@+id/textView47"
                 android:textSize="35dp"
                 android:textColor="#000000"
@@ -109,24 +109,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="绑定手机号："
-                android:id="@+id/textView48"
-                android:textColor="#000000"
-                android:textSize="35dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="20dp"/>
-
             <LinearLayout
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 >
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="绑定手机号："
+                    android:id="@+id/textView48"
+                    android:textColor="#000000"
+                    android:textSize="35dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="20dp"/>
+
                 <EditText
-                    android:layout_width="709dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/phoneNumber"
                     android:layout_marginLeft="40dp"
@@ -166,7 +166,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="请稍后，您在一分钟之后将受到验证短信"
+                    android:text="请您输入收到的验证码，并点击验证，以完成手机绑定。"
                     android:id="@+id/textView49"
                     android:layout_marginLeft="40dp"
                     android:layout_marginTop="20dp"
@@ -179,7 +179,8 @@
                     android:id="@+id/textView50"
                     android:layout_marginLeft="40dp"
                     android:layout_marginTop="20dp"
-                    android:textSize="30dp"/>
+                    android:textSize="30dp"
+                    android:visibility="gone"/>
             </LinearLayout>
 
             <LinearLayout

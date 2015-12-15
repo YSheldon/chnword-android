@@ -178,59 +178,39 @@ public class FreewordActivity extends Activity {
         //
         modulNameTextView.setText(title);
 
-//        BitmapDrawable drawable1 = (BitmapDrawable) getResources().getDrawable(draws[index]);
-//        BitmapDrawable drawable2 = (BitmapDrawable) getResources().getDrawable(draws[index]);
-//        BitmapDrawable drawable1 = (BitmapDrawable) getResources().getDrawable(draws[index]);
 
         freewordTop.setBackground(getResources().getDrawable(draws[index]));
         bottomLinear.setBackground(getResources().getDrawable(mids[index]));
         freeTopLinear.setBackground(getResources().getDrawable(tops[index]));
-//        freeTopLinear.setBackground();
 
         shareWindow = new SharePopWindow(this, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent shareEditIntent = new Intent(FreewordActivity.this, ShareEditActivity.class);
-//
-//                shareEditIntent.putExtra("share_type_user", type);
 
                 switch (v.getId()) {
                     case R.id.snslogo1 :
-//                        shareEditIntent.putExtra("share_type", SHARE_MEDIA.WEIXIN.toString());
-//                        shareEditIntent.putExtra("ZoneCode", zoneCode);
                         performShare(SHARE_MEDIA.WEIXIN);
                         break;
 
                     case R.id.snslogo2:
-//                        shareEditIntent.putExtra("share_type", SHARE_MEDIA.WEIXIN_CIRCLE.toString());
-//                        shareEditIntent.putExtra("ZoneCode", zoneCode);
                         performShare(SHARE_MEDIA.WEIXIN_CIRCLE);
                         break;
 
                     case R.id.snslogo3:
-//                        shareEditIntent.putExtra("share_type", SHARE_MEDIA.SINA.toString());
-//                        shareEditIntent.putExtra("ZoneCode", zoneCode);
                         performShare(SHARE_MEDIA.SINA);
                         break;
                     case R.id.snslogo4:
-//                        shareEditIntent.putExtra("share_type", SHARE_MEDIA.QQ.toString());
-//                        shareEditIntent.putExtra("ZoneCode", zoneCode);
                         performShare(SHARE_MEDIA.QQ);
                         break;
                     case R.id.snslogo5:
-//                        shareEditIntent.putExtra("share_type", SHARE_MEDIA.QZONE.toString());
-//                        shareEditIntent.putExtra("ZoneCode", zoneCode);
                         performShare(SHARE_MEDIA.QZONE);
                         break;
                     case R.id.snslogo6:
-//                        shareEditIntent.putExtra("share_type", SHARE_MEDIA.TENCENT.toString());
-//                        shareEditIntent.putExtra("ZoneCode", zoneCode);
                         performShare(SHARE_MEDIA.TENCENT);
                         break;
                     default:
                         break;
                 }
-//                startActivity(shareEditIntent);
                 shareWindow.dismiss();
             }
         });
@@ -274,9 +254,6 @@ public class FreewordActivity extends Activity {
     private void setUpSharedContent(WordShare word) {
         // 设置分享内容
         mController.setShareContent("你真的认识汉字吗? 他让你大吃一惊, 让孩子受益终身!");
-//        // 设置分享图片, 参数2为图片的url地址
-//        mController.setShareMedia(new UMImage(FreewordActivity.this, "123333333"));
-        // 设置分享视频
         UMVideo umVideo = new UMVideo(word.getVideoUrl());
         // 设置视频缩略图
         umVideo.setThumb(word.getIconUrl());
@@ -406,7 +383,6 @@ public class FreewordActivity extends Activity {
                                 word.setShareDesc(wordObj.getString("share_desc"));
                                 word.setShareIcon(wordObj.getString("share_icon"));
                                 word.setShareUrl(wordObj.getString("share_url"));
-//                            word.setWordIndex(wordObj.getString("unicode"));
                                 Log.e(TAG, "OBJ:" + wordObj.toString());
                                 Log.e(TAG, word.toString());
                                 wordList.add(word);
@@ -417,9 +393,7 @@ public class FreewordActivity extends Activity {
                                 imageLoader.displayImage(url, wordImageView);
 
                                 WordShare word = wordList.get(0);
-//                            guideLayout.setVisibility(View.INVISIBLE);
-//                            imageLoader.displayImage(url, wordImageView2);
-                                freewordCode2.setText(word.getWord());
+                                imageLoader.displayImage(word.getIconUrl(), wordImageView2);
                                 setUpSharedContent(word);
 
                             } else if (wordList.size() == 2) {
@@ -427,15 +401,20 @@ public class FreewordActivity extends Activity {
                                 ImageLoader imageLoader = ImageLoader.getInstance();
                                 WordShare word = wordList.get(0);
                                 guideLayout.setVisibility(View.INVISIBLE);
-//                            imageLoader.displayImage(word.getIconUrl(), wordImageView2);
-                                freewordCode.setText(word.getWord());
+                                imageLoader.displayImage(word.getIconUrl(), wordImageView2);
 
                                 WordShare word2 = wordList.get(1);
                                 guideLayout.setVisibility(View.INVISIBLE);
-//                            imageLoader.displayImage(word2.getIconUrl(), wordImageView);
-                                freewordCode2.setText(word.getWord());
+                                imageLoader.displayImage(word2.getIconUrl(), wordImageView);
 
-                                setUpSharedContent(word2);
+                                //默认分享第一个字，如果第一个字已经分享过了，就分享第二个字
+                                if (store.isWordShared(word.getWord())) {
+                                    setUpSharedContent(word);
+                                } else {
+                                    setUpSharedContent(word2);
+                                }
+
+
 
                             } else {
                                 //多于两个，错误
@@ -565,7 +544,7 @@ public class FreewordActivity extends Activity {
     }
     public void onSecondWordClicked(View v) {
 
-        if (wordList.size() == 1) {
+        if (wordList.size() > 1) {
             WordShare word = wordList.get(1);
             Intent intent = new Intent(this, ShowActivity.class);
 
