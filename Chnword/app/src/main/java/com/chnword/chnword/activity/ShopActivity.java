@@ -32,6 +32,8 @@ public class ShopActivity extends FragmentActivity {
     private ImageButton cateZikeButton;
     private ImageButton allZikeButton;
 
+    private ImageButton backImageButton;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,14 @@ public class ShopActivity extends FragmentActivity {
         setContentView(R.layout.activity_shop);
 
         shop_container = (FrameLayout) findViewById(R.id.shop_container);
+
+        backImageButton = (ImageButton) findViewById(R.id.backImageButton);
+        backImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();//回退
+            }
+        });
 
         manager = getSupportFragmentManager();
 
