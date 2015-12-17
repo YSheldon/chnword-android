@@ -1,6 +1,7 @@
 package com.chnword.chnword.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,9 @@ import android.widget.TextView;
 
 import com.chnword.chnword.R;
 import com.chnword.chnword.beans.CateBuyItem;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.util.List;
 
@@ -63,11 +66,25 @@ public class VerifyAdapter extends BaseAdapter {
         catePriceTextView.setText("￥" + item.getPriceString());
 
 
-        if (item.getIconUrl() != null) {
-            ImageLoader.getInstance().displayImage(item.getIconUrl(), cateImageView); // imageUrl代表图片的URL地址，imageView代表承载图片的IMAGEVIEW控件
-        } else {
-            cateImageView.setImageResource(item.getResourceId());
-        }
+//        if (item.getIconUrl() != null) {
+//            ImageLoader.getInstance().displayImage(item.getIconUrl(), cateImageView); // imageUrl代表图片的URL地址，imageView代表承载图片的IMAGEVIEW控件
+//        } else {
+//            cateImageView.setImageResource(item.getResourceId());
+//        }
+
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(item.getResourceId())            //加载图片时的图片
+                .cacheInMemory(true)                               //启用内存缓存
+                .cacheOnDisk(true)                                 //启用外存缓存
+                .considerExifParams(true)                          //启用EXIF和JPEG图像格式
+                .build();
+
+        ImageLoader.getInstance().displayImage(item.getIconUrl(), cateImageView, options, new SimpleImageLoadingListener() {
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                super.onLoadingComplete(imageUri, view, loadedImage);
+            }
+        });
 
         return convertView;
     }

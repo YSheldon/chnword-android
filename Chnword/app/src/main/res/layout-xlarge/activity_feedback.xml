@@ -76,15 +76,23 @@
             android:layout_margin="20dp"/>
     </LinearLayout>
 
-    <EditText
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:id="@+id/feedbackText"
+        android:layout_height="wrap_content"
         android:background="#ffffff"
-        android:layout_margin="30dp"
-        android:hint="您的反馈将帮助我们更快的成长"
-        android:inputType="textMultiLine"
-        android:gravity="top"/>
+        android:layout_margin="30dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:id="@+id/feedbackText"
+            android:background="#ffffff"
+            android:layout_margin="30dp"
+            android:hint="您的反馈将帮助我们更快的成长"
+            android:inputType="textMultiLine"
+            android:gravity="top"/>
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"

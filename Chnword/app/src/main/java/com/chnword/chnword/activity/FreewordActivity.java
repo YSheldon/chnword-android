@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -85,6 +86,7 @@ public class FreewordActivity extends Activity {
     private LinearLayout freewordTop;//draw图片
     private LinearLayout bottomLinear;//mid图片
     private LinearLayout freeTopLinear;//top big图片
+    private RelativeLayout navigationTop;
 
     private UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");
     String currentShareWord = "";
@@ -123,6 +125,19 @@ public class FreewordActivity extends Activity {
             R.drawable.midbackg_9,
             R.drawable.midbackg_10};
 
+    private static int[] colors = {
+            Color.argb(180, 2, 39, 83),
+            Color.argb(180, 213, 204, 191),
+            Color.argb(180, 46, 98, 44),
+            Color.argb(180, 48, 109, 111),
+            Color.argb(180, 65, 43, 86),
+            Color.argb(180, 171, 87, 76),
+            Color.argb(180, 159, 68, 116),
+            Color.argb(180, 187, 110, 59),
+            Color.argb(180, 44, 115, 153),
+            Color.argb(180, 165, 114, 31)
+    };
+
 
     SharePopWindow shareWindow;
     String url = "";
@@ -153,6 +168,7 @@ public class FreewordActivity extends Activity {
         freewordTop = (LinearLayout) findViewById(R.id.freewordTop);
         bottomLinear = (LinearLayout) findViewById(R.id.bottomLinear);
         freeTopLinear = (LinearLayout) findViewById(R.id.freeTopLinear);
+        navigationTop = (RelativeLayout) findViewById(R.id.relativeLayout11);
 
         freewordCode = (TextView) findViewById(R.id.freewordCode);
         freewordCode2 = (TextView) findViewById(R.id.freewordCode2);
@@ -182,6 +198,7 @@ public class FreewordActivity extends Activity {
         freewordTop.setBackground(getResources().getDrawable(draws[index]));
         bottomLinear.setBackground(getResources().getDrawable(mids[index]));
         freeTopLinear.setBackground(getResources().getDrawable(tops[index]));
+        navigationTop.setBackgroundColor(colors[index]);
 
         shareWindow = new SharePopWindow(this, new View.OnClickListener() {
             @Override

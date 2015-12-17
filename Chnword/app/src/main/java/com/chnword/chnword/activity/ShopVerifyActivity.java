@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -182,6 +183,9 @@ public class ShopVerifyActivity extends Activity {
             }
         });
 
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(NotificationName.NOTIFICATION_WXPAYMENT);
+        registerReceiver(mReceiver, filter);
     }
 
     @Override
@@ -190,6 +194,8 @@ public class ShopVerifyActivity extends Activity {
         if (progressDialog != null) {
             progressDialog.dismiss();
         }
+
+        unregisterReceiver(mReceiver);
     }
 
 
@@ -496,6 +502,8 @@ public class ShopVerifyActivity extends Activity {
                             finish();
 
                         } else {
+                            progressDialog.dismiss();
+                            progressDialog = null;
                             // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
                             Toast.makeText(ShopVerifyActivity.this, "支付失败",
                                     Toast.LENGTH_SHORT).show();
@@ -823,6 +831,7 @@ public class ShopVerifyActivity extends Activity {
             if (progressDialog != null) {
                 progressDialog.dismiss();
                 progressDialog = null;
+                finish();
             }
             try {
                 if (msg.what == AbstractNet.NETWHAT_SUCESS)
@@ -876,9 +885,20 @@ public class ShopVerifyActivity extends Activity {
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            Log.e(TAG, "PAYMENT RECEIVER.");
             String action = intent.getAction();
             if (NotificationName.NOTIFICATION_WXPAYMENT.equalsIgnoreCase(action)) {
-                requestShopOrderPayment();
+
+                int errCode = intent.getIntExtra(NotificationName.Extra_WX_ErrorCode, -1);
+                if (errCode < 0) {
+                    if (progressDialog != null) {
+                        progressDialog.dismiss();
+                        progressDialog = null;
+                    }
+
+                } else {
+                    requestShopOrderPayment();
+                }
             }
         }
     };

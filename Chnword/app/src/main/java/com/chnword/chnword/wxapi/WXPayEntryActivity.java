@@ -55,8 +55,11 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler{
         Log.e(TAG, "onPayFinish, errCode = " + resp.errCode);
 
         if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
-            Intent intent = new Intent();
-            intent.setAction(NotificationName.NOTIFICATION_WXPAYMENT);
+
+            Intent intent = new Intent(NotificationName.NOTIFICATION_WXPAYMENT);
+            intent.putExtra(NotificationName.Extra_WX_ErrorCode, resp.errCode);
+            intent.putExtra(NotificationName.Extra_WX_ErrorStr, resp.errStr);
+            sendBroadcast(intent);
             sendBroadcast(intent);
         }
     }

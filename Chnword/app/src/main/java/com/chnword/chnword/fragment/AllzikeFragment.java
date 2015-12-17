@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ public class AllzikeFragment extends Fragment {
 
                 Intent intent = new Intent(getActivity(), WebActivity.class);
                 intent.putExtra(WebActivity.URL_KEY, NetConf.URL_SHOPLIST + "?userid=" + store.getDefaultUser());
+                Log.e("AllzikeFragment", NetConf.URL_SHOPLIST + "?userid=" + store.getDefaultUser());
                 startActivity(intent);
 
             }

@@ -22,7 +22,7 @@ public class TabStore extends Fragment {
 
 
     private FrameLayout shop_container;
-    private FragmentManager manager;
+//    private FragmentManager manager;
 
     private CardzikeFragment cardzikeFragment;
     private CatezikeFragment catezikeFragment;
@@ -44,7 +44,8 @@ public class TabStore extends Fragment {
         cardzikeFragment = new CardzikeFragment();
         catezikeFragment = new CatezikeFragment();
         allzikeFragment = new AllzikeFragment();
-        manager = getActivity().getSupportFragmentManager();
+        FragmentManager manager = getActivity().getSupportFragmentManager();
+
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
 
         fragmentTransaction.add(R.id.shop_container, cardzikeFragment);
@@ -67,6 +68,7 @@ public class TabStore extends Fragment {
                     cateZikeButton.setSelected(false);
                     cardZikeButton.setSelected(false);
 
+                    FragmentManager manager = getActivity().getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = manager.beginTransaction();
                     fragmentTransaction.hide(cardzikeFragment);
                     fragmentTransaction.hide(catezikeFragment);
@@ -85,6 +87,7 @@ public class TabStore extends Fragment {
                     cateZikeButton.setSelected(true);
                     cardZikeButton.setSelected(false);
 
+                    FragmentManager manager = getActivity().getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction1 = manager.beginTransaction();
                     fragmentTransaction1.hide(allzikeFragment);
                     fragmentTransaction1.hide(cardzikeFragment);
@@ -103,6 +106,7 @@ public class TabStore extends Fragment {
                     cateZikeButton.setSelected(false);
                     cardZikeButton.setSelected(true);
 
+                    FragmentManager manager = getActivity().getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction2 = manager.beginTransaction();
                     fragmentTransaction2.hide(allzikeFragment);
                     fragmentTransaction2.hide(catezikeFragment);

@@ -147,6 +147,8 @@ public class TabUser extends Fragment {
         List<TabuserItem> info = prepareData();
         adapter.setInfos(info);
 
+        adapter.notifyDataSetChanged();
+
     }
 
     @Override
