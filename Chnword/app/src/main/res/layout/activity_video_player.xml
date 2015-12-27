@@ -35,4 +35,34 @@
                        android:scaleType="matrix" />
         </FrameLayout>
     </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/operation_top_brightness"
+        android:layout_gravity="top|center_horizontal"
+        android:visibility="invisible" android:layout_centerInParent="true"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:background="#80000000" android:orientation="horizontal"
+        android:padding="0dip"
+        android:clickable="true"
+        android:onClick="onBackClicked"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+
+                android:text="&lt; 返回"
+                android:textSize="18dp" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
 </RelativeLayout>

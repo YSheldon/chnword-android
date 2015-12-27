@@ -30,11 +30,12 @@ import com.chnword.chnword.R;
 /**
  * Created by khtc on 15/11/25.
  */
-public class VideoPlayerActivity extends Activity
+public class VideoPlayerActivity extends Activity implements MediaController.OnShownListener, MediaController.OnHiddenListener
 {
     private String path;
     private VideoView mVideoView;
     private View mVolumeBrightnessLayout;
+    private View mTopBrightnessLayout;
     private ImageView mOperationBg;
     private ImageView mOperationPercent;
     private AudioManager mAudioManager;
@@ -68,6 +69,7 @@ public class VideoPlayerActivity extends Activity
         setContentView(R.layout.activity_video_player);
         mVideoView = (VideoView) findViewById(R.id.surface_view);
         mVolumeBrightnessLayout = findViewById(R.id.operation_volume_brightness);
+        mTopBrightnessLayout = findViewById(R.id.operation_top_brightness);
         mOperationBg = (ImageView) findViewById(R.id.operation_bg);
         mOperationPercent = (ImageView) findViewById(R.id.operation_percent);
 
@@ -78,6 +80,11 @@ public class VideoPlayerActivity extends Activity
         else
             mVideoView.setVideoPath(path);
         mMediaController = new MediaController(this);
+
+        mMediaController.setOnShownListener(this);
+        mMediaController.setOnHiddenListener(this);
+
+
         mVideoView.setMediaController(mMediaController);
         mVideoView.requestFocus();
 
@@ -150,9 +157,13 @@ public class VideoPlayerActivity extends Activity
             if (mVolumeBrightnessLayout != null) {
                 mVolumeBrightnessLayout.setVisibility(View.GONE);
             }
-
         }
     };
+
+    public void onBackClicked(View view) {
+        Log.e("VideoPlayerAtivity", "method onBackClicked");
+        finish();
+    }
 
     /**
      * 滑动改变声音大小
@@ -220,5 +231,19 @@ public class VideoPlayerActivity extends Activity
         if (mVideoView != null)
             mVideoView.setVideoLayout(mLayout, 0);
         super.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public void onHidden() {
+        if (mTopBrightnessLayout != null) {
+            mTopBrightnessLayout.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onShown() {
+        if (mTopBrightnessLayout != null) {
+            mTopBrightnessLayout.setVisibility(View.VISIBLE);
+        }
     }
 }
