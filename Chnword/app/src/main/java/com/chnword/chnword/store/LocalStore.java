@@ -11,6 +11,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import io.vov.vitamio.utils.StringUtils;
+
 /**
  * Created by khtc on 15/5/26.
  */
@@ -64,6 +66,17 @@ public class LocalStore {
     }
     public boolean getUserBind() {
         return perference.getBoolean(USER_BIND, false);
+    }
+
+
+    private static final String USER_CARD_CODE = "USER_CARD_CODE";
+    public void setUserCardCode (String code) {
+        SharedPreferences.Editor editor = perference.edit();
+        editor.putString(USER_CARD_CODE, code);
+        editor.commit();
+    }
+    public String getUserCardCode() {
+        return perference.getString(USER_CARD_CODE, "");
     }
 
 

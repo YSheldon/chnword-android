@@ -78,7 +78,7 @@ public class PhoneBindActivity extends Activity {
             }
         });
 
-        verifyButton.setEnabled(false);
+//        verifyButton.setEnabled(false);
 
     }
 
@@ -98,6 +98,7 @@ public class PhoneBindActivity extends Activity {
     }
 
     private void verifyButtonClicked() {
+        Log.e(TAG, "method verifyButtonClicked.");
         verifyYzm();
     }
 
@@ -122,8 +123,7 @@ public class PhoneBindActivity extends Activity {
             String userid = store.getDefaultUser();
             String deviceId = DeviceUtil.getDeviceId(this);
             String tel = phoneNumber.getText().toString();
-            String code = userid;
-            code = "58076171";
+            String code = store.getUserCardCode();
             String yzm = verifyNumber.getText().toString();
 
             JSONObject param = NetParamFactory.verifyParam(userid, deviceId, tel, code, sessionId, yzm);
@@ -161,7 +161,7 @@ public class PhoneBindActivity extends Activity {
                         phoneNumber.setEnabled(false);//设置不可用
                         sendButton.setEnabled(false);
 
-                        verifyButton.setEnabled(true);
+//                        verifyButton.setEnabled(true);
                         JSONObject data = obj.getJSONObject("data");
                         sessionId = data.getString("sn");
 
@@ -217,9 +217,9 @@ public class PhoneBindActivity extends Activity {
                         phoneNumber.setEnabled(true);//设置不可用
                         sendButton.setEnabled(true);
 
-                        verifyButton.setEnabled(false);
-                        JSONObject data = obj.getJSONObject("data");
-                        sessionId = data.getString("sn");
+//                        verifyButton.setEnabled(false);
+//                        JSONObject data = obj.getJSONObject("data");
+//                        sessionId = data.getString("sn");
 
                         canVerify = false;
                         return;

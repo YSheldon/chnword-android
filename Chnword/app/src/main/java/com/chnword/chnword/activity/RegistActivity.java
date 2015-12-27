@@ -212,6 +212,8 @@ public class RegistActivity extends Activity {
                         store.setUserType(usertype);
                         store.setDefaultUser(data.getString("userid"));
 
+                        store.setUserCardCode(editText.getText().toString());
+
                         int userBind = data.getInt("binding");
                         if (userBind == 1) {
                             store.setUserBind(true);
