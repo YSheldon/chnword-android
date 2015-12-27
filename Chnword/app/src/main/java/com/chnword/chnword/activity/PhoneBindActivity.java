@@ -32,7 +32,7 @@ import org.json.JSONObject;
 public class PhoneBindActivity extends Activity {
     private static final String TAG = PhoneBindActivity.class.getSimpleName();
 
-    private ImageButton backImageButton;
+    private View backImageButton;
 
     private EditText phoneNumber;
     private EditText verifyNumber;
@@ -50,7 +50,7 @@ public class PhoneBindActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phonebind);
 
-        backImageButton = (ImageButton) findViewById(R.id.backImageButton);
+        backImageButton = findViewById(R.id.backImageButton);
         backImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

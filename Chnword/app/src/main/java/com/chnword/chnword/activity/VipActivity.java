@@ -12,14 +12,14 @@ import com.chnword.chnword.R;
  */
 public class VipActivity extends Activity {
 
-    private ImageButton backImageButton;
+    private View backImageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vip);
 
-        backImageButton = (ImageButton) findViewById(R.id.backImageButton);
+        backImageButton = findViewById(R.id.backImageButton);
         backImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

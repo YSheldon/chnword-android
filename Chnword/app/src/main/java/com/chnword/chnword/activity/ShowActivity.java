@@ -74,7 +74,7 @@ public class ShowActivity extends Activity {
     private Dialog progressDialog;
 
 
-    private ImageButton backImageButton;
+    private View backImageButton;
 
     private String freetype;//标志位，1，表明是用于show的。
     private String gifUrl;
@@ -120,7 +120,7 @@ public class ShowActivity extends Activity {
 
         getFragmentManager().beginTransaction().add(R.id.fragment_container, gifFragment).commit();
 
-        backImageButton = (ImageButton) findViewById(R.id.backImageButton);
+        backImageButton = findViewById(R.id.backImageButton);
         backImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -468,10 +468,6 @@ public class ShowActivity extends Activity {
     public void onShowVideo(View view) {
         Log.e(TAG, "METHOD onShowVideo");
 
-//        Intent intent = new Intent(this, VideoActivity.class);
-//        intent.putExtra("videoUrl", videoUri);
-//        startActivity(intent);
-//        finish();
 
 
 
@@ -497,31 +493,4 @@ public class ShowActivity extends Activity {
         gifFragment.privous();
     }
 
-//    Boolean isFromTask = new Boolean(true);
-//    Timer timer = new Timer() ;
-//    TimerTask tack = new TimerTask() {
-//        @Override
-//        public void run() {
-//            synchronized (isFromTask) {
-//                if (isFromTask) {
-//                    if (gifFragment.getCurrentProgress() >= gifFragment.getLength()) {
-//                        //开启video，关闭
-//                        Intent intent = new Intent(ShowActivity.this, VideoActivity.class);
-//                        intent.putExtra("videoUrl", videoUri);
-//                        startActivity(intent);
-//                        finish();
-//                        tack.cancel();
-//                    } else {
-//                        seekBar.setProgress(gifFragment.getCurrentProgress());
-//                    }
-//                }
-//            }
-//
-//        }
-//    };
-//    Handler mHandler = new Handler();
-//    public void initTimerTask() {
-//        Log.e(TAG, "initTimerTask");
-//        timer.schedule(tack, 10, 100);
-//    }
 }

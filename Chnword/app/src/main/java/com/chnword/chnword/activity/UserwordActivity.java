@@ -38,7 +38,7 @@ import java.util.List;
 public class UserwordActivity extends Activity {
     private static final String TAG = UserwordActivity.class.getSimpleName();
 
-    private ImageButton backImageButton;
+    private View backImageButton;
 
     String zoneCode = "";
     String title = "";
@@ -58,7 +58,7 @@ public class UserwordActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userword);
 
-        backImageButton = (ImageButton) findViewById(R.id.backImageButton);
+        backImageButton = findViewById(R.id.backImageButton);
         backImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

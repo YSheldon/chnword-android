@@ -44,7 +44,7 @@ public class FeedbackActivity extends Activity {
     private Dialog progressDialog;
 
     private ImageButton infoSubmitButton;
-    private ImageButton backImageButton;
+    private View backImageButton;
 
 
 
@@ -55,7 +55,7 @@ public class FeedbackActivity extends Activity {
 
         feedbacktext = (EditText) findViewById(R.id.feedbackText);
 
-        backImageButton = (ImageButton) findViewById(R.id.backImageButton);
+        backImageButton = findViewById(R.id.backImageButton);
         backImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

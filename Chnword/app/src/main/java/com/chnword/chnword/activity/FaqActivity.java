@@ -15,7 +15,7 @@ import com.chnword.chnword.net.NetConf;
  */
 public class FaqActivity extends Activity{
 
-    private ImageButton backImageButton;
+    private View backImageButton;
     private WebView webView;
 
     @Override
@@ -23,7 +23,7 @@ public class FaqActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faq);
 
-        backImageButton = (ImageButton) findViewById(R.id.backImageButton);
+        backImageButton = findViewById(R.id.backImageButton);
         backImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

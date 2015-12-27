@@ -18,7 +18,7 @@ import org.w3c.dom.Text;
 public class KnowledgeActivity extends Activity {
 
 
-    private ImageButton backImageButton;
+    private View backImageButton;
     private TextView urlTextView;
 
     @Override
@@ -26,7 +26,7 @@ public class KnowledgeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_knowledge);
 
-        backImageButton = (ImageButton) findViewById(R.id.backImageButton);
+        backImageButton = findViewById(R.id.backImageButton);
         backImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

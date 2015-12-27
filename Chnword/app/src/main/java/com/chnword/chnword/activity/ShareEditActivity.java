@@ -64,7 +64,7 @@ public class ShareEditActivity extends Activity {
     private SHARE_MEDIA mediaType;
     private String type;
 
-    private ImageButton backImageButton;
+    private View backImageButton;
     private ImageButton sharedButton;
     private EditText shareText;
 
@@ -81,7 +81,7 @@ public class ShareEditActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share_edit);
 
-        backImageButton = (ImageButton) findViewById(R.id.backImageButton);
+        backImageButton = findViewById(R.id.backImageButton);
         backImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

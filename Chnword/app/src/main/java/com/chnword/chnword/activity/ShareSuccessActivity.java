@@ -12,7 +12,7 @@ import com.chnword.chnword.R;
  */
 public class ShareSuccessActivity extends Activity {
 
-    private ImageButton backImageButton;
+    private View backImageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +20,7 @@ public class ShareSuccessActivity extends Activity {
         setContentView(R.layout.activity_sharesuccess);
 
 
-        backImageButton = (ImageButton) findViewById(R.id.backImageButton);
+        backImageButton = findViewById(R.id.backImageButton);
         backImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

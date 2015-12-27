@@ -11,17 +11,27 @@
         android:background="#649f835b"
         >
 
-        <ImageButton
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:id="@+id/backImageButton"
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="false"
-            android:layout_centerVertical="true"
-            android:src="@drawable/t_button_back"
-            android:scaleType="fitXY"
-            android:layout_margin="20dp"
-            android:background="#00000000"/>
+            android:gravity="center"
+            android:clickable="true"
+            android:id="@+id/backImageButton">
+
+            <ImageButton
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="false"
+                android:layout_centerVertical="true"
+                android:src="@drawable/t_button_back"
+                android:scaleType="fitXY"
+                android:layout_margin="20dp"
+                android:background="#00000000"/>
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"

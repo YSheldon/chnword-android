@@ -13,14 +13,14 @@ import com.chnword.chnword.R;
 public class AboutActivity extends Activity {
 
 
-    private ImageButton backImageButton;
+    private View backImageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        backImageButton = (ImageButton) findViewById(R.id.backImageButton);
+        backImageButton =  findViewById(R.id.backImageButton);
         backImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

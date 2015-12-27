@@ -38,7 +38,7 @@ import java.util.List;
 public class UsercateActivity extends Activity {
     private static final String TAG = UsercateActivity.class.getSimpleName();
 
-    private ImageButton backImageButton;
+    private View backImageButton;
 
     private Dialog progressDialog;
 
@@ -62,7 +62,7 @@ public class UsercateActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usercate);
 
-        backImageButton = (ImageButton) findViewById(R.id.backImageButton);
+        backImageButton = findViewById(R.id.backImageButton);
         backImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

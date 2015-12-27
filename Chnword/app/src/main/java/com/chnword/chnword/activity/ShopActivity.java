@@ -32,7 +32,7 @@ public class ShopActivity extends FragmentActivity {
     private ImageButton cateZikeButton;
     private ImageButton allZikeButton;
 
-    private ImageButton backImageButton;
+    private View backImageButton;
 
 
     @Override
@@ -42,7 +42,7 @@ public class ShopActivity extends FragmentActivity {
 
         shop_container = (FrameLayout) findViewById(R.id.shop_container);
 
-        backImageButton = (ImageButton) findViewById(R.id.backImageButton);
+        backImageButton = findViewById(R.id.backImageButton);
         backImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

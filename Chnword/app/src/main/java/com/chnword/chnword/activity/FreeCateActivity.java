@@ -37,7 +37,7 @@ import java.util.List;
 public class FreeCateActivity extends Activity {
     private static final String TAG = FreeCateActivity.class.getSimpleName();
 
-    private ImageButton backImageButton;
+    private View backImageButton;
     private GridView freecateGrid;
     private Dialog progressDialog;
 
@@ -57,7 +57,7 @@ public class FreeCateActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_freecate);
 
-        backImageButton = (ImageButton) findViewById(R.id.backImageButton);
+        backImageButton = findViewById(R.id.backImageButton);
         backImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

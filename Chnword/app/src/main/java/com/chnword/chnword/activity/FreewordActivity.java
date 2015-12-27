@@ -63,7 +63,7 @@ import java.util.List;
 public class FreewordActivity extends Activity {
     private static final String TAG = FreewordActivity.class.getSimpleName();
 
-    private ImageButton backImageButton;
+    private View backImageButton;
     private Dialog progressDialog;
     private Word currentWord;
     private LocalStore store;
@@ -150,7 +150,7 @@ public class FreewordActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_freeword);
 
-        backImageButton = (ImageButton) findViewById(R.id.backImageButton);
+        backImageButton = findViewById(R.id.backImageButton);
         backImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

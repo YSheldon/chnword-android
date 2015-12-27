@@ -81,7 +81,7 @@ import java.util.Random;
 public class ShopVerifyActivity extends Activity {
     private static final String TAG = ShopVerifyActivity.class.getSimpleName();
 
-    private ImageButton backImageButton;
+    private View backImageButton;
     private ListView shoplistView;
 
     private RadioGroup payRadioGroup;
@@ -108,7 +108,7 @@ public class ShopVerifyActivity extends Activity {
                 .createDefault(this);
         ImageLoader.getInstance().init(configuration);
 
-        backImageButton = (ImageButton) findViewById(R.id.backImageButton);
+        backImageButton = findViewById(R.id.backImageButton);
         backImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
