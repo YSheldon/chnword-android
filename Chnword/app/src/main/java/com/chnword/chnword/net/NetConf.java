@@ -50,4 +50,15 @@ public class NetConf
 
 
 
+    //urls
+    public static final String U_FAQ = "http://app.3000zi.com/web/faq.php";
+    public static final String U_REBATE = "http://app.3000zi.com/web/rebate.php";
+    public static final String U_SHOP = "http://app.3000zi.com/web/shop.php";
+    public static final String U_INTRODUCE = "http://app.3000zi.com/web/introduce.php";
+    public static final String U_VIP = "http://app.3000zi.com/web/vip.php";
+    public static final String U_AFFILIATE = "http://app.3000zi.com/web/affiliate.php";
+    public static final String U_ABOUT = "http://app.3000zi.com/web/about.php";
+
+
+
 }

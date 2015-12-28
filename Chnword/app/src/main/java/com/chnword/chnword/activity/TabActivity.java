@@ -151,40 +151,56 @@ public class TabActivity extends FragmentActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent;
+                LocalStore store1 = new LocalStore(TabActivity.this);
+
                 switch (position) {
                     case 0:
                         //在线产品订购
-                        LocalStore store = new LocalStore(TabActivity.this);
+//                        LocalStore store = new LocalStore(TabActivity.this);
 //                        Uri uri = Uri.parse(NetConf.URL_SHOPLIST + "?userid=" + store.getDefaultUser());
 //                        intent = new Intent(Intent.ACTION_VIEW, uri);
 //                        startActivity(intent);
 
                         intent = new Intent(TabActivity.this, WebActivity.class);
-                        intent.putExtra(WebActivity.URL_KEY, NetConf.URL_SHOPLIST + "?userid=" + store.getDefaultUser());
+                        intent.putExtra(WebActivity.URL_KEY, NetConf.U_SHOP + "?userid=" + store1.getDefaultUser());
                         startActivity(intent);
 
                         break;
                     case 1:
                         //三千字课特点
-                        intent = new Intent(TabActivity.this, FeatureActivity.class);
+//                        intent = new Intent(TabActivity.this, FeatureActivity.class);
+//                        startActivity(intent);
+                        intent = new Intent(TabActivity.this, WebActivity.class);
+                        intent.putExtra(WebActivity.URL_KEY, NetConf.U_INTRODUCE + "?userid=" + store1.getDefaultUser());
                         startActivity(intent);
 
                         break;
 
                     case 2:
                         //会员尊享权益
-                        intent = new Intent(TabActivity.this, VipActivity.class);
+//                        intent = new Intent(TabActivity.this, VipActivity.class);
+//                        startActivity(intent);
+                        intent = new Intent(TabActivity.this, WebActivity.class);
+                        intent.putExtra(WebActivity.URL_KEY, NetConf.U_VIP + "?userid=" + store1.getDefaultUser());
                         startActivity(intent);
+
                         break;
 
                     case 3:
                         //知识创富计划
-                        intent = new Intent(TabActivity.this, KnowledgeActivity.class);
+//                        intent = new Intent(TabActivity.this, KnowledgeActivity.class);
+//                        startActivity(intent);
+                        intent = new Intent(TabActivity.this, WebActivity.class);
+                        intent.putExtra(WebActivity.URL_KEY, NetConf.U_AFFILIATE + "?userid=" + store1.getDefaultUser());
                         startActivity(intent);
                         break;
                     case 4:
                         //关于中聿华源
-                        intent = new Intent(TabActivity.this, AboutActivity.class);
+//                        intent = new Intent(TabActivity.this, AboutActivity.class);
+//                        startActivity(intent);
+
+                        intent = new Intent(TabActivity.this, WebActivity.class);
+                        intent.putExtra(WebActivity.URL_KEY, NetConf.U_ABOUT + "?userid=" + store1.getDefaultUser());
                         startActivity(intent);
 
                         break;

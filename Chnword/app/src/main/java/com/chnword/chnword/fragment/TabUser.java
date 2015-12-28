@@ -21,8 +21,10 @@ import com.chnword.chnword.activity.KnowledgeActivity;
 import com.chnword.chnword.activity.PhoneBindActivity;
 import com.chnword.chnword.activity.RegistActivity;
 import com.chnword.chnword.activity.TabActivity;
+import com.chnword.chnword.activity.WebActivity;
 import com.chnword.chnword.adapter.SettingAdapter;
 import com.chnword.chnword.beans.TabuserItem;
+import com.chnword.chnword.net.NetConf;
 import com.chnword.chnword.store.LocalStore;
 
 import java.util.ArrayList;
@@ -69,6 +71,9 @@ public class TabUser extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                LocalStore store1 = new LocalStore(getActivity());
+                Intent intent = null;
+
                 switch (position) {
                     case 0:
 
@@ -89,8 +94,11 @@ public class TabUser extends Fragment {
                     case 1:
 
                         //显示常见问题
-                        Intent intent1 = new Intent(getActivity(), FaqActivity.class);
-                        startActivity(intent1);
+//                        Intent intent1 = new Intent(getActivity(), FaqActivity.class);
+//                        startActivity(intent1);
+
+                        intent.putExtra(WebActivity.URL_KEY, NetConf.U_SHOP + "?userid=" + store1.getDefaultUser());
+                        startActivity(intent);
 
 
                         break;
@@ -113,8 +121,12 @@ public class TabUser extends Fragment {
                     case 4:
 
                         //有偿推广
-                        Intent knowledgeIntent = new Intent(getActivity(), KnowledgeActivity.class);
-                        startActivity(knowledgeIntent);
+//                        Intent knowledgeIntent = new Intent(getActivity(), KnowledgeActivity.class);
+//                        startActivity(knowledgeIntent);
+//                        LocalStore store1 = new LocalStore(getActivity());
+                        intent =  new Intent(getActivity(), WebActivity.class);
+                        intent.putExtra(WebActivity.URL_KEY, NetConf.U_AFFILIATE + "?userid=" + store1.getDefaultUser());
+                        startActivity(intent);
 
                         break;
 
