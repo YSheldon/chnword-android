@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chnword.chnword.R;
@@ -78,6 +79,11 @@ public class PhoneBindActivity extends Activity {
             }
         });
 
+        verifyButton.setEnabled(false);
+        verifyNumber.setEnabled(false);
+
+        timeEditText = (TextView) findViewById(R.id.timeEditText);
+
 //        verifyButton.setEnabled(false);
 
     }
@@ -108,6 +114,12 @@ public class PhoneBindActivity extends Activity {
         String userid = store.getDefaultUser();
         String deviceId = DeviceUtil.getDeviceId(this);
         String tel = phoneNumber.getText().toString();
+
+        if ("".equalsIgnoreCase(tel.trim())) {
+            Toast.makeText(this, "请输入手机号!", Toast.LENGTH_SHORT).show();
+            return ;
+        }
+
         JSONObject param = NetParamFactory.yzmParam(userid, deviceId, tel);
         AbstractNet net = new VerifyNet(yzmHandler, param, NetConf.URL_SEND);
         progressDialog = DialogUtil.createLoadingDialog(this, "数据加载中...");
@@ -118,22 +130,25 @@ public class PhoneBindActivity extends Activity {
 
     private void verifyYzm() {
 
-//        if (canVerify) {
-            LocalStore store = new LocalStore(this);
-            String userid = store.getDefaultUser();
-            String deviceId = DeviceUtil.getDeviceId(this);
-            String tel = phoneNumber.getText().toString();
-            String code = store.getUserCardCode();
-            String yzm = verifyNumber.getText().toString();
+        LocalStore store = new LocalStore(this);
+        String userid = store.getDefaultUser();
+        String deviceId = DeviceUtil.getDeviceId(this);
+        String tel = phoneNumber.getText().toString();
+        String code = store.getUserCardCode();
+        String yzm = verifyNumber.getText().toString();
 
-            JSONObject param = NetParamFactory.verifyParam(userid, deviceId, tel, code, sessionId, yzm);
-            AbstractNet net = new VerifyNet(verifyHandler, param, NetConf.URL_BIND);
-            progressDialog = DialogUtil.createLoadingDialog(this, "数据加载中...");
-            progressDialog.show();
-            net.start();
-//        } else {
-//            Toast.makeText(this, "请先获取验证码", Toast.LENGTH_LONG).show();
-//        }
+        if ("".equalsIgnoreCase(yzm.trim())) {
+            Toast.makeText(this, "请输入验证码!", Toast.LENGTH_SHORT).show();
+            return ;
+        }
+
+
+
+        JSONObject param = NetParamFactory.verifyParam(userid, deviceId, tel, code, sessionId, yzm);
+        AbstractNet net = new VerifyNet(verifyHandler, param, NetConf.URL_BIND);
+        progressDialog = DialogUtil.createLoadingDialog(this, "数据加载中...");
+        progressDialog.show();
+        net.start();
 
 
     }
@@ -161,11 +176,18 @@ public class PhoneBindActivity extends Activity {
                         phoneNumber.setEnabled(false);//设置不可用
                         sendButton.setEnabled(false);
 
-//                        verifyButton.setEnabled(true);
+                        verifyButton.setEnabled(true);
+                        verifyNumber.setEnabled(true);
+
                         JSONObject data = obj.getJSONObject("data");
                         sessionId = data.getString("sn");
 
                         canVerify = true;
+
+
+                        currentSecont = 90;
+                        timerHandler.postDelayed(timeRunnable, 10);
+
 
                     } else if (result == -1) {
                         //手机号有误
@@ -244,5 +266,37 @@ public class PhoneBindActivity extends Activity {
         }
 
     };
+
+
+    public Handler timerHandler = new Handler();
+    public int currentSecont = 90;
+    private TextView timeEditText;
+    private  TimeRunnable timeRunnable = new TimeRunnable();
+
+    class TimeRunnable implements Runnable {
+        @Override
+        public void run() {
+
+            if (currentSecont >= 0) {
+
+                timeEditText.setText("(" + currentSecont + ")");
+                currentSecont--;
+                timerHandler.postDelayed(this, 1000);
+
+            } else {
+
+                timeEditText.setText("");
+
+                phoneNumber.setEnabled(true);
+                sendButton.setEnabled(true);
+
+                verifyButton.setEnabled(false);
+                verifyNumber.setEnabled(false);
+
+                verifyNumber.setText("");
+            }
+
+        }
+    }
 
 }
