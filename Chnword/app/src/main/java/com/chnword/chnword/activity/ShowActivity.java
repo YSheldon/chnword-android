@@ -172,7 +172,9 @@ public class ShowActivity extends Activity {
 
         if ("1".equalsIgnoreCase(freetype)){
 //            gifFragment.setUri(Uri.parse(gifUrl));
-            new Handler().post(new Runnable() {
+
+
+            new Thread(new Runnable() {
                 @Override
                 public void run() {
 
@@ -202,7 +204,7 @@ public class ShowActivity extends Activity {
 //                                progressDialog.dismiss();
                     }
                 }
-            });
+            }).start();
         } else {
             requestNet();
         }
@@ -334,7 +336,10 @@ public class ShowActivity extends Activity {
                 }
             }
 
-            progressDialog.dismiss();
+            if (progressDialog != null) {
+                progressDialog.dismiss();
+                progressDialog = null;
+            }
 
             super.handleMessage(msg);
         }
