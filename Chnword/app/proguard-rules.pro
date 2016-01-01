@@ -40,7 +40,7 @@
 -keep public class * extends java.lang.Throwable {*;}
 -keep public class * extends java.lang.Exception {*;}
 
--libraryjars libs/alipaySDK-20150818.jar
+#-libraryjars libs/alipaySDK-20150818.jar
 
 -keep class com.alipay.android.app.IAlixPay{*;}
 -keep class com.alipay.android.app.IAlixPay$Stub{*;}
